@@ -1,5 +1,10 @@
 简书专栏：https://www.jianshu.com/nb/52021553
 
+#### 环境搭建
+* IDE: vs code
+* node： 14.17.0
+
+
 
 # Vue 3 + Typescript + Vite
 
