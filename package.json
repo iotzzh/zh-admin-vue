@@ -9,6 +9,7 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
+    "element-plus": "^1.3.0-beta.10",
     "vue": "^3.2.25",
     "vue-router": "^4.0.12"
   },

@@ -1,13 +1,24 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import HelloWorld from './components/HelloWorld.vue';
-</script>
-
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+    <div class="body">
+        <span style="margin: 10px;" @click="goto(true)">登录页</span>
+        <span @click="goto(false)">首页</span>
+        <router-view></router-view>
+    </div>
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  components: {},
+  setup() {},
+  methods: {
+    goto(main:boolean) {
+      main ? this.$router.push({ path: '/login' }) : this.$router.push({ path: '/dashboard' })
+    },
+  },
+})
+</script>
 
 <style>
 #app {
