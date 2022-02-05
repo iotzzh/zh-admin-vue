@@ -63,7 +63,7 @@ export default {
   // globalTeardown: undefined,
 
   // A set of global variables that need to be available in all test environments
-  globals: {},
+  // globals: {},
 
   // eslint-disable-next-line max-len
   // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
@@ -134,7 +134,7 @@ export default {
 
   // The paths to modules that run some code to configure or set up the
   // testing environment before each test
-  setupFiles: ['<rootDir>/tests/global.js'],
+  // setupFiles: ['<rootDir>/tests/global.js'],
 
   // A list of paths to modules that run some code to configure or
   // set up the testing framework before each test
@@ -145,7 +145,7 @@ export default {
   // slowTestThreshold: 5,
 
   // A list of paths to snapshot serializer modules Jest should use for snapshot testing
-  snapshotSerializers: ['jest-serializer-vue'],
+  // snapshotSerializers: ['jest-serializer-vue'],
 
   // The test environment that will be used for testing
   testEnvironment: 'jsdom',
@@ -179,18 +179,18 @@ export default {
 
   // This option sets the URL for the jsdom environment.
   // It is reflected in properties such as location.href
-  testURL: 'http://localhost',
+  // testURL: 'http://localhost',
 
   // Setting this value to "fake" allows the use of fake timers for functions such as "setTimeout"
   // timers: "real",
 
   // A map from regular expressions to paths to transformers
-  transform: {
-    '^.+\\.vue$': require.resolve('vue-jest'), // 告诉Jest用 vue-jest 处理 `*.vue` 文件
-    '.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$':
-require.resolve('jest-transform-stub'),
-    '^.+\\.js?$': require.resolve('babel-jest'), // 来告诉 Jest 用 babel-jest 处理 JavaScript 测试文件
-  },
+//   transform: {
+//     '^.+\\.vue$': require.resolve('vue-jest'), // 告诉Jest用 vue-jest 处理 `*.vue` 文件
+//     '.+\\.(css|styl|less|sass|scss|svg|png|jpg|ttf|woff|woff2)$':
+// require.resolve('jest-transform-stub'),
+//     '^.+\\.js?$': require.resolve('babel-jest'), // 来告诉 Jest 用 babel-jest 处理 JavaScript 测试文件
+//   },
 
   // An array of regexp pattern strings that are matched against
   // all source file paths, matched files will skip transformation
