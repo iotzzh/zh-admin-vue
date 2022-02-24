@@ -3,7 +3,9 @@
 #### 环境搭建
 * IDE: vs code
 * node： 14.17.0
-
+* Vue 3 + Typescript + Vite
+* eslint
+* pinia
 
 
 # Vue 3 + Typescript + Vite

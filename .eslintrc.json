@@ -21,6 +21,27 @@
         "quotes": 2,
         "no-console": 2,
         "linebreak-style": 0,
-        "vue/no-multiple-template-root": 0, // 针对vue3不需要添加根节点问题
+        // 针对vue3不需要添加根节点问题
+        "vue/no-multiple-template-root": 0,
+        // 修复import时存在的报错
+        "import/no-extraneous-dependencies": [
+            "error",
+            {
+              "peerDependencies": true
+            }
+        ],
+        "import/no-unresolved": [
+            2,
+            {
+                "ignore": ["^@/"] // @ 是设置的路径别名
+            }
+        ]
+    },
+    "settings": {
+        "import/resolver": {
+            // "alias": {
+            //     "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            // }
+        }
     }
 }
