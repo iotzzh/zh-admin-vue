@@ -1,11 +1,14 @@
+import { fileURLToPath, URL } from 'url';
+
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
-import { resolve } from 'path'; // 主要用于alias文件路径别名
+import vueJsx from '@vitejs/plugin-vue-jsx';
+// import { resolve } from 'path'; // 主要用于alias文件路径别名
 
 // https://vitejs.dev/config/
 export default defineConfig({
   // 配置需要使用的插件列表
-  plugins: [vue()],
+  plugins: [vue(), vueJsx()],
 
   define: {
     'process.env': {},
@@ -23,8 +26,8 @@ export default defineConfig({
   // 配置文件别名，vite1.0是/@/， 2.0改为/@
   resolve: {
     alias: {
-      '/@': resolve(__dirname, '.', 'src'),
-    },
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
   },
 
   // 强制预构建插件包
@@ -93,14 +96,15 @@ export default defineConfig({
 
   // 本地运行配置，及反向代理配置
   server: {
-    host: 'localhost',
+    host: '0.0.0.0',
     https: false, // 是否启用 http 2
     cors: true, // 默认启用并允许任何源
     open: true, // 在服务器启动时自动在浏览器中打开应用程序
     port: 9000,
     strictPort: false, // 设为true时端口被占用则直接退出，不会尝试下一个可用端口
     force: true, // 是否强制依赖预构建
-    hmr: false, // 禁用或配置 HMR 连接
+    hmr: true, 
+    // 禁用或配置 HMR 连接
     // 传递给 chockidar 的文件系统监视器选项
     // watch: {
     //  ignored:["!**/node_modules/your-package-name/**"]

@@ -1,11 +1,15 @@
 {
     "env": {
         "browser": true,
-        "es2021": true
+        "es2021": true,
+        "vue/setup-compiler-macros": true
     },
     "extends": [
+        "eslint:recommended",
         "plugin:vue/essential",
-        "airbnb-base"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:vue/vue3-essential",
+        "@vue/eslint-config-typescript/recommended"
     ],
     "parserOptions": {
         "ecmaVersion": "latest",
@@ -18,30 +22,11 @@
     ],
     "rules": {
         "semi": 2,
-        "quotes": 2,
+        //引号类型 `` "" ''
+        "quotes": [1, "single"],
         "no-console": 2,
         "linebreak-style": 0,
         // 针对vue3不需要添加根节点问题
-        "vue/no-multiple-template-root": 0,
-        // 修复import时存在的报错
-        "import/no-extraneous-dependencies": [
-            "error",
-            {
-              "peerDependencies": true
-            }
-        ],
-        "import/no-unresolved": [
-            2,
-            {
-                "ignore": ["^@/"] // @ 是设置的路径别名
-            }
-        ]
-    },
-    "settings": {
-        "import/resolver": {
-            // "alias": {
-            //     "extensions": [".js", ".jsx", ".ts", ".tsx"]
-            // }
-        }
+        "vue/no-multiple-template-root": 0
     }
 }
