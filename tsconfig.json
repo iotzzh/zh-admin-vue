@@ -1,7 +1,7 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
+  // "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": [
-    "env.d.ts", 
+    "env.d.ts",
     "src/**/*",
     "src/**/*.vue",
     "src/**/*.ts",
@@ -10,8 +10,7 @@
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
-  
-    "compilerOptions": {
+  "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
     "strict": true,
@@ -22,11 +21,11 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "suppressImplicitAnyIndexErrors":true,
+    "suppressImplicitAnyIndexErrors": true,
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
-      // "node",
+      "node",
       // "webpack-env",
       // "jest"
     ],
@@ -42,14 +41,12 @@
       "scripthost"
     ]
   },
-
   "exclude": [
     "node_modules"
-  ],
-
-  "references": [
-    {
-      "path": "./tsconfig.vite-config.json"
-    }
   ]
+  // "references": [
+  //   {
+  //     "path": "./tsconfig.vite-config.json"
+  //   }
+  // ]
 }
