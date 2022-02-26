@@ -2,189 +2,162 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:07:01
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-25 09:46:26
+ * @LastEditTime: 2022-02-26 15:06:07
  * @Description: 布局入口
  * @FilePath: \zh-admin\src\layout\Index.vue
 -->
 <template>
-<router-view />
-  <div
+<div class="layout">
+  <div class="left">
+   <Sidebar class="sidebar-container" />
+  </div>
+  <dv class="right">
+      <Navbar />
+      <!-- <TagsView /> -->
+      <AppMain />
+  </dv>
+</div>
+
+
+  <!-- <div
+    :class="classObj"
     class="app-wrapper"
   >
     <div
+      v-if="classObj.mobile && sidebar.opened"
       class="drawer-bg"
-    />
-    <!-- <Sidebar class="sidebar-container" /> -->
-    <div
+      @click="handleClickOutside"
+    /> -->
+    <!-- <div
+      :class="{hasTagsView: showTagsView}"
       class="main-container"
     >
-    <!-- <AppMain /> -->
-      <!-- <div :class="{'fixed-header': fixedHeader}">
+      <div :class="{'fixed-header': fixedHeader}">
         <Navbar />
         <TagsView v-if="showTagsView" />
-      </div>
-      <AppMain />
-      <RightPanel v-if="showSettings">
-        <Settings />
-      </RightPanel> -->
-    </div>
-  </div>
+      </div> -->
+      
+    <!-- </div> -->
+  <!-- </div> -->
 </template>
 
-<script lang="ts">
-// import { DeviceType } from '@/store/modules/app/state';
-import { computed, defineComponent, onBeforeMount, onBeforeUnmount, onMounted, reactive, toRefs } from 'vue';
-// import { useI18n } from 'vue-i18n';
-// import { useStore } from '@/store';
-// import { AppActionTypes } from '@/store/modules/app/action-types';
-import { AppMain, Navbar, Settings, TagsView, Sidebar } from './components';
-import RightPanel from '@/components/right_panel/Index.vue';
-// import resize from './resize';
-export default defineComponent({
-  name: 'Layout',
-  components: {
-    // AppMain,
-    // Navbar,
-    // RightPanel,
-    // Settings,
-    // Sidebar,
-    // TagsView
-  },
-  setup() {
-    // const { t } = useI18n();
-    // const store = useStore();
-    // const { sidebar, device, addEventListenerOnResize, resizeMounted, removeEventListenerResize, watchRouter } = resize();
-    const state = reactive({
-      handleClickOutside: () => {
-        // store.dispatch(AppActionTypes.ACTION_CLOSE_SIDEBAR, false);
-      }
-    });
+<script setup lang="ts">
+import { Sidebar, Navbar, TagsView, AppMain } from './components';
 
-    const classObj = computed(() => {
-      return {
-        // hideSidebar: !sidebar.value.opened,
-        // openSidebar: sidebar.value.opened,
-        // withoutAnimation: sidebar.value.withoutAnimation,
-        // mobile: device.value === DeviceType.Mobile
-      };
-    });
-
-
-    onMounted(() => {
-      // resizeMounted();
-    });
-
-    onBeforeUnmount(() => {
-      // removeEventListenerResize();
-    });
-    return {
-      // t,
-      // classObj,
-      // sidebar,
-      // showSettings,
-      // showTagsView,
-      // fixedHeader,
-      // ...toRefs(state)
-    };
-  }
-});
 </script>
 
+
 <style lang="scss" scoped>
-// .app-wrapper {
-//   position: relative;
-//   height: 100%;
-//   width: 100%;
-// }
 
-// .drawer-bg {
-//   background: #000;
-//   opacity: 0.3;
-//   width: 100%;
-//   top: 0;
-//   height: 100%;
-//   position: absolute;
-//   z-index: 999;
-// }
+.layout {
+  display: flex;
+  .left {
+    width: 300px;
+  }
+  .right{
+    flex: 1;
+  }
+}
 
-// .main-container {
-//   min-height: 100%;
-//   transition: margin-left .28s;
-//   // margin-left: $sideBarWidth;
-//   position: relative;
-// }
+.app-wrapper {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
 
-// .sidebar-container {
-//   transition: width 0.28s;
-//   // width: $sideBarWidth !important;
-//   height: 100%;
-//   position: fixed;
-//   font-size: 0px;
-//   top: 0;
-//   bottom: 0;
-//   left: 0;
-//   z-index: 1001;
-//   overflow: hidden;
-//   background-color: #ffffff !important;
-// }
+.drawer-bg {
+  background: #000;
+  opacity: 0.3;
+  width: 100%;
+  top: 0;
+  height: 100%;
+  position: absolute;
+  z-index: 999;
+}
 
-// .fixed-header {
-//   position: fixed;
-//   top: 0;
-//   right: 0;
-//   z-index: 9;
-//   width: calc(100% - #{$sideBarWidth});
-//   transition: width 0.28s;
-// }
+.main-container {
+  min-height: 100%;
+  transition: margin-left .28s;
+  margin-left: 300px;
+  position: relative;
+}
 
-// .hideSidebar {
-//   .main-container {
-//     margin-left: 54px;
-//   }
+.sidebar-container {
+  transition: width 0.28s;
+  width: 300px !important;
+  height: 100%;
+  position: fixed;
+  font-size: 0px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1001;
+  overflow: hidden;
+  background-color: #ffffff !important;
+}
 
-//   .sidebar-container {
-//     width: 54px !important;
-//   }
+.fixed-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9;
+  width: calc(100% - 300px);
+  transition: width 0.28s;
+}
 
-//   .fixed-header {
-//     width: calc(100% - 54px)
-//   }
-// }
+.hideSidebar {
+  .main-container {
+    margin-left: 54px;
+  }
 
-// /* for mobile response 适配移动端 */
-// .mobile {
-//   .main-container {
-//     margin-left: 0px;
-//   }
+  .sidebar-container {
+    width: 54px !important;
+  }
 
-//   .sidebar-container {
-//     transition: transform .28s;
-//     width: $sideBarWidth !important;
-//   }
+  .fixed-header {
+    width: calc(100% - 54px)
+  }
+}
 
-//   &.openSidebar {
-//     position: fixed;
-//     top: 0;
-//   }
+/* for mobile response 适配移动端 */
+.mobile {
+  .main-container {
+    margin-left: 0px;
+  }
 
-//   &.hideSidebar {
-//     .sidebar-container {
-//       pointer-events: none;
-//       transition-duration: 0.3s;
-//       transform: translate3d(-$sideBarWidth, 0, 0);
-//     }
-//   }
+  .sidebar-container {
+    transition: transform .28s;
+    width: 300px !important;
+  }
 
-//   .fixed-header {
-//     width: 100%;
-//   }
-// }
+  &.openSidebar {
+    position: fixed;
+    top: 0;
+  }
 
-// .withoutAnimation {
-//   .main-container,
-//   .sidebar-container {
-//     transition: none;
-//   }
-// }
+  &.hideSidebar {
+    .sidebar-container {
+      pointer-events: none;
+      transition-duration: 0.3s;
+      transform: translate3d(-300px, 0, 0);
+    }
+  }
+
+  .fixed-header {
+    width: 100%;
+  }
+}
+
+.withoutAnimation {
+  .main-container,
+  .sidebar-container {
+    transition: none;
+  }
+}
 
 </style>

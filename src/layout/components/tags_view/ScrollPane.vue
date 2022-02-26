@@ -1,11 +1,13 @@
 <!--
- * @Description:
- * @Author: ZY
- * @Date: 2021-01-05 19:11:34
- * @LastEditors: ZY
- * @LastEditTime: 2021-01-09 11:00:55
+ * @Author: zzh
+ * @Date: 2022-02-25 09:55:19
+ * @LastEditors: zzh
+ * @LastEditTime: 2022-02-25 17:32:41
+ * @Description: tags滚动组件
+ * @FilePath: \zh-admin\src\layout\components\tags_view\ScrollPane.vue
 -->
 <template>
+ceshi
   <el-scrollbar
     ref="scrollContainerRef"
     :vertical="false"
@@ -17,77 +19,77 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs, computed, onMounted, onBeforeUnmount, getCurrentInstance } from 'vue'
+import { defineComponent, reactive, ref, toRefs, computed, onMounted, onBeforeUnmount, getCurrentInstance } from 'vue';
 export default defineComponent({
   emits: ['scroll'],
   setup(_, context) {
-    const scrollContainerRef = ref(null)
+    const scrollContainerRef = ref(null);
     const scrollWrapper = computed(() => {
-      return (scrollContainerRef.value as any).$refs.wrap as HTMLElement
-    })
-    const { ctx } = getCurrentInstance() as any
-    const tagSpacing = 4
+      return (scrollContainerRef.value as any).$refs.wrap as HTMLElement;
+    });
+    const { ctx } = getCurrentInstance() as any;
+    const tagSpacing = 4;
 
     const state = reactive({
       handleScroll: (e: WheelEvent) => {
-        const eventDelta = (e as any).wheelDelta || -e.deltaY * 40
-        scrollWrapper.value.scrollLeft = scrollWrapper.value.scrollLeft + eventDelta / 4
+        const eventDelta = (e as any).wheelDelta || -e.deltaY * 40;
+        scrollWrapper.value.scrollLeft = scrollWrapper.value.scrollLeft + eventDelta / 4;
       },
       moveToCurrentTag: (currentTag: HTMLElement) => {
-        const container = (scrollContainerRef.value as any).$el as HTMLElement
-        const containerWidth = container.offsetWidth
-        const tagList = ctx.$parent.$refs.tag as any[]
-        let fristTag = null
-        let lastTag = null
+        const container = (scrollContainerRef.value as any).$el as HTMLElement;
+        const containerWidth = container.offsetWidth;
+        const tagList = ctx.$parent.$refs.tag as any[];
+        let fristTag = null;
+        let lastTag = null;
 
         // find first tag and last tag
         if (tagList.length > 0) {
-          fristTag = tagList[0]
-          lastTag = tagList[tagList.length - 1]
+          fristTag = tagList[0];
+          lastTag = tagList[tagList.length - 1];
         }
 
         if (fristTag === currentTag) {
-          scrollWrapper.value.scrollLeft = 0
+          scrollWrapper.value.scrollLeft = 0;
         } else if (lastTag === currentTag) {
-          scrollWrapper.value.scrollLeft = scrollWrapper.value.scrollWidth - containerWidth
+          scrollWrapper.value.scrollLeft = scrollWrapper.value.scrollWidth - containerWidth;
         } else {
           // find preTag and nextTag
-          const currentIndex = tagList.findIndex(item => item === currentTag)
-          const prevTag = tagList[currentIndex - 1]
-          const nextTag = tagList[currentIndex + 1]
+          const currentIndex = tagList.findIndex(item => item === currentTag);
+          const prevTag = tagList[currentIndex - 1];
+          const nextTag = tagList[currentIndex + 1];
           // the tag's offsetLeft after of nextTag
-          const afterNextTagOffsetLeft = nextTag.$el.offsetLeft + nextTag.$el.offsetWidth + tagSpacing
+          const afterNextTagOffsetLeft = nextTag.$el.offsetLeft + nextTag.$el.offsetWidth + tagSpacing;
           // the tag's offsetLeft before of prevTag
-          const beforePrevTagOffsetLeft = prevTag.$el.offsetLeft - tagSpacing
+          const beforePrevTagOffsetLeft = prevTag.$el.offsetLeft - tagSpacing;
 
           if (afterNextTagOffsetLeft > scrollWrapper.value.scrollLeft + containerWidth) {
-            scrollWrapper.value.scrollLeft = afterNextTagOffsetLeft - containerWidth
+            scrollWrapper.value.scrollLeft = afterNextTagOffsetLeft - containerWidth;
           } else if (beforePrevTagOffsetLeft < scrollWrapper.value.scrollLeft) {
-            scrollWrapper.value.scrollLeft = beforePrevTagOffsetLeft
+            scrollWrapper.value.scrollLeft = beforePrevTagOffsetLeft;
           }
         }
       }
-    })
+    });
 
     const emitScroll = () => {
-      context.emit('scroll')
-    }
+      context.emit('scroll');
+    };
 
     onMounted(() => {
-      scrollWrapper.value.addEventListener('scroll', emitScroll, true)
-    })
+      scrollWrapper.value.addEventListener('scroll', emitScroll, true);
+    });
 
     onBeforeUnmount(() => {
-      scrollWrapper.value.removeEventListener('scroll', emitScroll)
-    })
+      scrollWrapper.value.removeEventListener('scroll', emitScroll);
+    });
 
     return {
       scrollContainerRef,
       ...toRefs(state)
-    }
+    };
   }
 
-})
+});
 </script>
 
 <style lang="scss" scoped>

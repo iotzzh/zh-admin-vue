@@ -1,17 +1,11 @@
-<!--
- * @Description: 主视图
- * @Author: ZY
- * @Date: 2020-12-24 10:36:58
- * @LastEditors: zzh
- * @LastEditTime: 2022-02-25 11:20:23
--->
 <template>
   <section class="app-main">
     <transition
       name="fade-transform"
       mode="out-in"
     >
-    aaa
+        <router-view />
+
       <!-- <keep-alive :include="cachedViews">
         <router-view :key="key" />
       </keep-alive> -->
@@ -20,26 +14,26 @@
 </template>
 
 <script lang="ts">
-// import { useStore } from '@/store';
-import { defineComponent } from 'vue';
-import { useRoute } from 'vue-router';
+// import { useStore } from '@/store'
+// import { defineComponent } from 'vue'
+// import { useRoute } from 'vue-router'
 
-export default defineComponent({
-  setup() {
-    // const store = useStore();
-    // const route = useRoute();
-    // const cachedViews = () => {
-    //   return store.state.tagViews.cachedViews;
-    // };
-    // const key = () => {
-    //   return route.path;
-    // };
-    // return {
-    //   cachedViews,
-    //   key
-    // };
-  }
-});
+// export default defineComponent({
+//   setup() {
+//     const store = useStore()
+//     const route = useRoute()
+//     const cachedViews = () => {
+//       return store.state.tagViews.cachedViews
+//     }
+//     const key = () => {
+//       return route.path
+//     }
+//     return {
+//       cachedViews,
+//       key
+//     }
+//   }
+// })
 </script>
 
 <style lang="scss" scoped>

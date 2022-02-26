@@ -1,32 +1,7 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import Layout from '@/layout/Index.vue';
 
-// const constantFiles = require.context('./constantModules', true, /\.ts$/);
-// let constantModules: Array<RouteRecordRaw> = [];
-// constantFiles.keys().forEach((key) => {
-//   if (key === './index.ts') return;
-//   constantModules = constantModules.concat(constantFiles(key).default);
-// });
-
-// const asyncFiles = require.context('./permissionModules', true, /\.ts$/);
-// let permissionModules: Array<RouteRecordRaw> = [];
-// asyncFiles.keys().forEach((key) => {
-//   if (key === './index.ts') return;
-//   permissionModules = permissionModules.concat(asyncFiles(key).default);
-// });
-
 export const constantRoutes: Array<RouteRecordRaw> = [
-  // {
-  //   path: '/redirect',
-  //   component: Layout,
-  //   meta: { hidden: true },
-  //   children: [
-  //     {
-  //       path: '/redirect/:path(.*)',
-  //       component: () => import(/* webpackChunkName: "redirect" */ '@/views/redirect/Index.vue')
-  //     }
-  //   ]
-  // },
   {
     path: '/',
     component: Layout,
@@ -41,7 +16,30 @@ export const constantRoutes: Array<RouteRecordRaw> = [
           icon: '#icondashboard',
           affix: true
         }
-      }
+      },
+
+      {
+        path: 'page1',
+        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/page1/Index.vue'),
+        name: 'Page1',
+        meta: {
+          title: 'page1',
+          icon: '#icondashboard',
+          affix: true
+        }
+      },
+
+      {
+        path: 'page2',
+        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/page2/Index.vue'),
+        name: 'Page2',
+        meta: {
+          title: 'page2',
+          icon: '#icondashboard',
+          affix: true
+        }
+      },
+
     ]
   },
   // ...constantModules

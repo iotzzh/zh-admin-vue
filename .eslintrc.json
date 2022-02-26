@@ -24,7 +24,7 @@
         "semi": 2,
         //引号类型 `` "" ''
         "quotes": [1, "single"],
-        "no-console": 2,
+        "no-console": 0,
         "linebreak-style": 0,
         // 针对vue3不需要添加根节点问题
         "vue/no-multiple-template-root": 0,

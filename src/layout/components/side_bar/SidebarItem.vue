@@ -1,242 +1,78 @@
 <!--
- * @Description: 侧边栏item
- * @Author: ZY
- * @Date: 2020-12-25 11:34:00
- * @LastEditors: scy😊
- * @LastEditTime: 2021-01-25 08:47:38
+ * @Author: zzh
+ * @Date: 2022-02-25 16:48:39
+ * @LastEditors: zzh
+ * @LastEditTime: 2022-02-26 14:56:50
+ * @Description: 导航组件
+ * @FilePath: \zh-admin\src\layout\components\side_bar\SidebarItem.vue
 -->
-
 <template>
-  <div
-    v-if="!item.meta || !item.meta.hidden"
-    :class="[
-      isCollapse ? 'simple-mode' : 'full-mode',
-      {'first-level': isFirstLevel}
-    ]"
+  <el-scrollbar wrap-class="scrollbar-wrapper">
+  <el-menu
+    default-active="2"
+    class="el-menu-vertical-demo"
+    :collapse="isCollapse"
+    @open="handleOpen"
+    @close="handleClose"
   >
-    <template
-      v-if="!alwaysShowRootMenu && theOnlyOneChild && !theOnlyOneChild.children"
-    >
-      <SidebarItemLink
-        v-if="theOnlyOneChild.meta"
-        :to="resolvePath(theOnlyOneChild.path)"
-      >
-        <el-menu-item
-          :index="resolvePath(theOnlyOneChild.path)"
-          :class="{'submenu-title-noDropdown': isFirstLevel}"
-        >
-          <svg
-            v-if="theOnlyOneChild.meta.icon"
-            class="icon"
-            aria-hidden="true"
-            font-size="17px"
-          >
-            <use :xlink:href="theOnlyOneChild.meta.icon" />
-          </svg>
-          <span v-if="theOnlyOneChild.meta.title">{{
-            t("route." + theOnlyOneChild.meta.title)
-          }}</span>
-        </el-menu-item>
-      </SidebarItemLink>
-    </template>
-    <el-submenu
-      v-else
-      :index="resolvePath(item.path)"
-    >
-      <!-- popper-append-to-body -->
+    <el-sub-menu index="1">
       <template #title>
-        <svg
-          v-if="item.meta && item.meta.icon"
-          class="icon"
-          aria-hidden="true"
-          font-size="16px"
-        >
-          <use :xlink:href="item.meta.icon" />
-        </svg>
-        <span v-if="item.meta && item.meta.title">{{
-          t("route." + item.meta.title)
-        }}</span>
+        <el-icon><location /></el-icon>
+        <span>Navigator One</span>
       </template>
-      <template v-if="item.children">
-        <sidebar-item
-          v-for="child in item.children"
-          :key="child.path"
-          :item="child"
-          :is-collapse="isCollapse"
-          :is-first-level="false"
-          :base-path="resolvePath(child.path)"
-          class="nest-menu"
-        />
-      </template>
-    </el-submenu>
-  </div>
+      <el-menu-item-group>
+        <template #title><span>Group One</span></template>
+        <el-menu-item index="1-1" @click="goto('page1')">item one</el-menu-item>
+        <el-menu-item index="1-2" @click="goto('page2')">item two</el-menu-item>
+      </el-menu-item-group>
+      <el-menu-item-group title="Group Two">
+        <el-menu-item index="1-3">item three</el-menu-item>
+      </el-menu-item-group>
+      <el-sub-menu index="1-4">
+        <template #title><span>item four</span></template>
+        <el-menu-item index="1-4-1">item one</el-menu-item>
+      </el-sub-menu>
+    </el-sub-menu>
+    <el-menu-item index="2">
+      <el-icon><icon-menu /></el-icon>
+      <template #title>Navigator Two</template>
+    </el-menu-item>
+    <el-menu-item index="3" disabled>
+      <el-icon><document /></el-icon>
+      <template #title>Navigator Three</template>
+    </el-menu-item>
+    <el-menu-item index="4">
+      <el-icon><setting /></el-icon>
+      <template #title>Navigator Four</template>
+    </el-menu-item>
+  </el-menu>
+  </el-scrollbar>
 </template>
 
-<script lang="ts">
-import path from 'path'
-import { computed, defineComponent, PropType } from 'vue'
-import { RouteRecordRaw } from 'vue-router'
-import { isExternal } from '@/utils/validate'
-import SidebarItemLink from './SidebarItemLink.vue'
-import { useI18n } from 'vue-i18n'
-export default defineComponent({
-  props: {
-    item: {
-      type: Object as PropType<RouteRecordRaw>,
-      required: true
-    },
-    isCollapse: {
-      type: Boolean,
-      required: false
-    },
-    isFirstLevel: {
-      type: Boolean,
-      required: true
-    },
-    basePath: {
-      type: String,
-      required: true
-    }
-  },
-  components: {
-    SidebarItemLink
-  },
-  setup(props) {
-    const alwaysShowRootMenu = computed(() => {
-      if (props.item.meta && props.item.meta.alwaysShow) {
-        return true
-      } else {
-        return false
-      }
-    })
+<script lang="ts" setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-    const showingChildNumber = computed(() => {
-      if (props.item.children) {
-        const showingChildren = props.item.children.filter((item) => {
-          if (item.meta && item.meta.hidden) {
-            return false
-          } else {
-            return true
-          }
-        })
-        return showingChildren.length
-      }
-      return 0
-    })
+const router = useRouter();
 
-    const theOnlyOneChild = computed(() => {
-      if (showingChildNumber.value > 1) {
-        return null
-      }
-      if (props.item.children) {
-        for (const child of props.item.children) {
-          if (!child.meta || !child.meta.hidden) {
-            return child
-          }
-        }
-      }
-      // If there is no children, return itself with path removed,
-      // because this.basePath already conatins item's path information
-      return { ...props.item, path: '' }
-    })
+const isCollapse = ref(false);
+const handleOpen = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath);
+};
+const handleClose = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath);
+};
 
-    const resolvePath = (routePath: string) => {
-      if (isExternal(routePath)) {
-        return routePath
-      }
-      if (isExternal(props.basePath)) {
-        return props.basePath
-      }
-      return path.resolve(props.basePath, routePath)
-    }
-    const { t } = useI18n()
-
-    return {
-      t,
-      alwaysShowRootMenu,
-      showingChildNumber,
-      theOnlyOneChild,
-      resolvePath
-    }
-  }
-})
+const goto = (path:string) => {
+    router.push({
+        path,
+    });
+};
 </script>
 
-<style lang="scss" scoped>
-.el-submenu.is-active > .el-submenu__title {
-  color: $subMenuActiveText !important;
-}
-
-.full-mode {
-  .nest-menu .el-submenu > .el-submenu__title,
-  .el-submenu .el-menu-item {
-    min-width: $sideBarWidth !important;
-    #background-color: $subMenuBg !important;
-
-    &:hover {
-      background-color: $subMenuHover !important;
-    }
-  }
-  .el-menu-item{
-    &>span{
-      display: inline-block;
-      padding-left: 5px;
-    }
-  }
-  .el-submenu {
-    overflow: hidden;
-
-    & > .el-submenu__title {
-      .el-submenu__icon-arrow {
-        display: none;
-      }
-
-      & > span {
-             padding-left: 5px;
-
-      }
-    }
-  }
-}
-
-.simple-mode {
-  &.first-level {
-    .submenu-title-noDropdown {
-      padding: 0 !important;
-      position: relative;
-
-      .el-tooltip {
-        padding: 0 !important;
-      }
-    }
-
-    .el-submenu {
-      overflow: hidden;
-
-      & > .el-submenu__title {
-        padding: 0px !important;
-
-        .el-submenu__icon-arrow {
-          display: none;
-        }
-
-        & > span {
-          visibility: hidden;
-        }
-      }
-    }
-  }
-}
-</style>
-
-<style lang="scss" scoped>
-svg {
-  margin-right: 16px;
-}
-
-.simple-mode {
-  svg {
-    margin-left: 20px;
-  }
+<style>
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:56:46
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-25 12:14:42
+ * @LastEditTime: 2022-02-26 14:22:44
  * @Description: 布局相关store
  * @FilePath: \zh-admin\src\stores\layout.ts
  */
@@ -12,7 +12,9 @@ export const useCounterStore = defineStore({
   id: 'layout',
 
   state: () => ({
-    cachedViews: [] as string[],
+    cachedViews: [] as string[], // 缓存哪些界面
+    collapse: true, // 侧边栏是否展开
+
   }),
   
   getters: {
