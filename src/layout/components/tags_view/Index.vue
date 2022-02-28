@@ -3,7 +3,7 @@
  * @Author: ZY
  * @Date: 2020-12-24 10:35:59
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-25 17:57:33
+ * @LastEditTime: 2022-02-28 16:18:30
 -->
 <template>
 
@@ -284,7 +284,7 @@ const visitedViews = ref([ { path: 'ceshi', query: '测试', fullPath: 'fullPath
       vertical-align: 2px;
       border-radius: 50%;
       text-align: center;
-      transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+      // transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
       transform-origin: 100% 50%;
 
       &:before {

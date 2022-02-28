@@ -2,13 +2,16 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:55:19
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-26 14:34:57
+ * @LastEditTime: 2022-02-28 16:18:32
  * @Description: 导航栏，包含折叠，最大化，个人信息
  * @FilePath: \zh-admin\src\layout\components\navigation_bar\Index.vue
 -->
 <template>
   <div class="navbar">
-    <el-icon @click="toggleSideBar"><fold /></el-icon>
+    <el-icon class="fold-expend-icon" :size="30" @click="toggleSideBar">
+      <fold v-if="collapse" />
+      <expand  v-else />
+    </el-icon>
     
     <div class="right-menu">
       <el-dropdown
@@ -16,10 +19,11 @@
         trigger="click"
       >
         <div class="avatar-wrapper">
-          <img
+          15655395332
+          <!-- <img
             src="@/assets/img/img.jpg"
             class="user-avatar"
-          >
+          > -->
         </div>
         <template #dropdown>
           <el-dropdown-menu>
@@ -41,10 +45,15 @@
 </template>
 
 <script lang="ts" setup>
-import Hamburger from '@/components/hamburger/Index.vue';
-import Screenfull from '@/components/screenfull/Index.vue';
+import { ref, computed, reactive, toRefs } from 'vue';
+import { useLayoutStore } from '../../../stores';
+import { storeToRefs } from 'pinia';
 
-const toggleSideBar = () => { let a = 0; };
+
+const store = useLayoutStore();
+const { collapse } = storeToRefs(store);
+const toggleSideBar = () => { console.log('qiehuan'); store.toggleCollapse(); };
+
 
 // import { computed, reactive, toRefs } from 'vue';
 // import { useStore } from '@/store';
@@ -97,28 +106,17 @@ const toggleSideBar = () => { let a = 0; };
 </script>
 
 <style lang="scss" scoped>
+
 .navbar {
+  // margin-top: 20px;
   height: 50px;
   overflow: hidden;
   position: relative;
   background: #fff;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
-  .hamburger-container {
-    line-height: 46px;
-    height: 100%;
-    float: left;
-    padding: 0 15px;
-    cursor: pointer;
-    transition: background 0.3s;
-    -webkit-tap-highlight-color: transparent;
-    &:hover {
-      background: rgba(0, 0, 0, 0.025);
-    }
-  }
-
-  .breadcrumb-container {
-    float: left;
+  .fold-expend-icon {
+    margin-top: 17px;
   }
 
   .errLog-container {
@@ -145,7 +143,7 @@ const toggleSideBar = () => { let a = 0; };
 
       &.hover-effect {
         cursor: pointer;
-        transition: background 0.3s;
+        // transition: background 0.3s;
 
         &:hover {
           background: rgba(0, 0, 0, 0.025);
@@ -155,7 +153,7 @@ const toggleSideBar = () => { let a = 0; };
 
     .avatar-container {
       .avatar-wrapper {
-        margin-top: 5px;
+        margin-top: 15px;
         margin-right: 16px;
         margin-left: 16px;
         position: relative;

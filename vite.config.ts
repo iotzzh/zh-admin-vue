@@ -27,14 +27,15 @@ export default defineConfig({
   // 配置文件别名，vite1.0是/@/， 2.0改为/@
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      // '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': path.resolve(__dirname, 'src'),
     }
   },
 
   // 强制预构建插件包
   optimizeDeps: {
     // 默认情况下，不在 node_modules 中的，链接的包不会预构建
-    // include: ['axios'],
+    include: ['axios'],
     // exclude:['your-package-name'] //排除在优化之外
   },
 
@@ -113,7 +114,7 @@ export default defineConfig({
     // 反向代理配置，注意rewrite写法，开始没看文档在这里踩了坑
     proxy: {
       '/api': {
-        target: 'http://10.10.10.10:1000', // 代理接口
+        target: 'http://10.161.2.60:8082/ysb-admin', // 代理接口
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

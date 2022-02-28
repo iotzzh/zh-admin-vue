@@ -19,24 +19,32 @@ export const constantRoutes: Array<RouteRecordRaw> = [
       },
 
       {
-        path: 'page1',
-        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/page1/Index.vue'),
-        name: 'Page1',
+        path: '/authorityManagement/userManagement',
+        component: () => import( /* webpackChunkName: "donate" */ '../views/authorityManagement/userManagement.vue'),
         meta: {
-          title: 'page1',
-          icon: '#icondashboard',
-          affix: true
+          title: '用户管理'
+        }
+      },
+      {
+        path: '/authorityManagement/roleManagement',
+        component: () => import( /* webpackChunkName: "donate" */ '../views/authorityManagement/roleManagement.vue'),
+        meta: {
+          title: '角色管理'
         }
       },
 
       {
-        path: 'page2',
-        component: () => import(/* webpackChunkName: "dashboard" */ '@/views/page2/Index.vue'),
-        name: 'Page2',
+        path: '/authorityManagement/organizationalStructure',
+        component: () => import( /* webpackChunkName: "donate" */ '../views/authorityManagement/organizationalStructure.vue'),
         meta: {
-          title: 'page2',
-          icon: '#icondashboard',
-          affix: true
+          title: '组织架构'
+        }
+      },
+      {
+        path: '/authorityManagement/menuManagement',
+        component: () => import( /* webpackChunkName: "donate" */ '../views/authorityManagement/menuManagement.vue'),
+        meta: {
+          title: '菜单管理'
         }
       },
 

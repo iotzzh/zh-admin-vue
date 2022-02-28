@@ -6,8 +6,14 @@ import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css';
 import * as Icons from '@element-plus/icons-vue';
 import './styles/global.css';
+import axios from 'axios';
+import './assets/iconfont/iconfont.css';
+import './styles/element-override.css';
+import './styles/iconfont-override.css';
 
 const app = createApp(App);
+
+app.config.globalProperties.$http = axios;
 
 // 注册Icons 全局组件
 Object.keys(Icons).forEach(key => {

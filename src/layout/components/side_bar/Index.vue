@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:55:19
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-25 16:50:32
+ * @LastEditTime: 2022-02-28 15:10:22
  * @Description: 侧边栏
  * @FilePath: \zh-admin\src\layout\components\side_bar\Index.vue
 -->
@@ -13,10 +13,10 @@
   >
     <SidebarLogo
       v-if="showLogo"
-      :collapse="isCollapse"
+      :collapse="collapse"
     />
 
-    <SidebarItem></SidebarItem>
+    <SidebarItem :collapse="collapse"></SidebarItem>
 
   </div>
 </template>
@@ -25,9 +25,14 @@
 import { ref } from 'vue';
 import SidebarLogo from './SidebarLogo.vue';
 import SidebarItem from './SidebarItem.vue';
+import { useLayoutStore } from '../../../stores';
+import { storeToRefs } from 'pinia';
+
+
+const store = useLayoutStore();
+const { collapse } = storeToRefs(store);
 
 const showLogo = ref(true);
-const isCollapse = ref(true);
 
 </script>
 

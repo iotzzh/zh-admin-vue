@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:55:19
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-26 13:25:43
+ * @LastEditTime: 2022-02-28 16:19:03
  * @Description: 侧边栏logo(需要跟随侧边栏折叠)
  * @FilePath: \zh-admin\src\layout\components\side_bar\SidebarLogo.vue
 -->
@@ -11,8 +11,10 @@
     class="sidebar-logo-container"
     :class="[props.collapse ? 'collapse': 'notitle']"
   >
-    <transition name="sidebarLogoFade">
-      <router-link
+    <!-- <transition name="sidebarLogoFade">
+
+    </transition> -->
+          <router-link
         key="expand"
         class="sidebar-logo-link"
         to="/dashboard"
@@ -21,11 +23,8 @@
           class="sidebar-logo"
           src="@/assets/img/fold_icon.png"
         >
-        <h1 class="sidebar-title">
-          Vue<span style="color:#57CAEB">3</span>实验室管理系统
-        </h1>
+        <h1 class="sidebar-title">实验室管理系统</h1>
       </router-link>
-    </transition>
   </div>
 </template>
 
@@ -43,7 +42,7 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .sidebarLogoFade-enter-active {
-  transition: opacity 1.5s;
+  // transition: opacity 1.5s;
 }
 
 .sidebarLogoFade-enter,
@@ -58,8 +57,8 @@ const props = defineProps({
   line-height: 50px;
   text-align: center;
   overflow: hidden;
-  margin-bottom: 30px;
-  margin-top: 20px;
+  // margin-bottom: 20px;
+  margin-top: 10px;
 
   & .sidebar-logo-link {
     height: 100%;

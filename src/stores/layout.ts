@@ -2,13 +2,13 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:56:46
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-26 14:22:44
+ * @LastEditTime: 2022-02-28 15:03:04
  * @Description: 布局相关store
  * @FilePath: \zh-admin\src\stores\layout.ts
  */
 import { defineStore } from 'pinia';
 
-export const useCounterStore = defineStore({
+export const useLayoutStore = defineStore({
   id: 'layout',
 
   state: () => ({
@@ -32,6 +32,11 @@ export const useCounterStore = defineStore({
     
     removeCachedViewsByIndex(index: number): void {
         this.cachedViews = this.cachedViews.splice(index, 1);
+    },
+
+    // 开启/关闭左侧tab栏函数
+    toggleCollapse() {
+      this.collapse = !this.collapse;
     }
   }
 });
