@@ -2,18 +2,21 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:07:01
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-26 15:06:07
+ * @LastEditTime: 2022-02-28 16:11:25
  * @Description: 布局入口
  * @FilePath: \zh-admin\src\layout\Index.vue
 -->
 <template>
 <div class="layout">
-  <div class="left">
+  <div :class="collapse ? 'left' : 'left-fold'">
    <Sidebar class="sidebar-container" />
   </div>
   <dv class="right">
-      <Navbar />
-      <!-- <TagsView /> -->
+      <div class="right-header">
+        <Navbar />
+        <TagsView />
+      </div>
+
       <AppMain />
   </dv>
 </div>
@@ -42,7 +45,13 @@
 </template>
 
 <script setup lang="ts">
-import { Sidebar, Navbar, TagsView, AppMain } from './components';
+import { Sidebar, Navbar, AppMain, TagsView  } from './components';
+import { useLayoutStore } from '../stores';
+import { storeToRefs } from 'pinia';
+
+
+const store = useLayoutStore();
+const { collapse } = storeToRefs(store);
 
 </script>
 
@@ -50,12 +59,23 @@ import { Sidebar, Navbar, TagsView, AppMain } from './components';
 <style lang="scss" scoped>
 
 .layout {
+  width: 100%;
+  height: 100%;
   display: flex;
   .left {
     width: 300px;
   }
+  .left-fold {
+    width: 70px;
+  }
   .right{
     flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .right-header {
+      height: 90px;
+    }
   }
 }
 
@@ -80,25 +100,8 @@ import { Sidebar, Navbar, TagsView, AppMain } from './components';
   z-index: 999;
 }
 
-.main-container {
-  min-height: 100%;
-  transition: margin-left .28s;
-  margin-left: 300px;
-  position: relative;
-}
-
 .sidebar-container {
-  transition: width 0.28s;
-  width: 300px !important;
-  height: 100%;
-  position: fixed;
-  font-size: 0px;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1001;
-  overflow: hidden;
-  background-color: #ffffff !important;
+  // transition: width 0.28s;
 }
 
 .fixed-header {
@@ -107,57 +110,8 @@ import { Sidebar, Navbar, TagsView, AppMain } from './components';
   right: 0;
   z-index: 9;
   width: calc(100% - 300px);
-  transition: width 0.28s;
+  // transition: width 0.28s;
 }
 
-.hideSidebar {
-  .main-container {
-    margin-left: 54px;
-  }
-
-  .sidebar-container {
-    width: 54px !important;
-  }
-
-  .fixed-header {
-    width: calc(100% - 54px)
-  }
-}
-
-/* for mobile response 适配移动端 */
-.mobile {
-  .main-container {
-    margin-left: 0px;
-  }
-
-  .sidebar-container {
-    transition: transform .28s;
-    width: 300px !important;
-  }
-
-  &.openSidebar {
-    position: fixed;
-    top: 0;
-  }
-
-  &.hideSidebar {
-    .sidebar-container {
-      pointer-events: none;
-      transition-duration: 0.3s;
-      transform: translate3d(-300px, 0, 0);
-    }
-  }
-
-  .fixed-header {
-    width: 100%;
-  }
-}
-
-.withoutAnimation {
-  .main-container,
-  .sidebar-container {
-    transition: none;
-  }
-}
 
 </style>
