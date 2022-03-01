@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:55:19
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-28 16:18:32
+ * @LastEditTime: 2022-02-28 17:03:09
  * @Description: 导航栏，包含折叠，最大化，个人信息
  * @FilePath: \zh-admin\src\layout\components\navigation_bar\Index.vue
 -->
@@ -27,12 +27,13 @@
         </div>
         <template #dropdown>
           <el-dropdown-menu>
-            <router-link to="/profile/">
+            <!-- <router-link to="/profile/"> -->
+            <router-link to="/dashboard">
               <el-dropdown-item>
                 个人信息
               </el-dropdown-item>
             </router-link>
-            <router-link to="/">
+            <router-link to="/dashboard">
               <el-dropdown-item>
                 退出
               </el-dropdown-item>

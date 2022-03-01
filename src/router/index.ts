@@ -66,4 +66,13 @@ export function resetRouter() {
   (router as any).matcher = (newRouter as any).matcher; // reset router
 }
 
+router.beforeEach((to, from) => {
+  // 返回 false 以取消导航
+  console.log('to:' + to.fullPath);
+  console.log('from:' + from.fullPath);
+  if (to.fullPath == '/authorityManagement/userManagement') {
+    return false;
+  }
+});
+
 export default router;

@@ -15,11 +15,10 @@ const app = createApp(App);
 
 app.config.globalProperties.$http = axios;
 
-// 注册Icons 全局组件
+// 注册Icons 全局组件，element plus icon
 Object.keys(Icons).forEach(key => {
     app.component(key, Icons[key]);
 });
-
 
 app.use(createPinia());
 app.use(router);

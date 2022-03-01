@@ -3,7 +3,7 @@
  * @Author: ZY
  * @Date: 2020-12-24 10:35:59
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-28 16:18:30
+ * @LastEditTime: 2022-02-28 17:26:03
 -->
 <template>
 
@@ -12,33 +12,27 @@
     class="tags-view-container"
   >
 
-    <ScrollPane
+   <el-scrollbar>
+    <el-tag
+          v-for="tag in cachedViews"
+    :key="tag"
+    class="mx-1"
+    closable
+    type="success"
+  >
+    {{ tag }}
+  </el-tag>
+  </el-scrollbar>
+
+  
+
+    <!-- <ScrollPane
       ref="scrollPaneRef"
       class="tags-view-wrapper"
     >
-      <router-link
-        v-for="tag in visitedViews"
-        ref="tag"
-        :key="tag.path"
-        :to="{path: tag.path, query: tag.query, fullPath: tag.fullPath}"
-        tag="span"
-        class="tags-view-item"
-      >
-      <el-tag
-    :key="tag.path"
-    class="mx-1"
-    closable
-    type="primary"
-  >
-    {{ tag.path }}
-  </el-tag>
 
-       <!-- {{ tag.path }}
-        <span
-          class="el-icon-close"
-        /> -->
-      </router-link>
-    </ScrollPane>
+
+    </ScrollPane> -->
     <!-- <ul
       v-show="visible"
       :style="{left: left+'px', top: top+'px'}"
@@ -66,7 +60,14 @@
 
 <script setup lang="ts">
 import { toRef, ref, reactive } from 'vue';
-const visitedViews = ref([ { path: 'ceshi', query: '测试', fullPath: 'fullPath'  },  { path: 'ceshi111', query: '测试111', fullPath: 'fullPath111'  }]);
+import { useLayoutStore } from '../../../stores';
+import { storeToRefs } from 'pinia';
+
+
+const store = useLayoutStore();
+const { cachedViews } = storeToRefs(store);
+
+// const visitedViews = ref([ { path: 'ceshi', query: '测试', fullPath: 'fullPath'  },  { path: 'ceshi111', query: '测试111', fullPath: 'fullPath111'  }]);
 
 </script>
 

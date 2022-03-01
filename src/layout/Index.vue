@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:07:01
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-28 16:11:25
+ * @LastEditTime: 2022-02-28 17:05:36
  * @Description: 布局入口
  * @FilePath: \zh-admin\src\layout\Index.vue
 -->
@@ -11,14 +11,14 @@
   <div :class="collapse ? 'left' : 'left-fold'">
    <Sidebar class="sidebar-container" />
   </div>
-  <dv class="right">
+  <div class="right">
       <div class="right-header">
         <Navbar />
         <TagsView />
       </div>
 
       <AppMain />
-  </dv>
+  </div>
 </div>
 
 

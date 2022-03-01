@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-02-25 16:48:39
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-28 16:23:08
+ * @LastEditTime: 2022-02-28 17:23:45
  * @Description: 导航组件
  * @FilePath: \zh-admin\src\layout\components\side_bar\SidebarItem.vue
 -->
@@ -22,16 +22,16 @@
         <i class="iconfont iconquanxian"></i>
         <span class="tab">权限管理</span>
       </template>
-        <el-menu-item index="/authorityManagement/userManagement" @click="goto('/authorityManagement/userManagement')">
+        <el-menu-item index="/authorityManagement/userManagement" @click="goto('/authorityManagement/userManagement', '用户管理')">
           <i class="iconfont icondingdan" /> <span class="tab sub">用户管理</span>
         </el-menu-item>
-        <el-menu-item index="/authorityManagement/roleManagement" @click="goto('/authorityManagement/roleManagement')">
+        <el-menu-item index="/authorityManagement/roleManagement" @click="goto('/authorityManagement/roleManagement', '角色管理')">
           <i class="iconfont icondingdan" /> <span class="tab sub">角色管理</span>
         </el-menu-item>
-        <el-menu-item index="/authorityManagement/organizationalStructure" @click="goto('/authorityManagement/organizationalStructure')">
+        <el-menu-item index="/authorityManagement/organizationalStructure" @click="goto('/authorityManagement/organizationalStructure', '组织架构')">
           <i class="iconfont icondingdan" /> <span class="tab sub">组织架构</span>
         </el-menu-item>
-        <el-menu-item index="/authorityManagement/menuManagement" @click="goto('/authorityManagement/menuManagement')">
+        <el-menu-item index="/authorityManagement/menuManagement" @click="goto('/authorityManagement/menuManagement', '菜单管理')">
           <i class="iconfont icondingdan" /> <span class="tab sub">菜单管理</span>
         </el-menu-item>
         <!-- <el-sub-menu index="2-4">
@@ -54,6 +54,11 @@
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { defineProps} from 'vue';
+import { useLayoutStore } from '../../../stores';
+import { storeToRefs } from 'pinia';
+
+
+const store = useLayoutStore();
 
 const props = defineProps({
   collapse: {
@@ -77,10 +82,11 @@ const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath);
 };
 
-const goto = (path:string) => {
+const goto = (path:string, tagName: string) => {
     router.push({
         path,
     });
+store.addCachedViews(tagName);
 };
 </script>
 
