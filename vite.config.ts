@@ -105,16 +105,11 @@ export default defineConfig({
     port: 9000,
     strictPort: false, // 设为true时端口被占用则直接退出，不会尝试下一个可用端口
     force: true, // 是否强制依赖预构建
-    hmr: true, 
-    // 禁用或配置 HMR 连接
-    // 传递给 chockidar 的文件系统监视器选项
-    // watch: {
-    //  ignored:["!**/node_modules/your-package-name/**"]
-    // },
+    hmr: true, // 禁用或配置 HMR 连接
     // 反向代理配置，注意rewrite写法，开始没看文档在这里踩了坑
     proxy: {
       '/api': {
-        target: 'http://10.161.2.60:8082/ysb-admin', // 代理接口
+        target: 'http://dev.admin.hwason.cn/sso/', // 代理接口
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ''),
       },

@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:55:19
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-28 17:03:09
+ * @LastEditTime: 2022-03-01 13:14:43
  * @Description: 导航栏，包含折叠，最大化，个人信息
  * @FilePath: \zh-admin\src\layout\components\navigation_bar\Index.vue
 -->
@@ -20,14 +20,9 @@
       >
         <div class="avatar-wrapper">
           15655395332
-          <!-- <img
-            src="@/assets/img/img.jpg"
-            class="user-avatar"
-          > -->
         </div>
         <template #dropdown>
           <el-dropdown-menu>
-            <!-- <router-link to="/profile/"> -->
             <router-link to="/dashboard">
               <el-dropdown-item>
                 个人信息
@@ -55,55 +50,6 @@ const store = useLayoutStore();
 const { collapse } = storeToRefs(store);
 const toggleSideBar = () => { console.log('qiehuan'); store.toggleCollapse(); };
 
-
-// import { computed, reactive, toRefs } from 'vue';
-// import { useStore } from '@/store';
-// import { AppActionTypes } from '@/store/modules/app/action-types';
-// import { useI18n } from 'vue-i18n';
-// import { UserActionTypes } from '@/store/modules/user/action-types';
-// import { useRoute, useRouter } from 'vue-router';
-// export default {
-//   components: {
-//     BreadCrumb,
-//     Hamburger,
-//     Screenfull,
-//     LangSelect,
-//     SizeSelect
-//   },
-//   setup() {
-//     const store = useStore();
-//     const route = useRoute();
-//     const router = useRouter();
-//     const { t } = useI18n();
-//     const sidebar = computed(() => {
-//       return store.state.app.sidebar;
-//     });
-//     const device = computed(() => {
-//       return store.state.app.device.toString();
-//     });
-//     const avatar = computed(() => {
-//       return store.state.user.avatar;
-//     });
-//     const state = reactive({
-//       toggleSideBar: () => {
-//         store.dispatch(AppActionTypes.ACTION_TOGGLE_SIDEBAR, false);
-//       },
-//       logout: () => {
-//         useStore().dispatch(UserActionTypes.ACTION_LOGIN_OUT);
-//         router.push(`/login?redirect=${route.fullPath}`).catch(err => {
-//           console.warn(err);
-//         });
-//       }
-//     });
-//     return {
-//       sidebar,
-//       device,
-//       avatar,
-//       ...toRefs(state),
-//       t
-//     };
-//   }
-// };
 </script>
 
 <style lang="scss" scoped>

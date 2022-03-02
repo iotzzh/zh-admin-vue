@@ -1,60 +1,31 @@
 <!--
- * @Description:
- * @Author: ZY
- * @Date: 2020-12-24 10:35:59
+ * @Author: zzh
+ * @Date: 2022-02-25 09:55:19
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-28 17:26:03
+ * @LastEditTime: 2022-03-01 13:56:04
+ * @Description: tags栏
+ * @FilePath: \zh-admin\src\layout\components\tags_view\Index.vue
 -->
 <template>
+  <div class="tags-box">
+    <el-scrollbar class="tags-scrollbar">
+      <el-tag class="tag" v-for="tag in cachedViews" :key="tag" closable type="success" @close="closeSingleTag(tag)">{{ tag }}</el-tag>
+    </el-scrollbar>
 
-  <div
-    id="tags-view-container"
-    class="tags-view-container"
-  >
-
-   <el-scrollbar>
-    <el-tag
-          v-for="tag in cachedViews"
-    :key="tag"
-    class="mx-1"
-    closable
-    type="success"
-  >
-    {{ tag }}
-  </el-tag>
-  </el-scrollbar>
-
-  
-
-    <!-- <ScrollPane
-      ref="scrollPaneRef"
-      class="tags-view-wrapper"
-    >
-
-
-    </ScrollPane> -->
-    <!-- <ul
-      v-show="visible"
-      :style="{left: left+'px', top: top+'px'}"
-      class="contextmenu"
-    >
-      <li @click="refreshSelectedTag(selectedTag)">
-        {{ t('tagsView.refresh') }}
-      </li>
-      <li
-        v-if="!isAffix(selectedTag)"
-        @click="closeSelectedTag(selectedTag)"
-      >
-        {{
-          t('tagsView.close') }}
-      </li>
-      <li @click="closeOthersTags">
-        {{ t('tagsView.closeOthers') }}
-      </li>
-      <li @click="closeAllTags(selectedTag)">
-        {{ t('tagsView.closeAll') }}
-      </li>
-    </ul> -->
+    <div class="tags-close-box">
+      <el-dropdown @command="handleTags">
+        <el-button size="small" type="primary">
+          标签选项
+          <i class="el-icon-arrow-down el-icon--right"></i>
+        </el-button>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item command="other">关闭其他</el-dropdown-item>
+            <el-dropdown-item command="all">关闭全部</el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+    </div>
   </div>
 </template>
 
@@ -67,308 +38,55 @@ import { storeToRefs } from 'pinia';
 const store = useLayoutStore();
 const { cachedViews } = storeToRefs(store);
 
-// const visitedViews = ref([ { path: 'ceshi', query: '测试', fullPath: 'fullPath'  },  { path: 'ceshi111', query: '测试111', fullPath: 'fullPath111'  }]);
+const handleTags = (command: string) => {
+  console.log(command);
+  //  command === 'other' ? this.closeOther() : this.closeAll();
+};
+
+// 关闭单个标签
+const closeSingleTag = (tag:any)=> {
+  // store.removeCachedViewsByTitle();
+};
+
+    // // 关闭单个标签
+    // closeTags(index) {
+    //   const delItem = this.tagsList.splice(index, 1)[0];
+    //   const item = this.tagsList[index] ? this.tagsList[index] : this.tagsList[index - 1];
+    //   if (item) {
+    //     delItem.path === this.$route.fullPath && this.$router.push(item.path);
+    //   } else {
+    //     this.$router.push('/frontadmin/dashboard');
+    //   }
+    // },
+    // // 关闭全部标签
+    // closeAll() {
+    //   this.tagsList = [];
+    //   this.$router.push('/frontadmin/dashboard');
+    // },
+    // // 关闭其他标签
+    // closeOther() {
+    //   const curItem = this.tagsList.filter((item) => {
+    //     return item.path === this.$route.fullPath;
+    //   });
+    //   this.tagsList = curItem;
+    // },
 
 </script>
 
-<script lang="ts">
-// import path from 'path'
-// import { useStore } from '@/store'
-// import { TagsActionTypes } from '@/store/modules/tagsview/action-types'
-// import { TagView } from '@/store/modules/tagsview/state'
-// import { computed, defineComponent, getCurrentInstance, nextTick, onBeforeMount, reactive, ref, toRefs, watch } from 'vue'
-// import { RouteRecordRaw, useRoute, useRouter } from 'vue-router'
-// import { useI18n } from 'vue-i18n'
-// import ScrollPane from './ScrollPane.vue'
-// export default defineComponent({
-//   components: {
-//     ScrollPane
-//   },
-//   setup() {
-//     const store = useStore()
-//     const router = useRouter()
-//     const instance = getCurrentInstance()
-//     const currentRoute = useRoute()
-//     const { t } = useI18n()
-//     const scrollPaneRef = ref(null)
-//     const { proxy } = instance as any
-
-//     const toLastView = (visitedViews: TagView[], view: TagView) => {
-//       const latestView = visitedViews.slice(-1)[0]
-//       if (latestView !== undefined && latestView.fullPath !== undefined) {
-//         router.push(latestView.fullPath).catch(err => {
-//           console.warn(err)
-//         })
-//       } else {
-//       // Default redirect to the home page if there is no tags-view, adjust it if you want
-//         if (view.name === 'Dashboard') {
-//         // to reload home page
-//           router.push({ path: '/redirect' + view.fullPath }).catch(err => {
-//             console.warn(err)
-//           })
-//         } else {
-//           router.push('/').catch(err => {
-//             console.warn(err)
-//           })
-//         }
-//       }
-//     }
-
-//     const state = reactive({
-//       visible: false,
-//       top: 0,
-//       left: 0,
-//       selectedTag: {} as TagView,
-//       affixTags: [] as TagView[],
-//       isActive: (route: TagView) => {
-//         return route.path === currentRoute.path
-//       },
-//       isAffix: (tag: TagView) => {
-//         return tag.meta && tag.meta.affix
-//       },
-//       refreshSelectedTag: (view: TagView) => {
-//         store.dispatch(TagsActionTypes.ACTION_DEL_CACHED_VIEW, view)
-//         const { fullPath } = view
-//         nextTick(() => {
-//           router.replace({ path: '/redirect' + fullPath }).catch(err => {
-//             console.warn(err)
-//           })
-//         })
-//       },
-//       closeSelectedTag: (view: TagView) => {
-//         store.dispatch(TagsActionTypes.ACTION_DEL_VIEW, view)
-//         if (state.isActive(view)) {
-//           toLastView(store.state.tagViews.visitedViews, view)
-//         }
-//       },
-//       closeOthersTags: () => {
-//         if (state.selectedTag.fullPath !== currentRoute.path && state.selectedTag.fullPath !== undefined) {
-//           router.push(state.selectedTag.fullPath).catch(err => {
-//             console.log(err)
-//           })
-//         }
-//         store.dispatch(TagsActionTypes.ACTION_DEL_OTHER_VIEW, state.selectedTag as TagView)
-//       },
-//       closeAllTags: (view: TagView) => {
-//         store.dispatch(TagsActionTypes.ACTION_DEL_ALL_VIEWS, undefined)
-//         if (state.affixTags.some(tag => tag.path === currentRoute.path)) {
-//           return
-//         }
-//         toLastView(store.state.tagViews.visitedViews, view)
-//       },
-//       openMenu: (tag: TagView, e: MouseEvent) => {
-//         const menuMinWidth = 105
-//         const offsetLeft = proxy.$el.getBoundingClientRect().left // container margin left
-//         const offsetWidth = proxy.$el.offsetWidth // container width
-//         const maxLeft = offsetWidth - menuMinWidth // left boundary
-//         const left = e.clientX - offsetLeft + 15 // 15: margin right
-//         if (left > maxLeft) {
-//           state.left = maxLeft
-//         } else {
-//           state.left = left
-//         }
-//         state.top = e.clientY
-//         state.visible = true
-//         state.selectedTag = tag
-//       },
-//       closeMenu: () => {
-//         state.visible = false
-//       },
-//       handleScroll: () => {
-//         state.closeMenu()
-//       }
-//     })
-
-//     const visitedViews = computed(() => {
-//       return store.state.tagViews.visitedViews
-//     })
-//     const routes = computed(() => store.state.permission.routes)
-
-//     const filterAffixTags = (routes: RouteRecordRaw[], basePath = '/') => {
-//       let tags: TagView[] = []
-
-//       routes.forEach(route => {
-//         if (route.meta && route.meta.affix) {
-//           const tagPath = path.resolve(basePath, route.path)
-//           tags.push({
-//             fullPath: tagPath,
-//             path: tagPath,
-//             name: route.name,
-//             meta: { ...route.meta }
-//           })
-//         }
-
-//         if (route.children) {
-//           const childTags = filterAffixTags(route.children, route.path)
-//           if (childTags.length >= 1) {
-//             tags = tags.concat(childTags)
-//           }
-//         }
-//       })
-//       return tags
-//     }
-
-//     const initTags = () => {
-//       state.affixTags = filterAffixTags(routes.value)
-//       for (const tag of state.affixTags) {
-//         // Must have tag name
-//         if (tag.name) {
-//           store.dispatch(TagsActionTypes.ACTION_ADD_VISITED_VIEW, tag as TagView)
-//         }
-//       }
-//     }
-
-//     const addTags = () => {
-//       if (currentRoute.name) {
-//         console.log(currentRoute.name, 'currentRoute.namecurrentRoute.namecurrentRoute.namecurrentRoute.namecurrentRoute.namecurrentRoute.namecurrentRoute.namecurrentRoute.name')
-//         store.dispatch(TagsActionTypes.ACTION_ADD_VIEW, currentRoute)
-//       }
-//       return false
-//     }
-
-//     const moveToCurrentTag = () => {
-//       const tags = instance?.refs.tag as any[]
-//       nextTick(() => {
-//         if (tags === null || tags === undefined || !Array.isArray(tags)) { return }
-//         for (const tag of tags) {
-//           if ((tag.to as TagView).path === currentRoute.path) {
-//             (scrollPaneRef.value as any).moveToCurrentTag(tag)
-//             // When query is different then update
-//             if ((tag.to as TagView).fullPath !== currentRoute.fullPath) {
-//               store.dispatch(TagsActionTypes.ACTION_UPDATE_VISITED_VIEW, currentRoute)
-//             }
-//           }
-//         }
-//       })
-//     }
-
-//     watch(() => currentRoute.name, () => {
-//       if (currentRoute.name !== 'Login') {
-//         addTags()
-//         moveToCurrentTag()
-//       }
-//     })
-
-//     watch(() => state.visible, (value) => {
-//       if (value) {
-//         document.body.addEventListener('click', state.closeMenu)
-//       } else {
-//         document.body.removeEventListener('click', state.closeMenu)
-//       }
-//     })
-
-//     // life cricle
-//     onBeforeMount(() => {
-//       initTags()
-//       addTags()
-//     })
-
-//     return {
-//       visitedViews,
-//       routes,
-//       scrollPaneRef,
-//       t,
-//       ...toRefs(state)
-//     }
-//   }
-// })
-</script>
-
 <style lang="scss" scoped>
+.tags-box {
+  padding-top: 5px;
+  display: flex;
 
-// Reset element css of el-icon-close
-.tags-view-wrapper {
-  .tags-view-item {
-    .el-icon-close {
-      width: 16px;
-      height: 16px;
-      vertical-align: 2px;
-      border-radius: 50%;
-      text-align: center;
-      // transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-      transform-origin: 100% 50%;
-
-      &:before {
-        transform: scale(0.6);
-        display: inline-block;
-        vertical-align: -3px;
-      }
-
-      &:hover {
-        background-color: #b4bccc;
-        color: #fff;
-      }
-    }
-  }
-}
-</style>
-<style lang="scss" scoped>
-.tags-view-container {
-  height: 34px;
-  width: 100%;
-  background: #fff;
-  border-bottom: 1px solid #eee;
-
-  .tags-view-wrapper {
-    .tags-view-item {
-      display: inline-block;
-      position: relative;
-      cursor: pointer;
-      height: 26px;
-      line-height: 25px;
-   border: 1px solid rgba(124,141,181,.3);
-border-radius: 4px;
-      color: #495060;
-      background: #fff;
-      padding: 0 8px;
-      font-size: 12px;
-      margin-left: 5px;
-      margin-top: 4px;
-      box-sizing: border-box;
-
-      &:first-of-type {
-        margin-left: 15px;
-      }
-
-      &:last-of-type {
-        margin-right: 15px;
-      }
-
-      &.active {
-        background-color: #5DDAB4;
-        color: #fff;
-      }
-    }
+  .tags-scrollbar {
+    flex: 1;
   }
 
-  .contextmenu {
-    margin: 0;
-    background: #fff;
-    z-index: 3000;
-    position: absolute;
-    list-style-type: none;
-    padding: 5px 0;
-    border-radius: 4px;
-    font-size: 12px;
-    font-weight: 400;
-    color: #333;
-
-    li {
-      margin: 0;
-      padding: 7px 16px;
-      cursor: pointer;
-
-      &:hover {
-        background: #eee;
-      }
-    }
+  .tags-close-box {
+    width: 100px;
+  }
+  .tag:not(:first-child) {
+    margin: 0px 5px;
   }
 }
-
-.tags-view-item {
-  padding: 0px !important;
-  margin: 4px !important;
-  border: 0px;
-}
-
 </style>

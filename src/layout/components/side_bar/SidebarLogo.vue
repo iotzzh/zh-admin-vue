@@ -2,39 +2,28 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:55:19
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-28 16:19:03
+ * @LastEditTime: 2022-03-01 13:08:55
  * @Description: 侧边栏logo(需要跟随侧边栏折叠)
  * @FilePath: \zh-admin\src\layout\components\side_bar\SidebarLogo.vue
 -->
 <template>
-  <div
-    class="sidebar-logo-container"
-    :class="[props.collapse ? 'collapse': 'notitle']"
-  >
-    <!-- <transition name="sidebarLogoFade">
-
-    </transition> -->
-          <router-link
-        key="expand"
-        class="sidebar-logo-link"
-        to="/dashboard"
-      >
-        <img
-          class="sidebar-logo"
-          src="@/assets/img/fold_icon.png"
-        >
+  <div class="sidebar-logo-container" :class="[props.collapse ? 'collapse' : 'notitle']">
+    <transition name="sidebarLogoFade">
+      <router-link key="expand" class="sidebar-logo-link" to="/dashboard">
+        <img class="sidebar-logo" src="@/assets/img/fold_icon.png" />
         <h1 class="sidebar-title">实验室管理系统</h1>
       </router-link>
+    </transition>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps} from 'vue';
+import { defineProps } from 'vue';
 
 const props = defineProps({
   collapse: {
-      type: Boolean,
-      default: true
+    type: Boolean,
+    default: true
   }
 });
 
@@ -42,7 +31,7 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .sidebarLogoFade-enter-active {
-  // transition: opacity 1.5s;
+  transition: opacity 1.5s;
 }
 
 .sidebarLogoFade-enter,
@@ -70,13 +59,13 @@ const props = defineProps({
     & .sidebar-logo {
       display: inline-block;
       height: 100%;
-      background-color: #435EBE;
+      background-color: #435ebe;
     }
 
     & .sidebar-title {
       display: inline-block;
       margin: 0;
-      color: #435EBE;
+      color: #435ebe;
       font-weight: 600;
       line-height: 50px;
       font-size: 22px;
@@ -90,11 +79,11 @@ const props = defineProps({
       margin-right: 12px;
     }
   }
-  &.notitle{
-    .sidebar-title{
+  &.notitle {
+    .sidebar-title {
       display: none;
     }
-       & .sidebar-logo {
+    & .sidebar-logo {
       height: 60%;
     }
   }

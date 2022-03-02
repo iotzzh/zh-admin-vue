@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:56:46
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-28 15:03:04
+ * @LastEditTime: 2022-03-01 11:29:54
  * @Description: 布局相关store
  * @FilePath: \zh-admin\src\stores\layout.ts
  */
@@ -23,7 +23,7 @@ export const useLayoutStore = defineStore({
   
   actions: {
     addCachedViews(title: string):void {
-        this.cachedViews.push(title);
+      !this.cachedViews.some(x => x == title) && this.cachedViews.push(title);
     },
 
     removeCachedViewsByTitle(title: string):void {

@@ -2,92 +2,160 @@
  * @Author: zzh
  * @Date: 2022-02-25 16:48:39
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-28 17:23:45
+ * @LastEditTime: 2022-03-01 17:52:50
  * @Description: 导航组件
  * @FilePath: \zh-admin\src\layout\components\side_bar\SidebarItem.vue
 -->
 <template>
-  <el-scrollbar wrap-class="scrollbar-wrapper">
-  <el-menu
-    class="el-menu-vertical"
-    :default-active="defaultSelectTab"
-    :collapse="!props.collapse"
-    @open="handleOpen"
-    @close="handleClose"
-    :collapse-transition="false"
-    router
-  >
-    <el-sub-menu index="1">
-      <template #title>
-        <i class="iconfont iconquanxian"></i>
-        <span class="tab">权限管理</span>
+  <el-sub-menu :index="item?.id">
+    <template #title>
+      <i class="iconfont iconquanxian"></i>
+      <span class="tab">{{ item?.permsionName }}</span>
+    </template>
+
+    <div v-for="(child, index) in item?.children" :key="index">
+      <template v-if="child.children && child.children.length > 0">
+        <sidebar-item
+          :key="child.id"
+          :item="child"
+          :collapse="collapse"
+        />
       </template>
-        <el-menu-item index="/authorityManagement/userManagement" @click="goto('/authorityManagement/userManagement', '用户管理')">
-          <i class="iconfont icondingdan" /> <span class="tab sub">用户管理</span>
-        </el-menu-item>
-        <el-menu-item index="/authorityManagement/roleManagement" @click="goto('/authorityManagement/roleManagement', '角色管理')">
-          <i class="iconfont icondingdan" /> <span class="tab sub">角色管理</span>
-        </el-menu-item>
-        <el-menu-item index="/authorityManagement/organizationalStructure" @click="goto('/authorityManagement/organizationalStructure', '组织架构')">
-          <i class="iconfont icondingdan" /> <span class="tab sub">组织架构</span>
-        </el-menu-item>
-        <el-menu-item index="/authorityManagement/menuManagement" @click="goto('/authorityManagement/menuManagement', '菜单管理')">
-          <i class="iconfont icondingdan" /> <span class="tab sub">菜单管理</span>
-        </el-menu-item>
-        <!-- <el-sub-menu index="2-4">
-        <template #title>item four</template>
-        <el-menu-item index="2-4-1">item one</el-menu-item>
-        <el-menu-item index="2-4-2">item two</el-menu-item>
-        <el-menu-item index="2-4-3">item three</el-menu-item>
-      </el-sub-menu> -->
-    </el-sub-menu>
-    
-    <!-- <el-menu-item index="2">
-      <el-icon><icon-menu /></el-icon>
-      <template #title>Navigator Two</template>
+    <el-menu-item v-else  :index="child.url">
+      <i class="iconfont icondingdan" />
+      <span class="tab sub">{{ child.permsionName }}</span>
+    </el-menu-item>
+    </div>
+    <!-- <el-menu-item v-for="(child, index) in item?.children" :key="index" :index="child.url">
+      <i class="iconfont icondingdan" />
+      <span class="tab sub">{{ child.permsionName }}</span>
     </el-menu-item> -->
-  </el-menu>
-  </el-scrollbar>
+              <!-- <template v-if="child.children && child.children.length > 0">
+        <sidebar-item
+          v-for="child1 in child.children"
+          :key="child1.id"
+          :item="child1"
+          :collapse="collapse"
+        />
+      </template> -->
+  </el-sub-menu>
+  <!-- <el-sub-menu index="1">
+        <template #title>
+          <i class="iconfont iconquanxian"></i>
+          <span class="tab">权限管理</span>
+        </template>
+        <el-menu-item
+          index="/authorityManagement/userManagement"
+          @click="goto('/authorityManagement/userManagement', '用户管理')"
+        >
+          <i class="iconfont icondingdan" />
+          <span class="tab sub">用户管理</span>
+        </el-menu-item>
+        <el-menu-item
+          index="/authorityManagement/roleManagement"
+          @click="goto('/authorityManagement/roleManagement', '角色管理')"
+        >
+          <i class="iconfont icondingdan" />
+          <span class="tab sub">角色管理</span>
+        </el-menu-item>
+        <el-menu-item
+          index="/authorityManagement/organizationalStructure"
+          @click="goto('/authorityManagement/organizationalStructure', '组织架构')"
+        >
+          <i class="iconfont icondingdan" />
+          <span class="tab sub">组织架构</span>
+        </el-menu-item>
+        <el-menu-item
+          index="/authorityManagement/menuManagement"
+          @click="goto('/authorityManagement/menuManagement', '菜单管理')"
+        >
+          <i class="iconfont icondingdan" />
+          <span class="tab sub">菜单管理</span>
+        </el-menu-item>
+      </el-sub-menu>
+
+      <el-sub-menu index="2">
+        <template #title>
+          <i class="iconfont iconquanxian"></i>
+          <span class="tab">前处理</span>
+        </template>
+        <el-menu-item
+          index="/preProcessing/departmentManagement"
+          @click="goto('/preProcessing/departmentManagement', '部门管理')"
+        >
+          <i class="iconfont icondingdan" />
+          <span class="tab sub">部门管理</span>
+        </el-menu-item>
+        <el-menu-item
+          index="/preProcessing/abnormalHandoff"
+          @click="goto('/preProcessing/abnormalHandoff', '异常交接')"
+        >
+          <i class="iconfont icondingdan" />
+          <span class="tab sub">异常交接</span>
+        </el-menu-item>
+        <el-menu-item
+          index="/preProcessing/barcodeManagement"
+          @click="goto('/preProcessing/barcodeManagement', '条码管理')"
+        >
+          <i class="iconfont icondingdan" />
+          <span class="tab sub">条码管理</span>
+        </el-menu-item>
+        <el-menu-item
+          index="/preProcessing/dataDictionary"
+          @click="goto('/preProcessing/dataDictionary', '数据字典')"
+        >
+          <i class="iconfont icondingdan" />
+          <span class="tab sub">数据字典</span>
+        </el-menu-item>
+  </el-sub-menu>-->
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, onMounted, reactive, ref, PropType, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
-import { defineProps} from 'vue';
+import { defineProps } from 'vue';
 import { useLayoutStore } from '../../../stores';
+import { get } from '../../../utils/request';
+import api from '../../../api/layout';
 import { storeToRefs } from 'pinia';
-
+import { menuListData } from '.././../mockData';
+import { convertMenuArrToTree, MenuNode } from '../../../utils/dataConvert';
 
 const store = useLayoutStore();
 
 const props = defineProps({
   collapse: {
-      type: Boolean,
-      default: true
-  }
+    type: Boolean,
+    default: true
+  },
+  item: {
+    type: Object as PropType<MenuNode>,
+  },
 });
 
+const { item, collapse } = toRefs(props);
 
 const router = useRouter();
 
-// const onRoutes = () => { return router.meta.fatherPath ? router.meta.fatherPath + '' : router.path + ''; };
+let menuList = ref({});
 
-const defaultSelectTab = computed(() => { return router.currentRoute.value.path; });
-
-
-const handleOpen = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath);
-};
-const handleClose = (key: string, keyPath: string[]) => {
-  console.log(key, keyPath);
+// 获取菜单列表
+const params = {
+  token: '9baf50bf7efb46ebbd8145b9d3eb9db4',
+  callbackName: ''
 };
 
-const goto = (path:string, tagName: string) => {
-    router.push({
-        path,
-    });
-store.addCachedViews(tagName);
+const getMenuData = async() => {
+  // const result = await get(api.getMenuList, params, '', '', 10000);
+  // menuList.value = result.data;
+  menuList.value = convertMenuArrToTree(menuListData as MenuNode[]);
 };
+
+getMenuData();
+console.log(menuList.value);
+
+
+
 </script>
 
 <style lang="scss">
@@ -105,6 +173,6 @@ store.addCachedViews(tagName);
 }
 
 .iconfont {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 </style>

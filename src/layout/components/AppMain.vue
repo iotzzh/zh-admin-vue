@@ -1,12 +1,17 @@
 <template>
   <el-scrollbar class="app-main">
     <!-- <transition name="fade-transform" mode="out-in">
+      <router-view :key="key"/>
     </transition> -->
-    <router-view />
+    <router-view :key="key"/>
   </el-scrollbar>
 </template>
 
 <script lang="ts" setup>
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const key = () => { return route.path; };
 // import { useStore } from '@/store'
 // import { defineComponent } from 'vue'
 // import { useRoute } from 'vue-router'

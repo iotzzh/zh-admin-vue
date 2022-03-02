@@ -2,43 +2,92 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:55:19
  * @LastEditors: zzh
- * @LastEditTime: 2022-02-28 15:10:22
+ * @LastEditTime: 2022-03-01 17:44:50
  * @Description: 侧边栏
  * @FilePath: \zh-admin\src\layout\components\side_bar\Index.vue
 -->
 <template>
-  <div
-    :class="{'has-logo': showLogo}"
-    class="sideWrap"
-  >
-    <SidebarLogo
-      v-if="showLogo"
-      :collapse="collapse"
-    />
-
-    <SidebarItem :collapse="collapse"></SidebarItem>
-
+  <div :class="{'has-logo': showLogo}" class="sideWrap">
+    <SidebarLogo v-if="showLogo" :collapse="collapse" />
+    <el-scrollbar wrap-class="scrollbar-wrapper">
+      <el-menu
+        class="el-menu-vertical"
+        :default-active="defaultSelectTab"
+        :collapse="!props.collapse"
+        @open="handleOpen"
+        @close="handleClose"
+        :collapse-transition="false"
+        router
+      >
+        <SidebarItem v-for="route in menuList" :key="route.id" :item="route" :collapse="collapse"></SidebarItem>
+      </el-menu>
+    </el-scrollbar>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import SidebarLogo from './SidebarLogo.vue';
 import SidebarItem from './SidebarItem.vue';
 import { useLayoutStore } from '../../../stores';
 import { storeToRefs } from 'pinia';
-
+import { computed, onMounted, reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { defineProps } from 'vue';
+import { get } from '../../../utils/request';
+import api from '../../../api/layout';
+import { menuListData } from '.././../mockData';
+import { convertMenuArrToTree, MenuNode } from '../../../utils/dataConvert';
 
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);
 
-const showLogo = ref(true);
+const props = defineProps({
+  collapse: {
+    type: Boolean,
+    default: true
+  }
+});
 
+let menuList: MenuNode[] = reactive([]);
+
+// 获取菜单列表
+const params = {
+  token: '9baf50bf7efb46ebbd8145b9d3eb9db4',
+  callbackName: ''
+};
+
+const getMenuData = async() => {
+  // const result = await get(api.getMenuList, params, '', '', 10000);
+  // menuList.value = result.data;
+  menuList = convertMenuArrToTree(menuListData as MenuNode[]);
+};
+
+getMenuData();
+console.log(menuList);
+
+
+const router = useRouter();
+const showLogo = ref(true);
+const defaultSelectTab = computed(() => { return router.currentRoute.value.path; });
+
+const handleOpen = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath);
+};
+
+const handleClose = (key: string, keyPath: string[]) => {
+  console.log(key, keyPath);
+};
+
+const goto = (path: string, title: string) => {
+  router.push({
+    path,
+  });
+  // store.addCachedViews({ title, router: {path }  });
+};
 </script>
 
 
 <style lang="scss">
-
 </style>
 
 <style lang="scss" scoped>
@@ -51,5 +100,4 @@ const showLogo = ref(true);
     height: calc(100vh - 100px);
   }
 }
-
 </style>
