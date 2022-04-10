@@ -1,15 +1,58 @@
 {
+  // "extends": "@vue/tsconfig/tsconfig.web.json",
+  "include": [
+    "env.d.ts",
+    "src/**/*",
+    "src/**/*.vue",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "tests/**/*.ts",
+    "tests/**/*.tsx"
+  ],
   "compilerOptions": {
     "target": "esnext",
-    "useDefineForClassFields": true,
     "module": "esnext",
-    "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
-    "sourceMap": true,
-    "resolveJsonModule": true,
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
-    "lib": ["esnext", "dom"]
+    "allowSyntheticDefaultImports": true,
+    "allowJs": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": false, // 变量未使用不报错
+    // "avoidEscape": true, // allows strings to use single-quotes or double-quotes 
+    // "allowTemplateLiterals": true, // allows strings to use backticks
+    "noImplicitThis": true, // 使用this不报错
+    "sourceMap": true,
+    "baseUrl": ".",
+    "types": [
+      "node",
+      "element-plus/global"
+      // "webpack-env",
+      // "jest"
+    ],
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable",
+      "scripthost"
+    ]
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "shims.d.ts"]
+  "exclude": [
+    "node_modules"
+  ]
+  // "references": [
+  //   {
+  //     "path": "./tsconfig.vite-config.json"
+  //   }
+  // ]
 }

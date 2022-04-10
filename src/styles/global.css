@@ -1,0 +1,39 @@
+html {
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+}
+
+#app {
+    height: 100%;
+    width: 100%;
+}
+
+/* *,
+*:before,
+*:after {
+    box-sizing: border-box;
+} */
+
+a,
+a:focus,
+a:hover {
+    color: inherit;
+    outline: none;
+    text-decoration: none;
+}
+
+/* div:focus {
+    outline: none;
+} */

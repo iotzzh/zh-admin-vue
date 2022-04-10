@@ -1,19 +1,48 @@
-简书专栏：https://www.jianshu.com/nb/52021553
+- node(14.17.0) + nvm(1.1.7)
+- vue3(3.2.31) + TS(4.5.5) + Pinia(2.0.11) + vite(2.8.4)
+- eslint(8.5.0): vs code 需要下载 eslint 插件，eslint 配置才会生效
+- vue-router(4.0.12)
+- element plus(2.1.8)
+- axios(0.26.0)
+- moment.js(2.29.1)
+- iconfont
+- pinia 数据持久化：https://icrc.icourban.com/crypto-https-github.com/prazdevs/pinia-plugin-persistedstate
+- vs code 插件
+  1. eslint： 代码校验
+  2. vue languange features(volar): 代码优化，替换（vue2 的 vetur）
+  3. koroFileHeader: 规范注释, 配置方式如下
+  ```javascript
+  // file header
+  "fileheader.customMade": { // 头部注释
+      "Author": "zzh",
+      "Date": "Do not edit",
+      "LastEditors": "zzh",
+      "LastEditTime": "Do not edit",
+      "Description": "",
+      "FilePath": "Do not edit" // 增加此项配置即可
+  },
+  "fileheader.cursorMode": { // 函数注释
+      "description": "",
+      "param": "params",
+      "return": ""
+  },
+  "fileheader.configObj": {
+      "autoAdd": false, // 默认开启自动添加头部注释，当文件没有设置头部注释时保存会自动添加
+      "autoAlready": true, // 默认开启
+      "prohibitAutoAdd": [
+          "json",
+          "md"
+      ], // 禁止.json .md文件，自动添加头部注释
+      "wideSame": false, // 设置为true开启
+      "wideNum": 13 // 字段长度 默认为13
+  },
+  ```
+  4. git 相关插件：Git History, Git Graph
 
-#### 环境搭建
-* IDE: vs code
-* node： 14.17.0
+## 开发注意事项
 
+1. 定义系统路由时，name 不能相同
+2. 传递时间，默认使用字符串类型
+3. 表格标题不要存在换行，尽可能不留白
 
-
-# Vue 3 + Typescript + Vite
-
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-## Recommended IDE Setup
-
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
-
-## Type Support For `.vue` Imports in TS
-
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+## 部署注意事项

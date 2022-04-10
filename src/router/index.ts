@@ -1,29 +1,75 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, RouteRecordRaw, createWebHistory } from 'vue-router';
+import VerticalLayout from '@/layout/verticalLayout/Index.vue';
+import HorizontalLayout from '@/layout/horizontalLayout/Index.vue';
 
-const routes: Array<RouteRecordRaw> = [
+export const constantRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/login'
+    redirect: '/login',
   },
   {
     path: '/login',
+    component: () => import('@/views/login/Index.vue'),
     name: 'Login',
-    component: () => import(/* webpackChunkName: "login" */'../views/login/Login.vue')
+    meta: {
+      title: 'login',
+      affix: true
+    }
   },
   {
     path: '/dashboard',
-    name: 'Dashboard',
-    component: () => import(/* webpackChunkName: "dashboard" */'../views/dashboard/Dashboard.vue')
+    component: HorizontalLayout,
+    redirect: '/index',
+    name: 'dashboard',
+    children: [
+      {
+        path: '/index',
+        component: () => import('@/views/dashboard/Index.vue'),
+        name: 'index',
+        meta: {
+          title: '首页',
+        }
+      },
+    ],
+  },
+  {
+    path: '/404',
+    component: () =>
+      import('@/views/404.vue'
+      ),
+    meta: {
+      title: '404'
+    }
+  },
+  {
+    // 匹配所有路径  vue2使用*   vue3使用/:pathMatch(.*)*或/:pathMatch(.*)或/:catchAll(.*)
+    path: '/:pathMatch(.*)',
+    redirect: '/404',
+    meta: { hidden: true }
   },
 ];
 
+
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
-  routes
+  history: createWebHistory('zh-admin'),
+  routes: constantRoutes
 });
 
-// 监听路由
 router.beforeEach((to, from, next) => {
+  console.log('to:' + to.fullPath);
+  console.log('from:' + from.fullPath);
+  
+  // 返回 false 以取消导航
+  // if (to.fullPath == 'xxx') {
+  //   // 禁止访问
+  //   return false;
+  // }
+
+  // if (to.fullPath == 'yyy') {
+  //   // 路由重定向
+  //   router.push('xxx');
+  // }
+  document.title = 'zh admin';
   next();
 });
 

@@ -1,0 +1,30 @@
+/* 重新定义element ui 主题 */
+:root {
+    /* --el-color-primary: red; */
+    /* --el-color-primary: #6196EA;
+    --el-color-primary-light-3: #99BCF3;
+    --el-color-warning: #FE6A0C;
+    --el-color-warning-light-3: #FF9555;
+    --el-color-success: #00C579;
+    --el-color-success-light-3: #3ED595;
+    --el-color-danger: #FF0000;
+    --el-color-danger-light-3: #FE4042;
+    --el-color-info: #7D7E81;
+    --el-color-info-light-3: #9BA1A3;
+    --el-menu-active-color: #fff; */
+}
+
+/* 重写hs-table的element plus其他样式 */
+.hs-table .el-form--inline .el-form-item {
+    margin-right: 10px;
+}
+
+.hs-table .el-form-item {
+    margin-bottom: 8px;
+}
+
+
+/* 重定义弹窗后body加padding的bug */
+.el-popup-parent--hidden {
+    padding-right: 0 !important;
+}

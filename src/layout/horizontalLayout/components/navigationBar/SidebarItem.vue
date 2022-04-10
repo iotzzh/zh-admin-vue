@@ -1,0 +1,50 @@
+<template>
+  <el-menu-item :index="item ? item.url : ''" v-if="!item || !item.children || item.children.length === 0">
+    {{ item?.permsionName }}
+  </el-menu-item>
+
+  <el-sub-menu :index="item ? item.id : ''" v-else>
+    <template #title>
+      <span class="tab">{{ item?.permsionName }}</span>
+    </template>
+
+    <div v-for="(child, index) in item?.children" :key="index">
+      <template v-if="child.children && child.children.length > 0">
+        <sidebar-item :key="child.id" :item="child" />
+      </template>
+      <el-menu-item v-else :index="child.url">
+        <span class="tab sub">{{ child.permsionName }}</span>
+      </el-menu-item>
+    </div>
+  </el-sub-menu>
+</template>
+
+<script lang="ts" setup>
+import { PropType, toRefs } from 'vue';
+import { MenuNode } from '../../../../model/menuNode';
+
+const props = defineProps({
+  collapse: {
+    type: Boolean,
+    default: true
+  },
+  item: {
+    type: Object as PropType<MenuNode>,
+  },
+});
+
+const { item } = toRefs(props);
+</script>
+
+<style lang="scss">
+// .el-menu--horizontal>.el-menu-item{
+//   color: #fff !important;
+// }
+// .el-scrollbar__view>.el-menu--horizontal>.el-menu-item.is-active{
+//   color: #fff !important;
+// }
+// .el-menu--horizontal .el-menu-item:not(.is-disabled):hover{
+//    color:var(--el-text-color-primary) !important;
+// }
+
+</style>
