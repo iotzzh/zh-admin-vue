@@ -47,6 +47,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     redirect: '/404',
     meta: { hidden: true }
   },
+  // ...constantModules
 ];
 
 

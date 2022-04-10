@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-04-10 09:29:01
  * @LastEditors: zzh
- * @LastEditTime: 2022-04-10 17:05:34
+ * @LastEditTime: 2022-04-10 22:22:25
  * @Description: 项目类型声明
  * @FilePath: \zh-admin\src\@types\index.d.ts
  */
