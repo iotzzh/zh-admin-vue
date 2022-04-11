@@ -50,9 +50,7 @@ import { useLayoutStore } from '../../../../stores/layout';
 import { convertMenuArrToTree } from '../../../../utils/dataConvert';
 import { MenuNode } from '../../../../model/menuNode';
 
-
 const store = useLayoutStore();
-
 
 let menuList: MenuNode[] = reactive([]);
 
@@ -113,7 +111,6 @@ const clickFullscreen = () => {
 
 <style lang="scss">
 .nav-bar {
-  // background-color: #909090;
   height: 59px;
   width: 100%;
   display: flex;
@@ -142,7 +139,6 @@ const clickFullscreen = () => {
     height: 59px;
     text-align: center;
     vertical-align: middle;
-
     .el-dropdown {
       vertical-align: middle !important;
       cursor: pointer;

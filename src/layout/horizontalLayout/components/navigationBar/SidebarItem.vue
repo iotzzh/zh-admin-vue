@@ -36,15 +36,4 @@ const props = defineProps({
 const { item } = toRefs(props);
 </script>
 
-<style lang="scss">
-// .el-menu--horizontal>.el-menu-item{
-//   color: #fff !important;
-// }
-// .el-scrollbar__view>.el-menu--horizontal>.el-menu-item.is-active{
-//   color: #fff !important;
-// }
-// .el-menu--horizontal .el-menu-item:not(.is-disabled):hover{
-//    color:var(--el-text-color-primary) !important;
-// }
-
-</style>
+<style lang="scss"></style>

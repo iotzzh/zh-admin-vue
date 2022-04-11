@@ -1,6 +1,7 @@
 import { createRouter, RouteRecordRaw, createWebHistory } from 'vue-router';
 import VerticalLayout from '@/layout/verticalLayout/Index.vue';
 import HorizontalLayout from '@/layout/horizontalLayout/Index.vue';
+import { useLayoutStore } from '@/stores';
 
 export const constantRoutes: Array<RouteRecordRaw> = [
   {
@@ -13,7 +14,6 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     name: 'Login',
     meta: {
       title: 'login',
-      affix: true
     }
   },
   {
@@ -28,6 +28,25 @@ export const constantRoutes: Array<RouteRecordRaw> = [
         name: 'index',
         meta: {
           title: '首页',
+          cached: true
+        }
+      },
+      {
+        path: '/charts/charts1',
+        component: () => import('@/views/charts/charts1.vue'),
+        name: 'charts1',
+        meta: {
+          title: 'charts1',
+          cached: true
+        }
+      },
+      {
+        path: '/charts/charts2',
+        component: () => import('@/views/charts/charts2.vue'),
+        name: 'charts2',
+        meta: {
+          title: 'charts2',
+          cached: true
         }
       },
     ],
@@ -59,6 +78,11 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   console.log('to:' + to.fullPath);
   console.log('from:' + from.fullPath);
+  if (to.meta.cached) {
+    const store = useLayoutStore();
+    store.addCachedViews(to);
+}
+
   
   // 返回 false 以取消导航
   // if (to.fullPath == 'xxx') {

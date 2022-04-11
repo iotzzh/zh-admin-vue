@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:07:01
  * @LastEditors: zzh
- * @LastEditTime: 2022-04-10 17:09:56
+ * @LastEditTime: 2022-04-11 20:48:12
  * @Description: 布局入口
  * @FilePath: \zh-admin\src\layout\verticalLayout\Index.vue
 -->
@@ -15,7 +15,7 @@
     <div class="right">
       <div class="right-header">
         <Navbar />
-        <!-- <TagsView /> -->
+        <TagsView />
       </div>
       <AppMain />
     </div>

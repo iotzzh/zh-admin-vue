@@ -12,13 +12,5 @@ const key = () => { return route.path; };
 </script>
 
 <style lang="scss" scoped>
-.app-main {
-
-  // flex: 1;
-  // height: 100%;
-  // overflow: auto;
-  // width: 100%;
-  // position: relative;
-  // padding: 5px;
-}
+.app-main {}
 </style>

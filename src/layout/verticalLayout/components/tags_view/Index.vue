@@ -2,23 +2,22 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:55:19
  * @LastEditors: zzh
- * @LastEditTime: 2022-04-10 17:09:43
+ * @LastEditTime: 2022-04-11 21:00:32
  * @Description: tags栏
  * @FilePath: \zh-admin\src\layout\verticalLayout\components\tags_view\Index.vue
 -->
 <template>
   <div class="tags-box">
     <el-scrollbar class="tags-scrollbar">
-      <!-- <el-tag
-        class="tag"
-        @click="toClick(cachedView)"
-        v-for="cachedView in cachedViews"
-        :key="cachedView.fullPath"
-        closable
-        :type="isActive(cachedView) ? '' : 'success'"
-        @close="closeSingleTag(cachedView)"
-        >{{ cachedView.meta?.title }}</el-tag
-      > -->
+        <el-tag
+          class="tag"
+          v-for="cachedView in cachedViews"
+          :key="cachedView.fullPath"
+          closable
+          :type="isActive(cachedView) ? '' : 'info'"
+          @click="clickTab(cachedView.fullPath)"
+          @close="closeSingleTag(cachedView)"
+        >{{ cachedView.meta?.title }}</el-tag>
     </el-scrollbar>
 
     <div class="tags-close-box">
@@ -40,38 +39,28 @@
 
 <script setup lang="ts">
 import { toRef, ref, reactive } from 'vue';
-import { onBeforeRouteUpdate, RouteLocationRaw, useRouter } from 'vue-router';
+import { onBeforeRouteUpdate, useRouter } from 'vue-router';
 import { useLayoutStore } from '../../../../stores';
 import { storeToRefs } from 'pinia';
 import { RouteType } from '../../../../model/layout';
 
 const store = useLayoutStore();
 const { cachedViews } = storeToRefs(store);
+
 const router = useRouter();
+
 // router监听事件, 将路由信息进行缓存
 onBeforeRouteUpdate((to) => {
   store.addCachedViews(to);
 });
-// 
+
 const handleTags = (command: string) => {
-  // 获取当前高亮路由地址
-  const pathItem = (
-    router.currentRoute.value.meta.fatherPath
-      ? router.currentRoute.value.meta.fatherPath
-      : router.currentRoute.value.fullPath
-  ) as string;
-  //  command === 'other' ? this.closeOther() : this.closeAll();
+  console.log(command);
   if (command === 'other') {
-    router.push(pathItem);
-    cachedViews.value.map((item) => {
-      if (item.fullPath !== pathItem) {
-        store.removeCachedView(item);
-      }
-    });
-  } else {
-    //关闭所有tags
-    router.push('/pathologicalSystem/dashboard');
-    cachedViews.value = [];
+    const activeViewPath: any = router.currentRoute.value.meta.fatherPath ? router.currentRoute.value.meta.fatherPath : router.currentRoute.value.fullPath;
+    const activeView: any = cachedViews.value.find(x => x.fullPath === activeViewPath);
+    store.updateCachedViews([ activeView ]);
+    router.push(activeViewPath);
   }
 };
 
@@ -79,28 +68,21 @@ const handleTags = (command: string) => {
 const closeSingleTag = (cachedView: RouteType) => {
   // 关闭标签
   store.removeCachedView(cachedView);
-  // 路由条状
+  // 路由跳转
   if (cachedViews.value.length > 0) {
-    const path = cachedViews.value[cachedViews.value.length - 1]
-      .fullPath as string;
+    const path = cachedViews.value[cachedViews.value.length - 1].fullPath as string;
     router.push(path);
-  } else {
-    router.push('/pathologicalSystem/dashboard');
   }
 };
 
 // 标签高亮
 const isActive = (route: RouteType) => {
-  return (
-    route.fullPath ===
-    (router.currentRoute.value.meta.fatherPath
-      ? router.currentRoute.value.meta.fatherPath
-      : router.currentRoute.value.fullPath)
-  );
+  return route.fullPath === (router.currentRoute.value.meta.fatherPath ? router.currentRoute.value.meta.fatherPath : router.currentRoute.value.fullPath);
 };
-// tags 路由跳转
-const toClick = (val: { fullPath: RouteLocationRaw}) => {
-  router.push(val.fullPath);
+
+const clickTab = (path: any) => {
+  console.log(path);
+  router.push(path);
 };
 </script>
 

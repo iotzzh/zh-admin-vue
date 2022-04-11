@@ -6,7 +6,7 @@
           class="tag"
           v-for="cachedView in cachedViews"
           :key="cachedView.fullPath"
-          closable
+          :closable="cachedView.fullPath !== '/index'"
           :type="isActive(cachedView) ? '' : 'info'"
           @click="clickTab(cachedView.fullPath)"
           @close="closeSingleTag(cachedView)"
@@ -23,7 +23,7 @@
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="other">关闭其他</el-dropdown-item>
-            <!-- <el-dropdown-item command="all">关闭全部</el-dropdown-item> -->
+            <el-dropdown-item command="all">关闭全部</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -43,20 +43,19 @@ const { cachedViews } = storeToRefs(store);
 
 const router = useRouter();
 
-// router监听事件, 将路由信息进行缓存
-onBeforeRouteUpdate((to) => {
-  store.addCachedViews(to);
-});
-
 const handleTags = (command: string) => {
-  console.log(command);
   if (command === 'other') {
     const activeViewPath: any = router.currentRoute.value.meta.fatherPath ? router.currentRoute.value.meta.fatherPath : router.currentRoute.value.fullPath;
     const activeView: any = cachedViews.value.find(x => x.fullPath === activeViewPath);
-    store.updateCachedViews([ activeView ]);
+    const indexView:any = cachedViews.value.find(x => x.fullPath === '/index');
+    store.updateCachedViews([ indexView, activeView ]);
     router.push(activeViewPath);
+  } else if (command === 'all') {
+    const indexView:any = cachedViews.value.find(x => x.fullPath === '/index');
+    store.updateCachedViews([ indexView ]);
+    router.push(indexView);
   }
-};
+}; 
 
 // 关闭单个标签
 const closeSingleTag = (cachedView: RouteType) => {

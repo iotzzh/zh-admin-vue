@@ -2,14 +2,17 @@
  * @Author: zzh
  * @Date: 2022-02-25 16:48:39
  * @LastEditors: zzh
- * @LastEditTime: 2022-04-10 17:09:28
+ * @LastEditTime: 2022-04-11 20:58:34
  * @Description: 导航组件
  * @FilePath: \zh-admin\src\layout\verticalLayout\components\side_bar\SidebarItem.vue
 -->
 <template>
-  <el-sub-menu :index="item ? item.id : ''">
+  <el-menu-item :index="item ? item.url : ''" v-if="!item || !item.children || item.children.length === 0">
+    {{ item?.permsionName }}
+  </el-menu-item>
+
+  <el-sub-menu :index="item ? item.id : ''" v-else>
     <template #title>
-      <i :class="item?.icon"></i>
       <span class="tab">{{ item?.permsionName }}</span>
     </template>
 
@@ -18,7 +21,6 @@
         <sidebar-item :key="child.id" :item="child" />
       </template>
       <el-menu-item v-else :index="child.url">
-        <i :class="child?.icon" />
         <span class="tab sub">{{ child.permsionName }}</span>
       </el-menu-item>
     </div>
