@@ -1,11 +1,10 @@
 <template>
   <div class="app-main">
-    <router-view v-slot="{ Component, route }">
-      <keep-alive>
-        <component :is="Component" :key="route.path" v-if="cachedViews.find(x => x.path === route.path)" />
-      </keep-alive>
-      <component :is="Component" :key="route.path" v-if="!cachedViews.find(x => x.path === route.path)" />
-    </router-view>
+    <router-view v-slot="{ Component }">
+    <keep-alive :include="cachedViews && cachedViews.map((x:any) => x.name)">
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
   </div>
 </template>
 
@@ -13,9 +12,7 @@
 import { useLayoutStore } from '../../../stores';
 import { storeToRefs } from 'pinia';
 const store = useLayoutStore();
-
 const { cachedViews } = storeToRefs(store);
-
 </script>
 
 <style lang="scss" scoped>

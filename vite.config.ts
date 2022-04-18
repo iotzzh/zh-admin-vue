@@ -31,7 +31,7 @@ export default ({ mode }) => {
     // 静态资源服务的文件夹
     publicDir: 'public',
     // base: environment === 'cloud' ? '/frontcloudlabadmin/' :  '/frontlabadmin/',
-    base: 'zh-admin',
+    base: '/zh-admin',
 
     // 静态资源处理
     assetsInclude: '',
