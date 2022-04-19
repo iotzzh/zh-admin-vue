@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:55:19
  * @LastEditors: zzh
- * @LastEditTime: 2022-04-10 17:09:05
+ * @LastEditTime: 2022-04-19 21:01:58
  * @Description: 导航栏，包含折叠，最大化，个人信息
  * @FilePath: \zh-admin\src\layout\verticalLayout\components\navigation_bar\Index.vue
 -->
@@ -140,6 +140,7 @@ const clickFullscreen = () => {
     }
     .fullScreen {
       cursor: pointer;
+      color: #909090;
     }
   }
 }

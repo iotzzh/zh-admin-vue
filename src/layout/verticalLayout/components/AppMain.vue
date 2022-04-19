@@ -1,16 +1,19 @@
 <template>
-  <el-scrollbar class="app-main">
-    <router-view :key="key"/>
-  </el-scrollbar>
+  <div class="app-main">
+    <router-view v-slot="{ Component }">
+    <keep-alive :include="cachedViews && cachedViews.map((x:any) => x.name)">
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { useRoute } from 'vue-router';
-
-const route = useRoute();
-const key = () => { return route.path; };
+import { useLayoutStore } from '../../../stores';
+import { storeToRefs } from 'pinia';
+const store = useLayoutStore();
+const { cachedViews } = storeToRefs(store);
 </script>
 
 <style lang="scss" scoped>
-.app-main {}
 </style>

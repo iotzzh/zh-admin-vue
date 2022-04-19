@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:55:19
  * @LastEditors: zzh
- * @LastEditTime: 2022-04-11 20:52:20
+ * @LastEditTime: 2022-04-19 23:12:11
  * @Description: 侧边栏logo(需要跟随侧边栏折叠)
  * @FilePath: \zh-admin\src\layout\verticalLayout\components\side_bar\SidebarLogo.vue
 -->
@@ -57,7 +57,7 @@ const props = defineProps({
     & .sidebar-logo {
       display: inline-block;
       height: 100%;
-      width: 100%;
+      width: auto;
       // background-color: #435ebe;
     }
   }

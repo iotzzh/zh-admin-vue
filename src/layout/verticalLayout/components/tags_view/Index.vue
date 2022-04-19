@@ -1,28 +1,22 @@
-<!--
- * @Author: zzh
- * @Date: 2022-02-25 09:55:19
- * @LastEditors: zzh
- * @LastEditTime: 2022-04-11 21:00:32
- * @Description: tags栏
- * @FilePath: \zh-admin\src\layout\verticalLayout\components\tags_view\Index.vue
--->
 <template>
   <div class="tags-box">
     <el-scrollbar class="tags-scrollbar">
+      <div class="tags">
         <el-tag
           class="tag"
           v-for="cachedView in cachedViews"
-          :key="cachedView.fullPath"
-          closable
+          :key="cachedView.name"
+          :closable="cachedView.fullPath !== '/index'"
           :type="isActive(cachedView) ? '' : 'info'"
           @click="clickTab(cachedView.fullPath)"
           @close="closeSingleTag(cachedView)"
         >{{ cachedView.meta?.title }}</el-tag>
+      </div>
     </el-scrollbar>
 
     <div class="tags-close-box">
       <el-dropdown @command="handleTags">
-        <el-button size="small" type="primary">
+        <el-button size="small" type="primary" plain>
           标签选项
           <i class="el-icon-arrow-down el-icon--right"></i>
         </el-button>
@@ -39,7 +33,7 @@
 
 <script setup lang="ts">
 import { toRef, ref, reactive } from 'vue';
-import { onBeforeRouteUpdate, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useLayoutStore } from '../../../../stores';
 import { storeToRefs } from 'pinia';
 import { RouteType } from '../../../../model/layout';
@@ -49,20 +43,19 @@ const { cachedViews } = storeToRefs(store);
 
 const router = useRouter();
 
-// router监听事件, 将路由信息进行缓存
-onBeforeRouteUpdate((to) => {
-  store.addCachedViews(to);
-});
-
 const handleTags = (command: string) => {
-  console.log(command);
   if (command === 'other') {
     const activeViewPath: any = router.currentRoute.value.meta.fatherPath ? router.currentRoute.value.meta.fatherPath : router.currentRoute.value.fullPath;
     const activeView: any = cachedViews.value.find(x => x.fullPath === activeViewPath);
-    store.updateCachedViews([ activeView ]);
+    const indexView:any = cachedViews.value.find(x => x.fullPath === '/index');
+    store.updateCachedViews([ indexView, activeView ]);
     router.push(activeViewPath);
+  } else if (command === 'all') {
+    const indexView:any = cachedViews.value.find(x => x.fullPath === '/index');
+    store.updateCachedViews([ indexView ]);
+    router.push(indexView);
   }
-};
+}; 
 
 // 关闭单个标签
 const closeSingleTag = (cachedView: RouteType) => {
@@ -84,6 +77,8 @@ const clickTab = (path: any) => {
   console.log(path);
   router.push(path);
 };
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -93,6 +88,21 @@ const clickTab = (path: any) => {
 
   .tags-scrollbar {
     flex: 1;
+    width: 100%;
+    padding: 0px 15px;
+  }
+
+  .tags {
+    display: flex;
+    height: 30px;
+    line-height: 30px;
+    vertical-align: middle;
+  }
+
+  .tag {
+    display: inline-block;
+    cursor: pointer;
+    line-height: 21px;
   }
 
   .tags-close-box {

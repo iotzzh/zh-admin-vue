@@ -5,7 +5,7 @@
         <el-tag
           class="tag"
           v-for="cachedView in cachedViews"
-          :key="cachedView.fullPath"
+          :key="cachedView.name"
           :closable="cachedView.fullPath !== '/index'"
           :type="isActive(cachedView) ? '' : 'info'"
           @click="clickTab(cachedView.fullPath)"
@@ -33,7 +33,7 @@
 
 <script setup lang="ts">
 import { toRef, ref, reactive } from 'vue';
-import { onBeforeRouteUpdate, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useLayoutStore } from '../../../../stores';
 import { storeToRefs } from 'pinia';
 import { RouteType } from '../../../../model/layout';

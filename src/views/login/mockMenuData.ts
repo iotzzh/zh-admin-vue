@@ -6,7 +6,7 @@ export default [
         'url': '/dashboard',
         'menuType': 1,
         'sortNo': 2,
-        'icon': 'iconfont iconquanxian'
+        'icon': 'Aim'
     },
     {
         'id': '002',
@@ -17,7 +17,7 @@ export default [
         'menuType': 2,
         'permsionCode': 'charts',
         'sortNo': 4,
-        'icon': 'iconfont icondingdan'
+        'icon': 'ArrowDownBold'
     },
     {
         'id': '0021',
@@ -28,7 +28,7 @@ export default [
         'menuType': 2,
         'permsionCode': 'menuManagement',
         'sortNo': 4,
-        'icon': 'iconfont icondingdan'
+        'icon': 'ArrowDownBold'
     },
     {
         'id': '0022',
@@ -39,6 +39,6 @@ export default [
         'menuType': 2,
         'permsionCode': 'menuManagement',
         'sortNo': 4,
-        'icon': 'iconfont icondingdan'
+        'icon': 'ArrowDownBold'
     },
 ];

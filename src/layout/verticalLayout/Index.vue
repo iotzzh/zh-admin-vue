@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:07:01
  * @LastEditors: zzh
- * @LastEditTime: 2022-04-11 20:48:12
+ * @LastEditTime: 2022-04-19 23:12:23
  * @Description: 布局入口
  * @FilePath: \zh-admin\src\layout\verticalLayout\Index.vue
 -->
@@ -38,10 +38,10 @@ const { collapse } = storeToRefs(store);
   height: 100%;
   display: flex;
   .left {
-    width: 300px;
+    min-width: 300px;
   }
   .left-fold {
-    width: 70px;
+    min-width: 70px;
   }
   .right {
     flex: 1;

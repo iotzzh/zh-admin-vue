@@ -2,18 +2,27 @@
  * @Author: zzh
  * @Date: 2022-02-25 16:48:39
  * @LastEditors: zzh
- * @LastEditTime: 2022-04-11 20:58:34
+ * @LastEditTime: 2022-04-19 22:55:56
  * @Description: 导航组件
  * @FilePath: \zh-admin\src\layout\verticalLayout\components\side_bar\SidebarItem.vue
 -->
 <template>
-  <el-menu-item :index="item ? item.url : ''" v-if="!item || !item.children || item.children.length === 0">
-    {{ item?.permsionName }}
+  <el-menu-item
+    :index="item ? item.url : ''"
+    v-if="!item || !item.children || item.children.length === 0"
+  >
+    <el-icon :size="12">
+      <component :is="item?.icon"></component>
+    </el-icon>
+    <template #title>{{ item?.permsionName }}</template>
   </el-menu-item>
 
   <el-sub-menu :index="item ? item.id : ''" v-else>
     <template #title>
-      <span class="tab">{{ item?.permsionName }}</span>
+      <el-icon :size="12">
+        <component :is="item?.icon"></component>
+      </el-icon>
+      <span>{{ item?.permsionName }}</span>
     </template>
 
     <div v-for="(child, index) in item?.children" :key="index">
@@ -34,14 +43,14 @@ import { MenuNode } from '../../../../model/menuNode';
 const props = defineProps({
   collapse: {
     type: Boolean,
-    default: true
+    default: true,
   },
   item: {
     type: Object as PropType<MenuNode>,
   },
 });
 
-const { item } = toRefs(props);
+const { item, collapse } = toRefs(props);
 </script>
 
 <style lang="scss">
