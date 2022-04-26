@@ -30,7 +30,7 @@ export default ({ mode }) => {
   
     // 静态资源服务的文件夹
     publicDir: 'public',
-    // base: environment === 'cloud' ? '/frontcloudlabadmin/' :  '/frontlabadmin/',
+    // base: environment === 'cloud' ? '/test1/' :  '/test2/',
     base: '/zh-admin/',
 
     // 静态资源处理
@@ -56,8 +56,8 @@ export default ({ mode }) => {
     build: {
       chunkSizeWarningLimit: 1500, // 打包文件很大是报警 1500kb
       // 浏览器兼容性  "esnext"|"modules"
-      target: 'modules',
-      outDir: 'dist', // 指定输出路径
+      target: 'esnext',
+      outDir: 'zh-admin', // 指定输出路径
       assetsDir: 'assets', // 指定生成静态资源的存放路径
       minify: 'terser', // 混淆器，terser构建后文件体积更小
       // 启用/禁用 CSS 代码拆分
