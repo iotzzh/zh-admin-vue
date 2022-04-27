@@ -71,7 +71,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
 
 
 const router = createRouter({
-  history: createWebHistory('zh-admin'),
+  history: createWebHistory(),
   routes: constantRoutes
 });
 

@@ -14,7 +14,7 @@
     <el-icon :size="12">
       <component :is="item?.icon"></component>
     </el-icon>
-    <template #title>{{ item?.permsionName }}</template>
+    <template #title>{{ item?.menuName }}</template>
   </el-menu-item>
 
   <el-sub-menu :index="item ? item.id : ''" v-else>
@@ -22,7 +22,7 @@
       <el-icon :size="12">
         <component :is="item?.icon"></component>
       </el-icon>
-      <span>{{ item?.permsionName }}</span>
+      <span>{{ item?.menuName }}</span>
     </template>
 
     <div v-for="(child, index) in item?.children" :key="index">
@@ -30,7 +30,7 @@
         <sidebar-item :key="child.id" :item="child" />
       </template>
       <el-menu-item v-else :index="child.url">
-        <span class="tab sub">{{ child.permsionName }}</span>
+        <span class="tab sub">{{ child.menuName }}</span>
       </el-menu-item>
     </div>
   </el-sub-menu>

@@ -31,7 +31,7 @@ export default ({ mode }) => {
     // 静态资源服务的文件夹
     publicDir: 'public',
     // base: environment === 'cloud' ? '/test1/' :  '/test2/',
-    base: '/zh-admin/',
+    base: '/',
 
     // 静态资源处理
     assetsInclude: '',

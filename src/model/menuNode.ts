@@ -12,7 +12,7 @@ interface MenuNode {
     parentId: string
     children: Array<MenuNode> | undefined
     systemId: string
-    permsionName: string
+    menuName: string
     menuType: number
     permsionCode: string
     sortNo: number
