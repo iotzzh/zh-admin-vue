@@ -1,5 +1,5 @@
 {
-  "name": "zh-admin",
+  "name": "zh-admin-vue",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
