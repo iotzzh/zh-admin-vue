@@ -14,6 +14,7 @@ import './styles/global.css';
 import locale from 'element-plus/lib/locale/lang/zh-cn';
 
 import './assets/iconfont/iconfont.css';
+
 import './styles/element-override.css';
 import './styles/iconfont-override.css';
 

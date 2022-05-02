@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:55:19
  * @LastEditors: zzh
- * @LastEditTime: 2022-04-19 21:01:58
+ * @LastEditTime: 2022-05-02 22:53:56
  * @Description: 导航栏，包含折叠，最大化，个人信息
  * @FilePath: \zh-admin\src\layout\verticalLayout\components\navigation_bar\Index.vue
 -->
@@ -10,8 +10,8 @@
   <div class="navbar">
     <!-- toggle icon -->
     <el-icon :size="30" @click="toggleSideBar">
-      <fold v-if="collapse" />
-      <expand  v-else />
+      <i class="iconfont icon-zhedie1" v-if="collapse" />
+      <i class="iconfont icon-zhedie2" v-else />
     </el-icon>
     <!-- info -->
     <div class="right-menu">
@@ -65,16 +65,17 @@ const toggleSideBar = () => { console.log('qiehuan'); store.toggleCollapse(); };
 // 点击全屏
 let isFullscreen = ref(false);
 const clickFullscreen = () => {
-  let element:any = document.documentElement;
+  const documentX:any = document;
+  let element:any = documentX.documentElement;
       if (isFullscreen.value) {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        } else if (document.webkitCancelFullScreen) {
-          document.webkitCancelFullScreen();
-        } else if (document.mozCancelFullScreen) {
-          document.mozCancelFullScreen();
-        } else if (document.msExitFullscreen) {
-          document.msExitFullscreen();
+        if (documentX.exitFullscreen) {
+          documentX.exitFullscreen();
+        } else if (documentX.webkitCancelFullScreen) {
+          documentX.webkitCancelFullScreen();
+        } else if (documentX.mozCancelFullScreen) {
+          documentX.mozCancelFullScreen();
+        } else if (documentX.msExitFullscreen) {
+          documentX.msExitFullscreen();
         }
       } else {
         if (element.requestFullscreen) {
@@ -122,8 +123,6 @@ const clickFullscreen = () => {
 
       &.hover-effect {
         cursor: pointer;
-        // transition: background 0.3s;
-
         &:hover {
           background: rgba(0, 0, 0, 0.025);
         }
