@@ -48,7 +48,9 @@ const handleTags = (command: string) => {
     const activeViewPath: any = router.currentRoute.value.meta.fatherPath ? router.currentRoute.value.meta.fatherPath : router.currentRoute.value.fullPath;
     const activeView: any = cachedViews.value.find(x => x.fullPath === activeViewPath);
     const indexView:any = cachedViews.value.find(x => x.fullPath === '/index');
-    store.updateCachedViews([ indexView, activeView ]);
+    indexView.fullPath === activeView.fullPath ? 
+      store.updateCachedViews([ indexView ]) :
+      store.updateCachedViews([ indexView, activeView ]);
     router.push(activeViewPath);
   } else if (command === 'all') {
     const indexView:any = cachedViews.value.find(x => x.fullPath === '/index');
