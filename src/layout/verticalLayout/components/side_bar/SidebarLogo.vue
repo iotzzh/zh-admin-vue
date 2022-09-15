@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:55:19
  * @LastEditors: zzh
- * @LastEditTime: 2022-04-19 23:12:11
+ * @LastEditTime: 2022-06-04 22:43:59
  * @Description: 侧边栏logo(需要跟随侧边栏折叠)
  * @FilePath: \zh-admin\src\layout\verticalLayout\components\side_bar\SidebarLogo.vue
 -->
@@ -10,7 +10,8 @@
   <div class="sidebar-logo-container" :class="[props.collapse ? 'collapse' : 'notitle']">
     <transition name="sidebarLogoFade">
       <router-link key="expand" class="sidebar-logo-link" to="/dashboard">
-        <img class="sidebar-logo" src="@/assets/images/logo.png" />
+        <img class="sidebar-logo animate__animated animate__bounce" src="@/assets/images/logo.png" />
+        <p v-if="props.collapse" class="animate__animated animate__bounce">后台管理系统</p>
       </router-link>
     </transition>
   </div>

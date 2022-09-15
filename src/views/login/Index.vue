@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-04-10 09:29:01
  * @LastEditors: zzh
- * @LastEditTime: 2022-04-10 21:57:25
+ * @LastEditTime: 2022-06-05 22:05:44
  * @Description: 登录页
  * @FilePath: \zh-admin\src\views\login\Index.vue
 -->
@@ -90,6 +90,10 @@ const login = async () => {
         &:deep(.el-input__inner) {
           background-color: transparent;
         }
+      }
+      
+      &:deep(.el-input__wrapper) {
+        background-color: transparent;
       }
 
       .login-button {

@@ -2,7 +2,7 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:55:19
  * @LastEditors: zzh
- * @LastEditTime: 2022-05-02 22:56:32
+ * @LastEditTime: 2022-06-04 22:59:37
  * @Description: 导航栏，包含折叠，最大化，个人信息
  * @FilePath: \zh-admin\src\layout\verticalLayout\components\navigation_bar\Index.vue
 -->
@@ -20,14 +20,14 @@
         trigger="click"
       >
         <div class="avatar-wrapper">
-          15655395332
+          <el-button type="primary" circle>{{pinyin.getCamelChars('李白')}}</el-button>李白
         </div>
         <template #dropdown>
           <el-dropdown-menu>
             <router-link to="/">
-              <el-dropdown-item>
-                退出
-              </el-dropdown-item>
+              <el-dropdown-item>退出</el-dropdown-item>
+              <el-dropdown-item>个人中心</el-dropdown-item>
+              <el-dropdown-item>修改密码</el-dropdown-item>
             </router-link>
           </el-dropdown-menu>
         </template>
@@ -51,6 +51,7 @@
 import { ref, computed, reactive, toRefs } from 'vue';
 import { useLayoutStore } from '../../../../stores';
 import { storeToRefs } from 'pinia';
+import pinyin from 'js-pinyin';
 
 
 const store = useLayoutStore();

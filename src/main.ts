@@ -4,6 +4,7 @@ import { createPersistedState } from 'pinia-plugin-persistedstate';
 
 import App from './App.vue';
 import router from './router';
+
 // import moment from 'moment';
 // import axios from 'axios';
 
@@ -17,6 +18,7 @@ import './assets/iconfont/iconfont.css';
 
 import './styles/element-override.css';
 import './styles/iconfont-override.css';
+import 'animate.css';
 
 const app = createApp(App);
 const store = createPinia();
@@ -34,10 +36,6 @@ store.use(createPersistedState({
 // app.config.globalProperties.$http = axios;
 // app.config.globalProperties.$moment = moment;
 
-// 注册Icons 全局组件，element plus icon
-Object.keys(Icons).forEach(key => {
-    app.component(key, Icons[key]);
-});
 
 app.use(store);
 

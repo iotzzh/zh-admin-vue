@@ -2,12 +2,11 @@
  * @Author: zzh
  * @Date: 2022-03-07 13:39:30
  * @LastEditors: zzh
- * @LastEditTime: 2022-03-11 13:52:28
+ * @LastEditTime: 2022-06-21 22:50:33
  * @Description: 基于Element UI Message的二次封装
- * @FilePath: \hwason-laboratory-systems\src\components\hs-message.ts
+ * @FilePath: \zh-admin\src\components\hs-message.ts
  */
 import { ElMessage, ElMessageBox } from 'element-plus';
-import { fa } from 'element-plus/lib/locale';
 
 const popSuccessMessage = (message: string, duration = 5000) => {
     ElMessage({

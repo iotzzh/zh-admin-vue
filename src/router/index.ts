@@ -20,7 +20,7 @@ export const constantRoutes: Array<RouteRecordRaw> = [
     path: '/dashboard',
     component: VerticalLayout,
     redirect: '/index',
-    name: 'dashboard',
+    name: 'Dashboard',
     children: [
       {
         path: '/index',
