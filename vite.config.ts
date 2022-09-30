@@ -29,6 +29,8 @@ export default defineConfig({
     alias: {
       // '@': fileURLToPath(new URL('./src', import.meta.url))
       '@': path.resolve(__dirname, 'src'),
+      '@publicSystems': path.resolve(__dirname, 'src/systems/publicSystems'),
+      '@pathologicalSystem': path.resolve(__dirname, 'src/systems/pathologicalSystem'),
     }
   },
 

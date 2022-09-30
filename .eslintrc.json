@@ -41,7 +41,7 @@
             }
           }],
         "@typescript-eslint/no-explicit-any": "off",
-        "space-before-function-paren": ["error", "never"],
+        // "space-before-function-paren": ["error", "never"],
         "vue/array-bracket-spacing": "error",
         "vue/arrow-spacing": "error",
         "vue/block-spacing": "error",

@@ -2,17 +2,18 @@
  * @Author: zzh
  * @Date: 2022-02-25 09:56:46
  * @LastEditors: zzh
- * @LastEditTime: 2022-03-01 11:29:54
+ * @LastEditTime: 2022-03-02 14:03:33
  * @Description: 布局相关store
- * @FilePath: \zh-admin\src\stores\layout.ts
+ * @FilePath: \hwason-laboratory-systems\src\stores\layout.ts
  */
 import { defineStore } from 'pinia';
+import { RouteType } from '../model/layout';
 
 export const useLayoutStore = defineStore({
   id: 'layout',
 
   state: () => ({
-    cachedViews: [] as string[], // 缓存哪些界面
+    cachedViews: [] as RouteType[], // 缓存哪些界面
     collapse: true, // 侧边栏是否展开
 
   }),
@@ -22,16 +23,12 @@ export const useLayoutStore = defineStore({
   },
   
   actions: {
-    addCachedViews(title: string):void {
-      !this.cachedViews.some(x => x == title) && this.cachedViews.push(title);
+    addCachedViews(route: any):void {
+      !this.cachedViews.some(x => x.fullPath == route.fullPath && !route.meta.fatherPath) && this.cachedViews.push(route);
     },
 
-    removeCachedViewsByTitle(title: string):void {
-        this.cachedViews = this.cachedViews.filter(x => x != title);
-    },
-    
-    removeCachedViewsByIndex(index: number): void {
-        this.cachedViews = this.cachedViews.splice(index, 1);
+    removeCachedView(cachedView: RouteType):void {
+        this.cachedViews = this.cachedViews.filter(x => x.fullPath != cachedView.fullPath);
     },
 
     // 开启/关闭左侧tab栏函数
