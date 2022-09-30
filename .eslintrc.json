@@ -11,6 +11,7 @@
         "plugin:vue/vue3-essential",
         "@vue/eslint-config-typescript/recommended"
     ],
+    "parser": "vue-eslint-parser",
     "parserOptions": {
         "ecmaVersion": "latest",
         "parser": "@typescript-eslint/parser",
@@ -45,6 +46,7 @@
         "vue/array-bracket-spacing": "error",
         "vue/arrow-spacing": "error",
         "vue/block-spacing": "error",
+        "vue/object-curly-spacing": "off",
         "vue/brace-style": "error",
         "vue/camelcase": "error",
         "vue/comma-dangle": "error",
@@ -52,8 +54,11 @@
         "vue/eqeqeq": "error",
         "vue/key-spacing": "error",
         "vue/match-component-file-name": "error",
-        "vue/object-curly-spacing": "error",
+        "vue/no-v-model-argument": "off",
+        "vue/no-mutating-props": "off",
+        "vue/comment-directive": "off",
         "no-useless-escape": "off",
+        "vue/no-parsing-error": "off",
         "@typescript-eslint/no-this-alias": [
           "error",
           {

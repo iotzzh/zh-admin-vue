@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--
  * @Author: zzh
  * @Date: 2022-02-25 09:55:19
@@ -10,11 +11,31 @@
   <div class="tags-box">
     <el-scrollbar class="tags-scrollbar">
       <el-tag class="tag" v-for="cachedView in cachedViews" :key="cachedView.fullPath" closable :type="isActive(cachedView) ? '' : 'success'" @close="closeSingleTag(cachedView)">{{ cachedView.meta?.title }}</el-tag>
+=======
+<template>
+  <div class="tags-box">
+    <el-scrollbar class="tags-scrollbar">
+      <div class="tags">
+        <el-tag
+          class="tag"
+          v-for="cachedView in cachedViews"
+          :key="cachedView.name"
+          :closable="cachedView.fullPath !== '/index'"
+          :type="isActive(cachedView) ? '' : 'info'"
+          @click="clickTab(cachedView.fullPath)"
+          @close="closeSingleTag(cachedView)"
+        >{{ cachedView.meta?.title }}</el-tag>
+      </div>
+>>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
     </el-scrollbar>
 
     <div class="tags-close-box">
       <el-dropdown @command="handleTags">
+<<<<<<< HEAD
         <el-button size="small" type="primary">
+=======
+        <el-button size="small" type="primary" plain>
+>>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
           标签选项
           <i class="el-icon-arrow-down el-icon--right"></i>
         </el-button>
@@ -31,18 +52,26 @@
 
 <script setup lang="ts">
 import { toRef, ref, reactive } from 'vue';
+<<<<<<< HEAD
 import { onBeforeRouteUpdate, useRouter } from 'vue-router';
+=======
+import { useRouter } from 'vue-router';
+>>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
 import { useLayoutStore } from '../../../../stores';
 import { storeToRefs } from 'pinia';
 import { RouteType } from '../../../../model/layout';
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
 const store = useLayoutStore();
 const { cachedViews } = storeToRefs(store);
 
 const router = useRouter();
 
+<<<<<<< HEAD
 // router监听事件, 将路由信息进行缓存
 onBeforeRouteUpdate((to) => {
   store.addCachedViews(to);
@@ -58,6 +87,27 @@ const closeSingleTag = (cachedView:RouteType)=> {
   // 关闭标签
   store.removeCachedView(cachedView);
   // 路由条状
+=======
+const handleTags = (command: string) => {
+  if (command === 'other') {
+    const activeViewPath: any = router.currentRoute.value.meta.fatherPath ? router.currentRoute.value.meta.fatherPath : router.currentRoute.value.fullPath;
+    const activeView: any = cachedViews.value.find(x => x.fullPath === activeViewPath);
+    const indexView:any = cachedViews.value.find(x => x.fullPath === '/index');
+    store.updateCachedViews([ indexView, activeView ]);
+    router.push(activeViewPath);
+  } else if (command === 'all') {
+    const indexView:any = cachedViews.value.find(x => x.fullPath === '/index');
+    store.updateCachedViews([ indexView ]);
+    router.push(indexView);
+  }
+}; 
+
+// 关闭单个标签
+const closeSingleTag = (cachedView: RouteType) => {
+  // 关闭标签
+  store.removeCachedView(cachedView);
+  // 路由跳转
+>>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
   if (cachedViews.value.length > 0) {
     const path = cachedViews.value[cachedViews.value.length - 1].fullPath as string;
     router.push(path);
@@ -65,10 +115,22 @@ const closeSingleTag = (cachedView:RouteType)=> {
 };
 
 // 标签高亮
+<<<<<<< HEAD
 const isActive = (route:RouteType) => {
   return route.fullPath === (router.currentRoute.value.meta.fatherPath ? router.currentRoute.value.meta.fatherPath : router.currentRoute.value.fullPath);
 };
 
+=======
+const isActive = (route: RouteType) => {
+  return route.fullPath === (router.currentRoute.value.meta.fatherPath ? router.currentRoute.value.meta.fatherPath : router.currentRoute.value.fullPath);
+};
+
+const clickTab = (path: any) => {
+  console.log(path);
+  router.push(path);
+};
+
+>>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
 
 </script>
 
@@ -79,6 +141,24 @@ const isActive = (route:RouteType) => {
 
   .tags-scrollbar {
     flex: 1;
+<<<<<<< HEAD
+=======
+    width: 100%;
+    padding: 0px 15px;
+  }
+
+  .tags {
+    display: flex;
+    height: 30px;
+    line-height: 30px;
+    vertical-align: middle;
+  }
+
+  .tag {
+    display: inline-block;
+    cursor: pointer;
+    line-height: 21px;
+>>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
   }
 
   .tags-close-box {

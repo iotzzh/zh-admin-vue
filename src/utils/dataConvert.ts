@@ -2,6 +2,7 @@
  * @Author: zzh
  * @Date: 2022-03-01 14:39:16
  * @LastEditors: zzh
+<<<<<<< HEAD
  * @LastEditTime: 2022-03-01 16:07:20
  * @Description: 数据转换帮助类
  * @FilePath: \zh-admin\src\utils\dataConvert.ts
@@ -18,6 +19,14 @@ interface MenuNode {
     url: string
     icon: string
 }
+=======
+ * @LastEditTime: 2022-04-10 17:13:03
+ * @Description: 数据转换帮助类
+ * @FilePath: \zh-admin\src\utils\dataConvert.ts
+ */
+
+import { MenuNode } from '../model/menuNode';
+>>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
 
 // 由于菜单数据并非一颗树，而是多棵树组成的数据，顾当成由树组成的数组的处理
 const convertMenuArrToTree = (array: Array<MenuNode>) => {
@@ -48,6 +57,9 @@ const getRootMenuChild = (id: string, childrenMenus: Array<MenuNode>): Array<Men
 
 
 export {
+<<<<<<< HEAD
     MenuNode,
+=======
+>>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
     convertMenuArrToTree,
 };

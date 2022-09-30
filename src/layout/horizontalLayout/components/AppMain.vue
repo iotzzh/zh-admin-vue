@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <el-scrollbar class="app-main">
     <router-view :key="key"/>
   </el-scrollbar>
@@ -20,4 +21,28 @@ const key = () => { return route.path; };
 //   position: relative;
 //   padding: 5px;
 // }
+=======
+  <div class="app-main">
+    <router-view v-slot="{ Component }">
+    <keep-alive :include="cachedViews && cachedViews.map((x:any) => x.name)">
+      <component :is="Component" />
+    </keep-alive>
+  </router-view>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { useLayoutStore } from '../../../stores';
+import { storeToRefs } from 'pinia';
+const store = useLayoutStore();
+const { cachedViews } = storeToRefs(store);
+</script>
+
+<style lang="scss" scoped>
+.app-main {
+  padding: 10px;
+  height: calc(100vh - 90px);
+  width: 100%;
+}
+>>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
 </style>

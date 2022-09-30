@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--
  * @Author: zzh
  * @Date: 2022-02-25 09:34:57
@@ -50,6 +51,13 @@ const goto = (item:string):void => {
   }
 };
 
+=======
+<template>
+  首页
+</template>
+
+<script setup lang="ts">
+>>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
 </script>
 
 <style lang="scss" scoped>

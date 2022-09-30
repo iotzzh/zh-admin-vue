@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!--
  * @Author: zzh
  * @Date: 2022-02-25 16:48:39
@@ -10,6 +11,16 @@
   <el-sub-menu :index="item?.id">
     <template #title>
       <span class="tab">{{ item?.permsionName }}</span>
+=======
+<template>
+  <el-menu-item :index="item ? item.url : ''" v-if="!item || !item.children || item.children.length === 0">
+    {{ item?.menuName }}
+  </el-menu-item>
+
+  <el-sub-menu :index="item ? item.id : ''" v-else>
+    <template #title>
+      <span class="tab">{{ item?.menuName }}</span>
+>>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
     </template>
 
     <div v-for="(child, index) in item?.children" :key="index">
@@ -17,14 +28,19 @@
         <sidebar-item :key="child.id" :item="child" />
       </template>
       <el-menu-item v-else :index="child.url">
+<<<<<<< HEAD
         <!-- <i :class="child?.icon" /> -->
         <span class="tab sub">{{ child.permsionName }}</span>
+=======
+        <span class="tab sub">{{ child.menuName }}</span>
+>>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
       </el-menu-item>
     </div>
   </el-sub-menu>
 </template>
 
 <script lang="ts" setup>
+<<<<<<< HEAD
 import { computed, onMounted, reactive, ref, PropType, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import { defineProps } from 'vue';
@@ -36,6 +52,10 @@ import { menuListData } from '.././../mockData';
 import { convertMenuArrToTree, MenuNode } from '../../../../utils/dataConvert';
 
 const store = useLayoutStore();
+=======
+import { PropType, toRefs } from 'vue';
+import { MenuNode } from '../../../../model/menuNode';
+>>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
 
 const props = defineProps({
   collapse: {
@@ -47,6 +67,7 @@ const props = defineProps({
   },
 });
 
+<<<<<<< HEAD
 const { item, collapse } = toRefs(props);
 
 const router = useRouter();
@@ -90,3 +111,9 @@ const router = useRouter();
 //   margin-right: 5px;
 // }
 </style>
+=======
+const { item } = toRefs(props);
+</script>
+
+<style lang="scss"></style>
+>>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
