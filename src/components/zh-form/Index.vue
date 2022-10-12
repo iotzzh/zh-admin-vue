@@ -1,23 +1,34 @@
 <template>
   <el-form
     class="zh-form"
+    v-bind="$attrs"
     ref="refForm"
     :model="modelValue"
-    :rules="formSettings.rules"
-    :label-width="formSettings.formLabelWidth || 'auto'"
+    :rules="formSettings?.rules"
+    :label-width="formSettings?.formLabelWidth || 'auto'"
+    type="flex"
+    inline
+    justify="end"
+    style="flex-wrap: wrap; flex-direction: row"
   >
     <el-row style="display: flex; flex-wrap: wrap">
       <el-col
-        v-for="(item, index) in formSettings.fields"
+        v-for="(item, index) in formSettings?.fields"
         :key="index"
         :span="item.span"
+        :style="{
+          maxWidth:
+            item.span === undefined
+              ? Number(item.width) + Number(item.labelWidth) + 'px'
+              : '',
+        }"
       >
         <el-form-item
           :key="'form-item' + index"
           :label="item.label"
           :prop="item.prop"
           :label-width="item.labelWidth"
-          v-show="item.hide"
+          v-show="!item.hide"
         >
           <!-- 输入框 -->
           <el-input
@@ -29,6 +40,13 @@
             :type="item.inputType"
             :clearable="item.clearable"
           ></el-input>
+
+          <!-- 文本显示 -->
+          <span
+            v-if="item.type === 'text'"
+            :style="{ width: item.width ? `${item.width}` : '100%' }"
+            >{{ modelValue[item.prop] }}</span
+          >
 
           <!-- 开关 -->
           <el-switch
@@ -126,13 +144,14 @@
           </template>
         </el-form-item>
       </el-col>
+      <slot></slot>
     </el-row>
+    <slot name="nextRow"></slot>
   </el-form>
 </template>
 
 <script setup lang="ts">
-import { toRefs, PropType, ref, onMounted } from 'vue';
-import { FormInstance } from 'element-plus';
+import { toRefs, PropType, ref } from 'vue';
 import Form from './index';
 import { TFormSettings, TSelectOption } from './type';
 
@@ -143,7 +162,6 @@ const props = defineProps({
 
   formSettings: {
     type: Object as PropType<TFormSettings>,
-    required: true,
   },
 });
 
@@ -160,6 +178,12 @@ defineExpose({ validate: hsFormInstance.validate });
 export default { name: 'ZhForm' };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.zh-form {
+  &:deep(.el-col-0) {
+    display: block;
+  }
+}
+</style>
 
 <style lang="scss"></style>

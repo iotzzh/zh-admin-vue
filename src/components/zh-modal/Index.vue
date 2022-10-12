@@ -8,9 +8,9 @@
     append-to-body
     :top="modal.top"
     :fullscreen="modal.fullscreen"
+    :custom-class="modal.customClass"
   >
-  <slot></slot>
-
+    <slot></slot>
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="zhModal.cancel">取消</el-button>
@@ -35,7 +35,7 @@ const props = defineProps({
 
 const { modal } = toRefs(props);
 
-const emit = defineEmits(['close', 'submit', 'cancel' ]);
+const emit = defineEmits(['close', 'submit', 'cancel']);
 
 const zhModal = new ZHModal({ modal, emit });
 </script>
@@ -44,8 +44,7 @@ const zhModal = new ZHModal({ modal, emit });
 export default { name: 'ZHModal' };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
 
 <style lang="scss">
 .el-dialog__header {
@@ -55,5 +54,3 @@ export default { name: 'ZHModal' };
   border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
 }
 </style>
-
-
