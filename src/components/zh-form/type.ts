@@ -7,18 +7,19 @@ export interface TFormSettings {
 }
 
 export interface TField {
-  span: number,
+  span?: number, // 表格的span非必填
   type: string,
-  label: string,
+  label?: string,
   prop: string,
+  defaultValue?: any,
   labelWidth?: string | number,
   hide?: boolean,
-  width?: string,
+  width?: string | number,
   placeholder?: string,
   disabled?: boolean,
   options?: Array<TSelectOption> | Array<TCascaderOption>,
   clearable?: boolean,
-  props: TCascaderProps,
+  props?: TCascaderProps,
   // 输入框 input
   inputType?: string,
 
@@ -41,6 +42,21 @@ export interface TField {
   // 多选框
   checkboxText?: string,
   checkboxSize?: Number,
+
+  // 转换方法
+  convert?: Function,
+
+  // 时间转换
+  convertDateTime?: Array<TConvertDateTime>,
+
+  // 针对需要额外扩展的参数，例如 { a: 'a' } => { b: 'a1', c: 'a2' }
+  extendedFieldMethod?: Function,
+  notDeleteOriginProperty?: boolean
+}
+
+export interface TConvertDateTime {
+  field: string,
+  format: string
 }
 
 export interface TSelectOption {
