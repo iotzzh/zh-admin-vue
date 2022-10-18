@@ -30,7 +30,7 @@ export default ({ mode }) => {
     // 静态资源服务的文件夹
     publicDir: 'public',
     // base: environment === 'cloud' ? '/test1/' :  '/test2/',
-    base: '/public/',
+    base: '/dev/',
     // 静态资源处理
     assetsInclude: '',
     // 控制台输出的级别 info 、warn、error、silent
@@ -53,13 +53,14 @@ export default ({ mode }) => {
     // 打包配置
     build: {
       chunkSizeWarningLimit: 1500, // 打包文件很大是报警 1500kb
+      cssTarget:'chrome83',
       // 浏览器兼容性  "esnext"|"modules"
       target: 'esnext',
       outDir: 'zh-admin-vue', // 指定输出路径
       assetsDir: 'assets', // 指定生成静态资源的存放路径
       minify: 'terser', // 混淆器，terser构建后文件体积更小
       // 启用/禁用 CSS 代码拆分
-      cssCodeSplit: true,
+      cssCodeSplit: false,
       // 构建后是否生成 source map 文件
       sourcemap: false,
       // 自定义底层的 Rollup 打包配置

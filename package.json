@@ -2,8 +2,9 @@
   "name": "zh-admin-vue",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --mode dev",
     "build": "vite build",
+    "build:qa": "node --max_old_space_size=1024000 ./node_modules/vite/bin/vite.js build --mode qa",
     "preview": "vite preview --port 5050",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"

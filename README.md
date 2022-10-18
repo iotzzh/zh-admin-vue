@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 * vue3 + TS + Pinia + vite
 * eslint
 * vue-router
@@ -52,7 +51,6 @@ npm run build
 ```sh
 npm run lint
 ```
-=======
 - node(14.17.0) + nvm(1.1.7)
 - vue3(3.2.31) + TS(4.5.5) + Pinia(2.0.11) + vite(2.8.4)
 - eslint(8.5.0): vs code 需要下载 eslint 插件，eslint 配置才会生效
@@ -101,6 +99,3 @@ npm run lint
 3. 表格标题不要存在换行，尽可能不留白
 4. 组件名与路由定义时的name保持一致，否则界面缓存不起作用
 
-
-## 部署注意事项
->>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
