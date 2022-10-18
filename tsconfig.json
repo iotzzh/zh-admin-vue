@@ -10,6 +10,11 @@
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
+  "exclude": [
+    "node_modules",
+    "tsconfig.json",
+    "src/**/assets/iconfont/iconfont.js"
+  ],
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -47,9 +52,7 @@
       "scripthost"
     ]
   },
-  "exclude": [
-    "node_modules"
-  ]
+
   // "references": [
   //   {
   //     "path": "./tsconfig.vite-config.json"

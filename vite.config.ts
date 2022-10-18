@@ -1,4 +1,3 @@
-import { fileURLToPath, URL } from 'url';
 import path from 'path';
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const fs = require('fs');
@@ -13,41 +12,6 @@ const currentTime = new Date();
 const Timestamp = `${currentTime.getFullYear()}-${currentTime.getMonth() + 1}-${currentTime.getDate()}-${currentTime.getHours()}-${currentTime.getMinutes()}-${currentTime.getSeconds()}`;
  
 // https://vitejs.dev/config/
-<<<<<<< HEAD
-export default defineConfig({
-  // 配置需要使用的插件列表
-  plugins: [vue(), vueJsx()],
-
-  define: {
-    'process.env': {},
-  },
-
-  // 静态资源服务的文件夹
-  publicDir: 'public',
-  base: './',
-
-  // 静态资源处理
-  assetsInclude: '',
-  // 控制台输出的级别 info 、warn、error、silent
-  logLevel: 'info',
-
-  // 配置文件别名，vite1.0是/@/， 2.0改为/@
-  resolve: {
-    alias: {
-      // '@': fileURLToPath(new URL('./src', import.meta.url))
-      '@': path.resolve(__dirname, 'src'),
-      '@publicSystems': path.resolve(__dirname, 'src/systems/publicSystems'),
-      '@pathologicalSystem': path.resolve(__dirname, 'src/systems/pathologicalSystem'),
-    }
-  },
-
-  // 强制预构建插件包
-  optimizeDeps: {
-    // 默认情况下，不在 node_modules 中的，链接的包不会预构建
-    include: ['axios'],
-    // exclude:['your-package-name'] //排除在优化之外
-  },
-=======
 export default ({ mode }) => {
   const environment = loadEnv(mode, process.cwd()).VITE_ENVIRONMENT;
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -66,9 +30,7 @@ export default ({ mode }) => {
     // 静态资源服务的文件夹
     publicDir: 'public',
     // base: environment === 'cloud' ? '/test1/' :  '/test2/',
-    base: '/',
->>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
-
+    base: '/public/',
     // 静态资源处理
     assetsInclude: '',
     // 控制台输出的级别 info 、warn、error、silent
@@ -168,28 +130,4 @@ export default ({ mode }) => {
   
   });
 };
-
-
-<<<<<<< HEAD
-  // 本地运行配置，及反向代理配置
-  server: {
-    host: '0.0.0.0',
-    https: false, // 是否启用 http 2
-    cors: true, // 默认启用并允许任何源
-    open: true, // 在服务器启动时自动在浏览器中打开应用程序
-    port: 9000,
-    strictPort: false, // 设为true时端口被占用则直接退出，不会尝试下一个可用端口
-    force: true, // 是否强制依赖预构建
-    hmr: true, // 禁用或配置 HMR 连接
-    // 反向代理配置，注意rewrite写法，开始没看文档在这里踩了坑
-    proxy: {
-      '/api': {
-        target: 'http://dev.admin.hwason.cn/sso/', // 代理接口
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
-      },
-    },
-  },
-=======
->>>>>>> eafb51fa5fdbde13fc6f01021e7bba56cdb8a5d1
 
