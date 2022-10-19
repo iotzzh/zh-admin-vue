@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import ZHTable from "@/components/zh-table/index.vue";
+import ZHTable from '@/components/zh-table/index.vue';
 </script>
 
 <style scoped lang="scss">

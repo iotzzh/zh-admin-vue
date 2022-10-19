@@ -2,7 +2,7 @@ import { Ref, ref } from 'vue';
 import { TModal } from '../zh-form-modal/type';
 import { TFormSettings } from '../zh-form/type';
 import { popErrorMessage } from '../zh-message';
-import { sendSync } from '../zh-request';
+// import { sendSync } from '../zh-request';
 import { TRequest, TRequestResult } from './type';
 import Table from './table';
 
@@ -54,12 +54,12 @@ export default class {
         this.request?.value?.urlEdit,
       conditions: this.formModel.value,
     };
-    const result:TRequestResult = await sendSync(parmas);
-    if (result.success) {
-      this.modal.value.show = false;
-      this.table.initData();
-    } else {
-      popErrorMessage('操作失败');
-    }
+    // const result:TRequestResult = await sendSync(parmas);
+    // if (result.success) {
+    //   this.modal.value.show = false;
+    //   this.table.initData();
+    // } else {
+    //   popErrorMessage('操作失败');
+    // }
   };
 }

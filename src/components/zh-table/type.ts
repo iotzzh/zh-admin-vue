@@ -1,4 +1,4 @@
-import { TFormSettings } from "../zh-form/type"
+import { TFormSettings } from '../zh-form/type';
 
 export interface TTableFormSettings extends TFormSettings {
   hasSearchButton?: boolean
@@ -82,13 +82,13 @@ export interface TRequest {
 }
 
 export interface TRequestResult {
-  success: boolean,
+  success: boolean
   resCode: string
   data: any
 }
 
 export interface TPage {
-  total: number,
-  size: number,
-  current: number,
+  total: number
+  size: number
+  current: number
 }

@@ -3,7 +3,25 @@ import { RouteRecordRaw } from 'vue-router';
 export const basicRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/d',
+    redirect: '/examples',
+  },
+  {
+    path: '/examples',
+    name: 'examples',
+    component: () => import('@/examples/index.vue'),
+    meta: {
+      title: 'examples',
+    },
+    children: [
+      {
+        path: '/d',
+        name: 'Dashboard',
+        component: () => import('@/views/dashboard/index.vue'),
+        meta: {
+          title: 'Dashboard',
+        },
+      },
+    ],
   },
 {
   path: '/d',

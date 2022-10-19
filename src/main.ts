@@ -1,4 +1,3 @@
-import './assets/iconfont/iconfont.css';
 import './styles/element-override.css';
 import './styles/iconfont-override.css';
 import 'element-plus/dist/index.css';
@@ -29,7 +28,7 @@ async function boostrap() {
   // 配置路由
   setupRouter(app);
 
-    // router-guard
+  // router-guard
   // 路由守卫
   setupRouterGuard(router);
 

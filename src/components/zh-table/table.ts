@@ -1,12 +1,8 @@
-import { ipcRenderer } from 'electron';
-import ElTable from 'element-plus/es/components/table';
 import { Ref, ref } from 'vue';
 import { TPage, TRequest, TRequestResult, TTableSetting } from './type';
 import Form from './form';
 import { isMessageConfirm, popErrorMessage } from '../zh-message';
-import { post } from 'utils/request';
 import { TParams } from '../zh-request/type';
-import { sendSync } from '../zh-request';
 
 export default class {
   refTable: any;
@@ -39,10 +35,10 @@ export default class {
   loading = ref(false);
 
   _getData = (params: Object) => {
-    return ipcRenderer.sendSync(
-      this.request?.value?.urlList || '',
-      params || {}
-    );
+    // return ipcRenderer.sendSync(
+    //   this.request?.value?.urlList || '',
+    //   params || {}
+    // );
   };
 
   initData = (propParams?: Object) => {
@@ -54,14 +50,14 @@ export default class {
     // 获取数据
     const result = this._getData(params);
     // 处理数据
-    if (result.resCode === '00') {
-      this.data.value = result.data;
-      this.pageData.value.total = result.count;
-    } else {
-      this.data.value = [];
-      this.pageData.value.total = 0;
-      popErrorMessage(this.request?.value?.errorMessage || '获取数据失败');
-    }
+    // if (result.resCode === '00') {
+    //   this.data.value = result.data;
+    //   this.pageData.value.total = result.count;
+    // } else {
+    //   this.data.value = [];
+    //   this.pageData.value.total = 0;
+    //   popErrorMessage(this.request?.value?.errorMessage || '获取数据失败');
+    // }
 
     this.loading.value = false;
   };
