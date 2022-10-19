@@ -1,23 +1,31 @@
-import { sendSync } from './ipcRenderRequest/ipcRendererRequest';
+import IpcRenderRequest from './ipcRenderRequest/ipcRendererRequest';
 import AxiosRequest from './axios/axiosRequest';
 import Config from './config';
 import { TParams } from './type';
 
 export default class {
   useAxios: boolean;
-  instance?: AxiosRequest;
+  instance?: AxiosRequest | IpcRenderRequest;
+  useIpcRender: boolean;
   constructor() {
     this.useAxios = Config.useAxios;
+    this.useIpcRender = Config.useIpcRender;
 
     if(this.useAxios) {
       this.instance = new AxiosRequest();
+    } else if (this.useIpcRender) {
+      this.instance = new IpcRenderRequest();
     }
   }
 
   static get(params: TParams){
     const useAxios = Config.useAxios;
+    const useIpcRender = Config.useIpcRender;
     if (useAxios) {
       const request = new AxiosRequest();
+      request.get(params);
+    } else if (useIpcRender) {
+      const request = new IpcRenderRequest();
       request.get(params);
     }
   }
