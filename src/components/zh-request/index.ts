@@ -26,15 +26,19 @@ export default class {
       return await request.get(params);
     } else if (useIpcRender) {
       const request = new IpcRenderRequest();
-      return await request.get(params);
+      // return await request.get(params);
     }
   }
 
   static async post(params: TParams) {
     const useAxios = Config.useAxios;
+    const useIpcRender = Config.useIpcRender;
     if (useAxios) {
       const request = new AxiosRequest();
-      return await request.get(params);
+      return await request.post(params);
+    }else if (useIpcRender) {
+      const request = new IpcRenderRequest();
+      // return await request.post(params);
     }
   }
 

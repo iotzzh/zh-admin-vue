@@ -40,10 +40,28 @@ export default class {
     // 参数
     this.pageData.value.current = 1;
     const params = propParams || this.form.getSearchParams();
+    const args:TParams = {
+      url: this.request?.value?.urlList || '',
+      conditions: params || {
+        current: 1,
+        size: 100,
+        labCode: "NJHS",
+        labName: "南京实验室",
+        labLibraryName: "南京实验室",
+        topicName: "NJHS"
+      }
+    };
     console.log('params', params);
     // 获取数据
-    const result: TRequestResult = await ZHRequest.post(params);
+    const result: TRequestResult = await ZHRequest.post(args);
     // 处理数据
+    if (result.success) {
+      this.data.value = result.data.records;
+      this.pageData.value.total = result.total;
+    } else {
+      this.data.value = [];
+      this.pageData.value.total = 0;
+    }
     // if (result.resCode === '00') {
     //   this.data.value = result.data;
     //   this.pageData.value.total = result.count;

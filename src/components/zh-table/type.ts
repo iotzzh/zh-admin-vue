@@ -25,7 +25,7 @@ export interface TTableSetting {
   columns?: Array<TTableColumn>
   actionColumn?: TActionColumn
 
-  rowClick: Function
+  rowClick?: Function
 }
 
 export interface TTableColumn {

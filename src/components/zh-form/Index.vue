@@ -20,7 +20,7 @@
           maxWidth:
             item.span === undefined
               ? Number(item.width) + Number(item.labelWidth) + 'px'
-              : '',
+              : ''
         }"
       >
         <el-form-item
