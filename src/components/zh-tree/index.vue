@@ -37,8 +37,9 @@ import ZhFormModal from '../zh-form-modal/index.vue';
 import { TModal } from '../zh-modal/type';
 import { TField, TFormSettings } from '../zh-form/type';
 import { TRequest } from './type';
-import { ipcRenderer } from 'electron';
-import { sendSync } from '../zh-request';
+import ZHRequest from '../zh-request';
+import { TParams } from '../zh-request/type';
+import { TRequestResult } from '../zh-table/type';
 
 const props = defineProps({
   defaultProps: {
@@ -91,12 +92,11 @@ const openModal = (type: number) => {
 const submit = async() => {
   let result = null;
   if (modal.value.type === 'add') {
-  const parmas = {
-    url: request?.value?.urlAdd,
+  const params:TParams = {
+    url: request?.value?.urlAdd || '',
     conditions: formModel.value,
   };
-  const result = sendSync(parmas);
-  // result = ipcRenderer.sendSync(request?.value?.urlAdd as string, {});
+  const result:TRequestResult =  await ZHRequest.post(params);
   } else if (modal.value.type === 'edit') {
   
   }

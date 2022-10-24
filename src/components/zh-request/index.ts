@@ -18,23 +18,23 @@ export default class {
     }
   }
 
-  static get(params: TParams){
+  static async get(params: TParams){
     const useAxios = Config.useAxios;
     const useIpcRender = Config.useIpcRender;
     if (useAxios) {
       const request = new AxiosRequest();
-      request.get(params);
+      return await request.get(params);
     } else if (useIpcRender) {
       const request = new IpcRenderRequest();
-      request.get(params);
+      return await request.get(params);
     }
   }
 
-  static post(params: TParams) {
+  static async post(params: TParams) {
     const useAxios = Config.useAxios;
     if (useAxios) {
       const request = new AxiosRequest();
-      request.get(params);
+      return await request.get(params);
     }
   }
 

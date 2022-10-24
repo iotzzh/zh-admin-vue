@@ -275,7 +275,12 @@ const modalInstance = new Modal(addModalFormSettings as Ref<TFormSettings>, requ
 
 //#endregion
 
-defineExpose({ initData: table.initData });
+defineExpose({
+  initData: table.initData,
+  getData: table.getData,
+  getDataAsync: table.getDataAsync,
+
+});
 </script>
 
 <script lang="ts">

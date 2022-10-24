@@ -3,6 +3,7 @@ import { TPage, TRequest, TRequestResult, TTableSetting } from './type';
 import Form from './form';
 import { isMessageConfirm, popErrorMessage } from '../zh-message';
 import { TParams } from '../zh-request/type';
+import ZHRequest from '../zh-request';
 
 export default class {
   refTable: any;
@@ -34,21 +35,14 @@ export default class {
   data = ref([] as any);
   loading = ref(false);
 
-  _getData = (params: Object) => {
-    // return ipcRenderer.sendSync(
-    //   this.request?.value?.urlList || '',
-    //   params || {}
-    // );
-  };
-
-  initData = (propParams?: Object) => {
+  initData = async (propParams?: Object) => {
     this.loading.value = true;
     // 参数
     this.pageData.value.current = 1;
     const params = propParams || this.form.getSearchParams();
     console.log('params', params);
     // 获取数据
-    const result = this._getData(params);
+    const result: TRequestResult = await ZHRequest.post(params);
     // 处理数据
     // if (result.resCode === '00') {
     //   this.data.value = result.data;
@@ -62,8 +56,12 @@ export default class {
     this.loading.value = false;
   };
 
-  getData = () => {
-    return this.data.value;
+  getData = () => { return this.data.value; };
+
+  getDataAsync = async (propParams?: Object) => { 
+    const params = propParams || this.form.getSearchParams();
+    const result: TRequestResult = await ZHRequest.post(params);
+    return result;
   };
 
   batchDelete = async () => {
@@ -76,7 +74,7 @@ export default class {
         ids: selections.map((x: any) => x.id),
       },
     };
-    const result: TRequestResult = await sendSync(params);
+    const result: TRequestResult = await ZHRequest.post(params);
     if (result.success) {
       this.initData();
     }
@@ -89,7 +87,7 @@ export default class {
       url: this.request?.value?.urlDelete || '',
       conditions: { ...row },
     };
-    const result: TRequestResult = await sendSync(params);
+    const result: TRequestResult = await ZHRequest.post(params);
     if (result.success) {
       this.initData();
     }
