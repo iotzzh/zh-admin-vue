@@ -32,11 +32,11 @@ export const basicRoutes: Array<RouteRecordRaw> = [
   },
 },
 {
-  path: '/dashboard',
-  name: 'Dashboard1',
-  component: () => import('@/views/dashboard/index.vue'),
+  path: '/layoutExamplesExample1',
+  name: 'layoutExamplesExample1',
+  component: () => import('@/examples/zh-layout-examples/eaxmple1.vue'),
   meta: {
-    title: 'Dashboard1',
+    title: 'layoutExamplesExample1',
   },
 }
 ];
