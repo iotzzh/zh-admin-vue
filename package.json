@@ -15,6 +15,7 @@
     "axios": "^0.26.0",
     "element-plus": "^2.0.2",
     "js-pinyin": "^0.1.9",
+    "mockjs": "^1.1.0",
     "moment": "^2.29.4",
     "pinia": "^2.0.11",
     "pinia-persistedstate-plugin": "0.0.8",
@@ -24,7 +25,9 @@
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",
+    "@types/mockjs": "^1.0.7",
     "@types/node": "^16.11.25",
+    "@types/webpack-env": "^1.18.0",
     "@typescript-eslint/eslint-plugin": "^5.12.1",
     "@typescript-eslint/parser": "^5.12.1",
     "@vitejs/plugin-vue": "^2.2.2",

@@ -10,6 +10,7 @@ import { router, setupRouter } from '@/router';
 import { setupRouterGuard } from '@/router/guard';
 import ElementPlus from 'element-plus';
 import * as Icons from '@element-plus/icons-vue';
+import { setupMock } from "@/mock/index";
 
 
 async function boostrap() {
@@ -31,6 +32,8 @@ async function boostrap() {
   // router-guard
   // 路由守卫
   setupRouterGuard(router);
+
+  if (process.env.NODE_ENV === 'dev') { setupMock(); }
 
   // 加载Element Plus
   app.use(ElementPlus);

@@ -14,11 +14,11 @@ request.interceptors.request.use(
 
         if (config.method === 'post') {
             config.params = {
-                ts: timestamp,
+                // ts: timestamp,
             };
         } else if (config.method === 'get') {
             config.params = {
-                ts: timestamp,
+                // ts: timestamp,
                 ...config.params
             };
         }
