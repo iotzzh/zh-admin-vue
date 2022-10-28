@@ -110,16 +110,16 @@ export default class {
       this.useConvertDateTime(model, this.formSettings?.value?.fields);
       this.useExtendedFieldMethod(model, this.formSettings?.value?.fields);
       this.removeEmptyField(model);
-
-      const params = {
-        offset: (this.page.value.current - 1) * this.page.value.size,
-        limit: this.page.value.size,
-        // current: this.page.value.current,
-        // size: this.page.value.size,
-        ...this.request?.value?.conditions,
-        ...model,
-      };
-      return params;
     }
+
+    const params = {
+      // offset: (this.page.value.current - 1) * this.page.value.size,
+      // limit: this.page.value.size,
+      current: this.page.value.current,
+      size: this.page.value.size,
+      ...this.request?.value?.conditionsList,
+      ...model,
+    };
+    return params;
   };
 }

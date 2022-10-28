@@ -35,21 +35,14 @@ export default class {
   data = ref([] as any);
   loading = ref(false);
 
-  initData = async (propParams?: Object) => {
+  initData = async (propParams: Object | null = null, initPage = true,) => {
     this.loading.value = true;
     // 参数
-    this.pageData.value.current = 1;
+    if (initPage) this.pageData.value.current = 1;
     const params = propParams || this.form.getSearchParams();
     const args:TParams = {
       url: this.request?.value?.urlList || '',
-      conditions: params || {
-        current: 1,
-        size: 100,
-        labCode: "NJHS",
-        labName: "南京实验室",
-        labLibraryName: "南京实验室",
-        topicName: "NJHS"
-      }
+      conditions: params
     };
     console.log('params', params);
     // 获取数据
@@ -57,20 +50,11 @@ export default class {
     // 处理数据
     if (result.success) {
       this.data.value = result.data.records;
-      this.pageData.value.total = result.total;
+      this.pageData.value.total = result.data.total;
     } else {
       this.data.value = [];
       this.pageData.value.total = 0;
     }
-    // if (result.resCode === '00') {
-    //   this.data.value = result.data;
-    //   this.pageData.value.total = result.count;
-    // } else {
-    //   this.data.value = [];
-    //   this.pageData.value.total = 0;
-    //   popErrorMessage(this.request?.value?.errorMessage || '获取数据失败');
-    // }
-
     this.loading.value = false;
   };
 

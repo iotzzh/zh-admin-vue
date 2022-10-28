@@ -166,7 +166,7 @@
       :layout="page?.layout.value"
       :total="pageData.total"
       v-model:currentPage="pageData.current"
-      v-model:page-size="pageData.size"
+      :page-size="pageData.size"
       @current-change="page?.handleCurrentChange"
     />
 
@@ -268,7 +268,7 @@ const table = new Table(tableSettings, refTable, request, form, pageData);
 //#region page
 let page: undefined | Page;
 // console.log('usePage', usePage.value);
-if (usePage.value) page = new Page(pageSettings?.value, pageData);
+if (usePage.value) page = new Page(pageSettings?.value, pageData, table);
 //#endregion
 
 //#region add/edit modal
