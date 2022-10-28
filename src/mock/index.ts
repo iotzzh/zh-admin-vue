@@ -30,5 +30,5 @@ Mock.Random.extend({
 });
 
 export function setupMock() {
-    mocks.forEach((x: TMockParams) => { Mock.mock(new RegExp(x.url), x.type || 'get', Mock.mock(x.response)); });
+    mocks.forEach((x: TMockParams) => { Mock.mock(new RegExp(x.url), x.type || 'get', (conditions:any)  => Mock.mock(x.response(conditions))); });
 }

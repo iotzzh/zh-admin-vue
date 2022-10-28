@@ -10,7 +10,8 @@ import { router, setupRouter } from '@/router';
 import { setupRouterGuard } from '@/router/guard';
 import ElementPlus from 'element-plus';
 import * as Icons from '@element-plus/icons-vue';
-import { setupMock } from "@/mock/index";
+import locale from 'element-plus/lib/locale/lang/zh-cn';
+import { setupMock } from '@/mock/index';
 
 
 async function boostrap() {
@@ -36,7 +37,7 @@ async function boostrap() {
   if (process.env.NODE_ENV === 'dev') { setupMock(); }
 
   // 加载Element Plus
-  app.use(ElementPlus);
+  app.use(ElementPlus, { locale });
 
   app.mount('#app');
 }

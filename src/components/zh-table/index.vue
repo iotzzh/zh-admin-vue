@@ -166,8 +166,9 @@
       :layout="page?.layout.value"
       :total="pageData.total"
       v-model:currentPage="pageData.current"
-      :page-size="pageData.size"
+      v-model:page-size="pageData.size"
       @current-change="page?.handleCurrentChange"
+      @size-change="page?.handleCurrentChange"
     />
 
     <ZhFormModal 
