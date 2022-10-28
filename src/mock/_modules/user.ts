@@ -15,13 +15,13 @@ export default [
           total: 110,
           'records|10': [
             {
-              'id|100000-999999': 9999999,
-              name: 'test1',
-              'sex|0-1': 0,
-              'age|0-180': 180,
-              phone: '12312312311',
-              employeeNum: '12313',
-              role: '开发'
+              'id|+1': 100000, // 加一
+              name: '@cname', // 随机姓名
+              'sex|0-1': 0, // 0-1随机
+              'age|0-180': 180, // 0-180随机
+              phone: '@phone',
+              employeeNum: '@workNumber',
+              'role|1':['产品','开发', '测试', '运营'], //数组中的一个，随机的
             }
           ],
         },
