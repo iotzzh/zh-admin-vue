@@ -28,3 +28,8 @@
 .el-popup-parent--hidden {
     padding-right: 0 !important;
 }
+
+/* 表格搜索框，表单，zh-form */
+.zh-table .el-form--inline.zh-form .el-col-0 {
+    max-width: none !important;
+}

@@ -13,7 +13,7 @@
     "@element-plus/icons-vue": "^1.0.0",
     "animate.css": "^4.1.1",
     "axios": "^0.26.0",
-    "element-plus": "^2.0.2",
+    "element-plus": "^2.2.19",
     "js-pinyin": "^0.1.9",
     "mockjs": "^1.1.0",
     "moment": "^2.29.4",

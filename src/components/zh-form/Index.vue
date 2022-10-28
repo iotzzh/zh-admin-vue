@@ -15,7 +15,7 @@
       <el-col
         v-for="(item, index) in formSettings?.fields"
         :key="index"
-        :span="item.span"
+        :span="item.span || 0"
         :style="{
           maxWidth:
             item.span === undefined
@@ -96,6 +96,7 @@
             ></el-option>
           </el-select>
 
+          <!-- 日期选择 -->
           <el-date-picker
             v-else-if="item.type === 'date-picker'"
             v-model="modelValue[item.prop]"
@@ -180,10 +181,12 @@ export default { name: 'ZhForm' };
 
 <style lang="scss" scoped>
 .zh-form {
-  &:deep(.el-col-0) {
+  &:deep(.el-col.el-col-0) {
     display: block;
+    max-width: none !important;
   }
 }
 </style>
 
-<style lang="scss"></style>
+<style lang="scss">
+</style>
