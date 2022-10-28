@@ -256,6 +256,11 @@ const pageData: Ref<TPage> = ref({
 //#region search form
 const form = new Form(pageData, request, formSettings);
 form.init();
+const watchFormModel = computed(() => JSON.parse(JSON.stringify(form.formModel.value)));
+watch(watchFormModel, (newVal:any, oldVal: any) => {
+  console.log(newVal);
+  console.log(oldVal);
+});
 // watch(form.formModel.value, () => {
 //   table.initData();
 // });
