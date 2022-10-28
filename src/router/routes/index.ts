@@ -38,5 +38,13 @@ export const basicRoutes: Array<RouteRecordRaw> = [
   meta: {
     title: 'layoutExamplesExample1',
   },
+},
+{
+  path: '/tableExample1',
+  name: 'tableExample1',
+  component: () => import('@/examples/zh-table-examples/example1.vue'),
+  meta: {
+    title: 'tableExample1',
+  },
 }
 ];

@@ -41,6 +41,7 @@
       ref="refTable"
       class="zh-el-table"
       :data="table.data.value"
+      size="small"
       :height="tableSettings.height || '100%'"
       :highlight-current-row="tableSettings.highlightCurrentRow"
       v-loading="table.loading.value"

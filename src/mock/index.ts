@@ -1,5 +1,5 @@
 import Mock from 'mockjs';
-import { MockParams } from './type';
+import { TMockParams } from './type';
 
 const modulesFiles:any = import.meta.globEager('./_modules/*.ts');
 
@@ -9,8 +9,8 @@ const mocks = Object.keys(modulesFiles).reduce((modues:any, item:any) => {
 
 
 //设置延时时间
-Mock.setup({ timeout: '3000-10000' });
+Mock.setup({ timeout: '1000-3000' });
 
 export function setupMock() {
-    mocks.forEach((x: MockParams) => { Mock.mock(new RegExp(x.url), x.type || 'get', x.response); });
+    mocks.forEach((x: TMockParams) => { Mock.mock(new RegExp(x.url), x.type || 'get', Mock.mock(x.response)); });
 }

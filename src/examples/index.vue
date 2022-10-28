@@ -11,7 +11,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import ZHTableExample from '@/examples/ZHTableExample.vue';
+// import ZHTableExample from '@/examples/ZHTableExample.vue';
 
 const list = ref([
     { title: '表格', desc: '集成form，表格，分页，弹窗新增/编辑，行内/单元格编辑功能与一身的超级表格' },
