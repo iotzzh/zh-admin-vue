@@ -261,9 +261,6 @@ watch(watchFormModel, (newVal:any, oldVal: any) => {
   console.log(newVal);
   console.log(oldVal);
 });
-// watch(form.formModel.value, () => {
-//   table.initData();
-// });
 //#endregion
 
 //#region table
