@@ -1,4 +1,4 @@
-import { Ref, ref } from 'vue';
+import { computed, Ref, ref } from 'vue';
 import { TPage, TRequest, TRequestResult, TTableSetting } from './type';
 import Form from './form';
 import { isMessageConfirm, popErrorMessage } from '../zh-message';
@@ -34,6 +34,10 @@ export default class {
 
   data = ref([] as any);
   loading = ref(false);
+
+  columns = computed(() => {
+    return this.tableSettings.value.columns?.filter((x:any) => !x.notDisplay);
+  });
 
   initData = async (propParams: Object | null = null, initPage = true,) => {
     this.loading.value = true;

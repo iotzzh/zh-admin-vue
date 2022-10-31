@@ -185,6 +185,10 @@ export default { name: 'ZhForm' };
     display: block;
     max-width: none !important;
   }
+//   &:deep(.el-form--inline .el-form-item) {
+//     width: 100%;
+// }
+  
 }
 </style>
 

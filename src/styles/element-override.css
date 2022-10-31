@@ -14,14 +14,6 @@
     --el-menu-active-color: #fff; */
 }
 
-/* 重写hs-table的element plus其他样式 */
-.hs-table .el-form--inline .el-form-item {
-    margin-right: 10px;
-}
-
-.hs-table .el-form-item {
-    margin-bottom: 8px;
-}
 
 
 /* 重定义弹窗后body加padding的bug */
@@ -32,4 +24,9 @@
 /* 表格搜索框，表单，zh-form */
 .zh-table .el-form--inline.zh-form .el-col-0 {
     max-width: none !important;
+}
+
+/* 弹框 表单：zh-form */
+.zh-modal .el-form--inline.zh-form .el-form-item {
+    width: 100% !important;
 }

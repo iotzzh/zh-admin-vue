@@ -8,7 +8,7 @@
     append-to-body
     :top="modal.top"
     :fullscreen="modal.fullscreen"
-    :custom-class="modal.customClass"
+    :class="modal.customClass || ''  + 'zh-modal'"
   >
     <slot></slot>
     <template #footer>

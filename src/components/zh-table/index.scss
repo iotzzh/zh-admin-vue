@@ -10,4 +10,9 @@
     margin: 10px 0px 0px 0px;
     justify-content: end;
   }
+
+  .zh-el-table {
+    .el-button+.el-button {margin-left: 0px !important;}
+  }
+  
 }

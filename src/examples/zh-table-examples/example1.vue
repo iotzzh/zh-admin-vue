@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 import Table from '@/components/zh-table/index.vue';
 import { TRequest, TTableFormSettings, TTableSetting } from '@/components/zh-table/type';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import api from '../api/table/index';
 
 const formSettings = ref({
@@ -20,23 +20,57 @@ const formSettings = ref({
     hasDeleteButton: true,
     hasExportButton: true,
     fields: [
-        { label: '姓名', type: 'input', prop: 'name', width: '120px', }
+        { label: '姓名', type: 'input', prop: 'name', width: '220px', },
     ],
 } as TTableFormSettings);
+
 const tableSettings = ref({
     columns: [
-        { label: 'ID', prop: 'id' },
-        { label: '姓名', prop: 'name' },
-        { label: '性别', prop: 'sex', convert: (row:any, index: number) => row.sex === 0 ? '男' : '女' },
-        { label: '年龄', prop: 'age' },
-        { label: '手机号', prop: 'phone' },
-        { label: '工号', prop: 'employeeNum' },
-        { label: '角色', prop: 'role' },
+        { label: '默认不显示列', prop: 'id0', notDisplay: true, },
+        { label: 'ID', prop: 'id', },
+        { label: '姓名', prop: 'name', useAdd: {
+            type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
+        } },
+        { label: '性别', prop: 'sex', convert: (row:any) => row.sex === 0 ? '男' : '女', useAdd: {
+            type: 'select', defaultValue: 'zzh', placeholder: '请输入', span: 8, options: [{ label: '男', value: 0 }, { label: '女', value: 1 }],
+        } },
+        { label: '年龄', prop: 'age', useAdd: {
+            type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
+        } },
+        { label: '手机号', prop: 'phone', useAdd: {
+            type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
+        } },
+        { label: '工号', prop: 'employeeNum',  useAdd: {
+            type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
+        } },
+        { label: '角色', prop: 'role',  useAdd: {
+            type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
+        } },
     ],
+    actionColumn: {
+        label: '操作',
+        width: '215px',
+        hasRowDeleteAction: true,
+        hasRowEditAction: true,
+        buttons: [
+            { label: '自定义按钮', type: 'primary', icon: 'Plus', onClick: (row:any, index:any) => { console.log('row: ' + row, '/n index: ' + index); }  }
+        ],
+    },
 } as TTableSetting);
+
+onMounted(() => {
+    // 控制列是否显示
+    const idColumn:any = tableSettings.value.columns?.find((x:any) => x.prop === 'id');
+    idColumn.notDisplay = true;
+});
+
 
 const request = ref({
     urlList: api.getUserList,
+    urlAdd: api.addUser,
+    urlBatchDelete: api.batchDeleteUser,
+    urlDelete: api.deleteUser,
+    urlUpdate: api.updateUser
 } as TRequest);
 
 </script>

@@ -1,14 +1,15 @@
-import { Ref, ref } from 'vue';
+import { computed, Ref, ref } from 'vue';
 import { TModal } from '../zh-form-modal/type';
 import { TFormSettings } from '../zh-form/type';
 import { popErrorMessage } from '../zh-message';
-// import { sendSync } from '../zh-request';
 import { TRequest, TRequestResult } from './type';
 import Table from './table';
+import ZHRequest from '../zh-request';
+import { TParams } from '../zh-request/type';
 
 export default class {
-  addModalFormSettings: Ref<TFormSettings>;
-  formSettings: Ref<TFormSettings>;
+  // addModalFormSettings: Ref<TFormSettings>;
+  // formSettings: Ref<TFormSettings>;
   request: Ref<TRequest | undefined> | undefined;
   table: Table;
   constructor(addModalFormSettings: Ref<TFormSettings>,
@@ -16,13 +17,23 @@ export default class {
     table: Table) {
     this.table = table;
     this.request = request;
-    this.addModalFormSettings = addModalFormSettings;
-    this.formSettings = ref(addModalFormSettings.value);
+    // this.addModalFormSettings = addModalFormSettings;
+    // this.formSettings = ref(addModalFormSettings.value);
   }
-  modal = ref({
-    show: false,
-    title: '新增',
-  } as TModal);
+
+  formSettings = computed(() => {
+    return {
+      // eslint-disable-next-line no-prototype-builtins
+      fields: this.table.columns.value?.filter((x: any) => x.hasOwnProperty('useAdd')).map((y: any) => {
+        return {
+          ...y,
+          ...y.useAdd,
+        };
+      }),
+    } as TFormSettings;
+  });
+
+  modal = ref({ show: false, title: '新增', } as TModal);
 
   formModel = ref({} as any);
 
@@ -31,8 +42,8 @@ export default class {
     this.modal.value.show = true;
   };
 
-  openEditModal = (row: any) => { 
-    this.formModel.value = {...row};
+  openEditModal = (row: any) => {
+    this.formModel.value = { ...row };
     this.modal.value.type = 'edit';
     this.modal.value.show = true;
   };
@@ -48,18 +59,16 @@ export default class {
   };
 
   submit = async () => {
-    const parmas = {
-      url: this.modal.value.type === 'add' ?  
-        this.request?.value?.urlAdd : 
-        this.request?.value?.urlEdit,
+    const params: TParams = {
+      url: this.modal.value.type === 'add' ?
+        this.request?.value?.urlAdd || '' :
+        this.request?.value?.urlUpdate || '',
       conditions: this.formModel.value,
     };
-    // const result:TRequestResult = await sendSync(parmas);
-    // if (result.success) {
-    //   this.modal.value.show = false;
-    //   this.table.initData();
-    // } else {
-    //   popErrorMessage('操作失败');
-    // }
+
+    const result: TRequestResult = await ZHRequest.post(params);
+    if (!result.success) return;
+    this.close();
+    this.table.initData();
   };
 }

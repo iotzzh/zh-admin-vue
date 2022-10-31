@@ -15,7 +15,7 @@ export default class {
     pageData: Ref<TPage>,
     table: Table) {
     this.sizes = ref(pageSettings?.sizes || [10, 20, 50, 100]);
-    this.pagerCount = ref(pageSettings?.pagerCount || 7);
+    this.pagerCount = ref(pageSettings?.pagerCount || 5);
     this.total = ref(pageData.value.total);
     this.layout = ref(pageSettings?.layout || 'total, sizes, prev, pager, next, jumper');
     this.pageData = pageData;

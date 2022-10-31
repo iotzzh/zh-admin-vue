@@ -65,7 +65,7 @@
       ></el-table-column>
 
       <el-table-column
-        v-for="(item, index) in tableSettings.columns"
+        v-for="(item, index) in table.columns.value"
         :key="'table-column' + index + (item.editable ? '-editable' : '')"
         :width="item.width ? item.width : ''"
         :min-width="item.minWidth ? item.minWidth : ''"
@@ -141,12 +141,13 @@
           <el-button
             v-for="(item, buttonIndex) in tableSettings.actionColumn.buttons"
             :key="buttonIndex"
+            link
             v-show="!item?.hide"
             :type="item?.type"
             :size="item?.size ? item.size : 'small'"
             :icon="item?.icon"
             :style="item?.style"
-            @click.stop="item?.method && item?.method(scope.row, scope.$index)"
+            @click.stop="item?.onClick && item?.onClick(scope.row, scope.$index)"
             >{{ item.label }}</el-button
           >
         </template>

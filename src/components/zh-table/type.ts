@@ -62,19 +62,19 @@ export interface TActionColumnButton {
   size?: string
   icon?: string
   style?: any
-  method?: Function
+  onClick?: Function
   label?: string
 }
 
 export interface TRequest {
-  urlList?: string
+  urlList?: string // 列表查询
   conditionsList?: Object
   urlDelete?: string // 单个删除
   conditionsDelete?: Object
   urlBatchDelete?: string // 批量删除
-  urlAdd?: string
+  urlAdd?: string // 新增
   conditionsAdd?: Object
-  urlEdit?: string
+  urlUpdate?: string // 编辑
   conditionsEdit?: Object
   initialData?: boolean
   successMessage?: string

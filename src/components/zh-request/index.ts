@@ -3,7 +3,7 @@ import AxiosRequest from './axios/axiosRequest';
 import Config from './config';
 import { TParams } from './type';
 
-export default class {
+export default class ZHRequest {
   useAxios: boolean;
   instance?: AxiosRequest | IpcRenderRequest;
   useIpcRender: boolean;
