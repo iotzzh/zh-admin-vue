@@ -4,6 +4,7 @@ import Form from './form';
 import { isMessageConfirm, popErrorMessage } from '../zh-message';
 import { TParams } from '../zh-request/type';
 import ZHRequest from '../zh-request';
+import { debounce, throttle } from 'lodash';
 
 export default class {
   refTable: any;
@@ -68,12 +69,20 @@ export default class {
     this.loading.value = false;
   };
 
+  debounceInitData = debounce(this.initData, 500);
+  throttleInitData = throttle(this.initData, 1500);
+
   getData = () => { return this.data.value; };
 
   getDataAsync = async (propParams?: Object) => { 
     const params = propParams || this.form.getSearchParams();
     const result: TRequestResult = await ZHRequest.post(params);
     return result;
+  };
+
+  getDataWithInitTable = async (propParams: Object | null = null, initPage = true) => {
+    await this.initData(propParams, initPage);
+    return this.data.value;
   };
 
   batchDelete = async () => {
@@ -88,7 +97,7 @@ export default class {
     };
     const result: TRequestResult = await ZHRequest.post(params);
     if (result.success) {
-      this.initData();
+      this.debounceInitData();
     }
   };
 
@@ -101,7 +110,7 @@ export default class {
     };
     const result: TRequestResult = await ZHRequest.post(params);
     if (result.success) {
-      this.initData();
+      this.debounceInitData();
     }
   };
 

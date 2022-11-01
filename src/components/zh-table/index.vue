@@ -12,7 +12,7 @@
         label-width="0px"
         v-if="formSettings?.hasSearchButton"
       >
-        <el-button type="primary" :icon="Search" @click="() => table.initData()"
+        <el-button type="primary" :icon="Search" @click="() => table.throttleInitData()"
           >查询</el-button
         >
       </el-form-item>
@@ -198,6 +198,7 @@ import Table from './table';
 import Form from './form';
 import Modal from './modal';
 import { TFormSettings } from '../zh-form/type';
+import { debounce } from 'lodash';
 
 const props = defineProps({
   useSearchForm: {
@@ -260,8 +261,7 @@ const form = new Form(pageData, request, formSettings);
 form.init();
 const watchFormModel = computed(() => JSON.parse(JSON.stringify(form.formModel.value)));
 watch(watchFormModel, (newVal:any, oldVal: any) => {
-  console.log(newVal);
-  console.log(oldVal);
+  table.debounceInitData();
 });
 //#endregion
 
@@ -282,9 +282,12 @@ const modalInstance = new Modal(addModalFormSettings as Ref<TFormSettings>, requ
 //#endregion
 
 defineExpose({
-  initData: table.initData,
-  getData: table.getData,
-  getDataAsync: table.getDataAsync,
+  debounceInitData: table.debounceInitData, // 防抖查询
+  throttleInitData: table.throttleInitData, // 节流查询
+  initData: table.initData, // 正常查询
+  getData: table.getData, // 获取当前表格数据
+  getDataAsync: table.getDataAsync, // 从接口获取表格数据，且不刷新表格
+  getDataWithInitTable: table.getDataWithInitTable, // 获取接口数据，并刷新表格
 
 });
 </script>

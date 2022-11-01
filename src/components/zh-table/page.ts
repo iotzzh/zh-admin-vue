@@ -23,6 +23,6 @@ export default class {
   }
 
   handleCurrentChange = (val: number) => {
-    this.table.initData(null, false);
+    this.table.debounceInitData(null, false);
   };
 }
