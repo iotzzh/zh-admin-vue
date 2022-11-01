@@ -172,7 +172,8 @@
       @size-change="page?.handleCurrentChange"
     />
 
-    <ZhFormModal 
+    <ZhFormModal
+      ref="refZHFormModal" 
       :modal="modalInstance.modal.value" 
       v-model="modalInstance.formModel.value" 
       :formSettings="modalInstance.formSettings.value"
@@ -276,8 +277,8 @@ if (usePage.value) page = new Page(pageSettings?.value, pageData, table);
 //#endregion
 
 //#region add/edit modal
-const modalInstance = new Modal(addModalFormSettings as Ref<TFormSettings>, request, table);
-
+const refZHFormModal = ref();
+const modalInstance = new Modal(addModalFormSettings as Ref<TFormSettings>, request, table, refZHFormModal);
 //#endregion
 
 defineExpose({

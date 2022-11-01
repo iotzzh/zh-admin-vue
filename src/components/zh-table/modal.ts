@@ -1,4 +1,4 @@
-import { computed, Ref, ref } from 'vue';
+import { computed, Ref, ref, nextTick } from 'vue';
 import { TModal } from '../zh-form-modal/type';
 import { TFormSettings } from '../zh-form/type';
 import { popErrorMessage } from '../zh-message';
@@ -7,16 +7,21 @@ import Table from './table';
 import ZHRequest from '../zh-request';
 import { TParams } from '../zh-request/type';
 
+
+
 export default class {
   // addModalFormSettings: Ref<TFormSettings>;
   // formSettings: Ref<TFormSettings>;
   request: Ref<TRequest | undefined> | undefined;
   table: Table;
+  refZHFormModal: Ref<any>;
   constructor(addModalFormSettings: Ref<TFormSettings>,
     request: Ref<TRequest | undefined> | undefined,
-    table: Table) {
+    table: Table,
+    refZHFormModal: Ref<any>) {
     this.table = table;
     this.request = request;
+    this.refZHFormModal = refZHFormModal;
     // this.addModalFormSettings = addModalFormSettings;
     // this.formSettings = ref(addModalFormSettings.value);
   }
@@ -59,6 +64,7 @@ export default class {
   };
 
   submit = async () => {
+    this.refZHFormModal.value.toggleLodadingSubmit(true);
     const params: TParams = {
       url: this.modal.value.type === 'add' ?
         this.request?.value?.urlAdd || '' :
@@ -67,8 +73,11 @@ export default class {
     };
 
     const result: TRequestResult = await ZHRequest.post(params);
-    if (!result.success) return;
-    this.close();
-    this.table.initData();
+    if (result.success) {
+      this.close();
+      this.table.initData();
+    }
+    await nextTick();
+    this.refZHFormModal.value.toggleLodadingSubmit(false);
   };
 }
