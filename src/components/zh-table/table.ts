@@ -39,7 +39,13 @@ export default class {
     return this.tableSettings.value.columns?.filter((x:any) => !x.notDisplay);
   });
 
+  onBeforeInitData = async () => {
+    const method:Function = this.tableSettings.value.onBeforeInitData || new Function();
+    await method();
+  };
+
   initData = async (propParams: Object | null = null, initPage = true,) => {
+    this.onBeforeInitData();
     this.loading.value = true;
     // 参数
     if (initPage) this.pageData.value.current = 1;

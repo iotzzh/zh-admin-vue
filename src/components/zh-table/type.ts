@@ -17,15 +17,19 @@ export interface TPageSetting {
 }
 
 export interface TTableSetting {
-  height?: string | number
-  highlightCurrentRow?: boolean
-  rowKey?: string
-  hasSelection?: boolean
-  hasIndex?: boolean
-  columns?: Array<TTableColumn>
-  actionColumn?: TActionColumn
+  height?: string | number // 表格高度，示例：'100%', '100px', 100
+  highlightCurrentRow?: boolean // 高亮选中行
+  rowKey?: string // 行内唯一值，没有该值，无法使用checkbox
+  hasSelection?: boolean // 是否存在checkbox列
+  hasIndex?: boolean // 是否存在Index列
+  columns?: Array<TTableColumn> // 列配置，内包含新增和编辑的列配置
+  actionColumn?: TActionColumn // 操作列配置
 
+  // 事件
   rowClick?: Function
+
+  // 函数注入
+  onBeforeInitData?: Function // 在初始化数据之前执行
 }
 
 export interface TTableColumn {
