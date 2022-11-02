@@ -1,19 +1,21 @@
 import { TFormSettings } from '../zh-form/type';
 
 export interface TTableFormSettings extends TFormSettings {
-  hasSearchButton?: boolean
-  hasDeleteButton?: boolean
-  hasExportButton?: boolean
-  hasAddButton?: boolean
+  hasSearchButton?: boolean // 显示搜索按钮
+  hasDeleteButton?: boolean // 显示批量删除按钮
+  hasExportButton?: boolean // 显示导出按钮
+  hasUploadButton?: boolean // 显示上传按钮
+  hasAddButton?: boolean // 显示新增按钮
+  hasResetButton?: boolean // 显示重置按钮
 }
 
 export interface TPageSetting {
-  sizes?: Array<number>
+  sizes?: Array<number> // [10, 20, 50, 100]
   current?: number
   size?: number
-  pagerCount?: number
+  pagerCount?: number // 分页显示的数量
   total?: number
-  layout?: string
+  layout?: string // 'pre,next,total'
 }
 
 export interface TTableSetting {
@@ -26,7 +28,7 @@ export interface TTableSetting {
   actionColumn?: TActionColumn // 操作列配置
 
   // 事件
-  rowClick?: Function
+  rowClick?: Function // 单击事件
 
   // 函数注入
   onBeforeInitData?: Function // 在初始化数据之前执行

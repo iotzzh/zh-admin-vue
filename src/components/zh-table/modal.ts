@@ -29,10 +29,10 @@ export default class {
   formSettings = computed(() => {
     return {
       // eslint-disable-next-line no-prototype-builtins
-      fields: this.table.columns.value?.filter((x: any) => x.hasOwnProperty('useAdd')).map((y: any) => {
+      fields: this.table.columns.value?.filter((x: any) => x.hasOwnProperty('useInModal')).map((y: any) => {
         return {
           ...y,
-          ...y.useAdd,
+          ...y.useInModal,
         };
       }),
     } as TFormSettings;

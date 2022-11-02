@@ -28,6 +28,33 @@
       <el-form-item
         class="zh-table-inline-button"
         label-width="0px"
+        v-if="formSettings?.hasUploadButton"
+      >
+        <el-button type="primary" :icon="Search"
+          >导入</el-button
+        >
+      </el-form-item>
+      <el-form-item
+        class="zh-table-inline-button"
+        label-width="0px"
+        v-if="formSettings?.hasExportButton"
+      >
+        <el-button type="primary" :icon="Search"
+          >导出</el-button
+        >
+      </el-form-item>
+      <el-form-item
+        class="zh-table-inline-button"
+        label-width="0px"
+        v-if="formSettings?.hasResetButton"
+      >
+        <el-button type="info" :icon="RefreshLeft" @click="form.init"
+          >重置</el-button
+        >
+      </el-form-item>
+      <el-form-item
+        class="zh-table-inline-button"
+        label-width="0px"
         v-if="formSettings?.hasDeleteButton"
       >
         <el-button type="danger" :icon="Delete" @click="table.batchDelete"

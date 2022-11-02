@@ -1,14 +1,10 @@
 <template>
-    <Table
-    :useSearchForm="true"
-    :formSettings="formSettings"
-    :tableSettings="tableSettings"
-    :usePage="true"
-    :request="request"
-    ></Table>
+    <Table :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings" :usePage="true"
+        :request="request"></Table>
 </template>
 
 <script lang="ts" setup>
+import { TField } from '@/components/zh-form/type';
 import Table from '@/components/zh-table/index.vue';
 import { TRequest, TTableFormSettings, TTableSetting } from '@/components/zh-table/type';
 import { onMounted, ref } from 'vue';
@@ -19,33 +15,64 @@ const formSettings = ref({
     hasSearchButton: true,
     hasDeleteButton: true,
     hasExportButton: true,
+    hasResetButton: true,
     fields: [
         { label: '姓名', type: 'input', prop: 'name', width: '220px', },
+        { label: '性别', type: 'select', prop: 'sex', width: '220px', options: [], },
     ],
 } as TTableFormSettings);
 
+onMounted(() => {
+    const sexItem = formSettings.value.fields?.find((x: TField) => x.prop === 'sex') as TField;
+    sexItem.options = [
+        { label: '男', value: 0 },
+        { label: '女', value: 1 },
+    ];
+});
+
 const tableSettings = ref({
     columns: [
-        { label: '默认不显示列', prop: 'id0', notDisplay: true, },
+        {
+            label: '默认不显示列',
+            prop: 'id0',
+            notDisplay: true,
+        },
         { label: 'ID', prop: 'id', },
-        { label: '姓名', prop: 'name', useAdd: {
-            type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
-        } },
-        { label: '性别', prop: 'sex', convert: (row:any) => row.sex === 0 ? '男' : '女', useAdd: {
-            type: 'select', defaultValue: 'zzh', placeholder: '请输入', span: 8, options: [{ label: '男', value: 0 }, { label: '女', value: 1 }],
-        } },
-        { label: '年龄', prop: 'age', useAdd: {
-            type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
-        } },
-        { label: '手机号', prop: 'phone', useAdd: {
-            type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
-        } },
-        { label: '工号', prop: 'employeeNum',  useAdd: {
-            type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
-        } },
-        { label: '角色', prop: 'role',  useAdd: {
-            type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
-        } },
+        {
+            label: '姓名', 
+            prop: 'name', 
+            useInModal: { 
+                type: 'input', 
+                defaultValue: 'zzh', 
+                placeholder: '请输入', 
+                span: 8, 
+            }
+        },
+        {
+            label: '性别', prop: 'sex', convert: (row: any) => row.sex === 0 ? '男' : '女', useInModal: {
+                type: 'select', defaultValue: 'zzh', placeholder: '请输入', span: 8, options: [{ label: '男', value: 0 }, { label: '女', value: 1 }],
+            }
+        },
+        {
+            label: '年龄', prop: 'age', useInModal: {
+                type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
+            }
+        },
+        {
+            label: '手机号', prop: 'phone', useInModal: {
+                type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
+            }
+        },
+        {
+            label: '工号', prop: 'employeeNum', useInModal: {
+                type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
+            }
+        },
+        {
+            label: '角色', prop: 'role', useInModal: {
+                type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
+            }
+        },
     ],
     actionColumn: {
         label: '操作',
@@ -53,14 +80,14 @@ const tableSettings = ref({
         hasRowDeleteAction: true,
         hasRowEditAction: true,
         buttons: [
-            { label: '自定义按钮', type: 'primary', icon: 'Plus', onClick: (row:any, index:any) => { console.log('row: ' + row, '/n index: ' + index); }  }
+            { label: '自定义按钮', type: 'primary', icon: 'Plus', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } }
         ],
     },
 } as TTableSetting);
 
 onMounted(() => {
     // 控制列是否显示
-    const idColumn:any = tableSettings.value.columns?.find((x:any) => x.prop === 'id');
+    const idColumn: any = tableSettings.value.columns?.find((x: any) => x.prop === 'id');
     idColumn.notDisplay = true;
 });
 
@@ -76,4 +103,5 @@ const request = ref({
 </script>
 
 <style lang="scss" scoped>
+
 </style>
