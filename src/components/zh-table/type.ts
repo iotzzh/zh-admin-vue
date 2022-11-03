@@ -1,4 +1,4 @@
-import { TFormSettings } from '../zh-form/type';
+import { TField, TFormSettings } from '../zh-form/type';
 
 export interface TTableFormSettings extends TFormSettings {
   hasSearchButton?: boolean // 显示搜索按钮
@@ -48,6 +48,13 @@ export interface TTableColumn {
   format?: string
   useSlot?: boolean
   nullValue?: any
+
+  useInModal?: TUseInModal
+}
+
+export interface TUseInModal extends TField {
+  addSort?: number // 新增时排序，可小数
+  editSort?: number // 编辑时排序，可小数，一般只需要新增时排序，编辑排序填写时，在编辑时覆盖新增排序
 }
 
 export interface TActionColumn {
