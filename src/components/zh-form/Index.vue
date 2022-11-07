@@ -58,9 +58,9 @@
             v-model="modelValue[item.prop]" :clearable="item.clearable" />
 
           <!-- 单选框组 -->
-          <el-radio-group v-else-if="item.type === 'radio-group'" v-model="modelValue[item.prop]">
+          <el-radio-group v-else-if="item.type === 'radio-group'" v-model="modelValue[item.prop]" :style="{ width: item.width ? `${item.width}` : '100%' }">
             <el-radio v-for="(subItem, subIndex) in (item.options as Array<TSelectOption>)" :key="subIndex"
-              :label="subItem.label">{{ subItem.text }}</el-radio>
+              :label="subItem.value">{{ subItem.label }}</el-radio>
           </el-radio-group>
 
           <!-- 多选框 -->

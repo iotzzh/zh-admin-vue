@@ -51,6 +51,7 @@ export default class {
     );
     for (let i = 0; i < needConvertDateTimeFields.length; i++) {
       const value = model[needConvertDateTimeFields[i].prop];
+      if (!value) continue;
       for (let j = 0; j < value.length; j++) {
         const convertDateTimeArr = needConvertDateTimeFields[i]
           .convertDateTime as Array<TConvertDateTime>;
@@ -77,7 +78,7 @@ export default class {
       const extendMethodResult = method(model[needExtendFields[i].prop], model);
 
       extendMethodResult.forEach(
-        (element: { property: string | number; value: any }) => {
+        (element: { property: string | number, value: any }) => {
           model[element.property] = element.value;
         }
       );
