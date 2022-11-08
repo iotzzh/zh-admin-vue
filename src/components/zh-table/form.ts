@@ -3,7 +3,7 @@ import { Ref, ref } from 'vue';
 import { TConvertDateTime, TField, TFormSettings } from '../zh-form/type';
 import { TPage, TRequest } from './type';
 
-export default class {
+export default class Form{
   page: Ref<TPage>;
   request: Ref<TRequest | undefined> | undefined;
   formSettings: Ref<TFormSettings | undefined> | undefined;

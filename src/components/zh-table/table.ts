@@ -6,7 +6,7 @@ import { TParams } from '../zh-request/type';
 import ZHRequest from '../zh-request';
 import { debounce, throttle } from 'lodash';
 
-export default class {
+export default class Table{
   refTable: any;
   request: Ref<TRequest | undefined> | undefined;
   pageData: any;

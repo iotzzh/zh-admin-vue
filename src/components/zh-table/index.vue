@@ -6,61 +6,8 @@
       v-model="form.formModel"
       :form-settings="formSettings"
     >
-      <!-- 按钮相关部分: 内置按钮事件 -->
-      <el-form-item
-        class="zh-table-inline-button"
-        label-width="0px"
-        v-if="formSettings?.hasSearchButton"
-      >
-        <el-button type="primary" :icon="Search" @click="() => table.throttleInitData()"
-          >查询</el-button
-        >
-      </el-form-item>
-      <el-form-item
-        class="zh-table-inline-button"
-        label-width="0px"
-        v-if="formSettings?.hasAddButton"
-      >
-        <el-button type="primary" :icon="Search" @click="modalInstance.openAddModal"
-          >新增</el-button
-        >
-      </el-form-item>
-      <el-form-item
-        class="zh-table-inline-button"
-        label-width="0px"
-        v-if="formSettings?.hasUploadButton"
-      >
-        <el-button type="primary" :icon="Search"
-          >导入</el-button
-        >
-      </el-form-item>
-      <el-form-item
-        class="zh-table-inline-button"
-        label-width="0px"
-        v-if="formSettings?.hasExportButton"
-      >
-        <el-button type="primary" :icon="Search"
-          >导出</el-button
-        >
-      </el-form-item>
-      <el-form-item
-        class="zh-table-inline-button"
-        label-width="0px"
-        v-if="formSettings?.hasResetButton"
-      >
-        <el-button type="info" :icon="RefreshLeft" @click="form.init"
-          >重置</el-button
-        >
-      </el-form-item>
-      <el-form-item
-        class="zh-table-inline-button"
-        label-width="0px"
-        v-if="formSettings?.hasDeleteButton"
-      >
-        <el-button type="danger" :icon="Delete" @click="table.batchDelete"
-          >批量删除</el-button
-        >
-      </el-form-item>
+    <ZHFormButtons :form="form" :table="table" :formSettings="formSettings" :modalInstance="modalInstance" ></ZHFormButtons>
+
     </ZhForm>
 
     <!-- table部分：配置文件对象 tableSettings  -->
@@ -218,6 +165,7 @@ import { RefreshLeft, Search, Delete, Download,
 import moment from 'moment';
 import ZhForm from '../zh-form/index.vue';
 import ZhFormModal from '../zh-form-modal/index.vue';
+import ZHFormButtons from './form-buttons.vue';
 import { ElTable } from 'element-plus';
 import { TPageSetting, TRequest, TTableSetting, TPage, TTableFormSettings } from './type';
 import Page from './page';
