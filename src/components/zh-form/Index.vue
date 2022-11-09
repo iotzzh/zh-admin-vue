@@ -3,7 +3,15 @@
     :label-width="formSettings?.formLabelWidth || 'auto'" type="flex" inline justify="end"
     style="flex-wrap: wrap; flex-direction: row">
     <el-row style="display: flex; flex-wrap: wrap">
-      <el-col v-for="(item, index) in formSettings?.fields" :key="index" :span="item.span || 0" :style="{
+      <el-col v-for="(item, index) in formSettings?.fields" 
+        :key="index" 
+        :span="item.span || 0" 
+        :xl="item.xl || item.span || 0" 
+        :lg="item.lg || item.span || 0" 
+        :md="item.md || item.span || 0" 
+        :sm="item.sm || item.span || 0" 
+        :xs="item.xs || item.span || 0" 
+        :style="{
         maxWidth:
           item.span === undefined
             ? Number(item.width) + Number(item.labelWidth) + 'px'
@@ -69,13 +77,15 @@
 
           <!-- 自定义筛选内容 -->
           <template v-else-if="item.type === 'slot'">
-            <slot :name="'form-' + item.prop" />
+            <slot :name="'zh-form-' + item.prop" />
           </template>
         </el-form-item>
       </el-col>
       <slot></slot>
     </el-row>
-    <slot name="nextRow"></slot>
+
+
+    <slot name="zh-form-next-row"></slot>
   </el-form>
 </template>
 

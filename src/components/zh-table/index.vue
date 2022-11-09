@@ -1,13 +1,29 @@
 <template>
+
   <div class="zh-table">
+    <slot name="test"></slot>
     <ZhForm
       class="zh-form"
       v-if="useSearchForm"
       v-model="form.formModel"
       :form-settings="formSettings"
     >
-    <ZHFormButtons :form="form" :table="table" :formSettings="formSettings" :modalInstance="modalInstance" ></ZHFormButtons>
+    <!-- 传递form默认插槽 -->
+    <template #default>
+      <slot name="zh-table-form-default-before"></slot>
+      <ZHFormButtons :form="form" :table="table" :formSettings="formSettings" :modalInstance="modalInstance" ></ZHFormButtons>
+      <slot name="zh-table-form-default-after"></slot>
+    </template>
 
+    <!-- 传递form带字段名的插槽 -->
+    <template v-for="item in slotFields"  v-slot:[form._convertSlotName(item.prop)]>
+      <slot :name="'zh-table-form-' + item.prop"></slot>
+    </template>
+
+    <!-- 传递form下一行的插槽 -->
+    <template v-slot:zh-form-next-row>
+      <slot name="zh-table-form-next-row"></slot>
+    </template>
     </ZhForm>
 
     <!-- table部分：配置文件对象 tableSettings  -->
@@ -172,7 +188,7 @@ import Page from './page';
 import Table from './table';
 import Form from './form';
 import Modal from './modal';
-import { TFormSettings } from '../zh-form/type';
+import { TField, TFormSettings } from '../zh-form/type';
 import { debounce } from 'lodash';
 
 const props = defineProps({
@@ -222,6 +238,8 @@ const {
   addModalFormSettings
 } = toRefs(props);
 
+const test = ref('zh-form-slot-slotTest1');
+
 //#region common
 // 分页的组件内部数据
 const pageData: Ref<TPage> = ref({
@@ -238,6 +256,9 @@ const watchFormModel = computed(() => JSON.parse(JSON.stringify(form.formModel.v
 watch(watchFormModel, (newVal:any, oldVal: any) => {
   table.debounceInitData();
 });
+
+// 自定义插槽
+const slotFields = formSettings?.value?.fields?.filter((x:TField) => x.type === 'slot');
 //#endregion
 
 //#region table

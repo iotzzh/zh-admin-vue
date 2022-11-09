@@ -7,6 +7,7 @@ export interface TTableFormSettings extends TFormSettings {
   hasUploadButton?: boolean // 显示上传按钮
   hasAddButton?: boolean // 显示新增按钮
   hasResetButton?: boolean // 显示重置按钮
+  customModel?: {[x:string]: any} // 搜索框扩展字段绑定的model
 }
 
 export interface TPageSetting {

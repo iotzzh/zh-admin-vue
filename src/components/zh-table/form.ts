@@ -123,4 +123,8 @@ export default class Form{
     };
     return params;
   };
+
+  _convertSlotName = (prop: string) => {
+    return 'zh-form-' + prop;
+  };
 }

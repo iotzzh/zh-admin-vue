@@ -7,7 +7,13 @@ export interface TFormSettings {
 }
 
 export interface TField {
+  // <!--xl:1920, lg:1200, md:992,sm:768, xs:<768  -->
   span?: number // 表格的span非必填
+  xl?: number
+  lg?: number
+  md?: number
+  sm?: number
+  xs?: number
   type: string
   label?: string
   prop: string
