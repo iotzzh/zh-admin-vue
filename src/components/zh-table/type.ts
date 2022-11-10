@@ -8,6 +8,7 @@ export interface TTableFormSettings extends TFormSettings {
   hasAddButton?: boolean // 显示新增按钮
   hasResetButton?: boolean // 显示重置按钮
   customModel?: {[x:string]: any} // 搜索框扩展字段绑定的model
+  useConvertParams?: Function // 在搜索前进行一次
 }
 
 export interface TPageSetting {
@@ -50,7 +51,7 @@ export interface TTableColumn {
   useSlot?: boolean
   nullValue?: any
 
-  useInModal?: TUseInModal
+  useInModal?: TUseInModal // 字段在弹窗中的显示配置
 }
 
 export interface TUseInModal extends TField {

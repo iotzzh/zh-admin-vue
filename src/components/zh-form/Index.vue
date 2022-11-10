@@ -13,7 +13,9 @@
         :xs="item.xs || item.span || 0" 
         :style="{
         maxWidth:
-          item.span === undefined
+          item.span === undefined || item.xl === undefined ||
+          item.lg === undefined || item.md === undefined ||
+          item.sm === undefined || item.xs === undefined
             ? Number(item.width) + Number(item.labelWidth) + 'px'
             : ''
       }">

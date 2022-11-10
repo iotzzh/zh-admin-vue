@@ -2,16 +2,16 @@
     <Table :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings" :usePage="true"
         :request="request">
         <template v-slot:zh-table-form-default-before>
-            <el-button type="text">自定义前</el-button>
+            <el-button link>自定义前</el-button>
         </template>
         <template v-slot:zh-table-form-default-after>
-            <el-button type="text">自定义后</el-button>
+            <el-button link>自定义后</el-button>
         </template>
         <template v-slot:zh-table-form-test>
             <el-input placeholder="请输入自定义搜索" v-model="formSettings.customModel!.test"></el-input>
         </template>
         <template v-slot:zh-table-form-next-row>
-            <el-button type="text">自定义下一行内容</el-button>
+            <el-button link>自定义下一行内容</el-button>
         </template>
     </Table>
 </template>
@@ -27,9 +27,16 @@ const formSettings = ref({
     hasAddButton: true,
     hasSearchButton: true,
     hasDeleteButton: true,
+    hasUploadButton: true,
     hasExportButton: true,
     hasResetButton: true,
     customModel: { test: '自定义搜索' },
+    useConvertParams: (params: {[x:string]:any}) => {
+        return {
+            ...params,
+            useConvertParams: true,
+        };
+    },
     fields: [
         // { label: '姓名', type: 'input', prop: 'name', width: '220px', },
         // { label: '性别', type: 'select', prop: 'sex', width: '220px', options: [], },
@@ -39,20 +46,21 @@ const formSettings = ref({
         // convertDateTime: [{field: 'startCreateTime1', format: 'YYYY-MM-DD 00:00:00'}, {field: 'endCreateTime1', format: 'YYYY-MM-DD 23:59:59'}], },
         // { label: '自定义搜索', type: 'radio-group', prop: 'sex1', width: '220px', options: [], },
 
-        { label: '姓名', type: 'input', prop: 'name', span: 8, },
-        { label: '性别', type: 'select', prop: 'sex', span: 8, options: [], },
-        { label: '性别1', type: 'radio-group', prop: 'sex1', span: 8, options: [], },
+        { label: '姓名', type: 'input', prop: 'name', md: 8, xl: 24, sm: 24, xs: 24, span: 8, },
+        { label: '性别', type: 'select', prop: 'sex', span: 8, sm: 24, xs: 24, options: [], },
+        { label: '性别1', type: 'radio-group', prop: 'sex1', span: 8, sm: 12, xs: 24, options: [], },
         {
             label: '创建日期', type: 'date-picker', timeType: 'date',
             timeShowFormat: 'YYYY-MM-DD',
             timeValueFormat: 'YYYY-MM-DD',
-            prop: 'createTime', span: 8, options: [],
+            prop: 'createTime', span: 8, sm: 12, xs: 24, options: [],
         },
         {
-            label: '创建日期范围', type: 'date-picker', timeType: 'daterange', prop: 'createTime1', span: 8, options: [],
+            label: '创建日期范围', type: 'date-picker', timeType: 'daterange', prop: 'createTime1', options: [],
+            span: 8, sm: 12, xs: 24,
             convertDateTime: [{ field: 'startCreateTime1', format: 'YYYY-MM-DD 00:00:00' }, { field: 'endCreateTime1', format: 'YYYY-MM-DD 23:59:59' }],
         },
-        { label: '自定义搜索', type: 'slot', prop: 'test', span: 8, options: [], },
+        { label: '自定义搜索', type: 'slot', prop: 'test', span: 8, sm: 12, xs: 24, options: [], },
     ],
 } as TTableFormSettings);
 

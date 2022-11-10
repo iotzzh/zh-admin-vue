@@ -1,16 +1,16 @@
 import moment from 'moment';
 import { Ref, ref } from 'vue';
-import { TConvertDateTime, TField, TFormSettings } from '../zh-form/type';
-import { TPage, TRequest } from './type';
+import { TConvertDateTime, TField } from '../zh-form/type';
+import { TPage, TRequest, TTableFormSettings } from './type';
 
 export default class Form{
   page: Ref<TPage>;
   request: Ref<TRequest | undefined> | undefined;
-  formSettings: Ref<TFormSettings | undefined> | undefined;
+  formSettings: Ref<TTableFormSettings | undefined> | undefined;
   constructor(
     page: Ref<TPage>,
     request: Ref<TRequest | undefined> | undefined,
-    formSettings: Ref<TFormSettings | undefined> | undefined
+    formSettings: Ref<TTableFormSettings | undefined> | undefined
   ) {
     this.page = page;
     this.request = request;
@@ -105,6 +105,8 @@ export default class Form{
     const model = this.formModel.value
       ? JSON.parse(JSON.stringify(this.formModel.value))
       : {};
+    
+    const customModel = this.formSettings?.value?.customModel && JSON.parse(JSON.stringify(this.formSettings?.value?.customModel));
 
     if (this.formSettings?.value?.fields) {
       this.useConvert(model, this.formSettings?.value?.fields);
@@ -113,14 +115,20 @@ export default class Form{
       this.removeEmptyField(model);
     }
 
-    const params = {
+    let params = {
       // offset: (this.page.value.current - 1) * this.page.value.size,
       // limit: this.page.value.size,
       current: this.page.value.current,
       size: this.page.value.size,
       ...this.request?.value?.conditionsList,
       ...model,
+      ...customModel,
     };
+
+    if (this.formSettings?.value?.useConvertParams) {
+      params = this.formSettings.value?.useConvertParams(params);
+    }
+
     return params;
   };
 
