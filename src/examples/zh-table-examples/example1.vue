@@ -19,7 +19,7 @@
 <script lang="ts" setup>
 import { TField } from '@/components/zh-form/type';
 import Table from '@/components/zh-table/index.vue';
-import { TRequest, TTableFormSettings, TTableSetting } from '@/components/zh-table/type';
+import { TObject, TRequest, TTableFormSettings, TTableSetting } from '@/components/zh-table/type';
 import { onMounted, ref } from 'vue';
 import api from '../api/table/index';
 
@@ -31,10 +31,10 @@ const formSettings = ref({
     hasExportButton: true,
     hasResetButton: true,
     customModel: { test: '自定义搜索' },
-    useConvertParams: (params: {[x:string]:any}) => {
+    convertParams: (params: { [x: string]: any }) => {
         return {
             ...params,
-            useConvertParams: true,
+            convertParams: true,
         };
     },
     fields: [
@@ -46,8 +46,12 @@ const formSettings = ref({
         // convertDateTime: [{field: 'startCreateTime1', format: 'YYYY-MM-DD 00:00:00'}, {field: 'endCreateTime1', format: 'YYYY-MM-DD 23:59:59'}], },
         // { label: '自定义搜索', type: 'radio-group', prop: 'sex1', width: '220px', options: [], },
 
-        { label: '姓名', type: 'input', prop: 'name', md: 8, xl: 24, sm: 24, xs: 24, span: 8, },
-        { label: '性别', type: 'select', prop: 'sex', span: 8, sm: 24, xs: 24, options: [], },
+        { label: '姓名', type: 'input', prop: 'name', md: 8, xl: 24, sm: 24, xs: 24, span: 8, }, // 输入框测试
+        { label: '性别', type: 'select', prop: 'sex', span: 8, sm: 24, xs: 24, options: [], }, // 下拉：[{label, value}]
+        {
+            label: '性别Obj', type: 'select', prop: 'sexObj', valueKey: 'id', span: 8, sm: 24, xs: 24, options: [],
+            convert: (fieldValue: TObject, modelValue: TObject) => fieldValue && fieldValue.id
+        }, // 下拉：[objct]
         { label: '性别1', type: 'radio-group', prop: 'sex1', span: 8, sm: 12, xs: 24, options: [], },
         {
             label: '创建日期', type: 'date-picker', timeType: 'date',
@@ -66,15 +70,13 @@ const formSettings = ref({
 
 onMounted(() => {
     const sexItem = formSettings.value.fields?.find((x: TField) => x.prop === 'sex') as TField;
+    sexItem.options = [{ label: '男', value: 0 }, { label: '女', value: 1 }];
+
+    const sexItemObj = formSettings.value.fields?.find((x: TField) => x.prop === 'sexObj') as TField;
+    sexItemObj.options = [{ label: '男', value: 0, id: 1 }, { label: '女', value: 1, id: 2 }];
+
     const sexItem1 = formSettings.value.fields?.find((x: TField) => x.prop === 'sex1') as TField;
-    sexItem.options = [
-        { label: '男', value: 0 },
-        { label: '女', value: 1 },
-    ];
-    sexItem1.options = [
-        { label: '男', value: 0 },
-        { label: '女', value: 1 },
-    ];
+    sexItem1.options = [{ label: '男', value: 0 }, { label: '女', value: 1 }];
 });
 
 const tableSettings = ref({

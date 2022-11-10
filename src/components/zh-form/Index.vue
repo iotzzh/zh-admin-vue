@@ -52,7 +52,7 @@
                   ? '请输入选择'
                   : '请选择'
             ">
-            <el-option v-for="(subItem, subIndex) in (item.options as Array<TSelectOption>)"
+            <el-option v-for="(subItem, subIndex) in (item.options as Array<TSelectOption> | Array<{[x:string]: any}>)"
               :key="item.valueKey ? subItem[item.valueKey] : subIndex" :label="subItem.label"
               :value="item.valueKey ? subItem : subItem.value"></el-option>
           </el-select>

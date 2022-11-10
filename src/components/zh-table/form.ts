@@ -125,8 +125,8 @@ export default class Form{
       ...customModel,
     };
 
-    if (this.formSettings?.value?.useConvertParams) {
-      params = this.formSettings.value?.useConvertParams(params);
+    if (this.formSettings?.value?.convertParams) {
+      params = this.formSettings.value?.convertParams(params);
     }
 
     return params;

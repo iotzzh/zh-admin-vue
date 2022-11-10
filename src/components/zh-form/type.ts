@@ -29,7 +29,7 @@ export interface TField {
   notSearchTable?: boolean
 
   // 下拉选择/级联选择
-  options?: Array<TSelectOption> | Array<TCascaderOption>
+  options?: Array<TSelectOption> | Array<TCascaderOption> | Array<{[x:string] : any}>
 
   // 级联选择器的参数
   props?: TCascaderProps
@@ -56,13 +56,13 @@ export interface TField {
   checkboxText?: string
   checkboxSize?: Number
 
-  // 转换方法
+  // 转换方法, 一对一转换
   convert?: Function
 
-  // 时间转换
+  // 时间转换，数组拆分，并定义格式
   convertDateTime?: Array<TConvertDateTime>
 
-  // 针对需要额外扩展的参数，例如 { a: 'a' } => { b: 'a1', c: 'a2' }
+  // 转换方法：一对多转换， 针对需要额外扩展的参数，例如 { a: 'a' } => { b: 'a1', c: 'a2' }
   extendedFieldMethod?: Function
   notDeleteOriginProperty?: boolean
 }
@@ -86,4 +86,8 @@ export interface TCascaderOption {
 
 export interface TCascaderProps {
   expandTrigger?: string
+}
+
+export interface TObject {
+  [x:string]:any
 }
