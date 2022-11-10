@@ -16,7 +16,7 @@
     </template>
 
     <!-- 传递form带字段名的插槽 -->
-    <template v-for="item in slotFields"  v-slot:[form._convertSlotName(item.prop)]>
+    <template v-for="item in sloTFromFields"  v-slot:[form._convertSlotName(item.prop)]>
       <slot :name="'zh-table-form-' + item.prop"></slot>
     </template>
 
@@ -183,12 +183,12 @@ import ZhForm from '../zh-form/index.vue';
 import ZhFormModal from '../zh-form-modal/index.vue';
 import ZHFormButtons from './form-buttons.vue';
 import { ElTable } from 'element-plus';
-import { TPageSetting, TRequest, TTableSetting, TPage, TTableFormSettings } from './type';
+import { TZHTablePageSetting, TZHTableRequest, TZHTableSetting, TZHTablePage, TZHTableFormSettings } from './type';
 import Page from './page';
 import Table from './table';
 import Form from './form';
 import Modal from './modal';
-import { TField, TFormSettings } from '../zh-form/type';
+import { TZHFromField, TZHFormSettings } from '../zh-form/type';
 import { debounce } from 'lodash';
 
 const props = defineProps({
@@ -198,12 +198,12 @@ const props = defineProps({
   },
 
   formSettings: {
-    type: Object as PropType<TTableFormSettings>,
+    type: Object as PropType<TZHTableFormSettings>,
     required: false, // 必传
   },
 
   tableSettings: {
-    type: Object as PropType<TTableSetting>,
+    type: Object as PropType<TZHTableSetting>,
     required: true, // 必传
   },
 
@@ -213,17 +213,17 @@ const props = defineProps({
   },
 
   pageSettings: {
-    type: Object as PropType<TPageSetting>,
+    type: Object as PropType<TZHTablePageSetting>,
     required: false,
   },
 
   request: {
-    type: Object as PropType<TRequest>,
+    type: Object as PropType<TZHTableRequest>,
     required: false,
   },
 
   addModalFormSettings: {
-    type: Object as PropType<TFormSettings>,
+    type: Object as PropType<TZHFormSettings>,
     required: false,
   },
 });
@@ -242,7 +242,7 @@ const test = ref('zh-form-slot-slotTest1');
 
 //#region common
 // 分页的组件内部数据
-const pageData: Ref<TPage> = ref({
+const pageData: Ref<TZHTablePage> = ref({
   total: 0,
   current: 1,
   size: 20,
@@ -258,7 +258,7 @@ watch(watchFormModel, (newVal:any, oldVal: any) => {
 });
 
 // 自定义插槽
-const slotFields = formSettings?.value?.fields?.filter((x:TField) => x.type === 'slot');
+const sloTFromFields = formSettings?.value?.fields?.filter((x:TZHFromField) => x.type === 'slot');
 //#endregion
 
 //#region table
@@ -274,7 +274,7 @@ if (usePage.value) page = new Page(pageSettings?.value, pageData, table);
 
 //#region add/edit modal
 const refZHFormModal = ref();
-const modalInstance = new Modal(addModalFormSettings as Ref<TFormSettings>, request, table, refZHFormModal);
+const modalInstance = new Modal(addModalFormSettings as Ref<TZHFormSettings>, request, table, refZHFormModal);
 //#endregion
 
 defineExpose({

@@ -1,9 +1,9 @@
 import { Ref, ref } from 'vue';
-import { TPage, TPageSetting } from './type';
+import { TZHTablePage, TZHTablePageSetting } from './type';
 import Table from './table';
 
 export default class {
-  pageSettings: TPageSetting | undefined;
+  pageSettings: TZHTablePageSetting | undefined;
   sizes: any;
   pagerCount: any;
   total: any;
@@ -11,8 +11,8 @@ export default class {
   pageData: any;
   table: Table;
   constructor(
-    pageSettings: TPageSetting | undefined, 
-    pageData: Ref<TPage>,
+    pageSettings: TZHTablePageSetting | undefined, 
+    pageData: Ref<TZHTablePage>,
     table: Table) {
     this.sizes = ref(pageSettings?.sizes || [10, 20, 50, 100]);
     this.pagerCount = ref(pageSettings?.pagerCount || 5);

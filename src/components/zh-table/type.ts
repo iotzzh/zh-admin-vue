@@ -1,17 +1,38 @@
-import { TField, TFormSettings } from '../zh-form/type';
+import { TZHFromField, TZHFormSettings } from '../zh-form/type';
 
-export interface TTableFormSettings extends TFormSettings {
+export interface TZHTableFromField extends TZHFromField {
+  // 表格使用表单时，默认值变化时就搜索数据，个别字段变化不需要搜索，使用该值：notChangeTriggerSearch = 'true'
+  notChangeTriggerSearch?: boolean
+
+  // 转换方法, 一对一转换
+  convert?: Function
+
+  // 时间转换，数组拆分，并定义格式
+  convertDateTime?: Array<TZHFromFieldConvertDateTime>
+
+  // 转换方法：一对多转换， 针对需要额外扩展的参数，例如 { a: 'a' } => { b: 'a1', c: 'a2' }
+  extendedFieldMethod?: Function
+  notDeleteOriginProperty?: boolean
+}
+
+export interface TZHFromFieldConvertDateTime {
+  field: string
+  format: string
+}
+
+export interface TZHTableFormSettings extends TZHFormSettings {
   hasSearchButton?: boolean // 显示搜索按钮
   hasDeleteButton?: boolean // 显示批量删除按钮
   hasExportButton?: boolean // 显示导出按钮
   hasUploadButton?: boolean // 显示上传按钮
   hasAddButton?: boolean // 显示新增按钮
   hasResetButton?: boolean // 显示重置按钮
-  customModel?: {[x:string]: any} // 搜索框扩展字段绑定的model
+  customModel?: { [x: string]: any } // 搜索框扩展字段绑定的model
   convertParams?: Function // 在搜索前进行一次
+  fields?: Array<TZHTableFromField> // 重写fields
 }
 
-export interface TPageSetting {
+export interface TZHTablePageSetting {
   sizes?: Array<number> // [10, 20, 50, 100]
   current?: number
   size?: number
@@ -20,14 +41,14 @@ export interface TPageSetting {
   layout?: string // 'pre,next,total'
 }
 
-export interface TTableSetting {
+export interface TZHTableSetting {
   height?: string | number // 表格高度，示例：'100%', '100px', 100
   highlightCurrentRow?: boolean // 高亮选中行
   rowKey?: string // 行内唯一值，没有该值，无法使用checkbox
   hasSelection?: boolean // 是否存在checkbox列
   hasIndex?: boolean // 是否存在Index列
-  columns?: Array<TTableColumn> // 列配置，内包含新增和编辑的列配置
-  actionColumn?: TActionColumn // 操作列配置
+  columns?: Array<TZHTableColumn> // 列配置，内包含新增和编辑的列配置
+  actionColumn?: TZHTableActionColumn // 操作列配置
 
   // 事件
   rowClick?: Function // 单击事件
@@ -36,7 +57,7 @@ export interface TTableSetting {
   onBeforeInitData?: Function // 在初始化数据之前执行
 }
 
-export interface TTableColumn {
+export interface TZHTableColumn {
   editable?: boolean
   width?: number | string
   minWidth?: number | string
@@ -51,15 +72,15 @@ export interface TTableColumn {
   useSlot?: boolean
   nullValue?: any
 
-  useInModal?: TUseInModal // 字段在弹窗中的显示配置
+  useInModal?: TZHTableColumnUseInModal // 字段在弹窗中的显示配置
 }
 
-export interface TUseInModal extends TField {
+export interface TZHTableColumnUseInModal extends TZHFromField {
   addSort?: number // 新增时排序，可小数
   editSort?: number // 编辑时排序，可小数，一般只需要新增时排序，编辑排序填写时，在编辑时覆盖新增排序
 }
 
-export interface TActionColumn {
+export interface TZHTableActionColumn {
   hasRowEditAction?: boolean
   hasRowDeleteAction?: boolean
   fixed?: string
@@ -67,10 +88,10 @@ export interface TActionColumn {
   minWidth?: string
   label?: string
   align?: string
-  buttons?: Array<TActionColumnButton>
+  buttons?: Array<TZHTableActionColumnButton>
 }
 
-export interface TActionColumnButton {
+export interface TZHTableActionColumnButton {
   displayMethod?: Function
   hide?: boolean
   type?: string
@@ -81,7 +102,7 @@ export interface TActionColumnButton {
   label?: string
 }
 
-export interface TRequest {
+export interface TZHTableRequest {
   urlList?: string // 列表查询
   conditionsList?: Object
   urlDelete?: string // 单个删除
@@ -96,18 +117,18 @@ export interface TRequest {
   errorMessage?: string
 }
 
-export interface TRequestResult {
+export interface TZHTableRequestResult {
   success: boolean
   resCode: string
   data: any
 }
 
-export interface TPage {
+export interface TZHTablePage {
   total: number
   size: number
   current: number
 }
 
 export interface TObject {
-  [x:string]:any
+  [x: string]: any
 }

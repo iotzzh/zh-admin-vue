@@ -1,8 +1,8 @@
 import { computed, Ref, ref, nextTick } from 'vue';
 import { TModal } from '../zh-form-modal/type';
-import { TFormSettings } from '../zh-form/type';
+import { TZHFormSettings } from '../zh-form/type';
 import { popErrorMessage } from '../zh-message';
-import { TRequest, TRequestResult, TUseInModal } from './type';
+import { TZHTableRequest, TZHTableRequestResult, TZHTableColumnUseInModal } from './type';
 import Table from './table';
 import ZHRequest from '../zh-request';
 import { TParams } from '../zh-request/type';
@@ -10,13 +10,13 @@ import { TParams } from '../zh-request/type';
 
 
 export default class Modal{
-  // addModalFormSettings: Ref<TFormSettings>;
-  // formSettings: Ref<TFormSettings>;
-  request: Ref<TRequest | undefined> | undefined;
+  // addModalFormSettings: Ref<TZHFormSettings>;
+  // formSettings: Ref<TZHFormSettings>;
+  request: Ref<TZHTableRequest | undefined> | undefined;
   table: Table;
   refZHFormModal: Ref<any>;
-  constructor(addModalFormSettings: Ref<TFormSettings>,
-    request: Ref<TRequest | undefined> | undefined,
+  constructor(addModalFormSettings: Ref<TZHFormSettings>,
+    request: Ref<TZHTableRequest | undefined> | undefined,
     table: Table,
     refZHFormModal: Ref<any>) {
     this.table = table;
@@ -35,7 +35,7 @@ export default class Modal{
           ...y.useInModal,
         };
       }),
-    } as TFormSettings;
+    } as TZHFormSettings;
   });
 
   modal = ref({ show: false, title: '新增', } as TModal);
@@ -51,7 +51,7 @@ export default class Modal{
 
   _setDefaultValue = () => {
     const fieldsWithDefaultValue = this.formSettings.value.fields?.filter((x: any) => x.defaultValue !== null && x.defaultValue !== undefined);
-    const newPropertyArray: Array<{ property: string, defaultValue: any }> = fieldsWithDefaultValue?.map((x: TUseInModal) => { return { property: x.prop, defaultValue: x.defaultValue }; }) || [];
+    const newPropertyArray: Array<{ property: string, defaultValue: any }> = fieldsWithDefaultValue?.map((x: TZHTableColumnUseInModal) => { return { property: x.prop, defaultValue: x.defaultValue }; }) || [];
     const newObj: any = {};
     for (let i = 0; i < newPropertyArray.length; i++) {
       newObj[newPropertyArray[i].property] = newPropertyArray[i].defaultValue;
@@ -84,7 +84,7 @@ export default class Modal{
       conditions: this.formModel.value,
     };
 
-    const result: TRequestResult = await ZHRequest.post(params);
+    const result: TZHTableRequestResult = await ZHRequest.post(params);
     if (result.success) {
       this.close();
       this.table.initData();

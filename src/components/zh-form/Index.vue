@@ -52,7 +52,7 @@
                   ? '请输入选择'
                   : '请选择'
             ">
-            <el-option v-for="(subItem, subIndex) in (item.options as Array<TSelectOption> | Array<{[x:string]: any}>)"
+            <el-option v-for="(subItem, subIndex) in (item.options as Array<TZHFromFieldSelectOption> | Array<{[x:string]: any}>)"
               :key="item.valueKey ? subItem[item.valueKey] : subIndex" :label="subItem.label"
               :value="item.valueKey ? subItem : subItem.value"></el-option>
           </el-select>
@@ -69,7 +69,7 @@
 
           <!-- 单选框组 -->
           <el-radio-group v-else-if="item.type === 'radio-group'" v-model="modelValue[item.prop]" :style="{ width: item.width ? `${item.width}` : '100%' }">
-            <el-radio v-for="(subItem, subIndex) in (item.options as Array<TSelectOption>)" :key="subIndex"
+            <el-radio v-for="(subItem, subIndex) in (item.options as Array<TZHFromFieldSelectOption>)" :key="subIndex"
               :label="subItem.value">{{ subItem.label }}</el-radio>
           </el-radio-group>
 
@@ -94,7 +94,7 @@
 <script setup lang="ts">
 import { toRefs, PropType, ref } from 'vue';
 import Form from './index';
-import { TFormSettings, TSelectOption } from './type';
+import { TZHFormSettings, TZHFromFieldSelectOption } from './type';
 
 const props = defineProps({
   modelValue: {
@@ -102,7 +102,7 @@ const props = defineProps({
   },
 
   formSettings: {
-    type: Object as PropType<TFormSettings>,
+    type: Object as PropType<TZHFormSettings>,
   },
 });
 

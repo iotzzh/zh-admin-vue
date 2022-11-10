@@ -35,11 +35,11 @@ import { Plus, Search, Delete, Download,
   DocumentChecked, Refresh, Upload } from '@element-plus/icons-vue';
 import ZhFormModal from '../zh-form-modal/index.vue';
 import { TModal } from '../zh-modal/type';
-import { TField, TFormSettings } from '../zh-form/type';
-import { TRequest } from './type';
+import { TZHFromField, TZHFormSettings } from '../zh-form/type';
+import { TZHTableRequest } from './type';
 import ZHRequest from '../zh-request';
 import { TParams } from '../zh-request/type';
-import { TRequestResult } from '../zh-table/type';
+import { TZHTableRequestResult } from '../zh-table/type';
 
 const props = defineProps({
   defaultProps: {
@@ -48,7 +48,7 @@ const props = defineProps({
   },
 
   request: {
-    type: Object as PropType<TRequest>,
+    type: Object as PropType<TZHTableRequest>,
     required: false,
   },
 });
@@ -70,11 +70,11 @@ const formSettings = ref({
     { label: '父级分类', prop: 'parent_classfication_name', type:'text', span: 24, hide: false },
     { label: '分类名称', prop: 'classfication_name', type:'input', span: 24, },
   ],
-} as TFormSettings);
+} as TZHFormSettings);
 
 // 0: 总， 1：新增， 2：编辑
 const openModal = (type: number) => {
-  const fields = formSettings.value.fields as TField[];
+  const fields = formSettings.value.fields as TZHFromField[];
 
   if (type === 0) {
     fields[0].hide = true;
@@ -96,7 +96,7 @@ const submit = async() => {
     url: request?.value?.urlAdd || '',
     conditions: formModel.value,
   };
-  const result:TRequestResult =  await ZHRequest.post(params);
+  const result:TZHTableRequestResult =  await ZHRequest.post(params);
   } else if (modal.value.type === 'edit') {
   
   }

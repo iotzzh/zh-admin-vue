@@ -17,9 +17,9 @@
 </template>
 
 <script lang="ts" setup>
-import { TField } from '@/components/zh-form/type';
+import { TZHFromField } from '@/components/zh-form/type';
 import Table from '@/components/zh-table/index.vue';
-import { TObject, TRequest, TTableFormSettings, TTableSetting } from '@/components/zh-table/type';
+import { TObject, TZHTableRequest, TZHTableFormSettings, TZHTableSetting } from '@/components/zh-table/type';
 import { onMounted, ref } from 'vue';
 import api from '../api/table/index';
 
@@ -47,6 +47,7 @@ const formSettings = ref({
         // { label: '自定义搜索', type: 'radio-group', prop: 'sex1', width: '220px', options: [], },
 
         { label: '姓名', type: 'input', prop: 'name', md: 8, xl: 24, sm: 24, xs: 24, span: 8, }, // 输入框测试
+        { label: '姓名', type: 'input', prop: 'name', md: 8, xl: 24, sm: 24, xs: 24, span: 8, }, // 输入框测试, 输入不搜索
         { label: '性别', type: 'select', prop: 'sex', span: 8, sm: 24, xs: 24, options: [], }, // 下拉：[{label, value}]
         {
             label: '性别Obj', type: 'select', prop: 'sexObj', valueKey: 'id', span: 8, sm: 24, xs: 24, options: [],
@@ -66,16 +67,16 @@ const formSettings = ref({
         },
         { label: '自定义搜索', type: 'slot', prop: 'test', span: 8, sm: 12, xs: 24, options: [], },
     ],
-} as TTableFormSettings);
+} as TZHTableFormSettings);
 
 onMounted(() => {
-    const sexItem = formSettings.value.fields?.find((x: TField) => x.prop === 'sex') as TField;
+    const sexItem = formSettings.value.fields?.find((x: TZHFromField) => x.prop === 'sex') as TZHFromField;
     sexItem.options = [{ label: '男', value: 0 }, { label: '女', value: 1 }];
 
-    const sexItemObj = formSettings.value.fields?.find((x: TField) => x.prop === 'sexObj') as TField;
+    const sexItemObj = formSettings.value.fields?.find((x: TZHFromField) => x.prop === 'sexObj') as TZHFromField;
     sexItemObj.options = [{ label: '男', value: 0, id: 1 }, { label: '女', value: 1, id: 2 }];
 
-    const sexItem1 = formSettings.value.fields?.find((x: TField) => x.prop === 'sex1') as TField;
+    const sexItem1 = formSettings.value.fields?.find((x: TZHFromField) => x.prop === 'sex1') as TZHFromField;
     sexItem1.options = [{ label: '男', value: 0 }, { label: '女', value: 1 }];
 });
 
@@ -99,27 +100,27 @@ const tableSettings = ref({
         },
         {
             label: '性别', prop: 'sex', convert: (row: any) => row.sex === 0 ? '男' : '女', useInModal: {
-                type: 'select', defaultValue: 'zzh', placeholder: '请输入', span: 8, options: [{ label: '男', value: 0 }, { label: '女', value: 1 }],
+                type: 'select', defaultValue: 0, placeholder: '请输入', span: 8, options: [{ label: '男', value: 0 }, { label: '女', value: 1 }],
             }
         },
         {
             label: '年龄', prop: 'age', useInModal: {
-                type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
+                type: 'input', defaultValue: '18', placeholder: '请输入', span: 8,
             }
         },
         {
             label: '手机号', prop: 'phone', useInModal: {
-                type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
+                type: 'input', defaultValue: '15665395332', placeholder: '请输入', span: 8,
             }
         },
         {
             label: '工号', prop: 'employeeNum', useInModal: {
-                type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
+                type: 'input', defaultValue: 'HS921593', placeholder: '请输入', span: 8,
             }
         },
         {
             label: '角色', prop: 'role', useInModal: {
-                type: 'input', defaultValue: 'zzh', placeholder: '请输入', span: 8,
+                type: 'input', defaultValue: 'Developer', placeholder: '请输入', span: 8,
             }
         },
     ],
@@ -132,7 +133,7 @@ const tableSettings = ref({
             { label: '自定义按钮', type: 'primary', icon: 'Plus', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } }
         ],
     },
-} as TTableSetting);
+} as TZHTableSetting);
 
 onMounted(() => {
     // 控制列是否显示
@@ -147,7 +148,7 @@ const request = ref({
     urlBatchDelete: api.batchDeleteUser,
     urlDelete: api.deleteUser,
     urlUpdate: api.updateUser
-} as TRequest);
+} as TZHTableRequest);
 
 </script>
 

@@ -1,4 +1,4 @@
-export interface TRequest {
+export interface TZHTableRequest {
   urlList?: string
   conditionsList?: Object
   urlDelete?: string // 单个删除

@@ -9,7 +9,7 @@ import { toRefs, PropType, ref } from 'vue';
 import ZHModal from '../zh-modal/index.vue';
 import { TModal } from '../zh-modal/type';
 import ZHForm from '../zh-form/index.vue';
-import { TFormSettings } from '../zh-form/type';
+import { TZHFormSettings } from '../zh-form/type';
 
 const props = defineProps({
   modelValue: {
@@ -22,7 +22,7 @@ const props = defineProps({
   },
 
   formSettings: {
-    type: Object as PropType<TFormSettings>,
+    type: Object as PropType<TZHFormSettings>,
   },
 });
 

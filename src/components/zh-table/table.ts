@@ -1,5 +1,5 @@
 import { computed, Ref, ref } from 'vue';
-import { TPage, TRequest, TRequestResult, TTableSetting } from './type';
+import { TZHTablePage, TZHTableRequest, TZHTableRequestResult, TZHTableSetting } from './type';
 import Form from './form';
 import { isMessageConfirm, popErrorMessage } from '../zh-message';
 import { TParams } from '../zh-request/type';
@@ -8,16 +8,16 @@ import { debounce, throttle } from 'lodash';
 
 export default class Table{
   refTable: any;
-  request: Ref<TRequest | undefined> | undefined;
+  request: Ref<TZHTableRequest | undefined> | undefined;
   pageData: any;
   form: Form;
-  tableSettings: Ref<TTableSetting>;
+  tableSettings: Ref<TZHTableSetting>;
   constructor(
-    tableSettings: Ref<TTableSetting>,
+    tableSettings: Ref<TZHTableSetting>,
     refTable: any,
-    request: Ref<TRequest | undefined> | undefined,
+    request: Ref<TZHTableRequest | undefined> | undefined,
     form: Form,
-    pageData: Ref<TPage>
+    pageData: Ref<TZHTablePage>
   ) {
     this.tableSettings = tableSettings;
     this.refTable = refTable;
@@ -57,7 +57,7 @@ export default class Table{
     };
     console.log('params', params);
     // 获取数据
-    const result: TRequestResult = await ZHRequest.post(args);
+    const result: TZHTableRequestResult = await ZHRequest.post(args);
     // 处理数据
     if (result.success) {
       this.data.value = result.data.records;
@@ -76,7 +76,7 @@ export default class Table{
 
   getDataAsync = async (propParams?: Object) => { 
     const params = propParams || this.form.getSearchParams();
-    const result: TRequestResult = await ZHRequest.post(params);
+    const result: TZHTableRequestResult = await ZHRequest.post(params);
     return result;
   };
 
@@ -95,7 +95,7 @@ export default class Table{
         ids: selections.map((x: any) => x.id),
       },
     };
-    const result: TRequestResult = await ZHRequest.post(params);
+    const result: TZHTableRequestResult = await ZHRequest.post(params);
     if (result.success) {
       this.debounceInitData();
     }
@@ -108,7 +108,7 @@ export default class Table{
       url: this.request?.value?.urlDelete || '',
       conditions: { ...row },
     };
-    const result: TRequestResult = await ZHRequest.post(params);
+    const result: TZHTableRequestResult = await ZHRequest.post(params);
     if (result.success) {
       this.debounceInitData();
     }

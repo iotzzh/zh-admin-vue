@@ -1,16 +1,15 @@
 import moment from 'moment';
 import { Ref, ref } from 'vue';
-import { TConvertDateTime, TField } from '../zh-form/type';
-import { TPage, TRequest, TTableFormSettings } from './type';
+import { TZHTablePage, TZHTableRequest, TZHTableFormSettings, TZHTableFromField, TZHFromFieldConvertDateTime } from './type';
 
 export default class Form{
-  page: Ref<TPage>;
-  request: Ref<TRequest | undefined> | undefined;
-  formSettings: Ref<TTableFormSettings | undefined> | undefined;
+  page: Ref<TZHTablePage>;
+  request: Ref<TZHTableRequest | undefined> | undefined;
+  formSettings: Ref<TZHTableFormSettings | undefined> | undefined;
   constructor(
-    page: Ref<TPage>,
-    request: Ref<TRequest | undefined> | undefined,
-    formSettings: Ref<TTableFormSettings | undefined> | undefined
+    page: Ref<TZHTablePage>,
+    request: Ref<TZHTableRequest | undefined> | undefined,
+    formSettings: Ref<TZHTableFormSettings | undefined> | undefined
   ) {
     this.page = page;
     this.request = request;
@@ -31,13 +30,13 @@ export default class Form{
   };
 
   // 针对需要转换数据的情况：field: a -> b
-  useConvert = (model: { [key: string]: string }, fields: TField[]) => {
-    const needConvertFields = fields.filter((x) => x.convert);
-    for (let i = 0; i < needConvertFields.length; i++) {
-      const method: Function | undefined = needConvertFields[i].convert;
+  useConvert = (model: { [key: string]: string }, fields: TZHTableFromField[]) => {
+    const needConverTFromFields = fields.filter((x) => x.convert);
+    for (let i = 0; i < needConverTFromFields.length; i++) {
+      const method: Function | undefined = needConverTFromFields[i].convert;
       if (!method) return;
-      model[needConvertFields[i].prop] = method(
-        model[needConvertFields[i].prop],
+      model[needConverTFromFields[i].prop] = method(
+        model[needConverTFromFields[i].prop],
         model
       );
     }
@@ -45,8 +44,8 @@ export default class Form{
 
   // 针对需要额外转换时间的参数，convertDateTime格式：[ { field: '', format: '',} ]
   // 只应用于时间范围转换功能，field: [2022.1.1, 2022.3.3] -> filedA: 2022.1.1 22:11:11, fieldB: 2022.3.3 10:11:11
-  useConvertDateTime = (model: { [key: string]: string }, fields: TField[]) => {
-    const needConvertDateTimeFields: TField[] = fields.filter(
+  useConvertDateTime = (model: { [key: string]: string }, fields: TZHTableFromField[]) => {
+    const needConvertDateTimeFields: TZHTableFromField[] = fields.filter(
       (x) => x.convertDateTime
     );
     for (let i = 0; i < needConvertDateTimeFields.length; i++) {
@@ -54,7 +53,7 @@ export default class Form{
       if (!value) continue;
       for (let j = 0; j < value.length; j++) {
         const convertDateTimeArr = needConvertDateTimeFields[i]
-          .convertDateTime as Array<TConvertDateTime>;
+          .convertDateTime as Array<TZHFromFieldConvertDateTime>;
         const field = convertDateTimeArr[j].field;
         const format = convertDateTimeArr[j].format;
         model[field] = moment(value[j]).format(format);
@@ -65,10 +64,10 @@ export default class Form{
 
   useExtendedFieldMethod = (
     model: { [key: string]: string },
-    fields: TField[]
+    fields: TZHTableFromField[]
   ) => {
     // 针对需要额外扩展的参数，例如 { a: 'a' } => { b: 'a1', c: 'a2' }
-    const needExtendFields: TField[] = fields.filter(
+    const needExtendFields: TZHTableFromField[] = fields.filter(
       (x) => x.extendedFieldMethod
     );
     for (let i = 0; i < needExtendFields.length; i++) {
