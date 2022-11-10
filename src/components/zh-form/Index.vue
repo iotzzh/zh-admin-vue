@@ -64,8 +64,16 @@
             :style="{ width: item.width ? `${item.width}` : '100%' }" :clearable="item.clearable"></el-date-picker>
 
           <!-- 级联选择器  -->
-          <el-cascader v-else-if="item.type === 'cascader'" :options="item.options" :props="item.props"
-            v-model="modelValue[item.prop]" :clearable="item.clearable" />
+          <el-cascader 
+            v-else-if="item.type === 'cascader'" 
+            :options="item.options" 
+            :props="item.props"
+            @change="formInstance.changeCascader(itemRefs, item.refName, formSettings)"
+            :ref="(el: any) => {
+              if(item.refName) itemRefs[item.refName] = el; 
+              }"
+            v-model="modelValue[item.prop]" 
+            :clearable="item.clearable" />
 
           <!-- 单选框组 -->
           <el-radio-group v-else-if="item.type === 'radio-group'" v-model="modelValue[item.prop]" :style="{ width: item.width ? `${item.width}` : '100%' }">
@@ -106,13 +114,15 @@ const props = defineProps({
   },
 });
 
-const refForm = ref();
 const { modelValue, formSettings } = toRefs(props);
 
-const emit = defineEmits(['close', 'submit', 'update:modelValue']); //定义一个变量来接收父组件传来的方法
-const hsFormInstance = new Form({ emit, refForm });
+const refForm = ref();
+const itemRefs = ref([] as any);
 
-defineExpose({ validate: hsFormInstance.validate });
+const emit = defineEmits(['close', 'submit', 'update:modelValue']); //定义一个变量来接收父组件传来的方法
+const formInstance  = new Form({ emit, refForm });
+
+defineExpose({ validate: formInstance.validate });
 </script>
 
 <script lang="ts">

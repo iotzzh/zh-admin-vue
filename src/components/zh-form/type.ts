@@ -17,6 +17,7 @@ export interface TZHFromField {
   type: string
   label?: string
   prop: string
+  refName?: string
   defaultValue?: any
   labelWidth?: string | number
   hide?: boolean
