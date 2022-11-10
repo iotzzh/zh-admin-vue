@@ -2,144 +2,82 @@
 
   <div class="zh-table">
     <slot name="test"></slot>
-    <ZhForm
-      class="zh-form"
-      v-if="useSearchForm"
-      v-model="form.formModel"
-      :form-settings="formSettings"
-    >
-    <!-- 传递form默认插槽 -->
-    <template #default>
-      <slot name="zh-table-form-default-before"></slot>
-      <ZHFormButtons :form="form" :table="table" :formSettings="formSettings" :modalInstance="modalInstance" ></ZHFormButtons>
-      <slot name="zh-table-form-default-after"></slot>
-    </template>
+    <ZhForm class="zh-form" v-if="useSearchForm" v-model="form.formModel" :form-settings="formSettings">
+      <!-- 传递form默认插槽 -->
+      <template #default>
+        <slot name="zh-table-form-default-before"></slot>
+        <ZHFormButtons :form="form" :table="table" :formSettings="formSettings" :modalInstance="modalInstance">
+        </ZHFormButtons>
+        <slot name="zh-table-form-default-after"></slot>
+      </template>
 
-    <!-- 传递form带字段名的插槽 -->
-    <template v-for="item in sloTFromFields"  v-slot:[form._convertSlotName(item.prop)]>
-      <slot :name="'zh-table-form-' + item.prop"></slot>
-    </template>
+      <!-- 传递form带字段名的插槽 -->
+      <template v-for="item in sloTFromFields" v-slot:[form._convertSlotName(item.prop)]>
+        <slot :name="'zh-table-form-' + item.prop"></slot>
+      </template>
 
-    <!-- 传递form下一行的插槽 -->
-    <template v-slot:zh-form-next-row>
-      <slot name="zh-table-form-next-row"></slot>
-    </template>
+      <!-- 传递form下一行的插槽 -->
+      <template v-slot:zh-form-next-row>
+        <slot name="zh-table-form-next-row"></slot>
+      </template>
     </ZhForm>
 
     <!-- table部分：配置文件对象 tableSettings  -->
-    <el-table
-      ref="refTable"
-      class="zh-el-table"
-      :data="table.data.value"
-      size="small"
-      :height="tableSettings.height || '100%'"
-      :highlight-current-row="tableSettings.highlightCurrentRow"
-      v-loading="table.loading.value"
-      :row-key="tableSettings.rowKey"
-      @row-click="table.rowClick"
-    >
-      <el-table-column
-        v-if="tableSettings.hasSelection"
-        type="selection"
-        width="50"
-        align="center"
-        reserve-selection
-      ></el-table-column>
+    <el-table ref="refTable" class="zh-el-table" :data="table.data.value" size="small"
+      :height="tableSettings.height || '100%'" :highlight-current-row="tableSettings.highlightCurrentRow"
+      v-loading="table.loading.value" :row-key="tableSettings.rowKey" @row-click="table.rowClick">
+      <el-table-column v-if="tableSettings.hasSelection" type="selection" width="50" align="center" reserve-selection>
+      </el-table-column>
 
-      <el-table-column
-        v-if="tableSettings.hasIndex"
-        type="index"
-        width="60"
-        label="序号"
-        align="center"
-      ></el-table-column>
+      <el-table-column v-if="tableSettings.hasIndex" type="index" width="60" label="序号" align="center">
+      </el-table-column>
 
-      <el-table-column
-        v-for="(item, index) in table.columns.value"
-        :key="'table-column' + index + (item.editable ? '-editable' : '')"
-        :width="item.width ? item.width : ''"
-        :min-width="item.minWidth ? item.minWidth : ''"
-        :align="item.align ? item.align : 'center'"
-        :label="item.label"
-        :prop="item.prop"
-        :fixed="item.fixed"
-        :sortable="item.sortable"
-        :class-name="item.className"
-      >
+      <el-table-column v-for="(item, index) in table.columns.value"
+        :key="'table-column' + index + (item.editable ? '-editable' : '')" :width="item.width ? item.width : ''"
+        :min-width="item.minWidth ? item.minWidth : ''" :align="item.align ? item.align : 'center'" :label="item.label"
+        :prop="item.prop" :fixed="item.fixed" :sortable="item.sortable" :class-name="item.className">
         <template #default="scope">
           <span v-if="item.convert">{{
-            item.convert(scope.row, scope.$index)
+              item.convert(scope.row, scope.$index)
           }}</span>
 
           <span v-else-if="item.format">{{
-            scope.row[item.prop as string] &&
-            moment(scope.row[item.prop as string]).format(item.format)
+              scope.row[item.prop as string] &&
+              moment(scope.row[item.prop as string]).format(item.format)
           }}</span>
 
           <!-- 自定义内容 -->
           <template v-else-if="item.useSlot">
-            <slot
-              :name="'table-' + item.prop"
-              :row="scope.row"
-              :index="scope.$index"
-              :label="item.label"
-            />
+            <slot :name="'table-' + item.prop" :row="scope.row" :index="scope.$index" :label="item.label" />
           </template>
 
           <span v-else>
             {{
-              scope.row[item.prop as string] === undefined ||
-              scope.row[item.prop as string] === null
-                ? item.nullValue
-                : scope.row[item.prop as string]
+                scope.row[item.prop as string] === undefined ||
+                  scope.row[item.prop as string] === null
+                  ? item.nullValue
+                  : scope.row[item.prop as string]
             }}
           </span>
         </template>
       </el-table-column>
 
-      <el-table-column
-        v-if="tableSettings.actionColumn"
-        :fixed="tableSettings.actionColumn?.fixed"
-        :width="tableSettings.actionColumn?.width"
-        :min-width="tableSettings.actionColumn?.minWidth"
-        :label="tableSettings.actionColumn?.label"
-        :align="
+      <el-table-column v-if="tableSettings.actionColumn" :fixed="tableSettings.actionColumn?.fixed"
+        :width="tableSettings.actionColumn?.width" :min-width="tableSettings.actionColumn?.minWidth"
+        :label="tableSettings.actionColumn?.label" :align="
           tableSettings.actionColumn?.align
             ? tableSettings.actionColumn.align
             : 'center'
-        "
-      >
+        ">
         <template #default="scope">
-          <el-button
-            v-if="tableSettings.actionColumn?.hasRowEditAction"
-            link
-            type="primary"
-            size="small"
-            :icon="Edit"
-            @click.stop="modalInstance.openEditModal(scope.row)"
-            >编辑</el-button
-          >
-          <el-button
-            v-if="tableSettings.actionColumn?.hasRowDeleteAction"
-            link
-            type="danger"
-            size="small"
-            :icon="Delete"
-            @click.stop="table.rowDelete(scope.row)"
-            >删除</el-button
-          >
-          <el-button
-            v-for="(item, buttonIndex) in tableSettings.actionColumn.buttons"
-            :key="buttonIndex"
-            link
-            v-show="!item?.hide"
-            :type="item?.type"
-            :size="item?.size ? item.size : 'small'"
-            :icon="item?.icon"
-            :style="item?.style"
-            @click.stop="item?.onClick && item?.onClick(scope.row, scope.$index)"
-            >{{ item.label }}</el-button
-          >
+          <el-button v-if="tableSettings.actionColumn?.hasRowEditAction" link type="primary" size="small" :icon="Edit"
+            @click.stop="modalInstance.openEditModal(scope.row)">编辑</el-button>
+          <el-button v-if="tableSettings.actionColumn?.hasRowDeleteAction" link type="danger" size="small"
+            :icon="Delete" @click.stop="table.rowDelete(scope.row)">删除</el-button>
+          <el-button v-for="(item, buttonIndex) in tableSettings.actionColumn.buttons" :key="buttonIndex" link
+            v-show="!item?.hide" :type="item?.type" :size="item?.size ? item.size : 'small'" :icon="item?.icon"
+            :style="item?.style" @click.stop="item?.onClick && item?.onClick(scope.row, scope.$index)">{{ item.label }}
+          </el-button>
         </template>
       </el-table-column>
 
@@ -149,35 +87,23 @@
     </el-table>
 
     <!-- page部分： 配置文件对象 pageSettings -->
-    <el-pagination
-      v-if="usePage"
-      class="zh-table-pagination"
-      :page-sizes="page?.sizes.value"
-      :pager-count="page?.pagerCount.value"
-      :layout="page?.layout.value"
-      :total="pageData.total"
-      v-model:currentPage="pageData.current"
-      v-model:page-size="pageData.size"
-      @current-change="page?.handleCurrentChange"
-      @size-change="page?.handleCurrentChange"
-    />
+    <el-pagination v-if="usePage" class="zh-table-pagination" :page-sizes="page?.sizes.value"
+      :pager-count="page?.pagerCount.value" :layout="page?.layout.value" :total="pageData.total"
+      v-model:currentPage="pageData.current" v-model:page-size="pageData.size"
+      @current-change="page?.handleCurrentChange" @size-change="page?.handleCurrentChange" />
 
-    <ZhFormModal
-      ref="refZHFormModal" 
-      :modal="modalInstance.modal.value" 
-      v-model="modalInstance.formModel.value" 
-      :formSettings="modalInstance.formSettings.value"
-      @cancel="modalInstance.cancel"
-      @close="modalInstance.close"
-      @submit="modalInstance.submit"
-    ></ZhFormModal>
+    <ZhFormModal ref="refZHFormModal" :modal="modalInstance.modal.value" v-model="modalInstance.formModel.value"
+      :formSettings="modalInstance.formSettings.value" @cancel="modalInstance.cancel" @close="modalInstance.close"
+      @submit="modalInstance.submit"></ZhFormModal>
   </div>
 </template>
 
 <script setup lang="ts">
 import { toRefs, PropType, computed, ref, reactive, Ref, watch } from 'vue';
-import { RefreshLeft, Search, Delete, Download, 
-  DocumentChecked, Refresh, Upload, Edit } from '@element-plus/icons-vue';
+import {
+  RefreshLeft, Search, Delete, Download,
+  DocumentChecked, Refresh, Upload, Edit
+} from '@element-plus/icons-vue';
 import moment from 'moment';
 import ZhForm from '../zh-form/index.vue';
 import ZhFormModal from '../zh-form-modal/index.vue';
@@ -253,12 +179,12 @@ const pageData: Ref<TZHTablePage> = ref({
 const form = new Form(pageData, request, formSettings);
 form.init();
 const watchFormModel = computed(() => JSON.parse(JSON.stringify(form.formModel.value)));
-watch(watchFormModel, (newVal:any, oldVal: any) => {
-  table.debounceInitData();
+watch(watchFormModel, (newVal: { [x: string]: any }, oldVal: { [x: string]: any }) => {
+  if (!form._compareNeedTriggerSearchFieldsIsEqual(newVal, oldVal)) table.debounceInitData();
 });
 
 // 自定义插槽
-const sloTFromFields = formSettings?.value?.fields?.filter((x:TZHFromField) => x.type === 'slot');
+const sloTFromFields = formSettings?.value?.fields?.filter((x: TZHFromField) => x.type === 'slot');
 //#endregion
 
 //#region table

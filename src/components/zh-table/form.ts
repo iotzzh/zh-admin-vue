@@ -1,8 +1,10 @@
 import moment from 'moment';
 import { Ref, ref } from 'vue';
 import { TZHTablePage, TZHTableRequest, TZHTableFormSettings, TZHTableFromField, TZHFromFieldConvertDateTime } from './type';
+import _ from 'lodash';
 
-export default class Form{
+
+export default class Form {
   page: Ref<TZHTablePage>;
   request: Ref<TZHTableRequest | undefined> | undefined;
   formSettings: Ref<TZHTableFormSettings | undefined> | undefined;
@@ -104,7 +106,7 @@ export default class Form{
     const model = this.formModel.value
       ? JSON.parse(JSON.stringify(this.formModel.value))
       : {};
-    
+
     const customModel = this.formSettings?.value?.customModel && JSON.parse(JSON.stringify(this.formSettings?.value?.customModel));
 
     if (this.formSettings?.value?.fields) {
@@ -133,5 +135,22 @@ export default class Form{
 
   _convertSlotName = (prop: string) => {
     return 'zh-form-' + prop;
+  };
+
+  _getNotChangeTriggerSearchFields = () => {
+    return this.formSettings?.value?.fields?.filter((x: TZHTableFromField) => x.notChangeTriggerSearch) || [];
+  };
+
+  _compareNeedTriggerSearchFieldsIsEqual = (newVal: { [x: string]: any }, oldVal: { [x: string]: any }) => {
+    const notChangeTriggerSearchFields = this._getNotChangeTriggerSearchFields();
+    const oldValNeedTriggerSearchFields = oldVal;
+    const newValNeedTriggerSearchFields = newVal;
+    for (let i = 0; i < notChangeTriggerSearchFields.length; i++) {
+      delete oldValNeedTriggerSearchFields[notChangeTriggerSearchFields[i].prop];
+      delete newValNeedTriggerSearchFields[notChangeTriggerSearchFields[i].prop];
+    }
+
+    return _.isEqual(oldValNeedTriggerSearchFields, newValNeedTriggerSearchFields);
+
   };
 }

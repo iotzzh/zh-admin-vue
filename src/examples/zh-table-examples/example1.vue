@@ -47,7 +47,7 @@ const formSettings = ref({
         // { label: '自定义搜索', type: 'radio-group', prop: 'sex1', width: '220px', options: [], },
 
         { label: '姓名', type: 'input', prop: 'name', md: 8, xl: 24, sm: 24, xs: 24, span: 8, }, // 输入框测试
-        { label: '姓名', type: 'input', prop: 'name', md: 8, xl: 24, sm: 24, xs: 24, span: 8, }, // 输入框测试, 输入不搜索
+        { label: '姓名', type: 'input', prop: 'name111', md: 8, xl: 24, sm: 24, xs: 24, span: 8, notChangeTriggerSearch: true, }, // 输入框测试, 输入不搜索
         { label: '性别', type: 'select', prop: 'sex', span: 8, sm: 24, xs: 24, options: [], }, // 下拉：[{label, value}]
         {
             label: '性别Obj', type: 'select', prop: 'sexObj', valueKey: 'id', span: 8, sm: 24, xs: 24, options: [],
