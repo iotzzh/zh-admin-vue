@@ -133,6 +133,14 @@ export default class Form {
     return params;
   };
 
+  getSearchFormModel = () => {
+    return this.formModel.value;
+  };
+
+  getSearchFormParams = () => {
+    return this.getSearchParams();
+  };
+
   _convertSlotName = (prop: string) => {
     return 'zh-form-' + prop;
   };
@@ -151,6 +159,5 @@ export default class Form {
     }
 
     return _.isEqual(oldValNeedTriggerSearchFields, newValNeedTriggerSearchFields);
-
   };
 }

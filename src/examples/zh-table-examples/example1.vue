@@ -1,5 +1,5 @@
 <template>
-    <Table :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings" :usePage="true"
+    <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings" :usePage="true"
         :request="request">
         <template v-slot:zh-table-form-default-before>
             <el-button link>自定义前</el-button>
@@ -11,7 +11,7 @@
             <el-input placeholder="请输入自定义搜索" v-model="formSettings.customModel!.test"></el-input>
         </template>
         <template v-slot:zh-table-form-next-row>
-            <el-button link>自定义下一行内容</el-button>
+            <el-button link @click="getSearchFormModel">自定义下一行内容</el-button>
         </template>
     </Table>
 </template>
@@ -22,6 +22,13 @@ import Table from '@/components/zh-table/index.vue';
 import { TObject, TZHTableRequest, TZHTableFormSettings, TZHTableSetting } from '@/components/zh-table/type';
 import { onMounted, ref } from 'vue';
 import api from '../api/table/index';
+
+const refZHTable = ref();
+
+const getSearchFormModel = () => {
+   const model =  refZHTable.value.getSearchFormModel();
+   console.log(model);
+};
 
 const formSettings = ref({
     hasAddButton: true,

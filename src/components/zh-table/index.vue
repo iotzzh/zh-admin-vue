@@ -204,6 +204,10 @@ const modalInstance = new Modal(addModalFormSettings as Ref<TZHFormSettings>, re
 //#endregion
 
 defineExpose({
+  // 表单
+  getSearchFormModel: form.getSearchFormModel,
+  getSearchFormParams: form.getSearchFormParams,
+  // 表格
   debounceInitData: table.debounceInitData, // 防抖查询
   throttleInitData: table.throttleInitData, // 节流查询
   initData: table.initData, // 正常查询
