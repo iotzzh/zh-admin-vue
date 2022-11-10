@@ -6,7 +6,7 @@ import { TParams } from '../zh-request/type';
 import ZHRequest from '../zh-request';
 import { debounce, throttle } from 'lodash';
 
-export default class Table{
+export default class Table {
   refTable: any;
   request: Ref<TZHTableRequest | undefined> | undefined;
   pageData: any;
@@ -37,11 +37,11 @@ export default class Table{
   loading = ref(false);
 
   columns = computed(() => {
-    return this.tableSettings.value.columns?.filter((x:any) => !x.notDisplay);
+    return this.tableSettings.value.columns?.filter((x: any) => !x.notDisplay);
   });
 
   onBeforeInitData = async () => {
-    const method:Function = this.tableSettings.value.onBeforeInitData || new Function();
+    const method: Function = this.tableSettings.value.onBeforeInitData || new Function();
     await method();
   };
 
@@ -51,7 +51,7 @@ export default class Table{
     // 参数
     if (initPage) this.pageData.value.current = 1;
     const params = propParams || this.form.getSearchParams();
-    const args:TParams = {
+    const args: TParams = {
       url: this.request?.value?.urlList || '',
       conditions: params
     };
@@ -74,7 +74,7 @@ export default class Table{
 
   getData = () => { return this.data.value; };
 
-  getDataAsync = async (propParams?: Object) => { 
+  getDataAsync = async (propParams?: Object) => {
     const params = propParams || this.form.getSearchParams();
     const result: TZHTableRequestResult = await ZHRequest.post(params);
     return result;

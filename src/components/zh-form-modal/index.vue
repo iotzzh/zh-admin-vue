@@ -44,7 +44,9 @@ defineExpose({
 export default { name: 'ZHModal' };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>
 
 <style lang="scss">
 .el-dialog__header {

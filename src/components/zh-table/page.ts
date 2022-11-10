@@ -11,7 +11,7 @@ export default class {
   pageData: any;
   table: Table;
   constructor(
-    pageSettings: TZHTablePageSetting | undefined, 
+    pageSettings: TZHTablePageSetting | undefined,
     pageData: Ref<TZHTablePage>,
     table: Table) {
     this.sizes = ref(pageSettings?.sizes || [10, 20, 50, 100]);

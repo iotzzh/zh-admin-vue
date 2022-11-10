@@ -27,7 +27,7 @@ export interface TZHFromField {
   clearable?: boolean
 
   // 下拉选择/级联选择
-  options?: Array<TZHFromFieldSelectOption> | Array<TZHFromFieldCascaderOption> | Array<{[x:string] : any}>
+  options?: Array<TZHFromFieldSelectOption> | Array<TZHFromFieldCascaderOption> | Array<{ [x: string]: any }>
 
   // 级联选择器的参数
   props?: TZHFromFieldCascaderProps
@@ -72,5 +72,5 @@ export interface TZHFromFieldCascaderProps {
 }
 
 export interface TObject {
-  [x:string]:any
+  [x: string]: any
 }

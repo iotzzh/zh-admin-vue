@@ -38,9 +38,9 @@ const isMessageConfirm = async (message: string, title: string) => {
   }
 };
 
-export { 
-  popSuccessMessage, 
-  popErrorMessage, 
-  popInfoMessage, 
-  isMessageConfirm 
+export {
+  popSuccessMessage,
+  popErrorMessage,
+  popInfoMessage,
+  isMessageConfirm
 };

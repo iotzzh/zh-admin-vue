@@ -1,6 +1,6 @@
 <template>
-    <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings" :usePage="true"
-        :request="request">
+    <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
+        :usePage="true" :request="request">
         <template v-slot:zh-table-form-default-before>
             <el-button link>自定义前</el-button>
         </template>
@@ -26,8 +26,8 @@ import api from '../api/table/index';
 const refZHTable = ref();
 
 const getSearchFormModel = () => {
-   const model =  refZHTable.value.getSearchFormModel();
-   console.log(model);
+    const model = refZHTable.value.getSearchFormModel();
+    console.log(model);
 };
 
 const formSettings = ref({
@@ -73,7 +73,8 @@ const formSettings = ref({
             convertDateTime: [{ field: 'startCreateTime1', format: 'YYYY-MM-DD 00:00:00' }, { field: 'endCreateTime1', format: 'YYYY-MM-DD 23:59:59' }],
         },
         { label: '自定义搜索', type: 'slot', prop: 'test', span: 8, sm: 12, xs: 24, options: [], },
-        { label: '级联选择器搜索', type: 'cascader', prop: 'cascaderParams', refName: 'refCascaderParams',  span: 8, sm: 12, xs: 24, options: [], },
+        { label: '级联选择器搜索', type: 'cascader', prop: 'cascaderParams', refName: 'refCascaderParams', span: 8, sm: 12, xs: 24, options: [], },
+        { label: '测试复选框', type: 'checkbox', prop: 'testCheckbox', checkboxText: '复选框后面的文字', span: 8, sm: 12, xs: 24, options: [], },
     ],
 } as TZHTableFormSettings);
 
@@ -89,9 +90,9 @@ onMounted(() => {
 
     const cascaderParamsItem = formSettings.value.fields?.find((x: TZHFromField) => x.prop === 'cascaderParams') as TZHFromField;
     cascaderParamsItem.options = [
-        { label: '男', value: 0, children: [ { label: '男1', value: 0.1, }], },
-        { label: '女', value: 1, children: [ { label: '女1', value: 1.1, }], },
-        { label: '未知', value: 2, children: [ { label: '未知1', value: 2.1, }], },
+        { label: '男', value: 0, children: [{ label: '男1', value: 0.1, }], },
+        { label: '女', value: 1, children: [{ label: '女1', value: 1.1, }], },
+        { label: '未知', value: 2, children: [{ label: '未知1', value: 2.1, }], },
     ];
 });
 

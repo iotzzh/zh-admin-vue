@@ -9,7 +9,7 @@ import { TParams } from '../zh-request/type';
 
 
 
-export default class Modal{
+export default class Modal {
   // addModalFormSettings: Ref<TZHFormSettings>;
   // formSettings: Ref<TZHFormSettings>;
   request: Ref<TZHTableRequest | undefined> | undefined;

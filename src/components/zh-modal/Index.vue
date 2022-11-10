@@ -1,15 +1,7 @@
 <template>
-  <el-dialog
-    v-model="modal.show"
-    :title="modal.title"
-    :closeOnClickModal="false"
-    :width="modal.width"
-    @close="zhModal.close"
-    append-to-body
-    :top="modal.top"
-    :fullscreen="modal.fullscreen"
-    :class="modal.customClass || ''  + 'zh-modal'"
-  >
+  <el-dialog v-model="modal.show" :title="modal.title" :closeOnClickModal="false" :width="modal.width"
+    @close="zhModal.close" append-to-body :top="modal.top" :fullscreen="modal.fullscreen"
+    :class="modal.customClass || '' + 'zh-modal'">
     <slot></slot>
     <template #footer>
       <span class="dialog-footer">
@@ -49,7 +41,9 @@ defineExpose({
 export default { name: 'ZHModal' };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+
+</style>
 
 <style lang="scss">
 .el-dialog__header {

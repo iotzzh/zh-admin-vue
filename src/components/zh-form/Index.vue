@@ -3,22 +3,16 @@
     :label-width="formSettings?.formLabelWidth || 'auto'" type="flex" inline justify="end"
     style="flex-wrap: wrap; flex-direction: row">
     <el-row style="display: flex; flex-wrap: wrap">
-      <el-col v-for="(item, index) in formSettings?.fields" 
-        :key="index" 
-        :span="item.span || 0" 
-        :xl="item.xl || item.span || 0" 
-        :lg="item.lg || item.span || 0" 
-        :md="item.md || item.span || 0" 
-        :sm="item.sm || item.span || 0" 
-        :xs="item.xs || item.span || 0" 
-        :style="{
-        maxWidth:
-          item.span === undefined || item.xl === undefined ||
-          item.lg === undefined || item.md === undefined ||
-          item.sm === undefined || item.xs === undefined
-            ? Number(item.width) + Number(item.labelWidth) + 'px'
-            : ''
-      }">
+      <el-col v-for="(item, index) in formSettings?.fields" :key="index" :span="item.span || 0"
+        :xl="item.xl || item.span || 0" :lg="item.lg || item.span || 0" :md="item.md || item.span || 0"
+        :sm="item.sm || item.span || 0" :xs="item.xs || item.span || 0" :style="{
+          maxWidth:
+            item.span === undefined || item.xl === undefined ||
+              item.lg === undefined || item.md === undefined ||
+              item.sm === undefined || item.xs === undefined
+              ? Number(item.width) + Number(item.labelWidth) + 'px'
+              : ''
+        }">
         <el-form-item :key="'form-item' + index" :label="item.label" :prop="item.prop" :label-width="item.labelWidth"
           v-show="!item.hide">
           <!-- 输入框 -->
@@ -52,7 +46,8 @@
                   ? '请输入选择'
                   : '请选择'
             ">
-            <el-option v-for="(subItem, subIndex) in (item.options as Array<TZHFromFieldSelectOption> | Array<{[x:string]: any}>)"
+            <el-option
+              v-for="(subItem, subIndex) in (item.options as Array<TZHFromFieldSelectOption> | Array<{ [x: string]: any }>)"
               :key="item.valueKey ? subItem[item.valueKey] : subIndex" :label="subItem.label"
               :value="item.valueKey ? subItem : subItem.value"></el-option>
           </el-select>
@@ -64,26 +59,21 @@
             :style="{ width: item.width ? `${item.width}` : '100%' }" :clearable="item.clearable"></el-date-picker>
 
           <!-- 级联选择器  -->
-          <el-cascader 
-            v-else-if="item.type === 'cascader'" 
-            :options="item.options" 
-            :props="item.props"
-            @change="formInstance.changeCascader(itemRefs, item.refName, formSettings)"
-            :ref="(el: any) => {
-              if(item.refName) itemRefs[item.refName] = el; 
-              }"
-            v-model="modelValue[item.prop]" 
-            :clearable="item.clearable" />
+          <el-cascader v-else-if="item.type === 'cascader'" :options="item.options" :props="item.props"
+            @change="formInstance.changeCascader(itemRefs, item.refName, formSettings)" :ref="(el: any) => {
+              if (item.refName) itemRefs[item.refName] = el;
+            }" v-model="modelValue[item.prop]" :clearable="item.clearable" />
 
           <!-- 单选框组 -->
-          <el-radio-group v-else-if="item.type === 'radio-group'" v-model="modelValue[item.prop]" :style="{ width: item.width ? `${item.width}` : '100%' }">
+          <el-radio-group v-else-if="item.type === 'radio-group'" v-model="modelValue[item.prop]"
+            :style="{ width: item.width ? `${item.width}` : '100%' }">
             <el-radio v-for="(subItem, subIndex) in (item.options as Array<TZHFromFieldSelectOption>)" :key="subIndex"
               :label="subItem.value">{{ subItem.label }}</el-radio>
           </el-radio-group>
 
           <!-- 多选框 -->
           <el-checkbox v-else-if="item.type === 'checkbox'" v-model="modelValue[item.prop]" :label="item.checkboxText"
-            :size="item.checkboxSize" />
+            :size="item.checkboxSize || 'default'" />
 
           <!-- 自定义筛选内容 -->
           <template v-else-if="item.type === 'slot'">
@@ -120,7 +110,7 @@ const refForm = ref();
 const itemRefs = ref([] as any);
 
 const emit = defineEmits(['close', 'submit', 'update:modelValue']); //定义一个变量来接收父组件传来的方法
-const formInstance  = new Form({ emit, refForm });
+const formInstance = new Form({ emit, refForm });
 
 defineExpose({ validate: formInstance.validate });
 </script>

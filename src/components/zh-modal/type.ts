@@ -3,7 +3,7 @@ export interface TModal {
   width?: string
   title: string
   // 暂存数据
-  data?: any 
+  data?: any
   type?: any
   top?: string
   fullscreen?: boolean

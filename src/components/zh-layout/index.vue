@@ -1,7 +1,7 @@
 <template>
-    <component v-bind="$attrs" :is="useScrollContentBox ? ScrollContentBox : ContentBox">
-      <slot></slot>
-    </component>
+  <component v-bind="$attrs" :is="useScrollContentBox ? ScrollContentBox : ContentBox">
+    <slot></slot>
+  </component>
 </template>
 
 <script lang="ts" setup>
@@ -21,4 +21,5 @@ const { useScrollContentBox } = toRefs(props);
 </script>
 
 <style lang="scss" scoped>
+
 </style>

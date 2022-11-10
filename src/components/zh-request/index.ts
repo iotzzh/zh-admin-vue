@@ -11,14 +11,14 @@ export default class ZHRequest {
     this.useAxios = Config.useAxios;
     this.useIpcRender = Config.useIpcRender;
 
-    if(this.useAxios) {
+    if (this.useAxios) {
       this.instance = new AxiosRequest();
     } else if (this.useIpcRender) {
       this.instance = new IpcRenderRequest();
     }
   }
 
-  static async get(params: TParams){
+  static async get(params: TParams) {
     const useAxios = Config.useAxios;
     const useIpcRender = Config.useIpcRender;
     if (useAxios) {
@@ -36,7 +36,7 @@ export default class ZHRequest {
     if (useAxios) {
       const request = new AxiosRequest();
       return await request.post(params);
-    }else if (useIpcRender) {
+    } else if (useIpcRender) {
       const request = new IpcRenderRequest();
       // return await request.post(params);
     }
@@ -46,13 +46,13 @@ export default class ZHRequest {
     console.log();
   }
 
-  static delete () {
+  static delete() {
     console.log();
   }
 
-  get = () => {  console.log(); };
-  post = () => {  console.log(); };
-  put = () => {  console.log(); };
-  delete = () => {  console.log(); };
-  cancel = () => {  console.log(); };
+  get = () => { console.log(); };
+  post = () => { console.log(); };
+  put = () => { console.log(); };
+  delete = () => { console.log(); };
+  cancel = () => { console.log(); };
 }
