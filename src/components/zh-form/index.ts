@@ -14,12 +14,12 @@ export default class Form {
     return result;
   };
 
-  changeCascader = (itemRefs:any, refName:any, formSettings:any) => {
+  changeCascader = (itemRefs: any, refName: any, formSettings: any) => {
     // 将级联选择器选中的节点存储起来
     const refValue = itemRefs && refName && itemRefs[refName];
     if (!refValue) return;
-    const filed:any = formSettings.fields && formSettings.fields.find((x:any) => x.refName === refName);
+    const filed: any = formSettings.fields && formSettings.fields.find((x: any) => x.refName === refName);
     if (!filed) return;
     filed.checkedNodes = refValue.getCheckedNodes();
-};
+  };
 }
