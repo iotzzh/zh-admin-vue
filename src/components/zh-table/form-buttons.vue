@@ -18,6 +18,9 @@
     <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasDeleteButton">
         <el-button type="danger" :icon="Delete" @click="table.batchDelete">批量删除</el-button>
     </el-form-item>
+    <el-form-item class="zh-table-inline-button" label-width="0px" v-for="(item, index) in formSettings?.buttons" :key="index">
+        <el-button  :icon="item.icon" @click="item.method" :style="item.style">{{ item.label }}</el-button>
+    </el-form-item>
 </template>
 
 <script lang="ts" setup>

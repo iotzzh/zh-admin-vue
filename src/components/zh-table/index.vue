@@ -1,7 +1,6 @@
 <template>
 
   <div class="zh-table">
-    <slot name="test"></slot>
     <ZhForm class="zh-form" v-if="useSearchForm" v-model="form.formModel" :form-settings="formSettings">
       <!-- 传递form默认插槽 -->
       <template #default>
@@ -160,8 +159,6 @@ const {
   request,
   addModalFormSettings
 } = toRefs(props);
-
-const test = ref('zh-form-slot-slotTest1');
 
 //#region common
 // 分页的组件内部数据

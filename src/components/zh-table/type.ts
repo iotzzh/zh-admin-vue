@@ -30,7 +30,17 @@ export interface TZHTableFormSettings extends TZHFormSettings {
   customModel?: { [x: string]: any } // 搜索框扩展字段绑定的model
   convertParams?: Function // 在搜索前进行一次
   fields?: Array<TZHTableFromField> // 重写fields
+  buttons?: Array<TZHTableFormButtons> // 扩展搜索按钮
 }
+
+// 扩展搜索按钮
+export interface TZHTableFormButtons {
+  label: string
+  style?: string | { [x:string]: string | number }
+  method?: Function
+  icon?: any
+}
+
 
 export interface TZHTablePageSetting {
   sizes?: Array<number> // [10, 20, 50, 100]
@@ -75,11 +85,13 @@ export interface TZHTableColumn {
   useInModal?: TZHTableColumnUseInModal // 字段在弹窗中的显示配置
 }
 
+// 表格弹窗设置
 export interface TZHTableColumnUseInModal extends TZHFromField {
   addSort?: number // 新增时排序，可小数
   editSort?: number // 编辑时排序，可小数，一般只需要新增时排序，编辑排序填写时，在编辑时覆盖新增排序
 }
 
+// 表格操作列
 export interface TZHTableActionColumn {
   hasRowEditAction?: boolean
   hasRowDeleteAction?: boolean

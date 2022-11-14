@@ -22,6 +22,7 @@ import Table from '@/components/zh-table/index.vue';
 import { TObject, TZHTableRequest, TZHTableFormSettings, TZHTableSetting } from '@/components/zh-table/type';
 import { onMounted, ref } from 'vue';
 import api from '../api/table/index';
+import { RefreshLeft, Search, Delete, Download, Plus, DocumentChecked, Refresh, Upload, Edit } from '@element-plus/icons-vue';
 
 const refZHTable = ref();
 
@@ -45,6 +46,9 @@ const formSettings = ref({
             convertParams: true,
         };
     },
+    buttons: [
+        { label: '自定义按钮1', icon: Edit, method: () => { console.log('hello world'); }, style: 'color: pink; background-color: blue;' }
+    ],
     fields: [
         // { label: '姓名', type: 'input', prop: 'name', width: '220px', },
         // { label: '性别', type: 'select', prop: 'sex', width: '220px', options: [], },
