@@ -4,8 +4,6 @@
     style="flex-wrap: wrap; flex-direction: row">
     <el-row style="display: flex; flex-wrap: wrap">
       <TransitionGroup name="list">
-
-
         <el-col v-for="(item, index) in fieldList" :key="index" :span="item.span || 0" :xl="item.xl || item.span || 0"
           :lg="item.lg || item.span || 0" :md="item.md || item.span || 0" :sm="item.sm || item.span || 0"
           :xs="item.xs || item.span || 0" :style="{
@@ -63,6 +61,7 @@
 
             <!-- 级联选择器  -->
             <el-cascader v-else-if="item.type === 'cascader'" :options="item.options" :props="item.props"
+              :style="{ width: item.width ? `${item.width}` : '100%' }"
               @change="formInstance.changeCascader(itemRefs, item.refName, formSettings)" :ref="(el: any) => {
                 if (item.refName) itemRefs[item.refName] = el;
               }" v-model="modelValue[item.prop]" :clearable="item.clearable" />
@@ -84,7 +83,6 @@
             </template>
           </el-form-item>
         </el-col>
-
 
       </TransitionGroup>
       <slot></slot>
@@ -145,6 +143,10 @@ export default { name: 'ZhForm' };
 .zh-form {
   transition-duration: 2s;
   transition: height 10s;
+
+  .el-form-item {
+    width: 100%;
+  }
 
   &:deep(.el-col.el-col-0) {
     display: block;

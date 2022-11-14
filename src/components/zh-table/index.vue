@@ -58,6 +58,11 @@
                   : scope.row[item.prop as string]
             }}
           </span>
+          <span>
+            <el-button link type="primary" size="small" :icon="Edit"></el-button>
+            <el-button link type="primary" size="small" :icon="Select"></el-button>
+            <el-button link type="primary" size="small" :icon="CloseBold"></el-button>
+          </span>
         </template>
       </el-table-column>
 
@@ -99,7 +104,7 @@
 
 <script setup lang="ts">
 import { toRefs, PropType, computed, ref, reactive, Ref, watch } from 'vue';
-import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit} from '@element-plus/icons-vue';
+import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit, CloseBold, Select} from '@element-plus/icons-vue';
 import moment from 'moment';
 import ZhForm from '../zh-form/index.vue';
 import ZhFormModal from '../zh-form-modal/index.vue';
