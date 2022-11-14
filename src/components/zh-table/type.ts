@@ -36,7 +36,7 @@ export interface TZHTableFormSettings extends TZHFormSettings {
 // 扩展搜索按钮
 export interface TZHTableFormButtons {
   label: string
-  style?: string | { [x:string]: string | number }
+  style?: string | { [x: string]: string | number }
   method?: Function
   icon?: any
 }
@@ -60,11 +60,17 @@ export interface TZHTableSetting {
   columns?: Array<TZHTableColumn> // 列配置，内包含新增和编辑的列配置
   actionColumn?: TZHTableActionColumn // 操作列配置
 
+  modal?: TZHTableModal // 弹窗配置
+
   // 事件
   rowClick?: Function // 单击事件
 
   // 函数注入
   onBeforeInitData?: Function // 在初始化数据之前执行
+}
+
+export interface TZHTableModal {
+  customModel: {[x:string]: any}
 }
 
 export interface TZHTableColumn {
@@ -89,6 +95,15 @@ export interface TZHTableColumn {
 export interface TZHTableColumnUseInModal extends TZHFromField {
   addSort?: number // 新增时排序，可小数
   editSort?: number // 编辑时排序，可小数，一般只需要新增时排序，编辑排序填写时，在编辑时覆盖新增排序
+  // 转换方法, 一对一转换
+  convert?: Function
+
+  // 时间转换，数组拆分，并定义格式
+  convertDateTime?: Array<TZHFromFieldConvertDateTime>
+
+  // 转换方法：一对多转换， 针对需要额外扩展的参数，例如 { a: 'a' } => { b: 'a1', c: 'a2' }
+  extendedFieldMethod?: Function
+  notDeleteOriginProperty?: boolean
 }
 
 // 表格操作列

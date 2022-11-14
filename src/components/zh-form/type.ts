@@ -51,6 +51,7 @@ export interface TZHFromField {
   timeShowFormat?: string
   timeValueFormat?: string
   // 级联选择器
+  checkedNodes?: Array<any>
 
   // 多选框
   checkboxText?: string

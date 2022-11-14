@@ -19,7 +19,7 @@
 <script lang="ts" setup>
 import { TZHFromField } from '@/components/zh-form/type';
 import Table from '@/components/zh-table/index.vue';
-import { TObject, TZHTableRequest, TZHTableFormSettings, TZHTableSetting } from '@/components/zh-table/type';
+import { TObject, TZHTableRequest, TZHTableFormSettings, TZHTableSetting, TZHTableColumn } from '@/components/zh-table/type';
 import { onMounted, ref } from 'vue';
 import api from '../api/table/index';
 import { RefreshLeft, Search, Delete, Download, Plus, DocumentChecked, Refresh, Upload, Edit } from '@element-plus/icons-vue';
@@ -74,12 +74,15 @@ const formSettings = ref({
             unimportant: true,
         },
         {
-            label: '创建日期范围', type: 'date-picker', timeType: 'daterange', prop: 'createTime1', options: [],             unimportant: true,
+            label: '创建日期范围', type: 'date-picker', timeType: 'daterange', prop: 'createTime1', options: [], unimportant: true,
             span: 8, sm: 12, xs: 24,
             convertDateTime: [{ field: 'startCreateTime1', format: 'YYYY-MM-DD 00:00:00' }, { field: 'endCreateTime1', format: 'YYYY-MM-DD 23:59:59' }],
         },
-        { label: '自定义搜索', type: 'slot', prop: 'test', span: 8, sm: 12, xs: 24, options: [],             unimportant: true, },
-        { label: '级联选择器搜索', type: 'cascader', prop: 'cascaderParams', refName: 'refCascaderParams', span: 8, sm: 12, xs: 24, options: [],             unimportant: true, },
+        { label: '自定义搜索', type: 'slot', prop: 'test', span: 8, sm: 12, xs: 24, options: [], unimportant: true, },
+        {
+            label: '级联选择器搜索', type: 'cascader', prop: 'cascaderParams', refName: 'refCascaderParams', span: 8, sm: 12, xs: 24, options: [], unimportant: true,
+            props: {}
+        },
         { label: '测试复选框', type: 'checkbox', prop: 'testCheckbox', checkboxText: '复选框后面的文字', span: 8, sm: 12, xs: 24, options: [], },
     ],
 } as TZHTableFormSettings);
@@ -100,9 +103,24 @@ onMounted(() => {
         { label: '女', value: 1, children: [{ label: '女1', value: 1.1, }], },
         { label: '未知', value: 2, children: [{ label: '未知1', value: 2.1, }], },
     ];
+
+    const cascaderModalParamsItem = tableSettings.value.columns?.find((x: TZHTableColumn) => x.prop === 'org') as TZHTableColumn;
+    cascaderModalParamsItem.useInModal!.options = [
+        { label: '男', value: 0, children: [{ label: '男1', value: 0.1, }], },
+        { label: '女', value: 1, children: [{ label: '女1', value: 1.1, }], },
+        { label: '未知', value: 2, children: [{ label: '未知1', value: 2.1, }], },
+    ];
 });
 
+const testGetSettings = (origin: { [x: string]: any }, model: { [x: string]: any }, formSettings: any) => {
+    console.log('convert formSettings: ' + JSON.stringify(formSettings.value[7]));
+    return origin && origin[0];
+};
+
 const tableSettings = ref({
+    modal: {
+        customModel: {},
+    },
     columns: [
         {
             label: '默认不显示列',
@@ -145,6 +163,17 @@ const tableSettings = ref({
                 type: 'input', defaultValue: 'Developer', placeholder: '请输入', span: 8,
             }
         },
+        {
+            label: '组织架构', prop: 'org',
+            useInModal:
+            {
+                defaultValue: 'Developer', type: 'cascader', placeholder: '请输入', span: 8, options: [],
+                refName: 'refOrg',
+                props: { checkStrictly: true, },
+                checkedNodes: [],
+                convert: testGetSettings,
+            }
+        },
     ],
     actionColumn: {
         label: '操作',
@@ -172,6 +201,9 @@ const request = ref({
     urlDelete: api.deleteUser,
     urlUpdate: api.updateUser
 } as TZHTableRequest);
+
+
+
 
 </script>
 

@@ -143,11 +143,6 @@ const props = defineProps({
     type: Object as PropType<TZHTableRequest>,
     required: false,
   },
-
-  addModalFormSettings: {
-    type: Object as PropType<TZHFormSettings>,
-    required: false,
-  },
 });
 
 const {
@@ -157,7 +152,6 @@ const {
   usePage,
   pageSettings,
   request,
-  addModalFormSettings
 } = toRefs(props);
 
 //#region common
@@ -194,7 +188,7 @@ if (usePage.value) page = new Page(pageSettings?.value, pageData, table);
 
 //#region add/edit modal
 const refZHFormModal = ref();
-const modalInstance = new Modal(addModalFormSettings as Ref<TZHFormSettings>, request, table, refZHFormModal);
+const modalInstance = new Modal(request, table, refZHFormModal, tableSettings);
 //#endregion
 
 defineExpose({
