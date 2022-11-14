@@ -4,13 +4,13 @@
         <el-button type="primary" :icon="Search" @click="() => table.throttleInitData()">查询</el-button>
     </el-form-item>
     <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasAddButton">
-        <el-button type="primary" :icon="Search" @click="modalInstance.openAddModal">新增</el-button>
+        <el-button type="success" :icon="Plus" @click="modalInstance.openAddModal">新增</el-button>
     </el-form-item>
     <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasUploadButton">
-        <el-button type="primary" :icon="Search">导入</el-button>
+        <el-button type="warning" :icon="Upload">导入</el-button>
     </el-form-item>
     <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasExportButton">
-        <el-button type="primary" :icon="Search">导出</el-button>
+        <el-button type="warning" :icon="Download">导出</el-button>
     </el-form-item>
     <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasResetButton">
         <el-button type="info" :icon="RefreshLeft" @click="form.init">重置</el-button>
@@ -23,7 +23,7 @@
 <script lang="ts" setup>
 import { PropType, toRefs } from 'vue';
 import { TZHTableFormSettings } from './type';
-import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit } from '@element-plus/icons-vue';
+import { RefreshLeft, Search, Delete, Download, Plus, DocumentChecked, Refresh, Upload, Edit } from '@element-plus/icons-vue';
 import Table from './table';
 import Modal from './modal';
 import Form from './form';

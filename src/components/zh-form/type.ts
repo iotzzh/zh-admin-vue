@@ -4,6 +4,7 @@ export interface TZHFormSettings {
   rules?: Array<any>
   formLabelWidth?: string | number
   fields?: Array<TZHFromField>
+  hideUnimportantFields?: boolean
 }
 
 export interface TZHFromField {
@@ -15,6 +16,7 @@ export interface TZHFromField {
   sm?: number
   xs?: number
   type: string
+  unimportant?: boolean
   label?: string
   prop: string
   refName?: string

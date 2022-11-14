@@ -3,13 +3,16 @@
     :label-width="formSettings?.formLabelWidth || 'auto'" type="flex" inline justify="end"
     style="flex-wrap: wrap; flex-direction: row">
     <el-row style="display: flex; flex-wrap: wrap">
-      <el-col v-for="(item, index) in formSettings?.fields" :key="index" :span="item.span || 0"
+      <TransitionGroup name="list">
+
+
+      <el-col v-for="(item, index) in fieldList" :key="index" :span="item.span || 0"
         :xl="item.xl || item.span || 0" :lg="item.lg || item.span || 0" :md="item.md || item.span || 0"
         :sm="item.sm || item.span || 0" :xs="item.xs || item.span || 0" :style="{
           maxWidth:
-            item.span === undefined || item.xl === undefined ||
-              item.lg === undefined || item.md === undefined ||
-              item.sm === undefined || item.xs === undefined
+            item.span === undefined && item.xl === undefined &&
+              item.lg === undefined && item.md === undefined &&
+              item.sm === undefined && item.xs === undefined
               ? Number(item.width) + Number(item.labelWidth) + 'px'
               : ''
         }">
@@ -81,18 +84,26 @@
           </template>
         </el-form-item>
       </el-col>
+
+
+    </TransitionGroup>
       <slot></slot>
     </el-row>
-
-
     <slot name="zh-form-next-row"></slot>
+
+    <el-divider v-if="formSettings?.hideUnimportantFields">
+      <el-button v-if="formInstance.hideUnimportantFields.value" type="primary" link :icon="ArrowDown" @click="() => formInstance.hideUnimportantFields.value = false" />
+      <el-button v-else  type="primary" link :icon="ArrowUp"  @click="() => formInstance.hideUnimportantFields.value = true"/>
+    </el-divider>
   </el-form>
 </template>
 
 <script setup lang="ts">
-import { toRefs, PropType, ref } from 'vue';
+
+import { toRefs, PropType, ref, computed } from 'vue';
 import Form from './index';
-import { TZHFormSettings, TZHFromFieldSelectOption } from './type';
+import { TZHFormSettings, TZHFromFieldSelectOption, TZHFromField } from './type';
+import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit, ArrowUp, ArrowDown } from '@element-plus/icons-vue';
 
 const props = defineProps({
   modelValue: {
@@ -110,7 +121,15 @@ const refForm = ref();
 const itemRefs = ref([] as any);
 
 const emit = defineEmits(['close', 'submit', 'update:modelValue']); //定义一个变量来接收父组件传来的方法
-const formInstance = new Form({ emit, refForm });
+const formInstance = new Form({ emit, refForm, formSettings });
+
+const fieldList = computed(() => {
+  if (formInstance.hideUnimportantFields.value) {
+    return formSettings!.value!.fields!.filter((x:TZHFromField) => !x.unimportant);
+  } else {
+    return formSettings?.value?.fields;
+  }
+});
 
 defineExpose({ validate: formInstance.validate });
 </script>
@@ -121,15 +140,32 @@ export default { name: 'ZhForm' };
 
 <style lang="scss" scoped>
 .zh-form {
+  // transition-property: height;
+  transition-duration: 2s;
+  transition: height 10s;
   &:deep(.el-col.el-col-0) {
     display: block;
     max-width: none !important;
   }
 
-  //   &:deep(.el-form--inline .el-form-item) {
-  //     width: 100%;
-  // }
+  .el-divider--horizontal {
+    margin-bottom: 10px;
+  }
 
+  .el-divider--horizontal .el-icon {
+    
+  }
+
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
 }
 </style>
 

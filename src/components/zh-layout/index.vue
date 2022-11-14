@@ -4,6 +4,9 @@
   </component>
 </template>
 
+
+<!-- Splitpanes: https://antoniandre.github.io/splitpanes/ -->
+<!-- vue-splitpane -->
 <script lang="ts" setup>
 import { toRefs } from 'vue';
 import ContentBox from './ContentBox.vue';

@@ -1,9 +1,16 @@
+import { ref, Ref } from 'vue';
+import { TZHFormSettings } from './type';
+
 export default class Form {
   emit: any;
   refForm: any;
+  formSettings: Ref<TZHFormSettings>;
+  hideUnimportantFields: Ref<boolean | undefined>;
   constructor(params: any) {
     this.emit = params.emit;
     this.refForm = params.refForm;
+    this.formSettings = params.formSettings;
+    this.hideUnimportantFields = ref(params.formSettings.value.hideUnimportantFields);
   }
 
   validate = async () => {

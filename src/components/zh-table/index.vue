@@ -100,10 +100,7 @@
 
 <script setup lang="ts">
 import { toRefs, PropType, computed, ref, reactive, Ref, watch } from 'vue';
-import {
-  RefreshLeft, Search, Delete, Download,
-  DocumentChecked, Refresh, Upload, Edit
-} from '@element-plus/icons-vue';
+import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit} from '@element-plus/icons-vue';
 import moment from 'moment';
 import ZhForm from '../zh-form/index.vue';
 import ZhFormModal from '../zh-form-modal/index.vue';

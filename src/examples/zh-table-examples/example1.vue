@@ -37,6 +37,7 @@ const formSettings = ref({
     hasUploadButton: true,
     hasExportButton: true,
     hasResetButton: true,
+    hideUnimportantFields: true,
     customModel: { test: '自定义搜索' },
     convertParams: (params: { [x: string]: any }) => {
         return {
@@ -66,14 +67,15 @@ const formSettings = ref({
             timeShowFormat: 'YYYY-MM-DD',
             timeValueFormat: 'YYYY-MM-DD',
             prop: 'createTime', span: 8, sm: 12, xs: 24, options: [],
+            unimportant: true,
         },
         {
-            label: '创建日期范围', type: 'date-picker', timeType: 'daterange', prop: 'createTime1', options: [],
+            label: '创建日期范围', type: 'date-picker', timeType: 'daterange', prop: 'createTime1', options: [],             unimportant: true,
             span: 8, sm: 12, xs: 24,
             convertDateTime: [{ field: 'startCreateTime1', format: 'YYYY-MM-DD 00:00:00' }, { field: 'endCreateTime1', format: 'YYYY-MM-DD 23:59:59' }],
         },
-        { label: '自定义搜索', type: 'slot', prop: 'test', span: 8, sm: 12, xs: 24, options: [], },
-        { label: '级联选择器搜索', type: 'cascader', prop: 'cascaderParams', refName: 'refCascaderParams', span: 8, sm: 12, xs: 24, options: [], },
+        { label: '自定义搜索', type: 'slot', prop: 'test', span: 8, sm: 12, xs: 24, options: [],             unimportant: true, },
+        { label: '级联选择器搜索', type: 'cascader', prop: 'cascaderParams', refName: 'refCascaderParams', span: 8, sm: 12, xs: 24, options: [],             unimportant: true, },
         { label: '测试复选框', type: 'checkbox', prop: 'testCheckbox', checkboxText: '复选框后面的文字', span: 8, sm: 12, xs: 24, options: [], },
     ],
 } as TZHTableFormSettings);
@@ -162,6 +164,7 @@ const request = ref({
     urlList: api.getUserList,
     urlAdd: api.addUser,
     urlBatchDelete: api.batchDeleteUser,
+    conditionsDelete: {},
     urlDelete: api.deleteUser,
     urlUpdate: api.updateUser
 } as TZHTableRequest);

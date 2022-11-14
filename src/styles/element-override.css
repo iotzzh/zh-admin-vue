@@ -1,5 +1,10 @@
 /* 重新定义element ui 主题 */
 :root {
+    --el-color-primary: #154EC1 !important;
+    --el-color-success: #3D9209 !important;
+    --el-color-warning: #E5AF24 !important;
+    --el-color-info: #767C88 !important;
+    --el-color-danger: #E42222 !important;
     /* --el-color-primary: red; */
     /* --el-color-primary: #6196EA;
     --el-color-primary-light-3: #99BCF3;
@@ -17,10 +22,23 @@
 
 
 /* 重定义弹窗后body加padding的bug */
-.el-popup-parent--hidden {
+/* .el-popup-parent--hidden {
     padding-right: 0 !important;
+} */
+/* ********************************************************************全局的组件样式修改start*********************************************** */
+.el-button {
+    border-radius: var(--el-border-radius-small) !important;
 }
 
+.el-button:focus, .el-button:hover {
+    border-radius: 20px !important;
+    transition: border-radius .5s;
+}
+
+/* ********************************************************************全局的组件样式修改end*********************************************** */
+
+
+/* ********************************************************************重写在自己编写的组件中的element 的样式Start*********************************************** */
 /* 表格搜索框，表单，zh-form */
 .zh-table .el-form--inline.zh-form .el-col-0 {
     max-width: none !important;
@@ -30,3 +48,6 @@
 .zh-modal .el-form--inline.zh-form .el-form-item {
     width: 100% !important;
 }
+
+
+/* ********************************************************************重写在自己编写的组件中的element 的样式End*********************************************** */
