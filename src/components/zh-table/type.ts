@@ -88,7 +88,7 @@ export interface TZHTableColumn {
   useSlot?: boolean
   nullValue?: any
 
-  useInModal?: TZHTableColumnUseInModal // 字段在弹窗中的显示配置
+  addEditInfo?: TZHTableColumnUseInModal // 字段在弹窗中的显示配置
 }
 
 // 表格弹窗设置

@@ -33,10 +33,10 @@ export default class Modal {
   formSettings = computed(() => {
     return {
       // eslint-disable-next-line no-prototype-builtins
-      fields: this.table.columns.value?.filter((x: any) => x.hasOwnProperty('useInModal')).map((y: any) => {
+      fields: this.table.columns.value?.filter((x: any) => x.hasOwnProperty('addEditInfo')).map((y: any) => {
         return {
           ...y,
-          ...y.useInModal,
+          ...y.addEditInfo,
         };
       }),
     } as TZHFormSettings;
@@ -81,9 +81,9 @@ export default class Modal {
 
   // 针对需要转换数据的情况：field: a -> b
   useConvert = (model: { [key: string]: string }, fields: TZHTableColumn[]) => {
-    const needConverTFromFields = fields.filter((x) => x.useInModal && x.useInModal!.convert);
+    const needConverTFromFields = fields.filter((x) => x.addEditInfo && x.addEditInfo!.convert);
     for (let i = 0; i < needConverTFromFields.length; i++) {
-      const method: Function | undefined = needConverTFromFields[i].useInModal!.convert;
+      const method: Function | undefined = needConverTFromFields[i].addEditInfo!.convert;
       if (!method) return;
       model[needConverTFromFields[i].prop!] = method(
         model[needConverTFromFields[i].prop!],

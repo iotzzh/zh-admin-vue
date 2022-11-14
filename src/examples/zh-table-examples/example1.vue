@@ -132,7 +132,7 @@ onMounted(() => {
     ];
 
     const cascaderModalParamsItem = tableSettings.value.columns?.find((x: TZHTableColumn) => x.prop === 'org') as TZHTableColumn;
-    cascaderModalParamsItem.useInModal!.options = [
+    cascaderModalParamsItem.addEditInfo!.options = [
         { label: '男', value: 0, children: [{ label: '男1', value: 0.1, }], },
         { label: '女', value: 1, children: [{ label: '女1', value: 1.1, }], },
         { label: '未知', value: 2, children: [{ label: '未知1', value: 2.1, }], },
@@ -158,7 +158,7 @@ const tableSettings = ref({
         {
             label: '姓名',
             prop: 'name',
-            useInModal: {
+            addEditInfo: {
                 type: 'input',
                 defaultValue: 'zzh',
                 placeholder: '请输入',
@@ -166,33 +166,33 @@ const tableSettings = ref({
             }
         },
         {
-            label: '性别', prop: 'sex', convert: (row: any) => row.sex === 0 ? '男' : '女', useInModal: {
+            label: '性别', prop: 'sex', convert: (row: any) => row.sex === 0 ? '男' : '女', addEditInfo: {
                 type: 'select', defaultValue: 0, placeholder: '请输入', span: 8, options: [{ label: '男', value: 0 }, { label: '女', value: 1 }],
             }
         },
         {
-            label: '年龄', prop: 'age', useInModal: {
+            label: '年龄', prop: 'age', addEditInfo: {
                 type: 'input', defaultValue: '18', placeholder: '请输入', span: 8,
             }
         },
         {
-            label: '手机号', prop: 'phone', useInModal: {
+            label: '手机号', prop: 'phone', addEditInfo: {
                 type: 'input', defaultValue: '15665395332', placeholder: '请输入', span: 8,
             }
         },
         {
-            label: '工号', prop: 'employeeNum', useInModal: {
+            label: '工号', prop: 'employeeNum', addEditInfo: {
                 type: 'input', defaultValue: 'HS921593', placeholder: '请输入', span: 8,
             }
         },
         {
-            label: '角色', prop: 'role', useInModal: {
+            label: '角色', prop: 'role', addEditInfo: {
                 type: 'input', defaultValue: 'Developer', placeholder: '请输入', span: 8,
             }
         },
         {
             label: '组织架构', prop: 'org',
-            useInModal:
+            addEditInfo:
             {
                 defaultValue: 'Developer', type: 'cascader', placeholder: '请输入', span: 8, options: [],
                 refName: 'refOrg',
