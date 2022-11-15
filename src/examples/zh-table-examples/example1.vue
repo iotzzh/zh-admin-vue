@@ -2,10 +2,10 @@
     <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
         :usePage="true" :request="request">
         <template v-slot:zh-table-form-default-before>
-            <el-button link>自定义前</el-button>
+            <el-button style="margin-right: 15px;">自定义前  any element</el-button>
         </template>
         <template v-slot:zh-table-form-default-after>
-            <el-button link>自定义后</el-button>
+            <el-button>自定义后 any element</el-button>
         </template>
         <template v-slot:zh-table-form-test>
             <el-input placeholder="请输入自定义搜索" v-model="formSettings.customModel!.test"></el-input>
@@ -20,7 +20,7 @@
 import { TZHFromField } from '@/components/zh-form/type';
 import Table from '@/components/zh-table/index.vue';
 import { TObject, TZHTableRequest, TZHTableFormSettings, TZHTableSetting, TZHTableColumn } from '@/components/zh-table/type';
-import { onMounted, ref } from 'vue';
+import { onMounted, reactive, ref } from 'vue';
 import api from '../api/table/index';
 import { RefreshLeft, Search, Delete, Download, Plus, DocumentChecked, Refresh, Upload, Edit } from '@element-plus/icons-vue';
 
@@ -47,7 +47,7 @@ const formSettings = ref({
         };
     },
     buttons: [
-        { label: '自定义按钮1', icon: Edit, method: () => { console.log('hello world'); }, style: 'color: pink; background-color: blue;' }
+        { label: '自定义按钮1', icon: 'Filter', method: () => { console.log('hello world'); }, style: 'color: pink; background-color: blue;' }
     ],
     fields: [
         // { label: '姓名', type: 'input', prop: 'name', width: '220px', },
@@ -131,7 +131,7 @@ onMounted(() => {
         { label: '未知', value: 2, children: [{ label: '未知1', value: 2.1, }], },
     ];
 
-    const cascaderModalParamsItem = tableSettings.value.columns?.find((x: TZHTableColumn) => x.prop === 'org') as TZHTableColumn;
+    const cascaderModalParamsItem = tableSettings.columns?.find((x: TZHTableColumn) => x.prop === 'org') as TZHTableColumn;
     cascaderModalParamsItem.addEditInfo!.options = [
         { label: '男', value: 0, children: [{ label: '男1', value: 0.1, }], },
         { label: '女', value: 1, children: [{ label: '女1', value: 1.1, }], },
@@ -144,7 +144,7 @@ const testGetSettings = (origin: { [x: string]: any }, model: { [x: string]: any
     return origin && origin[0];
 };
 
-const tableSettings = ref({
+const tableSettings = reactive({
     modal: {
         customModel: {},
     },
@@ -215,7 +215,7 @@ const tableSettings = ref({
 
 onMounted(() => {
     // 控制列是否显示
-    const idColumn: any = tableSettings.value.columns?.find((x: any) => x.prop === 'id');
+    const idColumn: any = tableSettings.columns?.find((x: any) => x.prop === 'id');
     idColumn.notDisplay = true;
 });
 
