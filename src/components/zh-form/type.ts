@@ -19,14 +19,15 @@ export interface TZHFromField {
   unimportant?: boolean
   label?: string
   prop: string
-  refName?: string
-  defaultValue?: any
-  labelWidth?: string | number
-  hide?: boolean
-  width?: string | number
-  placeholder?: string
-  disabled?: boolean
-  clearable?: boolean
+  refName?: string // ref name
+  defaultValue?: any // 默认值
+  labelWidth?: string | number // 标签宽度
+  hide?: boolean // 是否隐藏
+  width?: string | number // 宽度
+  placeholder?: string // 占位符
+  disabled?: boolean // 是否禁用
+  clearable?: boolean // 是否可清除
+  required?: boolean // 是否必填
 
   // 下拉选择/级联选择
   options?: Array<TZHFromFieldSelectOption> | Array<TZHFromFieldCascaderOption> | Array<{ [x: string]: any }>
@@ -41,6 +42,7 @@ export interface TZHFromField {
   inactiveText?: string
   activeValue?: any
   inactiveValue?: any
+  
   // 下拉
   valueKey?: string
   multiple?: boolean

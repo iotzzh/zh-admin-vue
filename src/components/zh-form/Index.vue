@@ -1,5 +1,5 @@
 <template>
-  <el-form class="zh-form" v-bind="$attrs" ref="refForm" :model="modelValue" :rules="formSettings?.rules"
+  <el-form class="zh-form" v-bind="$attrs" ref="refForm" :model="modelValue" :rules="rules"
     :label-width="formSettings?.formLabelWidth || 'auto'" type="flex" inline justify="end"
     style="flex-wrap: wrap; flex-direction: row">
     <el-row style="display: flex; flex-wrap: wrap">
@@ -130,6 +130,36 @@ const fieldList = computed(() => {
   } else {
     return formSettings?.value?.fields;
   }
+});
+
+const rules = computed(() => {
+  const newRules = {};
+
+  const fields: TZHFromField[] = formSettings!.value!.fields || [];
+
+  for (let i = 0; i < fields.length; i++) {
+    if (fields[i].required) {
+      const requireMsg = fields[i].type === 'input' ? '请输入' : '请选择';
+      const requireEvent = fields[i].type === 'input' ? 'blur' : 'change';
+      // eslint-disable-next-line no-prototype-builtins
+      if(fields[i].hasOwnProperty(fields[i].prop)) {
+        newRules[fields[i].prop].push({ required: true, message: requireMsg + fields[i].label, trigger: requireEvent });
+      } else {
+        newRules[fields[i].prop] = [];
+        newRules[fields[i].prop].push({ required: true, message: requireMsg + fields[i].label, trigger: requireEvent });
+      }
+    }
+
+  }
+
+  if (formSettings?.value?.rules) {
+    const keys = Object.keys(formSettings?.value?.rules);
+    keys.forEach((key:any) => {
+      newRules[key] = formSettings?.value?.rules && formSettings.value.rules[key];
+    });
+  }
+
+  return newRules;
 });
 
 defineExpose({ validate: formInstance.validate });
