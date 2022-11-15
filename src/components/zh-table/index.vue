@@ -36,29 +36,56 @@
         :min-width="item.minWidth ? item.minWidth : ''" :align="item.align ? item.align : 'center'" :label="item.label"
         :prop="item.prop" :fixed="item.fixed" :sortable="item.sortable" :class-name="item.className">
         <template #default="scope">
-          <span class="cell-content" @mouseover="(e: any) => table.cellContentOver(scope)"
+          <span class="cell-content-box" @mouseover="(e: any) => table.cellContentOver(scope)"
             @mouseleave="(e: any) => table.cellContentLeave(scope)">
-            <span v-if="item.convert">{{
-                item.convert(scope.row, scope.$index)
-            }}</span>
 
-            <span v-else-if="item.format">{{
-                scope.row[item.prop as string] &&
-                moment(scope.row[item.prop as string]).format(item.format)
-            }}</span>
+            <span class="cell-content" v-if="!table.cellCanShowSaveCancel(scope)">
+              <span v-if="item.convert">{{
+                  item.convert(scope.row, scope.$index)
+              }}</span>
 
-            <!-- 自定义内容 -->
-            <template v-else-if="item.useSlot">
-              <slot :name="'table-' + item.prop" :row="scope.row" :index="scope.$index" :label="item.label" />
-            </template>
+              <span v-else-if="item.format">{{
+                  scope.row[item.prop as string] &&
+                  moment(scope.row[item.prop as string]).format(item.format)
+              }}</span>
 
-            <span v-else>
-              {{
-                  scope.row[item.prop as string] === undefined ||
-                    scope.row[item.prop as string] === null
-                    ? item.nullValue
-                    : scope.row[item.prop as string]
-              }}
+              <!-- 自定义内容 -->
+              <template v-else-if="item.useSlot">
+                <slot :name="'table-' + item.prop" :row="scope.row" :index="scope.$index" :label="item.label" />
+              </template>
+
+              <span v-else>
+                {{
+                    scope.row[item.prop as string] === undefined ||
+                      scope.row[item.prop as string] === null
+                      ? item.nullValue
+                      : scope.row[item.prop as string]
+                }}
+              </span>
+            </span>
+
+            <span v-else class="cell-content-edit" style="display: inline-block; width: calc(100% - 36px)">
+              <!-- 输入框 -->
+              <el-input v-if="item.addEditInfo?.type === 'input'" v-model="scope.row[item.prop as string]"
+                :type="item.addEditInfo?.inputType" :clearable="item.addEditInfo?.clearable"></el-input>
+
+              <!-- 下拉 -->
+              <el-select v-else-if="item.addEditInfo?.type === 'select'" v-model="scope.row[item.prop as string]"
+                :style="{ width: item.addEditInfo?.width ? `${item.addEditInfo?.width}` : '100%' }"
+                :value-key="item.addEditInfo?.valueKey" :disabled="item.addEditInfo?.disabled"
+                :multiple="item.addEditInfo?.multiple" filterable clearable :remote="item.addEditInfo?.remote"
+                :remote-method="item.addEditInfo?.remoteMethod" :placeholder="
+                  item.addEditInfo?.placeholder
+                    ? item.addEditInfo?.placeholder
+                    : item.addEditInfo?.remoteMethod
+                      ? '请输入选择'
+                      : '请选择'
+                ">
+                <el-option
+                  v-for="(subItem, subIndex) in (item.addEditInfo?.options as Array<TZHFromFieldSelectOption> | Array<{ [x: string]: any }>)"
+                  :key="item.addEditInfo?.valueKey ? subItem[item.addEditInfo?.valueKey] : subIndex"
+                  :label="subItem.label" :value="item.addEditInfo?.valueKey ? subItem : subItem.value"></el-option>
+              </el-select>
             </span>
 
             <span>
@@ -124,7 +151,7 @@ import Page from './page';
 import Table from './table';
 import Form from './form';
 import Modal from './modal';
-import { TZHFromField, TZHFormSettings } from '../zh-form/type';
+import { TZHFromField, TZHFormSettings, TZHFromFieldSelectOption } from '../zh-form/type';
 import { debounce } from 'lodash';
 
 const props = defineProps({
