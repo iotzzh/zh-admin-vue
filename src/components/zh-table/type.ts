@@ -88,11 +88,11 @@ export interface TZHTableColumn {
   useSlot?: boolean
   nullValue?: any
 
-  addEditInfo?: TZHTableColumnUseInModal // 字段在弹窗中的显示配置
+  addEditInfo?: TZHTableColumnAddEditInfo // 字段在新增/编辑/显示中的配置
 }
 
 // 表格弹窗设置
-export interface TZHTableColumnUseInModal extends TZHFromField {
+export interface TZHTableColumnAddEditInfo extends TZHFromField {
   addSort?: number // 新增时排序，可小数
   editSort?: number // 编辑时排序，可小数，一般只需要新增时排序，编辑排序填写时，在编辑时覆盖新增排序
   // 转换方法, 一对一转换

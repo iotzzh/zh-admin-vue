@@ -2,7 +2,7 @@ import { computed, Ref, ref, nextTick } from 'vue';
 import { TModal } from '../zh-form-modal/type';
 import { TZHFormSettings } from '../zh-form/type';
 import { popErrorMessage } from '../zh-message';
-import { TZHTableRequest, TZHTableRequestResult, TZHTableColumnUseInModal, TZHTableFromField, TZHFromFieldConvertDateTime, TZHTableSetting, TZHTableColumn } from './type';
+import { TZHTableRequest, TZHTableRequestResult, TZHTableColumnAddEditInfo, TZHTableFromField, TZHFromFieldConvertDateTime, TZHTableSetting, TZHTableColumn } from './type';
 import Table from './table';
 import ZHRequest from '../zh-request';
 import { TParams } from '../zh-request/type';
@@ -55,7 +55,7 @@ export default class Modal {
 
   _setDefaultValue = () => {
     const fieldsWithDefaultValue = this.formSettings.value.fields?.filter((x: any) => x.defaultValue !== null && x.defaultValue !== undefined);
-    const newPropertyArray: Array<{ property: string, defaultValue: any }> = fieldsWithDefaultValue?.map((x: TZHTableColumnUseInModal) => { return { property: x.prop, defaultValue: x.defaultValue }; }) || [];
+    const newPropertyArray: Array<{ property: string, defaultValue: any }> = fieldsWithDefaultValue?.map((x: TZHTableColumnAddEditInfo) => { return { property: x.prop, defaultValue: x.defaultValue }; }) || [];
     const newObj: any = {};
     for (let i = 0; i < newPropertyArray.length; i++) {
       newObj[newPropertyArray[i].property] = newPropertyArray[i].defaultValue;
