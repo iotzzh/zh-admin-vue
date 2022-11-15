@@ -141,7 +141,7 @@ export default class Form {
     return this.getSearchParams();
   };
 
-  _convertSlotName = (prop: string) => {
+  _convertSlotName = (prop: string):string => {
     return 'zh-form-' + prop;
   };
 

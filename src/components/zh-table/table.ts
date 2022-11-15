@@ -1,7 +1,7 @@
 import { computed, Ref, ref } from 'vue';
 import { TZHTablePage, TZHTableRequest, TZHTableRequestResult, TZHTableSetting } from './type';
 import Form from './form';
-import { isMessageConfirm, popErrorMessage } from '../zh-message';
+import { isMessageConfirm, popErrorMessage, popSuccessMessage } from '../zh-message';
 import { TParams } from '../zh-request/type';
 import ZHRequest from '../zh-request';
 import { debounce, throttle } from 'lodash';
@@ -118,4 +118,45 @@ export default class Table {
     this.tableSettings.value.rowClick &&
       this.tableSettings.value.rowClick({ row, column, event });
   };
+
+  //#region 相关功能行内编辑
+  cellMouseOver = ref(); // 鼠标移入到的单元格
+  cellEditList = ref([] as Array<any>);
+
+  cellCanShowEdit = (scope:any) => {
+    return this.cellMouseOver.value?.index === scope.$index && 
+    this.cellMouseOver.value?.cellIndex === scope.cellIndex;
+  };
+
+  cellCanShowSaveCancel = (scope:any) => {
+    return !(this.cellMouseOver.value?.index === scope.$index && 
+      this.cellMouseOver.value?.cellIndex === scope.cellIndex) && this.cellEditList.value.find((x:any) => x.index === scope.$index && x.cellIndex === scope.cellIndex );
+  };
+
+  cellContentOver = (scope:any) => {
+    if (this.cellCanShowSaveCancel(scope)) return;
+    this.cellMouseOver.value = { index: scope.$index, cellIndex: scope.cellIndex };
+  };
+
+  cellContentLeave = (scope: any) => {
+    this.cellMouseOver.value = null;
+  };
+
+  clickInlineEdit = (scope:any) => {
+    this.cellMouseOver.value = null;
+    this.cellEditList.value.push({ index: scope.$index, cellIndex: scope.cellIndex });
+  };
+
+  clickInlineCancel = (scope:any) => {
+    this.cellMouseOver.value = null;
+    this.cellEditList.value = this.cellEditList.value.filter((x:any) => x.index !== scope.$index || x.cellIndex !== scope.cellIndex);
+  };
+
+  clickInlineSave = (scope:any) => {
+    popSuccessMessage('修改成功');
+    this.cellMouseOver.value = null;
+    this.cellEditList.value = this.cellEditList.value.filter((x:any) => x.index !== scope.$index || x.cellIndex !== scope.cellIndex);
+  };
+
+  //#endregion
 }

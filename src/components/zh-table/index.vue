@@ -25,43 +25,52 @@
     <el-table ref="refTable" class="zh-el-table" :data="table.data.value" size="small"
       :height="tableSettings.height || '100%'" :highlight-current-row="tableSettings.highlightCurrentRow"
       v-loading="table.loading.value" :row-key="tableSettings.rowKey" @row-click="table.rowClick">
+
       <el-table-column v-if="tableSettings.hasSelection" type="selection" width="50" align="center" reserve-selection>
       </el-table-column>
 
       <el-table-column v-if="tableSettings.hasIndex" type="index" width="60" label="序号" align="center">
       </el-table-column>
 
-      <el-table-column v-for="(item, index) in table.columns.value"
-        :key="'table-column' + index + (item.editable ? '-editable' : '')" :width="item.width ? item.width : ''"
+      <el-table-column v-for="(item, index) in table.columns.value" :key="index" :width="item.width ? item.width : ''"
         :min-width="item.minWidth ? item.minWidth : ''" :align="item.align ? item.align : 'center'" :label="item.label"
         :prop="item.prop" :fixed="item.fixed" :sortable="item.sortable" :class-name="item.className">
         <template #default="scope">
-          <span v-if="item.convert">{{
-              item.convert(scope.row, scope.$index)
-          }}</span>
+          <span class="cell-content" @mouseover="(e: any) => table.cellContentOver(scope)"
+            @mouseleave="(e: any) => table.cellContentLeave(scope)">
+            <span v-if="item.convert">{{
+                item.convert(scope.row, scope.$index)
+            }}</span>
 
-          <span v-else-if="item.format">{{
-              scope.row[item.prop as string] &&
-              moment(scope.row[item.prop as string]).format(item.format)
-          }}</span>
+            <span v-else-if="item.format">{{
+                scope.row[item.prop as string] &&
+                moment(scope.row[item.prop as string]).format(item.format)
+            }}</span>
 
-          <!-- 自定义内容 -->
-          <template v-else-if="item.useSlot">
-            <slot :name="'table-' + item.prop" :row="scope.row" :index="scope.$index" :label="item.label" />
-          </template>
+            <!-- 自定义内容 -->
+            <template v-else-if="item.useSlot">
+              <slot :name="'table-' + item.prop" :row="scope.row" :index="scope.$index" :label="item.label" />
+            </template>
 
-          <span v-else>
-            {{
-                scope.row[item.prop as string] === undefined ||
-                  scope.row[item.prop as string] === null
-                  ? item.nullValue
-                  : scope.row[item.prop as string]
-            }}
-          </span>
-          <span>
-            <el-button link type="primary" size="small" :icon="Edit"></el-button>
-            <el-button link type="primary" size="small" :icon="Select"></el-button>
-            <el-button link type="primary" size="small" :icon="CloseBold"></el-button>
+            <span v-else>
+              {{
+                  scope.row[item.prop as string] === undefined ||
+                    scope.row[item.prop as string] === null
+                    ? item.nullValue
+                    : scope.row[item.prop as string]
+              }}
+            </span>
+
+            <span>
+              <el-button v-show="table.cellCanShowEdit(scope)" link type="primary" size="small" :icon="Edit"
+                @click="() => table.clickInlineEdit(scope)"></el-button>
+              <span v-show="table.cellCanShowSaveCancel(scope)">
+                <el-button link type="success" size="small" :icon="Select" @click="table.clickInlineSave(scope)">
+                </el-button>
+                <el-button link type="danger" size="small" :icon="CloseBold" @click="table.clickInlineCancel(scope)">
+                </el-button>
+              </span>
+            </span>
           </span>
         </template>
       </el-table-column>
@@ -104,7 +113,7 @@
 
 <script setup lang="ts">
 import { toRefs, PropType, computed, ref, reactive, Ref, watch } from 'vue';
-import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit, CloseBold, Select} from '@element-plus/icons-vue';
+import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit, CloseBold, Select } from '@element-plus/icons-vue';
 import moment from 'moment';
 import ZhForm from '../zh-form/index.vue';
 import ZhFormModal from '../zh-form-modal/index.vue';
