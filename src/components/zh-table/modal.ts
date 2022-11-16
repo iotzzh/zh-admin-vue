@@ -1,5 +1,5 @@
 import { computed, Ref, ref, nextTick } from 'vue';
-import { TModal } from '../zh-form-modal/type';
+import { TZHModal, TZHModalFormSettings } from '../zh-form-modal/type';
 import { TZHFormSettings } from '../zh-form/type';
 import { popErrorMessage } from '../zh-message';
 import { TZHTableRequest, TZHTableRequestResult, TZHTableColumnAddEditInfo, TZHTableFromField, TZHFromFieldConvertDateTime, TZHTableSetting, TZHTableColumn } from './type';
@@ -39,10 +39,11 @@ export default class Modal {
           ...y.addEditInfo,
         };
       }),
-    } as TZHFormSettings;
+      customValidate: this.tableSettings.value.modal?.customValidate,
+    } as TZHModalFormSettings;
   });
 
-  modal = ref({ show: false, title: '新增', } as TModal);
+  modal = ref({ show: false, title: '新增', } as TZHModal);
 
   formModel = ref({} as any);
 

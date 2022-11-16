@@ -1,4 +1,4 @@
-export interface TModal {
+export interface TZHModal {
   show: boolean
   width?: string
   title: string

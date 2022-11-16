@@ -85,7 +85,7 @@ const formSettings = ref({
         // },
         // { label: '测试复选框', type: 'checkbox', prop: 'testCheckbox', checkboxText: '复选框后面的文字', span: 8, sm: 12, xs: 24, options: [], },
         
-        { label: '姓名', type: 'input', prop: 'name', span: 8,  }, // 输入框测试
+        { label: '姓名', type: 'input', prop: 'name', span: 8, required: true,  }, // 输入框测试
         { label: '姓名', type: 'input', prop: 'name111', span: 8, notChangeTriggerSearch: true, }, // 输入框测试, 输入不搜索
         { label: '性别', type: 'select', prop: 'sex', span: 8, options: [], }, // 下拉：[{label, value}]
         {
@@ -140,7 +140,7 @@ onMounted(() => {
 });
 
 const testGetSettings = (origin: { [x: string]: any }, model: { [x: string]: any }, formSettings: any) => {
-    console.log('convert formSettings: ' + JSON.stringify(formSettings.value[7]));
+    console.log('convert formSettings: ' + JSON.stringify(formSettings));
     return origin && origin[0];
 };
 
@@ -150,6 +150,10 @@ const tableSettings = reactive({
     rowKey: 'id',
     modal: {
         customModel: {},
+        customValidate: (model:{[x:string]: any}) => {
+            console.log('customValidate', model);
+            return true;
+        },
     },
     columns: [
         {

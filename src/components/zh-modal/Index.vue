@@ -16,11 +16,11 @@
 <script setup lang="ts">
 import { toRefs, PropType } from 'vue';
 import { ZHModal } from './index';
-import { TModal } from './type';
+import { TZHModal } from './type';
 
 const props = defineProps({
   modal: {
-    type: Object as PropType<TModal>,
+    type: Object as PropType<TZHModal>,
     required: true, // 必传
   },
 });

@@ -26,7 +26,7 @@ import {
   DocumentChecked, Refresh, Upload
 } from '@element-plus/icons-vue';
 import ZhFormModal from '../zh-form-modal/index.vue';
-import { TModal } from '../zh-modal/type';
+import { TZHModal } from '../zh-modal/type';
 import { TZHFromField, TZHFormSettings } from '../zh-form/type';
 import { TZHTableRequest } from './type';
 import ZHRequest from '../zh-request';
@@ -55,7 +55,7 @@ const data = ref([] as any);
 const modal = ref({
   show: false,
   title: '新增',
-} as TModal);
+} as TZHModal);
 const formModel = ref({} as any);
 const formSettings = ref({
   fields: [
