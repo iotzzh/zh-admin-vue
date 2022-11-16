@@ -56,7 +56,7 @@ export interface TZHTablePageSetting {
 export interface TZHTableSetting {
   height?: string | number // 表格高度，示例：'100%', '100px', 100
   highlightCurrentRow?: boolean // 高亮选中行
-  rowKey?: string // 行内唯一值，没有该值，无法使用checkbox
+  rowKey?: string // 行内唯一值，没有该值，！！无法使用checkbox！！
   hasSelection?: boolean // 是否存在checkbox列
   hasIndex?: boolean // 是否存在Index列
   columns?: Array<TZHTableColumn> // 列配置，内包含新增和编辑的列配置

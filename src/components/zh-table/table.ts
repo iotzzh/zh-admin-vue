@@ -122,6 +122,8 @@ export default class Table {
   //#region 相关功能行内编辑
   cellMouseOver = ref(); // 鼠标移入到的单元格
   cellEditList = ref([] as Array<any>);
+  _convertPropToEditingProp = (prop: string) => { return prop + 'editing'; };
+  _convertEditingPropToProp = (editingProp: string) => { return editingProp.substring(0, editingProp.length - 7); };
 
   cellCanShowEdit = (scope:any) => {
     return this.cellMouseOver.value?.index === scope.$index && 
@@ -145,6 +147,7 @@ export default class Table {
   clickInlineEdit = (scope:any) => {
     this.cellMouseOver.value = null;
     this.cellEditList.value.push({ index: scope.$index, cellIndex: scope.cellIndex });
+    scope.row[this._convertPropToEditingProp(scope.column.property)] = scope.row[scope.column.property];
   };
 
   clickInlineCancel = (scope:any) => {
@@ -153,7 +156,10 @@ export default class Table {
   };
 
   clickInlineSave = (scope:any) => {
+    if(this.tableSettings.value.modal?.customValidate && !this.tableSettings.value.modal?.customValidate(scope.row)) return;
+    // 调用接口触发
     popSuccessMessage('修改成功');
+    scope.row[scope.column.property] = scope.row[this._convertPropToEditingProp(scope.column.property)];
     this.cellMouseOver.value = null;
     this.cellEditList.value = this.cellEditList.value.filter((x:any) => x.index !== scope.$index || x.cellIndex !== scope.cellIndex);
   };

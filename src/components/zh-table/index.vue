@@ -66,11 +66,11 @@
 
             <span v-else class="cell-content-edit" style="display: inline-block; width: calc(100% - 36px)">
               <!-- 输入框 -->
-              <el-input v-if="item.addEditInfo?.type === 'input'" v-model="scope.row[item.prop as string]"
+              <el-input v-if="item.addEditInfo?.type === 'input'" v-model="scope.row[table._convertPropToEditingProp(item.prop as string)]"
                 :type="item.addEditInfo?.inputType" :clearable="item.addEditInfo?.clearable"></el-input>
 
               <!-- 下拉 -->
-              <el-select v-else-if="item.addEditInfo?.type === 'select'" v-model="scope.row[item.prop as string]"
+              <el-select v-else-if="item.addEditInfo?.type === 'select'" v-model="scope.row[table._convertPropToEditingProp(item.prop as string)]"
                 :style="{ width: item.addEditInfo?.width ? `${item.addEditInfo?.width}` : '100%' }"
                 :value-key="item.addEditInfo?.valueKey" :disabled="item.addEditInfo?.disabled"
                 :multiple="item.addEditInfo?.multiple" filterable clearable :remote="item.addEditInfo?.remote"

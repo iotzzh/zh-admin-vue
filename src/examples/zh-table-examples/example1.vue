@@ -23,6 +23,7 @@ import { TObject, TZHTableRequest, TZHTableFormSettings, TZHTableSetting, TZHTab
 import { onMounted, reactive, ref } from 'vue';
 import api from '../api/table/index';
 import { RefreshLeft, Search, Delete, Download, Plus, DocumentChecked, Refresh, Upload, Edit } from '@element-plus/icons-vue';
+import { popErrorMessage } from '@/components/zh-message';
 
 const refZHTable = ref();
 
@@ -152,6 +153,10 @@ const tableSettings = reactive({
         customModel: {},
         customValidate: (model:{[x:string]: any}) => {
             console.log('customValidate', model);
+            if (model.sex === 0) {
+                popErrorMessage('男若磐石，不移不变~');
+                return false;
+            }
             return true;
         },
     },
