@@ -76,7 +76,7 @@ export interface TZHTableModal extends TZHModalFormSettings {
 }
 
 export interface TZHTableColumn {
-  editable?: boolean
+  allowCellEdit?: boolean
   width?: number | string
   minWidth?: number | string
   align?: string

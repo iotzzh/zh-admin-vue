@@ -2,7 +2,7 @@
     <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
         :usePage="true" :request="request">
         <template v-slot:zh-table-form-default-before>
-            <el-button style="margin-right: 15px;">自定义前  any element</el-button>
+            <el-button style="margin-right: 15px;">自定义前 any element</el-button>
         </template>
         <template v-slot:zh-table-form-default-after>
             <el-button>自定义后 any element</el-button>
@@ -85,8 +85,8 @@ const formSettings = ref({
         //     props: {}
         // },
         // { label: '测试复选框', type: 'checkbox', prop: 'testCheckbox', checkboxText: '复选框后面的文字', span: 8, sm: 12, xs: 24, options: [], },
-        
-        { label: '姓名', type: 'input', prop: 'name', span: 8, required: true,  }, // 输入框测试
+
+        { label: '姓名', type: 'input', prop: 'name', span: 8 }, // 输入框测试
         { label: '姓名', type: 'input', prop: 'name111', span: 8, notChangeTriggerSearch: true, }, // 输入框测试, 输入不搜索
         { label: '性别', type: 'select', prop: 'sex', span: 8, options: [], }, // 下拉：[{label, value}]
         {
@@ -108,7 +108,7 @@ const formSettings = ref({
         },
         { label: '自定义搜索', type: 'slot', prop: 'test', span: 8, options: [], unimportant: true, },
         {
-            label: '级联选择器搜索', type: 'cascader', prop: 'cascaderParams', refName: 'refCascaderParams', span: 8,  options: [], unimportant: true,
+            label: '级联选择器搜索', type: 'cascader', prop: 'cascaderParams', refName: 'refCascaderParams', span: 8, options: [], unimportant: true,
             props: {}
         },
         { label: '测试复选框', type: 'checkbox', prop: 'testCheckbox', checkboxText: '复选框后面的文字', span: 8, options: [], },
@@ -151,7 +151,7 @@ const tableSettings = reactive({
     rowKey: 'id',
     modal: {
         customModel: {},
-        customValidate: (model:{[x:string]: any}) => {
+        customValidate: (model: { [x: string]: any }) => {
             console.log('customValidate', model);
             if (model.sex === 0) {
                 popErrorMessage('男若磐石，不移不变~');
@@ -170,6 +170,7 @@ const tableSettings = reactive({
         {
             label: '姓名',
             prop: 'name',
+            allowCellEdit: true,
             addEditInfo: {
                 type: 'input',
                 defaultValue: 'zzh',
@@ -179,7 +180,8 @@ const tableSettings = reactive({
             }
         },
         {
-            label: '性别', prop: 'sex', convert: (row: any) => row.sex === 0 ? '男' : '女', addEditInfo: {
+            label: '性别', prop: 'sex', convert: (row: any) => row.sex === 0 ? '男' : '女', allowCellEdit: true,
+            addEditInfo: {
                 type: 'select', defaultValue: 0, placeholder: '请输入', span: 8, options: [{ label: '男', value: 0 }, { label: '女', value: 1 }],
             }
         },
