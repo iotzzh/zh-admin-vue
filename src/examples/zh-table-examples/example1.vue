@@ -1,15 +1,17 @@
 <template>
     <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
         :usePage="true" :request="request">
+        <template v-slot:zh-table-form-test>
+            <el-input placeholder="请输入自定义搜索" v-model="formSettings.customModel!.test"></el-input>
+        </template>
+
         <template v-slot:zh-table-form-default-before>
             <el-button style="margin-right: 15px;">自定义前 any element</el-button>
         </template>
         <template v-slot:zh-table-form-default-after>
             <el-button>自定义后 any element</el-button>
         </template>
-        <template v-slot:zh-table-form-test>
-            <el-input placeholder="请输入自定义搜索" v-model="formSettings.customModel!.test"></el-input>
-        </template>
+        
         <template v-slot:zh-table-form-next-row>
             <el-button link @click="getSearchFormModel">自定义下一行内容</el-button>
         </template>
@@ -95,16 +97,16 @@ const formSettings = ref({
         }, // 下拉：[objct]
         { label: '性别1', type: 'radio-group', prop: 'sex1', span: 8, options: [], },
         {
-            label: '创建日期', type: 'date-picker', timeType: 'date',
-            timeShowFormat: 'YYYY-MM-DD',
-            timeValueFormat: 'YYYY-MM-DD',
-            prop: 'createTime', span: 8, options: [],
-            unimportant: true,
+            label: '创建日期范围', type: 'date-picker', timeType: 'daterange', prop: 'createTimeTest', options: [],
+            span: 8,
+            convertDateTime: [{ field: 'startCreateTime1', format: 'YYYY-MM-DD' }, { field: 'endCreateTime1', format: 'YYYY-MM-DD' }],
         },
         {
-            label: '创建日期范围', type: 'date-picker', timeType: 'daterange', prop: 'createTime1', options: [], unimportant: true,
-            span: 8,
-            convertDateTime: [{ field: 'startCreateTime1', format: 'YYYY-MM-DD 00:00:00' }, { field: 'endCreateTime1', format: 'YYYY-MM-DD 23:59:59' }],
+            label: '创建日期11111', type: 'date-picker', timeType: 'date',
+            timeShowFormat: 'YYYY-MM-DD',
+            timeValueFormat: 'YYYY-MM-DD',
+            prop: 'createTime1111111', span: 8, options: [],
+            unimportant: true,
         },
         { label: '自定义搜索', type: 'slot', prop: 'test', span: 8, options: [], unimportant: true, },
         {
@@ -154,7 +156,7 @@ const tableSettings = reactive({
         customValidate: (model: { [x: string]: any }) => {
             console.log('customValidate', model);
             if (model.sex === 0) {
-                popErrorMessage('男若磐石，不移不变~');
+                popErrorMessage('男若磐石，不变不移~');
                 return false;
             }
             return true;
@@ -232,6 +234,7 @@ onMounted(() => {
     // 控制列是否显示
     const idColumn: any = tableSettings.columns?.find((x: any) => x.prop === 'id');
     idColumn.notDisplay = true;
+    // idColumn.notDisplay = false;
 });
 
 

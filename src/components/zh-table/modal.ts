@@ -152,7 +152,7 @@ export default class Modal {
     }
   };
 
-  getSearchParams = () => {
+  getParams = () => {
     const model = this.formModel.value
       ? JSON.parse(JSON.stringify(this.formModel.value))
       : {};
@@ -180,11 +180,12 @@ export default class Modal {
 
   submit = async () => {
     this.refZHFormModal.value.toggleLodadingSubmit(true);
+    // TODO: 搜索前操作，例如变换某个字段， tableSettings.onBeforeSubmit(type: 'add | update')
     const params: TParams = {
       url: this.modal.value.type === 'add' ?
         this.request?.value?.urlAdd || '' :
         this.request?.value?.urlUpdate || '',
-      conditions: this.getSearchParams(),
+      conditions: this.getParams(),
     };
 
     console.log('submit', params);
