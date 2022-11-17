@@ -24,13 +24,6 @@ export default class Table {
     this.request = request;
     this.pageData = pageData;
     this.form = form;
-    if (
-      this.request?.value &&
-      this.request.value.urlList &&
-      (this.request.value.initialData ||
-        this.request.value.initialData === undefined)
-    )
-      this.initData();
   }
 
   data = ref([] as any);

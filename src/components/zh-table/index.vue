@@ -1,7 +1,7 @@
 <template>
 
   <div class="zh-table">
-    <ZhForm class="zh-form" v-if="useSearchForm" v-model="form.formModel" :form-settings="formSettings">
+    <ZHForm ref="refZHForm" class="zh-form" v-if="useSearchForm" v-model="form.formModel" :form-settings="formSettings">
       <!-- 传递form默认插槽 -->
       <template #default>
         <slot name="zh-table-form-default-before"></slot>
@@ -19,7 +19,7 @@
       <template v-slot:zh-form-next-row>
         <slot name="zh-table-form-next-row"></slot>
       </template>
-    </ZhForm>
+    </ZHForm>
 
     <!-- table部分：配置文件对象 tableSettings  -->
     <el-table ref="refTable" class="zh-el-table" :data="table.data.value" size="small"
@@ -142,10 +142,10 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, PropType, computed, ref, reactive, Ref, watch } from 'vue';
+import { toRefs, PropType, computed, ref, reactive, Ref, watch, onMounted, nextTick } from 'vue';
 import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit, CloseBold, Select } from '@element-plus/icons-vue';
 import moment from 'moment';
-import ZhForm from '../zh-form/index.vue';
+import ZHForm from '../zh-form/index.vue';
 import ZhFormModal from '../zh-form-modal/index.vue';
 import ZHFormButtons from './form-buttons.vue';
 import { ElTable } from 'element-plus';
@@ -155,7 +155,6 @@ import Table from './table';
 import Form from './form';
 import Modal from './modal';
 import { TZHFromField, TZHFormSettings, TZHFromFieldSelectOption } from '../zh-form/type';
-import { debounce } from 'lodash';
 
 const props = defineProps({
   useSearchForm: {
@@ -198,6 +197,8 @@ const {
   request,
 } = toRefs(props);
 
+const refZHForm = ref();
+
 //#region common
 // 分页的组件内部数据
 const pageData: Ref<TZHTablePage> = ref({
@@ -208,12 +209,16 @@ const pageData: Ref<TZHTablePage> = ref({
 //#endregion
 
 //#region search form
-const form = new Form(pageData, request, formSettings);
-form.init();
+const form = new Form(pageData, request, formSettings, refZHForm);
+onMounted(() => refZHForm.value && refZHForm.value.init && refZHForm.value.init());
 const watchFormModel = computed(() => JSON.parse(JSON.stringify(form.formModel.value)));
-watch(watchFormModel, (newVal: { [x: string]: any }, oldVal: { [x: string]: any }) => {
-  if (!form._compareNeedTriggerSearchFieldsIsEqual(newVal, oldVal)) table.debounceInitData();
-});
+watch(
+  () => watchFormModel.value,
+  (newVal: { [x: string]: any }, oldVal: { [x: string]: any }) => {
+    if (!form._compareNeedTriggerSearchFieldsIsEqual(newVal, oldVal)) {
+      table.debounceInitData();
+    }
+  }, { immediate: false });
 
 // 自定义插槽
 const sloTFromFields = formSettings?.value?.fields?.filter((x: TZHFromField) => x.type === 'slot');
@@ -222,6 +227,10 @@ const sloTFromFields = formSettings?.value?.fields?.filter((x: TZHFromField) => 
 //#region table
 const refTable = ref<InstanceType<typeof ElTable>>();
 const table = new Table(tableSettings, refTable, request, form, pageData);
+onMounted(() => {
+  if (request?.value && request.value.urlList && (request.value.initialData || request.value.initialData === undefined))
+    table.debounceInitData();
+});
 //#endregion
 
 //#region page

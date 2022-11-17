@@ -100,7 +100,7 @@
 
 <script setup lang="ts">
 
-import { toRefs, PropType, ref, computed } from 'vue';
+import { toRefs, PropType, ref, computed, onMounted } from 'vue';
 import Form from './index';
 import { TZHFormSettings, TZHFromFieldSelectOption, TZHFromField } from './type';
 import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit, ArrowUp, ArrowDown } from '@element-plus/icons-vue';
@@ -121,7 +121,7 @@ const refForm = ref();
 const itemRefs = ref([] as any);
 
 const emit = defineEmits(['close', 'submit', 'update:modelValue']); //定义一个变量来接收父组件传来的方法
-const formInstance = new Form({ emit, refForm, formSettings });
+const formInstance = new Form({ emit, refForm, formSettings, modelValue });
 
 const fieldList = computed(() => {
   if (formInstance.hideUnimportantFields.value) {
@@ -134,9 +134,7 @@ const fieldList = computed(() => {
 
 const rules = computed(() => {
   const newRules = {};
-
   const fields: TZHFromField[] = formSettings!.value!.fields || [];
-
   for (let i = 0; i < fields.length; i++) {
     if (fields[i].required) {
       const requireMsg = fields[i].type === 'input' ? '请输入' : '请选择';
@@ -162,7 +160,12 @@ const rules = computed(() => {
   return newRules;
 });
 
-defineExpose({ validate: formInstance.validate });
+onMounted(() => {
+  console.log('zh form mounted!');
+  formInstance.init();
+});
+
+defineExpose({ validate: formInstance.validate, init: formInstance.init });
 </script>
 
 <script lang="ts">

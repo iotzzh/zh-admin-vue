@@ -133,14 +133,15 @@ export interface TZHTableActionColumnButton {
 
 export interface TZHTableRequest {
   urlList?: string // 列表查询
-  conditionsList?: Object
-  urlDelete?: string // 单个删除
-  conditionsDelete?: Object
-  urlBatchDelete?: string // 批量删除
+  conditionsList?: TObject
   urlAdd?: string // 新增
-  conditionsAdd?: Object
+  conditionsAdd?: TObject
+  urlDelete?: string // 单个删除
+  conditionsDelete?: TObject
+  urlBatchDelete?: string // 批量删除
+  conditionsBatchDelete?: TObject
   urlUpdate?: string // 编辑
-  conditionsEdit?: Object
+  conditionsUpdate?: TObject
   initialData?: boolean
   successMessage?: string
   errorMessage?: string

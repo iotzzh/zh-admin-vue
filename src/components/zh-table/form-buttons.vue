@@ -13,13 +13,16 @@
         <el-button type="warning" :icon="Download">导出</el-button>
     </el-form-item>
     <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasResetButton">
-        <el-button type="info" :icon="RefreshLeft" @click="form.init">重置</el-button>
+        <el-button type="info" :icon="RefreshLeft" @click="() => {
+            form.refZHForm.value && form.refZHForm.value.init();
+        }">重置</el-button>
     </el-form-item>
     <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasDeleteButton">
         <el-button type="danger" :icon="Delete" @click="table.batchDelete">批量删除</el-button>
     </el-form-item>
-    <el-form-item class="zh-table-inline-button" label-width="0px" v-for="(item, index) in formSettings?.buttons" :key="index">
-        <el-button  :icon="item.icon" @click="item.method" :style="item.style">{{ item.label }}</el-button>
+    <el-form-item class="zh-table-inline-button" label-width="0px" v-for="(item, index) in formSettings?.buttons"
+        :key="index">
+        <el-button :icon="item.icon" @click="item.method" :style="item.style">{{ item.label }}</el-button>
     </el-form-item>
 </template>
 

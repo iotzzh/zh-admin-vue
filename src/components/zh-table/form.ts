@@ -8,28 +8,31 @@ export default class Form {
   page: Ref<TZHTablePage>;
   request: Ref<TZHTableRequest | undefined> | undefined;
   formSettings: Ref<TZHTableFormSettings | undefined> | undefined;
+  refZHForm: any;
   constructor(
     page: Ref<TZHTablePage>,
     request: Ref<TZHTableRequest | undefined> | undefined,
-    formSettings: Ref<TZHTableFormSettings | undefined> | undefined
+    formSettings: Ref<TZHTableFormSettings | undefined> | undefined,
+    refZHForm: any
   ) {
     this.page = page;
     this.request = request;
     this.formSettings = formSettings;
+    this.refZHForm = refZHForm;
   }
 
   formModel = ref({} as any);
 
-  init = async () => {
-    if (
-      !this.formSettings?.value?.fields ||
-      this.formSettings.value?.fields.length === 0
-    )
-      return;
-    for (const field of this.formSettings.value.fields) {
-      this.formModel.value[field.prop] = field.defaultValue;
-    }
-  };
+  // init = async () => {
+  //   if (
+  //     !this.formSettings?.value?.fields ||
+  //     this.formSettings.value?.fields.length === 0
+  //   )
+  //     return;
+  //   for (const field of this.formSettings.value.fields) {
+  //     this.formModel.value[field.prop] = field.defaultValue;
+  //   }
+  // };
 
   // 针对需要转换数据的情况：field: a -> b
   useConvert = (model: { [key: string]: string }, fields: TZHTableFromField[]) => {

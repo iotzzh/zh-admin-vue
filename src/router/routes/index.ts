@@ -46,5 +46,13 @@ export const basicRoutes: Array<RouteRecordRaw> = [
     meta: {
       title: 'tableExample1',
     },
+  },
+  {
+    path: '/treeExample1',
+    name: 'treeExample1',
+    component: () => import('@/examples/zh-tree-examples/example1.vue'),
+    meta: {
+      title: 'treeExample1',
+    },
   }
 ];
