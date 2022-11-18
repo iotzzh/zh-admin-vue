@@ -2,7 +2,7 @@ import { computed, Ref, ref } from 'vue';
 import { TZHTablePage, TZHTableRequest, TZHTableRequestResult, TZHTableSetting } from './type';
 import Form from './form';
 import { isMessageConfirm, popErrorMessage, popSuccessMessage } from '../zh-message';
-import { TParams } from '../zh-request/type';
+import { TZHRequestParams } from '../zh-request/type';
 import ZHRequest from '../zh-request';
 import { debounce, throttle } from 'lodash';
 
@@ -44,7 +44,7 @@ export default class Table {
     // 参数
     if (initPage) this.pageData.value.current = 1;
     const params = propParams || this.form.getSearchParams();
-    const args: TParams = {
+    const args: TZHRequestParams = {
       url: this.request?.value?.urlList || '',
       conditions: params
     };
@@ -82,7 +82,7 @@ export default class Table {
     const msgResult = await isMessageConfirm('确认删除？', '提示');
     if (!msgResult) return;
     const selections = this.refTable.value.getSelectionRows();
-    const params: TParams = {
+    const params: TZHRequestParams = {
       url: this.request?.value?.urlBatchDelete || '',
       conditions: {
         ids: selections.map((x: any) => x.id),
@@ -97,7 +97,7 @@ export default class Table {
   rowDelete = async (row: any) => {
     const msgResult = await isMessageConfirm('确认删除？', '提示');
     if (!msgResult) return;
-    const params: TParams = {
+    const params: TZHRequestParams = {
       url: this.request?.value?.urlDelete || '',
       conditions: { ...row },
     };

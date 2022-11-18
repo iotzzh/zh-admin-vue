@@ -43,7 +43,7 @@ const submit = () => {
 const cancel = () => emit('cancel');
 
 defineExpose({
-  toggleLodadingSubmit: (isLoading: boolean) => refZHModal.value.toggleLodadingSubmit(isLoading),
+  // toggleLodadingSubmit: (isLoading: boolean) => refZHModal.value.toggleLodadingSubmit(isLoading),
 });
 </script>
 

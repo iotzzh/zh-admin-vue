@@ -1,8 +1,8 @@
 // import { ipcRenderer } from 'electron';
-// import { TParams } from '../type';
+// import { TZHRequestParams } from '../type';
 
 export default class {
-  //   get = async (params: TParams) => {
+  //   get = async (params: TZHRequestParams) => {
   //       let result: any = {};
   //       try {
   //         result = ipcRenderer.sendSync(
@@ -16,7 +16,7 @@ export default class {
   //       return result;
   //   };
 
-  //   post = async (params: TParams) => {
+  //   post = async (params: TZHRequestParams) => {
   //     let result: any = {};
   //     try {
   //       result = ipcRenderer.sendSync(

@@ -1,4 +1,4 @@
-export interface TParams {
+export interface TZHRequestParams {
   url: string
   conditions?: Object
   timeout?: number
@@ -6,6 +6,10 @@ export interface TParams {
   successMessage?: string
 }
 
-// export interface TResult {
-
-// }
+export interface TZHRequestResult {
+  success: boolean
+  errorCode: string
+  errorMessage: string
+  exceptionMessage: string
+  data: any
+}

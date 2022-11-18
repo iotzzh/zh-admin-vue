@@ -8,11 +8,11 @@ export class ZHModal {
         this.emit = params.emit;
     }
 
-    loadingSubmit = ref(false);
+    // loadingSubmit = ref(false);
 
-    toggleLodadingSubmit = (isLoading: boolean) => {
-        this.loadingSubmit.value = isLoading;
-    };
+    // toggleLodadingSubmit = (isLoading: boolean) => {
+    //     this.loadingSubmit.value = isLoading;
+    // };
 
     close = () => {
         this.emit('close');

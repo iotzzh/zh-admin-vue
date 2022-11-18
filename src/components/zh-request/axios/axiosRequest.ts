@@ -1,4 +1,4 @@
-import { TParams } from '../type';
+import { TZHRequestParams } from '../type';
 import request from './axios';
 
 export default class {
@@ -7,7 +7,7 @@ export default class {
         this.controller = new AbortController();
     }
 
-    get = async (params: TParams) => {
+    get = async (params: TZHRequestParams) => {
         let result: any = {};
         try {
             result = await request({ url: params.url, method: 'get', params: params.conditions, timeout: params.timeout, signal: this.controller.signal });
@@ -17,7 +17,7 @@ export default class {
         return result;
     };
 
-    post = async (params: TParams) => {
+    post = async (params: TZHRequestParams) => {
         let result: any = {};
         try {
             result = await request({ url: params.url, method: 'post', data: params.conditions, timeout: params.timeout, signal: this.controller.signal });

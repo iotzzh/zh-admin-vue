@@ -1,11 +1,11 @@
 import { computed, Ref, ref, nextTick } from 'vue';
-import { TZHModal, TZHModalFormSettings } from '../zh-form-modal/type';
+import { TZHFormModal, TZHModalFormSettings } from '../zh-form-modal/type';
 import { TZHFormSettings } from '../zh-form/type';
 import { popErrorMessage } from '../zh-message';
 import { TZHTableRequest, TZHTableRequestResult, TZHTableColumnAddEditInfo, TZHTableFromField, TZHFromFieldConvertDateTime, TZHTableSetting, TZHTableColumn } from './type';
 import Table from './table';
 import ZHRequest from '../zh-request';
-import { TParams } from '../zh-request/type';
+import { TZHRequestParams } from '../zh-request/type';
 import moment from 'moment';
 
 
@@ -43,7 +43,7 @@ export default class Modal {
     } as TZHModalFormSettings;
   });
 
-  modal = ref({ show: false, title: '新增', } as TZHModal);
+  modal = ref({ show: false, title: '新增', loadingSubmit: false, } as TZHFormModal);
 
   formModel = ref({} as any);
 
@@ -179,9 +179,10 @@ export default class Modal {
   };
 
   submit = async () => {
-    this.refZHFormModal.value.toggleLodadingSubmit(true);
+    // this.refZHFormModal.value.toggleLodadingSubmit(true);
+    this.modal.value.loadingSubmit = true;
     // TODO: 搜索前操作，例如变换某个字段， tableSettings.onBeforeSubmit(type: 'add | update')
-    const params: TParams = {
+    const params: TZHRequestParams = {
       url: this.modal.value.type === 'add' ?
         this.request?.value?.urlAdd || '' :
         this.request?.value?.urlUpdate || '',
@@ -196,6 +197,6 @@ export default class Modal {
       this.table.initData();
     }
     await nextTick();
-    this.refZHFormModal.value.toggleLodadingSubmit(false);
+    this.modal.value.loadingSubmit = false;
   };
 }

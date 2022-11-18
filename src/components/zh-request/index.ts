@@ -1,7 +1,7 @@
 import IpcRenderRequest from './ipcRenderRequest/ipcRendererRequest';
 import AxiosRequest from './axios/axiosRequest';
 import Config from './config';
-import { TParams } from './type';
+import { TZHRequestParams } from './type';
 
 export default class ZHRequest {
   useAxios: boolean;
@@ -18,7 +18,7 @@ export default class ZHRequest {
     }
   }
 
-  static async get(params: TParams) {
+  static async get(params: TZHRequestParams) {
     const useAxios = Config.useAxios;
     const useIpcRender = Config.useIpcRender;
     if (useAxios) {
@@ -30,7 +30,7 @@ export default class ZHRequest {
     }
   }
 
-  static async post(params: TParams) {
+  static async post(params: TZHRequestParams) {
     const useAxios = Config.useAxios;
     const useIpcRender = Config.useIpcRender;
     if (useAxios) {

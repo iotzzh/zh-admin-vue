@@ -30,7 +30,8 @@ import { TZHModal } from '../zh-modal/type';
 import { TZHFromField, TZHFormSettings } from '../zh-form/type';
 import { TZHTreeRequest, TZHTreeSetting } from './type';
 import ZHRequest from '../zh-request';
-import { TParams } from '../zh-request/type';
+import { TZHRequestParams } from '../zh-request/type';
+import { TZHTableRequestResult } from '../zh-table/type';
 
 const props = defineProps({
   defaultProps: {
@@ -57,11 +58,15 @@ const arrayToTree = (list: Array<any>, parent = 0): any => {
   return list.filter(item => item.parent === parent).map(item => ({ ...item, children: arrayToTree(list, item.id), }));
 };
 
-onMounted(async () => {
-  const params: TParams = { url: request?.value?.urlGet || '', conditions: request?.value?.conditionsGet, };
+const getTreeData = async () => {
+  const params: TZHRequestParams = { url: request?.value?.urlGet || '', conditions: request?.value?.conditionsGet, };
   const result = await ZHRequest.post(params);
   const treeRecords = arrayToTree(result.data.records);
   tData.value = treeRecords;
+};
+
+onMounted(async () => {
+  getTreeData();
 });
 
 //#endregion
@@ -71,12 +76,11 @@ const formModel = ref({} as any);
 //#endregion
 
 //#region Modal
-const modal = ref({ show: false, title: '新增', } as TZHModal);
+const modal = ref({ show: false, title: '新增', loadingSubmit: false } as TZHModal);
 
 // 0: 总， 1：新增， 2：编辑
 const openModal = (type: number) => {
   const fields = treeSettings!.value!.formSettings!.fields as TZHFromField[];
-
   if (type === 0) {
     // fields[0].hide = true;
     modal.value.type = 'add';
@@ -90,17 +94,24 @@ const openModal = (type: number) => {
   modal.value.show = true;
 };
 
-const submit = async () => {
-  let result = null;
-  if (modal.value.type === 'add') {
-    const params: TParams = {
-      url: request?.value?.urlAdd || '',
-      conditions: formModel.value,
-    };
-    // const result: ZHRequestRequest = await ZHRequest.post(params);
-  } else if (modal.value.type === 'edit') {
+const closeModal = () => {
+  modal.value.show = false;
+  formModel.value = {};
+};
 
+const submit = async () => {
+  modal.value.loadingSubmit = true;
+  const url = (modal.value.type === 'add' ? request?.value?.urlAdd : request?.value?.urlEdit) || '';
+  const params: TZHRequestParams = {
+    url,
+    conditions: formModel.value,
+  };
+  const result:TZHTableRequestResult = await ZHRequest.post(params);
+  if (result.success) {
+    closeModal();
+    getTreeData();
   }
+  
 };
 //#endregion
 
