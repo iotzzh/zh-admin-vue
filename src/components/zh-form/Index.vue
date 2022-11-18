@@ -18,7 +18,8 @@
             v-show="!item.hide">
             <!-- 输入框 -->
             <el-input v-if="item.type === 'input'" :style="{ width: item.width ? `${item.width}` : '100%' }"
-              v-model="modelValue[item.prop]" :placeholder="item.placeholder" :disabled="item.disabled"
+              v-model="modelValue[item.prop]" :placeholder="item.placeholder" :disabled="item.disabled === undefined ? false : 
+              typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)"
               :type="item.inputType" :clearable="item.clearable"></el-input>
 
             <!-- 文本显示 -->
@@ -34,12 +35,15 @@
             <!-- 数字输入框 :min="1" :max="10" -->
             <el-input-number v-else-if="item.type === 'input-number'"
               :style="{ width: item.width ? `${item.width}` : '100%' }" v-model="modelValue[item.prop]"
-              :placeholder="item.placeholder" :disabled="item.disabled" :clearable="item.clearable" />
+              :placeholder="item.placeholder" :disabled="item.disabled === undefined ? false : 
+              typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)" :clearable="item.clearable" />
 
             <!-- 下拉 -->
             <el-select v-else-if="item.type === 'select'" v-model="modelValue[item.prop]"
               :style="{ width: item.width ? `${item.width}` : '100%' }" :value-key="item.valueKey"
-              :disabled="item.disabled" :multiple="item.multiple" filterable clearable :remote="item.remote"
+              :disabled="item.disabled === undefined ? false : 
+              typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)" 
+              :multiple="item.multiple" filterable clearable :remote="item.remote"
               :remote-method="item.remoteMethod" :placeholder="
                 item.placeholder
                   ? item.placeholder
@@ -55,7 +59,8 @@
 
             <!-- 日期选择 -->
             <el-date-picker v-else-if="item.type === 'date-picker'" v-model="modelValue[item.prop]"
-              :disabled="item.disabled" :type="item.timeType" :format="item.timeShowFormat"
+            :disabled="item.disabled === undefined ? false : 
+              typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)" :type="item.timeType" :format="item.timeShowFormat"
               :value-format="item.timeValueFormat" :placeholder="item.placeholder || '请选择'"
               :style="{ width: item.width ? `${item.width}` : '100%' }" :clearable="item.clearable"></el-date-picker>
 
@@ -65,7 +70,7 @@
               @change="formInstance.changeCascader(itemRefs, item.refName, formSettings)" :ref="(el: any) => {
                 if (item.refName) itemRefs[item.refName] = el;
               }" v-model="modelValue[item.prop]" :clearable="item.clearable" />
-
+ 
             <!-- 单选框组 -->
             <el-radio-group v-else-if="item.type === 'radio-group'" v-model="modelValue[item.prop]"
               :style="{ width: item.width ? `${item.width}` : '100%' }">

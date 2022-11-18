@@ -25,7 +25,7 @@ export interface TZHFromField {
   hide?: boolean // 是否隐藏
   width?: string | number // 宽度
   placeholder?: string // 占位符
-  disabled?: boolean // 是否禁用
+  disabled?: boolean | Function // 是否禁用
   clearable?: boolean // 是否可清除
   required?: boolean // 是否必填
 

@@ -19,6 +19,12 @@
     --el-menu-active-color: #fff; */
 }
 
+/**
+* 解决el-input设置类型为number时，中文输入法光标上移问题
+**/
+.el-input__inner{
+    line-height: 1px!important;
+}
 
 
 /* 重定义弹窗后body加padding的bug */
