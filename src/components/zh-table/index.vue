@@ -149,7 +149,7 @@ import ZHForm from '../zh-form/index.vue';
 import ZhFormModal from '../zh-form-modal/index.vue';
 import ZHFormButtons from './form-buttons.vue';
 import { ElTable } from 'element-plus';
-import { TZHTablePageSetting, TZHTableRequest, TZHTableSetting, TZHTablePage, TZHTableFormSettings } from './type';
+import { TZHTablePageSetting, TZHTableRequest, TZHTableSetting, TZHTablePage, TZHTableFormSettings, TModelTriggerChangeMethod } from './type';
 import Page from './page';
 import Table from './table';
 import Form from './form';
@@ -210,8 +210,9 @@ const pageData: Ref<TZHTablePage> = ref({
 
 //#region search form
 const form = new Form(pageData, request, formSettings, refZHForm);
-onMounted(() => refZHForm.value && refZHForm.value.init && refZHForm.value.init());
-const watchFormModel = computed(() => JSON.parse(JSON.stringify(form.formModel.value)));
+const watchFormModel = computed(() => {
+   return JSON.parse(JSON.stringify(form.formModel.value));
+});
 watch(
   () => watchFormModel.value,
   (newVal: { [x: string]: any }, oldVal: { [x: string]: any }) => {
