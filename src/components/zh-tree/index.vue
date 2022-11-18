@@ -1,6 +1,8 @@
 <template>
-  <div class="zh-tree">
-    <el-tree v-if="tData && tData.length > 0" class="tree" :data="tData" :props="defaultProps" :indent="0">
+  <div class="zh-tree" v-loading="loadingTree">
+    <el-input v-model="filterText" placeholder="过滤搜索" style="width: 100%;" />
+    <el-tree v-if="tData && tData.length > 0" ref="refZHTree" class="tree" :data="tData" :props="defaultProps"
+      :indent="0" default-expand-all :filter-node-method="filterNode">
       <template #default="{ node, data }">
         <span class="custom-tree-node">
           <span>{{ node[defaultProps.label] }}</span>
@@ -21,13 +23,10 @@
 
 <script setup lang="ts">
 import { toRefs, PropType, computed, ref, reactive, Ref, watch, onMounted } from 'vue';
-import {
-  Plus, Search, Delete, Download,
-  DocumentChecked, Refresh, Upload
-} from '@element-plus/icons-vue';
+import { Plus } from '@element-plus/icons-vue';
 import ZhFormModal from '../zh-form-modal/index.vue';
 import { TZHModal } from '../zh-modal/type';
-import { TZHFromField, TZHFormSettings } from '../zh-form/type';
+import { TZHFromField } from '../zh-form/type';
 import { TZHTreeRequest, TZHTreeSetting } from './type';
 import ZHRequest from '../zh-request';
 import { TZHRequestParams } from '../zh-request/type';
@@ -51,23 +50,35 @@ const props = defineProps({
 });
 
 const { defaultProps, request, treeSettings } = toRefs(props);
+const refZHTree = ref();
 
 //#region Tree
+const loadingTree = ref(false);
+const filterText = ref('');
 const tData = ref([] as any);
 const arrayToTree = (list: Array<any>, parent = 0): any => {
   return list.filter(item => item.parent === parent).map(item => ({ ...item, children: arrayToTree(list, item.id), }));
 };
 
 const getTreeData = async () => {
+  loadingTree.value = true;
   const params: TZHRequestParams = { url: request?.value?.urlGet || '', conditions: request?.value?.conditionsGet, };
   const result = await ZHRequest.post(params);
   const treeRecords = arrayToTree(result.data.records);
   tData.value = treeRecords;
+  loadingTree.value = false;
 };
 
 onMounted(async () => {
   getTreeData();
 });
+
+watch(filterText, (val) => { refZHTree.value && refZHTree.value!.filter(val); });
+
+const filterNode = (value: string, data: any) => {
+  if (!value) return true;
+  return data.label.includes(value);
+};
 
 //#endregion
 
@@ -106,19 +117,15 @@ const submit = async () => {
     url,
     conditions: formModel.value,
   };
-  const result:TZHTableRequestResult = await ZHRequest.post(params);
+  const result: TZHTableRequestResult = await ZHRequest.post(params);
   if (result.success) {
     closeModal();
     getTreeData();
   }
-  
+
+  modal.value.loadingSubmit = false;
 };
 //#endregion
-
-
-
-
-
 </script>
 
 <script lang="ts">

@@ -88,7 +88,7 @@ export default class Modal {
       if (!method) return;
       model[needConverTFromFields[i].prop!] = method(
         model[needConverTFromFields[i].prop!],
-        model, 
+        model,
         this.formSettings.value
       );
     }
