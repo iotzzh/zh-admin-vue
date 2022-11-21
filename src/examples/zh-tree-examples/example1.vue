@@ -1,6 +1,5 @@
 <template>
     <ZHTree :treeSettings="treeSettings" :defaultProps="defaultProps" :request="request">
-
     </ZHTree>
 </template>
 
@@ -11,6 +10,8 @@ import { reactive, ref } from 'vue';
 import api from '../api/tree/index';
 
 const treeSettings = ref({
+    hasEmptyAdd: true,
+    hasRootAdd: true,
     formSettings: {
         formLabelWidth: '50px',
         fields: [

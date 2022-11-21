@@ -4,6 +4,8 @@ export interface TZHTreeSetting {
   hasAdd?: boolean
   hasEdit?: boolean
   hasDelete?: boolean
+  hasEmptyAdd?: boolean
+  hasRootAdd?: boolean
 
   formSettings?: TZHFormSettings
 }

@@ -1,18 +1,31 @@
 <template>
   <div class="zh-tree" v-loading="loadingTree">
     <el-input v-model="filterText" placeholder="过滤搜索" style="width: 100%;" />
+    <el-button v-if="treeSettings.hasRootAdd" type="success" @click="openModal(0)">新增</el-button>
     <el-tree v-if="tData && tData.length > 0" ref="refZHTree" class="tree" :data="tData" :props="defaultProps"
       :indent="0" default-expand-all :filter-node-method="filterNode">
       <template #default="{ node, data }">
         <span class="custom-tree-node">
           <span>{{ node[defaultProps.label] }}</span>
+          <span class="actions">
+            <el-icon class="icon" color="#6196EA" @click="append(node, data)">
+              <circle-plus />
+            </el-icon>
+            <el-icon class="icon" color="#FF0000" @click="remove(node, data)">
+              <delete />
+            </el-icon>
+            <el-icon class="icon" color="#6196EA" @click="editTree(node, data)">
+              <edit-pen />
+            </el-icon>
+          </span>
         </span>
       </template>
     </el-tree>
-    <div v-else class="empty" @click="openModal(0)">
-      <el-icon :size="40">
+    <div v-else class="empty">
+      <el-icon v-if="treeSettings.hasEmptyAdd" :size="40" @click="openModal(0)">
         <Plus />
       </el-icon>
+      <span v-else style="color: #767C88;">暂<br />无<br />数<br />据</span>
     </div>
 
     <ZhFormModal v-if="treeSettings.formSettings" :modal="modal" v-model="formModel"

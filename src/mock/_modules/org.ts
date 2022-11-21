@@ -41,14 +41,14 @@ export default [
                 data: {
                     total: 110,
                     records: [
-                        { id: 1, name: '目录1', age: 18, parent: null },
-                        { id: 1.1, name: '目录1.1', age: 2, parent: 1 },
-                        { id: 1.2, name: '目录1.2', age: 12, parent: 1 },
-                        { id: 1.21, name: '目录1.2.1', age: 121, parent: 1.2 },
-                        { id: 2, name: '目录2', age: 28, parent: null },
-                        { id: 2.1, name: '目录2.1', age: 22, parent: 2 },
-                        { id: 2.2, name: '目录2.2', age: 22, parent: 2 },
-                        { id: 2.21, name: '目录2.2.1', age: 221, parent: 2.2 },
+                        // { id: 1, name: '目录1', age: 18, parent: null },
+                        // { id: 1.1, name: '目录1.1', age: 2, parent: 1 },
+                        // { id: 1.2, name: '目录1.2', age: 12, parent: 1 },
+                        // { id: 1.21, name: '目录1.2.1', age: 121, parent: 1.2 },
+                        // { id: 2, name: '目录2', age: 28, parent: null },
+                        // { id: 2.1, name: '目录2.1', age: 22, parent: 2 },
+                        // { id: 2.2, name: '目录2.2', age: 22, parent: 2 },
+                        // { id: 2.21, name: '目录2.2.1', age: 221, parent: 2.2 },
                     ],
                 },
             };
