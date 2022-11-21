@@ -35,6 +35,7 @@ export default class ZHRequest {
     const useIpcRender = Config.useIpcRender;
     if (useAxios) {
       const request = new AxiosRequest();
+      console.log('请求参数: ', params);
       return await request.post(params);
     } else if (useIpcRender) {
       const request = new IpcRenderRequest();

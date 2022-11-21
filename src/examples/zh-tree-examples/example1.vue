@@ -12,6 +12,10 @@ import api from '../api/tree/index';
 const treeSettings = ref({
     hasEmptyAdd: true,
     hasRootAdd: true,
+    hasAdd: true,
+    hasEdit: true,
+    hasDelete: true,
+    labelDisplayMaxLength: 30,
     formSettings: {
         formLabelWidth: '50px',
         fields: [

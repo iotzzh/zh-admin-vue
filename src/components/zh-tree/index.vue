@@ -6,16 +6,24 @@
       :indent="0" default-expand-all :filter-node-method="filterNode">
       <template #default="{ node, data }">
         <span class="custom-tree-node">
-          <span>{{ node[defaultProps.label] }}</span>
+          <el-tooltip popper-class="custom-tree-node-tooltip" effect="light"
+            :disabled="node[defaultProps.label].length <= labelDisplayMaxLength"
+            :content="getTooltipHTMLContent(node[defaultProps.label])" placement="top" style="width: 100%;" raw-content>
+            <span>{{ getTooltipOriginContent(node[defaultProps.label]) }}</span>
+          </el-tooltip>
           <span class="actions">
-            <el-icon class="icon" color="#6196EA" @click="append(node, data)">
+            <el-icon v-if="treeSettings.hasAdd" class="icon" color="#6196EA"
+              @click="(e: any) => openModal(1, e, node, data)">
               <circle-plus />
             </el-icon>
-            <el-icon class="icon" color="#FF0000" @click="remove(node, data)">
-              <delete />
-            </el-icon>
-            <el-icon class="icon" color="#6196EA" @click="editTree(node, data)">
+
+            <el-icon v-if="treeSettings.hasEdit" class="icon" color="#6196EA"
+              @click="(e: any) => openModal(2, e, node, data)">
               <edit-pen />
+            </el-icon>
+            
+            <el-icon v-if="treeSettings.hasDelete" class="icon" color="#FF0000" @click="remove(node, data)">
+              <delete />
             </el-icon>
           </span>
         </span>
@@ -44,6 +52,7 @@ import { TZHTreeRequest, TZHTreeSetting } from './type';
 import ZHRequest from '../zh-request';
 import { TZHRequestParams } from '../zh-request/type';
 import { TZHTableRequestResult } from '../zh-table/type';
+import { isMessageConfirm } from '../zh-message';
 
 const props = defineProps({
   defaultProps: {
@@ -69,6 +78,7 @@ const refZHTree = ref();
 const loadingTree = ref(false);
 const filterText = ref('');
 const tData = ref([] as any);
+const labelDisplayMaxLength = computed(() => { return treeSettings.value?.labelDisplayMaxLength || 30; });
 const arrayToTree = (list: Array<any>, parent = 0): any => {
   return list.filter(item => item.parent === parent).map(item => ({ ...item, children: arrayToTree(list, item.id), }));
 };
@@ -93,6 +103,29 @@ const filterNode = (value: string, data: any) => {
   return data.label.includes(value);
 };
 
+const getTooltipHTMLContent = (content: string) => {
+  return '<div style="width: 500px; word-break: break-all;">' + content + '</div>';
+};
+
+const getTooltipOriginContent = (content: string) => {
+  if (content.length > labelDisplayMaxLength.value) {
+    return content.substring(0, labelDisplayMaxLength.value) + '...';
+  } else return content;
+};
+
+const remove = async (node: any, data: any) => {
+  const msgResult = await isMessageConfirm('确认删除？', '提示');
+  if (!msgResult) return;
+  const params: TZHRequestParams = {
+    url: request?.value?.urlDelete || '',
+    conditions: { ...data, ...request?.value?.conditionsDelete, }
+  };
+  const result: TZHTableRequestResult = await ZHRequest.post(params);
+  if (result.success) {
+    getTreeData();
+  }
+};
+
 //#endregion
 
 //#region Form
@@ -103,18 +136,19 @@ const formModel = ref({} as any);
 const modal = ref({ show: false, title: '新增', loadingSubmit: false } as TZHModal);
 
 // 0: 总， 1：新增， 2：编辑
-const openModal = (type: number) => {
+const openModal = (type: number, e?: any, node?: any, data?: any) => {
+  e && e.stopPropagation();
   const fields = treeSettings!.value!.formSettings!.fields as TZHFromField[];
   if (type === 0) {
-    // fields[0].hide = true;
     modal.value.type = 'add';
   } else if (type === 1) {
-    // fields[0].hide = false;
     modal.value.type = 'add';
   } else if (type === 2) {
-    // fields[0].hide = false;
     modal.value.type = 'edit';
+    modal.value.title = '编辑';
+    formModel.value = data;
   } else { }
+
   modal.value.show = true;
 };
 

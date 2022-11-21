@@ -184,8 +184,8 @@ export default class Modal {
     // TODO: 搜索前操作，例如变换某个字段， tableSettings.onBeforeSubmit(type: 'add | update')
     const params: TZHRequestParams = {
       url: this.modal.value.type === 'add' ?
-        this.request?.value?.urlAdd || '' :
-        this.request?.value?.urlUpdate || '',
+        this.request?.value?.add?.url || '' :
+        this.request?.value?.update?.url || '',
       conditions: this.getParams(),
     };
 

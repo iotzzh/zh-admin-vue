@@ -1,6 +1,24 @@
 import { TZHModalFormSettings } from '../zh-form-modal/type';
 import { TZHFromField, TZHFormSettings } from '../zh-form/type';
-import { TZHModal } from '../zh-modal/type';
+//#region Request
+export interface TZHTableRequest {
+  list?: TZHTableRequestDetail
+  add?: TZHTableRequestDetail
+  delete?: TZHTableRequestDetail
+  batchDelete?: TZHTableRequestDetail
+  update?: TZHTableRequestDetail
+
+  initialData?: boolean // 是否需要初始化数据，默认为true
+}
+
+export interface  TZHTableRequestDetail {
+  url?: string
+  conditions?: TObject
+  successMessage?: string
+  errorMessage?: string
+}
+
+//#endregion
 
 export interface TZHTableFromField extends TZHFromField {
   // 表格使用表单时，默认值变化时就搜索数据，个别字段变化不需要搜索，使用该值：notChangeTriggerSearch = 'true'
@@ -129,22 +147,6 @@ export interface TZHTableActionColumnButton {
   style?: any
   onClick?: Function
   label?: string
-}
-
-export interface TZHTableRequest {
-  urlList?: string // 列表查询
-  conditionsList?: TObject
-  urlAdd?: string // 新增
-  conditionsAdd?: TObject
-  urlDelete?: string // 单个删除
-  conditionsDelete?: TObject
-  urlBatchDelete?: string // 批量删除
-  conditionsBatchDelete?: TObject
-  urlUpdate?: string // 编辑
-  conditionsUpdate?: TObject
-  initialData?: boolean
-  successMessage?: string
-  errorMessage?: string
 }
 
 export interface TZHTableRequestResult {

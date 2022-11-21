@@ -6,6 +6,7 @@ export interface TZHTreeSetting {
   hasDelete?: boolean
   hasEmptyAdd?: boolean
   hasRootAdd?: boolean
+  labelDisplayMaxLength?: number
 
   formSettings?: TZHFormSettings
 }

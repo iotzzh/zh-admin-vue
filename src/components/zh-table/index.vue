@@ -149,7 +149,7 @@ import ZHForm from '../zh-form/index.vue';
 import ZhFormModal from '../zh-form-modal/index.vue';
 import ZHFormButtons from './form-buttons.vue';
 import { ElTable } from 'element-plus';
-import { TZHTablePageSetting, TZHTableRequest, TZHTableSetting, TZHTablePage, TZHTableFormSettings, TModelTriggerChangeMethod } from './type';
+import { TZHTablePageSetting, TZHTableRequest, TZHTableSetting, TZHTablePage, TZHTableFormSettings } from './type';
 import Page from './page';
 import Table from './table';
 import Form from './form';
@@ -229,7 +229,7 @@ const sloTFromFields = formSettings?.value?.fields?.filter((x: TZHFromField) => 
 const refTable = ref<InstanceType<typeof ElTable>>();
 const table = new Table(tableSettings, refTable, request, form, pageData);
 onMounted(() => {
-  if (request?.value && request.value.urlList && (request.value.initialData || request.value.initialData === undefined))
+  if (request?.value && request.value.list?.url && (request.value.initialData || request.value.initialData === undefined))
     table.debounceInitData();
 });
 //#endregion

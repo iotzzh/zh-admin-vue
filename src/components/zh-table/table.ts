@@ -45,8 +45,10 @@ export default class Table {
     if (initPage) this.pageData.value.current = 1;
     const params = propParams || this.form.getSearchParams();
     const args: TZHRequestParams = {
-      url: this.request?.value?.urlList || '',
-      conditions: params
+      url: this.request?.value?.list?.url || '',
+      conditions: params,
+      successMessage: this.request?.value?.list?.successMessage,
+      errorMessage: this.request?.value?.list?.errorMessage,
     };
     console.log('params', params);
     // 获取数据
@@ -83,7 +85,7 @@ export default class Table {
     if (!msgResult) return;
     const selections = this.refTable.value.getSelectionRows();
     const params: TZHRequestParams = {
-      url: this.request?.value?.urlBatchDelete || '',
+      url: this.request?.value?.batchDelete?.url || '',
       conditions: {
         ids: selections.map((x: any) => x.id),
       },
@@ -98,7 +100,7 @@ export default class Table {
     const msgResult = await isMessageConfirm('确认删除？', '提示');
     if (!msgResult) return;
     const params: TZHRequestParams = {
-      url: this.request?.value?.urlDelete || '',
+      url: this.request?.value?.delete?.url || '',
       conditions: { ...row },
     };
     const result: TZHTableRequestResult = await ZHRequest.post(params);

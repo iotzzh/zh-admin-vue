@@ -143,7 +143,7 @@ onMounted(() => {
 });
 
 const testGetSettings = (origin: { [x: string]: any }, model: { [x: string]: any }, formSettings: any) => {
-    console.log('convert formSettings: ' + JSON.stringify(formSettings));
+    // console.log('convert formSettings: ' + JSON.stringify(formSettings));
     return origin && origin[0];
 };
 
@@ -239,12 +239,11 @@ onMounted(() => {
 
 
 const request = ref({
-    urlList: api.getUserList,
-    urlAdd: api.addUser,
-    urlBatchDelete: api.batchDeleteUser,
-    conditionsDelete: {},
-    urlDelete: api.deleteUser,
-    urlUpdate: api.updateUser
+    list: { url: api.getUserList, successMessage: '查询成功', errorMessage: '查询失败' },
+    add: { url: api.addUser, successMessage: '新增成功', errorMessage: '新增失败' },
+    update: { url: api.updateUser, successMessage: '更新成功', errorMessage: '更新失败' },
+    delete: { url: api.deleteUser, successMessage: '删除成功', errorMessage: '删除失败' },
+    batchDelete: { url: api.batchDeleteUser, successMessage: '批量删除成功', errorMessage: '批量删除失败' },
 } as TZHTableRequest);
 
 

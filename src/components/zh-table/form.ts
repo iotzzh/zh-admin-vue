@@ -124,7 +124,7 @@ export default class Form {
       // limit: this.page.value.size,
       current: this.page.value.current,
       size: this.page.value.size,
-      ...this.request?.value?.conditionsList,
+      ...this.request?.value?.list?.conditions,
       ...model,
       ...customModel,
     };
