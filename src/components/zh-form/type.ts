@@ -5,6 +5,9 @@ export interface TZHFormSettings {
   formLabelWidth?: string | number
   fields?: Array<TZHFromField>
   hideUnimportantFields?: boolean
+
+  customModel: { [x: string]: any } // 自定义额外字段
+  customValidate?: (modelValue: { [x: string]: any }) => boolean // 自定义额外的校验
 }
 
 export interface TZHFromField {
@@ -42,7 +45,7 @@ export interface TZHFromField {
   inactiveText?: string
   activeValue?: any
   inactiveValue?: any
-  
+
   // 下拉
   valueKey?: string
   multiple?: boolean
@@ -58,6 +61,23 @@ export interface TZHFromField {
   // 多选框
   checkboxText?: string
   checkboxSize?: Number
+
+  //#region 方法
+  // 转换方法, 一对一转换
+  convert?: Function
+
+  // 时间转换，数组拆分，并定义格式
+  convertDateTime?: Array<TZHFromFieldConvertDateTime>
+
+  // 转换方法：一对多转换， 针对需要额外扩展的参数，例如 { a: 'a' } => { b: 'a1', c: 'a2' }
+  extendedFieldMethod?: Function
+  notDeleteOriginPropertyWhenUseExtendedFieldMethod?: boolean
+  //#endregion
+}
+
+export interface TZHFromFieldConvertDateTime {
+  field: string
+  format: string
 }
 
 export interface TZHFromFieldSelectOption {

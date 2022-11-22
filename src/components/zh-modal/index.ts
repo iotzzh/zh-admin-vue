@@ -1,5 +1,3 @@
-import { ref } from 'vue';
-
 export class ZHModal {
     emit: any;
     modal: any;
@@ -7,12 +5,6 @@ export class ZHModal {
         this.modal = params.modal;
         this.emit = params.emit;
     }
-
-    // loadingSubmit = ref(false);
-
-    // toggleLodadingSubmit = (isLoading: boolean) => {
-    //     this.loadingSubmit.value = isLoading;
-    // };
 
     close = () => {
         this.emit('close');

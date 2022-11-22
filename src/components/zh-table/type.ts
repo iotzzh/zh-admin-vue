@@ -1,4 +1,3 @@
-import { TZHModalFormSettings } from '../zh-form-modal/type';
 import { TZHFromField, TZHFormSettings } from '../zh-form/type';
 //#region Request
 export interface TZHTableRequest {
@@ -47,7 +46,7 @@ export interface TZHTableFormSettings extends TZHFormSettings {
   hasUploadButton?: boolean // 显示上传按钮
   hasAddButton?: boolean // 显示新增按钮
   hasResetButton?: boolean // 显示重置按钮
-  customModel?: { [x: string]: any } // 搜索框扩展字段绑定的model
+  // customModel?: { [x: string]: any } // 搜索框扩展字段绑定的model
   convertParams?: Function // 在搜索前进行一次
   fields?: Array<TZHTableFromField> // 重写fields
   buttons?: Array<TZHTableFormButtons> // 扩展搜索按钮
@@ -89,7 +88,7 @@ export interface TZHTableSetting {
   onBeforeInitData?: Function // 在初始化数据之前执行
 }
 
-export interface TZHTableModal extends TZHModalFormSettings {
+export interface TZHTableModal extends TZHFormSettings {
   customModel: {[x:string]: any}
 }
 

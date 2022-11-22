@@ -1,18 +1,15 @@
 import { computed, Ref, ref, nextTick } from 'vue';
-import { TZHFormModal, TZHModalFormSettings } from '../zh-form-modal/type';
-import { TZHFormSettings } from '../zh-form/type';
-import { popErrorMessage } from '../zh-message';
-import { TZHTableRequest, TZHTableRequestResult, TZHTableColumnAddEditInfo, TZHTableFromField, TZHFromFieldConvertDateTime, TZHTableSetting, TZHTableColumn } from './type';
+import { TZHFormModal } from '../zh-form-modal/type';
+import { TZHTableRequest, TZHTableRequestResult, TZHTableColumnAddEditInfo, TZHTableFromField, TZHFromFieldConvertDateTime, TZHTableSetting, TZHTableColumn, TObject } from './type';
 import Table from './table';
 import ZHRequest from '../zh-request';
 import { TZHRequestParams } from '../zh-request/type';
 import moment from 'moment';
+import { TZHFormSettings } from '../zh-form/type';
 
 
 
 export default class Modal {
-  // addModalFormSettings: Ref<TZHFormSettings>;
-  // formSettings: Ref<TZHFormSettings>;
   request: Ref<TZHTableRequest | undefined> | undefined;
   table: Table;
   refZHFormModal: Ref<any>;
@@ -26,43 +23,44 @@ export default class Modal {
     this.request = request;
     this.refZHFormModal = refZHFormModal;
     this.tableSettings = tableSettings;
-    // this.addModalFormSettings = addModalFormSettings;
-    // this.formSettings = ref(addModalFormSettings.value);
   }
+
+  _getObjctWithoutFunction = (obj:TObject) => {
+    const keys = Object.keys(obj);
+    const newObj = {};
+    keys.forEach((x:string) => {
+      if (typeof obj[x] !== 'function') {
+        newObj[x] = obj[x];
+      }
+    });
+    return newObj;
+  };
 
   formSettings = computed(() => {
     return {
       // eslint-disable-next-line no-prototype-builtins
       fields: this.table.columns.value?.filter((x: any) => x.hasOwnProperty('addEditInfo')).map((y: any) => {
         return {
-          ...y,
+          ...this._getObjctWithoutFunction(y),
           ...y.addEditInfo,
         };
       }),
       customValidate: this.tableSettings.value.modal?.customValidate,
-    } as TZHModalFormSettings;
+    } as TZHFormSettings;
   });
 
   modal = ref({ show: false, title: '新增', loadingSubmit: false, } as TZHFormModal);
 
   formModel = ref({} as any);
+  convertedModel = ref({} as any);
 
   openAddModal = () => {
     this.modal.value.type = 'add';
     // 在新增时，有些字段带有默认值
-    this._setDefaultValue();
+    this.refZHFormModal.value.init();
     this.modal.value.show = true;
   };
 
-  _setDefaultValue = () => {
-    const fieldsWithDefaultValue = this.formSettings.value.fields?.filter((x: any) => x.defaultValue !== null && x.defaultValue !== undefined);
-    const newPropertyArray: Array<{ property: string, defaultValue: any }> = fieldsWithDefaultValue?.map((x: TZHTableColumnAddEditInfo) => { return { property: x.prop, defaultValue: x.defaultValue }; }) || [];
-    const newObj: any = {};
-    for (let i = 0; i < newPropertyArray.length; i++) {
-      newObj[newPropertyArray[i].property] = newPropertyArray[i].defaultValue;
-    }
-    this.formModel.value = { ...newObj };
-  };
 
   openEditModal = (row: any) => {
     this.formModel.value = { ...row };
@@ -80,91 +78,14 @@ export default class Modal {
     this.modal.value.show = false;
   };
 
-  // 针对需要转换数据的情况：field: a -> b
-  useConvert = (model: { [key: string]: string }, fields: TZHTableColumn[]) => {
-    const needConverTFromFields = fields.filter((x) => x.addEditInfo && x.addEditInfo!.convert);
-    for (let i = 0; i < needConverTFromFields.length; i++) {
-      const method: Function | undefined = needConverTFromFields[i].addEditInfo!.convert;
-      if (!method) return;
-      model[needConverTFromFields[i].prop!] = method(
-        model[needConverTFromFields[i].prop!],
-        model,
-        this.formSettings.value
-      );
-    }
-  };
-
-  // 针对需要额外转换时间的参数，convertDateTime格式：[ { field: '', format: '',} ]
-  // 只应用于时间范围转换功能，field: [2022.1.1, 2022.3.3] -> filedA: 2022.1.1 22:11:11, fieldB: 2022.3.3 10:11:11
-  useConvertDateTime = (model: { [key: string]: string }, fields: TZHTableFromField[]) => {
-    const needConvertDateTimeFields: TZHTableFromField[] = fields.filter(
-      (x) => x.convertDateTime
-    );
-    for (let i = 0; i < needConvertDateTimeFields.length; i++) {
-      const value = model[needConvertDateTimeFields[i].prop];
-      if (!value) continue;
-      for (let j = 0; j < value.length; j++) {
-        const convertDateTimeArr = needConvertDateTimeFields[i]
-          .convertDateTime as Array<TZHFromFieldConvertDateTime>;
-        const field = convertDateTimeArr[j].field;
-        const format = convertDateTimeArr[j].format;
-        model[field] = moment(value[j]).format(format);
-      }
-      delete model[needConvertDateTimeFields[i].prop];
-    }
-  };
-
-  useExtendedFieldMethod = (
-    model: { [key: string]: string },
-    fields: TZHTableFromField[]
-  ) => {
-    // 针对需要额外扩展的参数，例如 { a: 'a' } => { b: 'a1', c: 'a2' }
-    const needExtendFields: TZHTableFromField[] = fields.filter(
-      (x) => x.extendedFieldMethod
-    );
-    for (let i = 0; i < needExtendFields.length; i++) {
-      const method: Function | undefined =
-        needExtendFields[i].extendedFieldMethod;
-      if (!method) return;
-      const extendMethodResult = method(model[needExtendFields[i].prop], model);
-
-      extendMethodResult.forEach(
-        (element: { property: string | number, value: any }) => {
-          model[element.property] = element.value;
-        }
-      );
-      // 衍生出了其他属性后，原有属性是否需要删除，默认删除
-      needExtendFields[i].notDeleteOriginProperty &&
-        delete model[needExtendFields[i].prop];
-    }
-  };
-
-  removeEmptyField = (model: { [key: string]: string }) => {
-    // 表格里的搜索，如果是""或者为null/undefined均不传参数
-    for (const key in model) {
-      if (
-        model[key] === '' ||
-        model[key] === undefined ||
-        model[key] === null
-      ) {
-        delete model[key];
-      }
-    }
-  };
+ 
 
   getParams = () => {
-    const model = this.formModel.value
-      ? JSON.parse(JSON.stringify(this.formModel.value))
+    const model = this.convertedModel.value
+      ? JSON.parse(JSON.stringify(this.convertedModel.value))
       : {};
 
     const customModel = this.tableSettings.value.modal?.customModel && JSON.parse(JSON.stringify(this.tableSettings.value.modal?.customModel));
-
-    if (this.formSettings?.value?.fields) {
-      this.tableSettings.value.columns && this.useConvert(model, this.tableSettings.value.columns);
-      // this.useConvertDateTime(model, this.formSettings?.value?.fields);
-      // this.useExtendedFieldMethod(model, this.formSettings?.value?.fields);
-      // this.removeEmptyField(model);
-    }
 
     const params = {
       ...model,

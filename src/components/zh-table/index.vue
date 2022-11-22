@@ -1,7 +1,8 @@
 <template>
 
   <div class="zh-table">
-    <ZHForm ref="refZHForm" class="zh-form" v-if="useSearchForm" v-model="form.formModel" :form-settings="formSettings">
+    <ZHForm ref="refZHForm" class="zh-form" v-if="useSearchForm" v-model="form.formModel"
+      v-model:converted-model="form.convertedFormModel" :form-settings="formSettings">
       <!-- 传递form默认插槽 -->
       <template #default>
         <slot name="zh-table-form-default-before"></slot>
@@ -136,6 +137,7 @@
       @current-change="page?.handleCurrentChange" @size-change="page?.handleCurrentChange" />
 
     <ZhFormModal ref="refZHFormModal" :modal="modalInstance.modal.value" v-model="modalInstance.formModel.value"
+      v-model:converted-model="modalInstance.convertedModel.value"
       :formSettings="modalInstance.formSettings.value" @cancel="modalInstance.cancel" @close="modalInstance.close"
       @submit="modalInstance.submit"></ZhFormModal>
   </div>
@@ -211,7 +213,7 @@ const pageData: Ref<TZHTablePage> = ref({
 //#region search form
 const form = new Form(pageData, request, formSettings, refZHForm);
 const watchFormModel = computed(() => {
-   return JSON.parse(JSON.stringify(form.formModel.value));
+  return JSON.parse(JSON.stringify(form.formModel.value));
 });
 watch(
   () => watchFormModel.value,

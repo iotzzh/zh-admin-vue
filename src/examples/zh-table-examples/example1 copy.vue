@@ -53,6 +53,41 @@ const formSettings = ref({
         { label: '自定义按钮1', icon: 'Filter', method: () => { console.log('hello world'); }, style: 'color: pink; background-color: blue;' }
     ],
     fields: [
+        // { label: '姓名', type: 'input', prop: 'name', width: '220px', },
+        // { label: '性别', type: 'select', prop: 'sex', width: '220px', options: [], },
+        // { label: '性别1', type: 'radio-group', prop: 'sex1', width: '220px', options: [], },
+        // { label: '创建日期', type: 'date-picker', timeType: 'date', timeShowFormat: 'YYYY-MM-DD', timeValueFormat: 'YYYY-MM-DD', prop: 'createTime', width: '220px', options: [], },
+        // { label: '创建日期范围', type: 'date-picker', timeType: 'daterange',  prop: 'createTime1', width: '360px', options: [],
+        // convertDateTime: [{field: 'startCreateTime1', format: 'YYYY-MM-DD 00:00:00'}, {field: 'endCreateTime1', format: 'YYYY-MM-DD 23:59:59'}], },
+        // { label: '自定义搜索', type: 'radio-group', prop: 'sex1', width: '220px', options: [], },
+
+        // { label: '姓名', type: 'input', prop: 'name', md: 8, xl: 24, sm: 24, xs: 24, span: 8, }, // 输入框测试
+        // { label: '姓名', type: 'input', prop: 'name111', md: 8, xl: 24, sm: 24, xs: 24, span: 8, notChangeTriggerSearch: true, }, // 输入框测试, 输入不搜索
+        // { label: '性别', type: 'select', prop: 'sex', span: 8, sm: 24, xs: 24, options: [], }, // 下拉：[{label, value}]
+        // {
+        //     label: '性别Obj', type: 'select', prop: 'sexObj', valueKey: 'id', span: 8, sm: 24, xs: 24, options: [],
+        //     convert: (fieldValue: TObject, modelValue: TObject) => fieldValue && fieldValue.id
+        // }, // 下拉：[objct]
+        // { label: '性别1', type: 'radio-group', prop: 'sex1', span: 8, sm: 12, xs: 24, options: [], },
+        // {
+        //     label: '创建日期', type: 'date-picker', timeType: 'date',
+        //     timeShowFormat: 'YYYY-MM-DD',
+        //     timeValueFormat: 'YYYY-MM-DD',
+        //     prop: 'createTime', span: 8, sm: 12, xs: 24, options: [],
+        //     unimportant: true,
+        // },
+        // {
+        //     label: '创建日期范围', type: 'date-picker', timeType: 'daterange', prop: 'createTime1', options: [], unimportant: true,
+        //     span: 8, sm: 12, xs: 24,
+        //     convertDateTime: [{ field: 'startCreateTime1', format: 'YYYY-MM-DD 00:00:00' }, { field: 'endCreateTime1', format: 'YYYY-MM-DD 23:59:59' }],
+        // },
+        // { label: '自定义搜索', type: 'slot', prop: 'test', span: 8, sm: 12, xs: 24, options: [], unimportant: true, },
+        // {
+        //     label: '级联选择器搜索', type: 'cascader', prop: 'cascaderParams', refName: 'refCascaderParams', span: 8, sm: 12, xs: 24, options: [], unimportant: true,
+        //     props: {}
+        // },
+        // { label: '测试复选框', type: 'checkbox', prop: 'testCheckbox', checkboxText: '复选框后面的文字', span: 8, sm: 12, xs: 24, options: [], },
+
         { label: '姓名', type: 'input', prop: 'name', span: 8, defaultValue: 'test default' }, // 输入框测试
         { label: '姓名', type: 'input', prop: 'name111', span: 8, notChangeTriggerSearch: true, }, // 输入框测试, 输入不搜索
         { label: '性别', type: 'select', prop: 'sex', span: 8, options: [], }, // 下拉：[{label, value}]

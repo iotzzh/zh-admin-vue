@@ -1,4 +1,4 @@
-import { TZHFormSettings } from '../zh-form/type';
+import { TZHFormSettings, TZHFromField } from '../zh-form/type';
 import { TZHModal } from '../zh-modal/type';
 
 export interface TZHFormModal extends TZHModal {
@@ -13,6 +13,7 @@ export interface TZHFormModal extends TZHModal {
   customClass?: string
 }
 
-export interface TZHModalFormSettings extends  TZHFormSettings{
-  customValidate?: (modelValue: {[x:string]:any}) => boolean // 自定义额外的校验
+export interface TZHModalFromField extends TZHFromField {
+  // 表格使用表单时，默认值变化时就搜索数据，个别字段变化不需要搜索，使用该值：notChangeTriggerSearch = 'true'
+  notChangeTriggerSearch?: boolean
 }

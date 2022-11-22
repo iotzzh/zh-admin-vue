@@ -1,6 +1,7 @@
 <template>
-  <ZHModal ref="refZHModal" :modal="modal" @close="close" @submit="submit" @cancel="cancel">
-    <ZHForm ref="refZHForm" :formSettings="formSettings" v-model="modelValue"></ZHForm>
+  <ZHModal ref="refZHModal" :modal="modal" @close="zhFormModal.close" @submit="zhFormModal.submit"
+    @cancel="zhFormModal.cancel">
+    <ZHForm ref="refZHForm" :formSettings="formSettings" v-model="modelValue" v-model:convertedModel="convertedModel"></ZHForm>
   </ZHModal>
 </template>
 
@@ -9,11 +10,15 @@ import { toRefs, PropType, ref } from 'vue';
 import ZHModal from '../zh-modal/index.vue';
 import { TZHModal } from '../zh-modal/type';
 import ZHForm from '../zh-form/index.vue';
+import ZHFormModal from './index';
 import { TZHFormSettings } from '../zh-form/type';
-import { TZHModalFormSettings } from './type';
 
 const props = defineProps({
   modelValue: {
+    type: Object as PropType<any>,
+  },
+
+  convertedModel: {
     type: Object as PropType<any>,
   },
 
@@ -23,27 +28,20 @@ const props = defineProps({
   },
 
   formSettings: {
-    type: Object as PropType<TZHModalFormSettings>,
+    type: Object as PropType<TZHFormSettings>,
   },
 });
 
 const { modal, modelValue, formSettings } = toRefs(props);
 const refZHModal = ref();
 const refZHForm = ref();
+const emit = defineEmits(['close', 'submit', 'cancel', 'update:modelValue', 'update:convertedModel']);
 
 
-const emit = defineEmits(['close', 'submit', 'cancel']);
-const close = () => emit('close');
-const submit = () => {
-  if(refZHForm.value.validate()) {
-    if (formSettings?.value?.customValidate && !formSettings?.value?.customValidate(modelValue?.value)) return;
-    emit('submit');
-  }
-};
-const cancel = () => emit('cancel');
+const zhFormModal = new ZHFormModal({ emit, refZHModal, refZHForm, modelValue, formSettings });
 
 defineExpose({
-  // toggleLodadingSubmit: (isLoading: boolean) => refZHModal.value.toggleLodadingSubmit(isLoading),
+  init: zhFormModal.init,
 });
 </script>
 

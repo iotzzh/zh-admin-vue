@@ -31,8 +31,7 @@ const emit = defineEmits(['close', 'submit', 'cancel']);
 
 const zhModal = new ZHModal({ modal, emit });
 
-defineExpose({
-});
+defineExpose({});
 
 </script>
 
