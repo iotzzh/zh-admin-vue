@@ -12,6 +12,7 @@ import ElementPlus from 'element-plus';
 import * as Icons from '@element-plus/icons-vue';
 import locale from 'element-plus/lib/locale/lang/zh-cn';
 import { setupMock } from '@/mock/index';
+import { setupI18n } from './locales/setupI18n';
 
 
 async function boostrap() {
@@ -26,6 +27,7 @@ async function boostrap() {
   });
 
   // 多语言配置
+  await setupI18n(app);
 
   // 配置路由
   setupRouter(app);
