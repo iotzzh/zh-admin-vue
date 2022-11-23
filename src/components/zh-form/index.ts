@@ -26,8 +26,8 @@ export default class Form {
     )
       return;
     for (const field of this.formSettings.value.fields) {
-      this.modelValue.value[field.prop] = field.defaultValue;
-      this.convertedModel.value[field.prop] = field.defaultValue;
+      if (this.modelValue && this.modelValue.value) this.modelValue.value[field.prop] = field.defaultValue;
+      if (this.convertedModel && this.convertedModel.value) this.convertedModel.value[field.prop] = field.defaultValue;
     }
   };
 
@@ -92,11 +92,11 @@ export default class Form {
     }
   };
 
-  setConvertModel = async (newVal:any) => {
+  setConvertModel = async (newVal: any) => {
     if (!this.convertedModel) return;
     this.convertedModel.value = _.cloneDeep(newVal);
     if (!this.convertedModel.value) return;
-    this.useConvert(newVal, this.convertedModel.value,  this.formSettings.value.fields || []);
+    this.useConvert(newVal, this.convertedModel.value, this.formSettings.value.fields || []);
     this.useConvertDateTime(newVal, this.convertedModel.value, this.formSettings.value.fields || []);
     this.useExtendedFieldMethod(newVal, this.convertedModel.value, this.formSettings.value.fields || []);
 
