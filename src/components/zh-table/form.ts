@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { Ref, ref } from 'vue';
 import { TZHTablePage, TZHTableRequest, TZHTableFormSettings, TZHTableFromField, TZHFromFieldConvertDateTime } from './type';
 import _ from 'lodash';

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { ref, Ref, watch, nextTick } from 'vue';
 import { TZHFormSettings, TZHFromField, TZHFromFieldConvertDateTime } from './type';
 
@@ -66,7 +66,7 @@ export default class Form {
           .convertDateTime as Array<TZHFromFieldConvertDateTime>;
         const field = convertDateTimeArr[j].field;
         const format = convertDateTimeArr[j].format;
-        convertedModel[field] = moment(value[j]).format(format);
+        convertedModel[field] = dayjs(value[j]).format(format);
       }
       delete convertedModel[needConvertDateTimeFields[i].prop];
     }

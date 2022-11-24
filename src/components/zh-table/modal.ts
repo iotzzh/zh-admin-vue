@@ -4,7 +4,7 @@ import { TZHTableRequest, TZHTableRequestResult, TZHTableColumnAddEditInfo, TZHT
 import Table from './table';
 import ZHRequest from '../zh-request';
 import { TZHRequestParams } from '../zh-request/type';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import { TZHFormSettings } from '../zh-form/type';
 
 
@@ -25,10 +25,10 @@ export default class Modal {
     this.tableSettings = tableSettings;
   }
 
-  _getObjctWithoutFunction = (obj:TObject) => {
+  _getObjctWithoutFunction = (obj: TObject) => {
     const keys = Object.keys(obj);
     const newObj = {};
-    keys.forEach((x:string) => {
+    keys.forEach((x: string) => {
       if (typeof obj[x] !== 'function') {
         newObj[x] = obj[x];
       }
@@ -78,7 +78,7 @@ export default class Modal {
     this.modal.value.show = false;
   };
 
- 
+
 
   getParams = () => {
     const model = this.convertedModel.value

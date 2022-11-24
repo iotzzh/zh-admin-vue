@@ -48,7 +48,7 @@
 
               <span v-else-if="item.format">{{
                   scope.row[item.prop as string] &&
-                  moment(scope.row[item.prop as string]).format(item.format)
+                  dayjs(scope.row[item.prop as string]).format(item.format)
               }}</span>
 
               <!-- 自定义内容 -->
@@ -137,16 +137,15 @@
       @current-change="page?.handleCurrentChange" @size-change="page?.handleCurrentChange" />
 
     <ZhFormModal ref="refZHFormModal" :modal="modalInstance.modal.value" v-model="modalInstance.formModel.value"
-      v-model:converted-model="modalInstance.convertedModel.value"
-      :formSettings="modalInstance.formSettings.value" @cancel="modalInstance.cancel" @close="modalInstance.close"
-      @submit="modalInstance.submit"></ZhFormModal>
+      v-model:converted-model="modalInstance.convertedModel.value" :formSettings="modalInstance.formSettings.value"
+      @cancel="modalInstance.cancel" @close="modalInstance.close" @submit="modalInstance.submit"></ZhFormModal>
   </div>
 </template>
 
 <script setup lang="ts">
 import { toRefs, PropType, computed, ref, reactive, Ref, watch, onMounted, nextTick } from 'vue';
 import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit, CloseBold, Select } from '@element-plus/icons-vue';
-import moment from 'moment';
+import dayjs from 'dayjs';
 import ZHForm from '../zh-form/index.vue';
 import ZhFormModal from '../zh-form-modal/index.vue';
 import ZHFormButtons from './form-buttons.vue';
