@@ -20,7 +20,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <el-button @click="async () => await changeLocale('en')">改变语言</el-button>
-  <span>{{ t('sys.app.logoutTip') }}</span>
+  <!-- <el-button @click="async () => await changeLocale('en')">改变语言</el-button> -->
+  <!-- <span>{{ t('sys.app.logoutTip') }}</span> -->
   <router-view />
 </template>
