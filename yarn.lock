@@ -2715,6 +2715,11 @@ vue@^3.2.31:
     "@vue/server-renderer" "3.2.37"
     "@vue/shared" "3.2.37"
 
+vxe-table@^4.3.6:
+  version "4.3.6"
+  resolved "https://registry.npmmirror.com/vxe-table/-/vxe-table-4.3.6.tgz#494048abe3820af48a1e756dbf2a482f07a72995"
+  integrity sha512-SZ+ocVoOFc1PSzvpz6q5n7YvWvPSXUV+raet0zaSbQy3g8Dj7jKNlFbcsSoWZm8Uys9ufAQxeqYO5rRwOB2m7A==
+
 which@^2.0.1:
   version "2.0.2"
   resolved "https://mirrors.cloud.tencent.com/npm/which/-/which-2.0.2.tgz"
@@ -2741,6 +2746,11 @@ wrappy@1:
   version "1.0.2"
   resolved "https://mirrors.cloud.tencent.com/npm/wrappy/-/wrappy-1.0.2.tgz"
   integrity sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
+
+xe-utils@^3.5.7:
+  version "3.5.7"
+  resolved "https://registry.npmmirror.com/xe-utils/-/xe-utils-3.5.7.tgz#2c885852dfadd5c8beeffdc1f884f8ceb962c669"
+  integrity sha512-3H+fDBKBR2wLJgyA7k9C/w1Xljx6Maml5ukV0WDY06HjYyGs2FEz6XhcwRCLIDXX4pBP3Gu0nX9DbCeuuRA2Ew==
 
 yallist@^4.0.0:
   version "4.0.0"

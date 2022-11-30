@@ -14,6 +14,11 @@ import locale from 'element-plus/lib/locale/lang/zh-cn';
 import { setupMock } from '@/mock/index';
 import { setupI18n } from './locales/setupI18n';
 
+// vex-table
+import 'xe-utils';
+import VXETable from 'vxe-table';
+import 'vxe-table/lib/style.css';
+
 
 async function boostrap() {
   const app = createApp(App);
@@ -40,6 +45,8 @@ async function boostrap() {
 
   // 加载Element Plus
   app.use(ElementPlus, { locale });
+
+  app.use(VXETable);
 
   app.mount('#app');
 }
