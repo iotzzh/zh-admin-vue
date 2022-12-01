@@ -14,7 +14,7 @@ export default class {
     pageSettings: TZHTablePageSetting | undefined,
     pageData: Ref<TZHTablePage>,
     table: Table) {
-    this.sizes = ref(pageSettings?.sizes || [10, 20, 50, 100]);
+    this.sizes = ref(pageSettings?.sizes || [100, 200, 500, 1000]);
     this.pagerCount = ref(pageSettings?.pagerCount || 5);
     this.total = ref(pageData.value.total);
     this.layout = ref(pageSettings?.layout || 'total, sizes, prev, pager, next, jumper');

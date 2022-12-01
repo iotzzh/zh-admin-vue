@@ -35,8 +35,8 @@
 .el-button {
     border-radius: var(--el-border-radius-small) !important;
 }
-
-.el-button:focus, .el-button:hover {
+/* .el-button:focus,  */
+.el-button:hover {
     border-radius: 20px !important;
     transition: border-radius .5s;
 }

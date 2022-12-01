@@ -22,20 +22,20 @@
       </template>
     </ZHForm>
 
+    <!-- table部分：配置文件对象 tableSettings  -->
     <div style="flex:1; height: 100%; overflow: hidden;">
-      <!-- table部分：配置文件对象 tableSettings  -->
-      <vxe-table ref="refTable" class="zh-vxe-table" :data="table.data.value" size="small" :auto-resize="true"
-        :row-config="{ keyField: 'id', isCurrent: true, isHover: true }" :height="tableSettings.height || '100%'"
-        :highlight-current-row="tableSettings.highlightCurrentRow" v-loading="table.loading.value"
-        @row-click="table.rowClick">
+      <vxe-table ref="refTable" class="zh-vxe-table" align="center" :data="table.data.value" size="small"
+        :auto-resize="true" :row-config="{ keyField: 'id', isCurrent: true, isHover: true }"
+        :height="tableSettings.height || '100%'" :highlight-current-row="tableSettings.highlightCurrentRow"
+        v-loading="table.loading.value" @row-click="table.rowClick" @scroll="table._handleScrollEvent">
 
         <vxe-column width="40" v-if="tableSettings.hasSelection">
           <template #default="{ row }">
             <el-checkbox v-model="row.isDefaultChecked"></el-checkbox>
           </template>
         </vxe-column>
-
-        <vxe-column v-if="tableSettings.hasIndex" type="seq" title="序号" width="60" align="center"></vxe-column>
+        <vxe-column type="seq" width="60"></vxe-column>
+        <!-- <vxe-column v-if="tableSettings.hasIndex" type="seq" title="序号" width="60" align="center"></vxe-column> -->
 
 
         <vxe-column v-for="(item, index) in table.columns.value" :key="index" :width="item.width ? item.width : ''"
@@ -229,7 +229,7 @@ const refZHForm = ref();
 const pageData: Ref<TZHTablePage> = ref({
   total: 0,
   current: 1,
-  size: 20,
+  size: 100,
 });
 //#endregion
 
@@ -286,7 +286,7 @@ defineExpose({
 </script>
 
 <script lang="ts">
-export default { name: 'ZHTable' };
+export default { name: 'ZHVirtualScrollTable' };
 </script>
 
 <style lang="scss" scope>

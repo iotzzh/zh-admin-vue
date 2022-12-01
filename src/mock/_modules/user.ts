@@ -19,7 +19,7 @@ export default [
       result.data[`records|${(conditions.body && JSON.parse(conditions.body).size) || 1100}`] = [
         // result.data[`records|${1000}`] = [
         {
-          'id|+1': 100000, // 加一
+          'id|+1': Math.round(new Date() as any), // 加一
           name: '@cname', // 随机姓名
           'sex|0-1': 0, // 0-1随机
           'age|0-180': 180, // 0-180随机

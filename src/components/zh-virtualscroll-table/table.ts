@@ -1,4 +1,4 @@
-import { computed, Ref, ref } from 'vue';
+import { computed, Ref, ref, nextTick } from 'vue';
 import { TZHTablePage, TZHTableRequest, TZHTableRequestResult, TZHTableSetting } from './type';
 import Form from './form';
 import { isMessageConfirm, popErrorMessage, popSuccessMessage } from '../zh-message';
@@ -38,7 +38,7 @@ export default class Table {
     await method();
   };
 
-  initData = async (propParams: Object | null = null, initPage = true,) => {
+  initData = async (propParams: Object | null = null, initPage = true, isScroll = false) => {
     this.onBeforeInitData();
     this.loading.value = true;
     // 参数
@@ -55,13 +55,27 @@ export default class Table {
     const result: TZHTableRequestResult = await ZHRequest.post(args);
     // 处理数据
     if (result.success) {
-      this.data.value = result.data.records;
+      if (isScroll) {
+        this.data.value = this.data.value.concat(result.data.records);
+      } else {
+        this.data.value = result.data.records;
+      }
+
       this.pageData.value.total = result.data.total;
     } else {
       this.data.value = [];
       this.pageData.value.total = 0;
     }
     this.loading.value = false;
+  };
+
+  // 无限滚动
+  _handleScrollEvent = async (params: any) => {
+    const tableDom = params.$event.target;
+    if (params.scrollHeight - params.scrollTop === tableDom.clientHeight && this.data.value.length < this.pageData.value.total) {
+      this.pageData.value.current++;
+      this.initData(null, false, true);
+    }
   };
 
   debounceInitData = debounce(this.initData, 500);
@@ -114,49 +128,50 @@ export default class Table {
       this.tableSettings.value.rowClick({ row, column, event });
   };
 
+
   //#region 相关功能行内编辑
   cellMouseOver = ref(); // 鼠标移入到的单元格
   cellEditList = ref([] as Array<any>);
   _convertPropToEditingProp = (prop: string) => { return prop + 'editing'; };
   _convertEditingPropToProp = (editingProp: string) => { return editingProp.substring(0, editingProp.length - 7); };
 
-  cellCanShowEdit = (scope:any) => {
-    return this.cellMouseOver.value?.index === scope.$index && 
-    this.cellMouseOver.value?.cellIndex === scope.cellIndex;
+  cellCanShowEdit = (scope: any) => {
+    return this.cellMouseOver.value?.index === scope.$rowIndex &&
+      this.cellMouseOver.value?.$columnIndex === scope.$columnIndex;
   };
 
-  cellCanShowSaveCancel = (scope:any) => {
-    return !(this.cellMouseOver.value?.index === scope.$index && 
-      this.cellMouseOver.value?.cellIndex === scope.cellIndex) && this.cellEditList.value.find((x:any) => x.index === scope.$index && x.cellIndex === scope.cellIndex );
+  cellCanShowSaveCancel = (scope: any) => {
+    return !(this.cellMouseOver.value?.index === scope.$rowIndex &&
+      this.cellMouseOver.value?.$columnIndex === scope.$columnIndex) && this.cellEditList.value.find((x: any) => x.index === scope.$rowIndex && x.$columnIndex === scope.$columnIndex);
   };
 
-  cellContentOver = (scope:any) => {
+  cellContentOver = (scope: any) => {
     if (this.cellCanShowSaveCancel(scope)) return;
-    this.cellMouseOver.value = { index: scope.$index, cellIndex: scope.cellIndex };
+    this.cellMouseOver.value = { index: scope.$rowIndex, $columnIndex: scope.$columnIndex };
   };
 
   cellContentLeave = (scope: any) => {
     this.cellMouseOver.value = null;
   };
 
-  clickInlineEdit = (scope:any) => {
+  clickInlineEdit = (scope: any) => {
     this.cellMouseOver.value = null;
-    this.cellEditList.value.push({ index: scope.$index, cellIndex: scope.cellIndex });
+    this.cellEditList.value.push({ index: scope.$rowIndex, $columnIndex: scope.$columnIndex });
     scope.row[this._convertPropToEditingProp(scope.column.property)] = scope.row[scope.column.property];
   };
 
-  clickInlineCancel = (scope:any) => {
+  clickInlineCancel = (scope: any) => {
     this.cellMouseOver.value = null;
-    this.cellEditList.value = this.cellEditList.value.filter((x:any) => x.index !== scope.$index || x.cellIndex !== scope.cellIndex);
+    this.cellEditList.value = this.cellEditList.value.filter((x: any) => x.index !== scope.$rowIndex || x.$columnIndex !== scope.$columnIndex);
   };
 
-  clickInlineSave = (scope:any) => {
-    if(this.tableSettings.value.modal?.customValidate && !this.tableSettings.value.modal?.customValidate(scope.row)) return;
+  clickInlineSave = (scope: any) => {
+    if (this.tableSettings.value.modal?.customValidate && !this.tableSettings.value.modal?.customValidate(scope.row)) return;
     // 调用接口触发
     popSuccessMessage('修改成功');
     scope.row[scope.column.property] = scope.row[this._convertPropToEditingProp(scope.column.property)];
     this.cellMouseOver.value = null;
-    this.cellEditList.value = this.cellEditList.value.filter((x:any) => x.index !== scope.$index || x.cellIndex !== scope.cellIndex);
+    this.cellEditList.value = this.cellEditList.value.filter((x: any) => x.index !== scope.$rowIndex || x.$columnIndex !== scope.$columnIndex);
   };
 
   //#endregion

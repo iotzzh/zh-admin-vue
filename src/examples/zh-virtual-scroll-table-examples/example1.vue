@@ -1,6 +1,6 @@
 <template>
     <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
-        :usePage="true" :request="request">
+        :usePage="true" :request="request" :pageSettings="pageSettings">
         <template v-slot:zh-table-form-test>
             <el-input placeholder="请输入自定义搜索" v-model="formSettings.customModel!.test"></el-input>
         </template>
@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import { TZHFromField } from '@/components/zh-form/type';
 import Table from '@/components/zh-virtualscroll-table/index.vue';
-import { TObject, TZHTableRequest, TZHTableFormSettings, TZHTableSetting, TZHTableColumn } from '@/components/zh-table/type';
+import { TObject, TZHTableRequest, TZHTableFormSettings, TZHTableSetting, TZHTableColumn, TZHTablePageSetting } from '@/components/zh-table/type';
 import { onMounted, reactive, ref } from 'vue';
 import api from '../api/table/index';
 import { RefreshLeft, Search, Delete, Download, Plus, DocumentChecked, Refresh, Upload, Edit } from '@element-plus/icons-vue';
@@ -212,7 +212,7 @@ const request = ref({
     batchDelete: { url: api.batchDeleteUser, successMessage: '批量删除成功', errorMessage: '批量删除失败' },
 } as TZHTableRequest);
 
-
+const pageSettings = ref({ layout: 'total, sizes', size: 1000 } as TZHTablePageSetting);
 
 
 </script>

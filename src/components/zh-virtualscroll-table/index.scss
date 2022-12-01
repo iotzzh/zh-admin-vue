@@ -36,8 +36,8 @@
 
 /*滚动条整体部分*/
 .zh-vxe-table ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 20px;
 }
 
 /*滚动条的轨道*/
@@ -47,18 +47,18 @@
 
 /*滚动条里面的小方块，能向上向下移动*/
 .zh-vxe-table ::-webkit-scrollbar-thumb {
-  background-color: #bfbfbf;
+  background-color: rgba(0, 0, 0, .2);
   border-radius: 5px;
   border: 1px solid #F1F1F1;
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, .0);
 }
 
 .zh-vxe-table ::-webkit-scrollbar-thumb:hover {
-  background-color: #A8A8A8;
+  background-color: rgba(0, 0, 0, .2);
 }
 
 .zh-vxe-table ::-webkit-scrollbar-thumb:active {
-  background-color: #787878;
+  background-color: rgba(0, 0, 0, .2);
 }
 
 /*边角，即两个滚动条的交汇处*/
