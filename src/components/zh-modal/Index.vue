@@ -1,7 +1,7 @@
 <template>
   <el-dialog v-model="modal.show" :title="modal.title" :closeOnClickModal="false" :width="modal.width"
     @close="zhModal.close" append-to-body :top="modal.top" :fullscreen="modal.fullscreen"
-    :class="modal.customClass || '' + 'zh-modal'">
+    :class="modal.customClass || '' + 'zh-modal'" @opened="onOpened">
     <slot></slot>
     <template #footer>
       <span class="dialog-footer">
@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, PropType } from 'vue';
+import { toRefs, PropType, onMounted } from 'vue';
 import { ZHModal } from './index';
 import { TZHModal } from './type';
 
@@ -27,9 +27,11 @@ const props = defineProps({
 
 const { modal } = toRefs(props);
 
-const emit = defineEmits(['close', 'submit', 'cancel']);
+const emit = defineEmits(['close', 'submit', 'cancel', 'onOpened']);
 
 const zhModal = new ZHModal({ modal, emit });
+
+const onOpened = () => { emit('onOpened'); };
 
 defineExpose({});
 
