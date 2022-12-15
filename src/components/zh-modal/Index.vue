@@ -1,11 +1,23 @@
 <template>
   <el-dialog v-model="modal.show" :title="modal.title" :closeOnClickModal="false" :width="modal.width"
-    @close="zhModal.close" :top="modal.top" :fullscreen="modal.fullscreen"
-    :class="(modal.customClass || '') + ' zh-modal'" @opened="onOpened" :append-to-body="true">
+    @close="zhModal.close" :top="modal.top" :fullscreen="zhModal.fullscreen.value"
+    :class="(modal.customClass || '') + ' zh-modal'" @opened="onOpened" :append-to-body="true" :show-close="false">
     <div class="body-box">
       <slot></slot>
-
     </div>
+
+    <template #header>
+      <div class="header">
+        <div class="left"></div>
+        <div class="center">{{ modal.title }}</div>
+        <div class="right">
+          <el-button link @click="zhModal.toggleFullScreen" type="primary">{{ zhModal.fullscreen.value ? '退出全屏' : '全屏'
+          }}</el-button>
+          <el-button link @click="zhModal.close" type="primary">关闭</el-button>
+        </div>
+      </div>
+    </template>
+
     <template #footer v-if="modal.footer">
       <span class="dialog-footer">
         <el-button @click="zhModal.cancel"
@@ -56,10 +68,23 @@ export default { name: 'ZHModal' };
   font-size: 18px;
   font-weight: bolder;
   border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+  margin-right: 0px;
 }
 
 .body-box {
   height: 100%;
   width: 100%;
+}
+
+.header {
+  display: flex;
+
+  div {
+    flex: 1;
+  }
+
+  .right {
+    text-align: right;
+  }
 }
 </style>
