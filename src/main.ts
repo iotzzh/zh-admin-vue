@@ -13,6 +13,7 @@ import * as Icons from '@element-plus/icons-vue';
 import locale from 'element-plus/lib/locale/lang/zh-cn';
 import { setupMock } from '@/mock/index';
 import { setupI18n } from './locales/setupI18n';
+import 'default-passive-events';
 
 // vex-table
 import 'xe-utils';

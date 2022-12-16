@@ -90,15 +90,14 @@
 
       </TransitionGroup>
       <slot></slot>
+      <span v-if="formSettings?.hideUnimportantFields">
+        <el-button v-if="formInstance.hideUnimportantFields.value" size="large" class="unfolder" type="primary" link
+          :icon="ArrowDown" @click="() => formInstance.hideUnimportantFields.value = false" />
+        <el-button v-else type="primary" link :icon="ArrowUp" size="large" class="folder"
+          @click="() => formInstance.hideUnimportantFields.value = true" />
+      </span>
     </el-row>
     <slot name="zh-form-next-row"></slot>
-
-    <el-divider v-if="formSettings?.hideUnimportantFields">
-      <el-button v-if="formInstance.hideUnimportantFields.value" size="large" class="unfolder" type="primary" link
-        :icon="ArrowDown" @click="() => formInstance.hideUnimportantFields.value = false" />
-      <el-button v-else type="primary" link :icon="ArrowUp" size="large" class="folder"
-        @click="() => formInstance.hideUnimportantFields.value = true" />
-    </el-divider>
   </el-form>
 </template>
 
@@ -169,7 +168,7 @@ onMounted(() => {
   formInstance.init();
 });
 
-watch(modelValue?.value, (newVal:any) => {
+watch(modelValue?.value, (newVal: any) => {
   formInstance.setConvertModel(newVal);
   // if (!convertedModel) return;
   // convertedModel.value = JSON.parse(JSON.stringify(newVal));
@@ -193,7 +192,8 @@ export default { name: 'ZHForm' };
 .zh-form {
   transition-duration: 2s;
   transition: height 10s;
-
+  background-color: white;
+  padding: 7px;
   .el-form-item {
     width: 100%;
   }

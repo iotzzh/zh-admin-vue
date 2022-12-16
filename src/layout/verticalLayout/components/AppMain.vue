@@ -23,7 +23,7 @@ const { cachedViews } = storeToRefs(store);
   height: 100%;
   // height: calc(100% - 50px);
   width: 100%;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(0,0,0, 0.1);
   box-sizing: border-box;
   overflow: hidden;
 

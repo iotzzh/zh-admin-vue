@@ -2,17 +2,26 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  // padding: 7px;
 
+  .zh-form {
+    margin-bottom: 5px;
+  }
   .zh-form .el-form-item {
     margin-right: 15px;
   }
 
   .zh-table-pagination {
-    margin: 10px 0px 0px 0px;
+    margin: 0px 0px 0px 0px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-right: 7px;
     justify-content: end;
+    background-color: white;
   }
 
   .zh-el-table {
+
     .el-button+.el-button {
       margin-left: 0px !important;
     }

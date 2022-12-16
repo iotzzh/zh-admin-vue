@@ -2,14 +2,14 @@
   <div class="tags-box">
     <el-scrollbar class="tags-scrollbar tags">
       <el-tag class="tag" v-for="cachedView in cachedViews" :key="cachedView.path" closable
-        :type="isActive(cachedView) ? '' : 'info'" @click="clickTab(cachedView.fullPath)"
+        :type="isActive(cachedView) ? 'success' : 'info'" @click="clickTab(cachedView.fullPath)"
         @close="closeSingleTag(cachedView)">{{ cachedView.meta?.title }}</el-tag>
     </el-scrollbar>
 
     <div class="options-box">
       <div>1</div>
       <div>2</div>
-      <div @click="toggleFullScreen">3</div>
+      <div @click="toggleFullScreen">屏</div>
     </div>
   </div>
 </template>
@@ -112,6 +112,7 @@ const toggleFullScreen = () => {
     display: inline-block;
     cursor: pointer;
     line-height: 21px;
+    margin-top: 2px;
   }
 
   .tags-close-box {

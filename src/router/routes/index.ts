@@ -9,7 +9,11 @@ export const basicRoutes: Array<RouteRecordRaw> = [
     children: [
       {
         path: 'dashboard',
+        name: 'dashboard',
         component: () => import('@/views/dashboard/index.vue'),
+        meta: {
+          title: '首页',
+        },
       },
       {
         path: '/layoutExamplesExample1',

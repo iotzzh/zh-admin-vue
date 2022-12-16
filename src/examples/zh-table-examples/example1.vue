@@ -203,7 +203,6 @@ onMounted(() => {
     // idColumn.notDisplay = false;
 });
 
-
 const request = ref({
     list: { url: api.getUserList, successMessage: '查询成功', errorMessage: '查询失败' },
     add: { url: api.addUser, successMessage: '新增成功', errorMessage: '新增失败' },
@@ -211,9 +210,6 @@ const request = ref({
     delete: { url: api.deleteUser, successMessage: '删除成功', errorMessage: '删除失败' },
     batchDelete: { url: api.batchDeleteUser, successMessage: '批量删除成功', errorMessage: '批量删除失败' },
 } as TZHTableRequest);
-
-
- 
 
 </script>
 
