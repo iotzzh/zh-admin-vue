@@ -1,28 +1,47 @@
 <template>
   <div class="navbar">
-    <!-- toggle icon -->
-    <el-icon :size="30" @click="toggleSideBar">
-      <fold v-if="collapse" />
-      <expand v-else />
-    </el-icon>
+    <div class="left">
+      <span>
+        <el-icon :size="30" @click="toggleSideBar">
+          <fold v-if="collapse" />
+          <expand v-else />
+        </el-icon>
+      </span>
+
+      <span>
+        <el-dropdown>
+          <span class="el-dropdown-link">
+            菜单
+            <el-icon class="el-icon--right">
+              <arrow-down />
+            </el-icon>
+          </span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item>Action 1</el-dropdown-item>
+              <el-dropdown-item>Action 2</el-dropdown-item>
+              <el-dropdown-item>Action 3</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>/Current
+      </span>
+    </div>
 
     <!-- info -->
     <div class="info">
-      <!-- fullscreen -->
-      <!-- <div @click="clickFullscreen" class="fullScreen">
-        <el-tooltip class="box-item" effect="dark" :content="isFullscreen ? `退出全屏` : `全屏`" placement="bottom">
-          <el-icon class="fullScreen-icon" color="#fff"> <full-screen /> </el-icon>
-        </el-tooltip>
-      </div> -->
+      <span>搜索</span>
+      <span><el-badge is-dot class="item"><el-icon><Bell /></el-icon></el-badge></span>
+      <span>全屏</span>
+      <span>中/英</span>
       <el-dropdown :hide-on-click="false" @command="handleCommand">
-        <!-- <span class="el-dropdown-link">{{ userInfo.orgstaFullName }}</span> -->
-        <span>个人信息</span>
+        <span>个人信息（头像 + Name）</span>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
+      <span><el-icon><Setting /></el-icon></span>
     </div>
 
   </div>
@@ -39,7 +58,7 @@ const toggleSideBar = () => { store.toggleCollapse(); };
 
 const userInfo = ref({} as any);
 
-onMounted(() => { 
+onMounted(() => {
   // userInfo.value = storage.getUserInfo();
 });
 
@@ -94,6 +113,12 @@ const clickFullscreen = () => {
   align-items: center;
   // padding: 0 20px 0 5px;
 
+  .left {
+    height: 45px;
+    line-height: 45px;
+    vertical-align: middle;
+  }
+
   .right-menu {
     height: 100%;
     display: flex;
@@ -115,10 +140,10 @@ const clickFullscreen = () => {
 }
 
 .info {
-  width: 200px;
+  width: 350px;
   line-height: 59px;
   height: 59px;
-  text-align: center;
+  text-align: right;
   vertical-align: middle;
 
   .camera-icon {
