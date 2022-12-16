@@ -90,14 +90,14 @@
 
       </TransitionGroup>
       <slot></slot>
-      <span v-if="formSettings?.hideUnimportantFields">
-        <el-button v-if="formInstance.hideUnimportantFields.value" size="large" class="unfolder" type="primary" link
-          :icon="ArrowDown" @click="() => formInstance.hideUnimportantFields.value = false" />
-        <el-button v-else type="primary" link :icon="ArrowUp" size="large" class="folder"
-          @click="() => formInstance.hideUnimportantFields.value = true" />
-      </span>
     </el-row>
     <slot name="zh-form-next-row"></slot>
+    <span v-if="formSettings?.hideUnimportantFields" class="folder-box">
+      <el-button v-if="formInstance.hideUnimportantFields.value" size="large" class="unfolder" type="primary" link
+        :icon="ArrowDown" @click="() => formInstance.hideUnimportantFields.value = false" />
+      <el-button v-else type="primary" link :icon="ArrowUp" size="large" class="folder"
+        @click="() => formInstance.hideUnimportantFields.value = true" />
+    </span>
   </el-form>
 </template>
 
@@ -194,6 +194,8 @@ export default { name: 'ZHForm' };
   transition: height 10s;
   background-color: white;
   padding: 7px;
+  position: relative;
+
   .el-form-item {
     width: 100%;
   }
@@ -218,6 +220,12 @@ export default { name: 'ZHForm' };
 .list-leave-to {
   opacity: 0;
   transform: translateX(30px);
+}
+
+.folder-box {
+  position: absolute;
+  right: 5px;
+  bottom: 0px;
 }
 
 .folder,

@@ -55,6 +55,7 @@ const { collapse } = storeToRefs(store);
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      background-color: rgba(90, 90, 90, 0.1);
     }
   }
 

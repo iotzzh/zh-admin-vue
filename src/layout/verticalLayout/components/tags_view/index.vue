@@ -2,13 +2,13 @@
   <div class="tags-box">
     <el-scrollbar class="tags-scrollbar tags">
       <el-tag class="tag" v-for="cachedView in cachedViews" :key="cachedView.path" closable
-        :type="isActive(cachedView) ? 'success' : 'info'" @click="clickTab(cachedView.fullPath)"
-        @close="closeSingleTag(cachedView)">{{ cachedView.meta?.title }}</el-tag>
+        :type="isActive(cachedView) ? '' : 'info'" @click="clickTab(cachedView.fullPath)"
+        @close="closeSingleTag(cachedView)" effect="dark">{{ cachedView.meta?.title }}</el-tag>
     </el-scrollbar>
 
     <div class="options-box">
-      <div>1</div>
-      <div>2</div>
+      <div>刷</div>
+      <div>下</div>
       <div @click="toggleFullScreen">屏</div>
     </div>
   </div>
@@ -66,7 +66,7 @@ const clickTab = (path: any) => {
 
 const fullScreen = ref(false);
 const toggleFullScreen = () => {
-  UIHelper.toggleFullScreen(document.body.getElementsByClassName(), !fullScreen.value);
+  UIHelper.toggleFullScreen(document.body.getElementsByClassName('right-content')[0], !fullScreen.value);
   fullScreen.value = !fullScreen.value;
 };
 
@@ -88,6 +88,7 @@ const toggleFullScreen = () => {
 
 .tags-box {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  background-color: white;
   box-sizing: border-box;
   // padding-top: 5px;
   display: flex;
@@ -96,7 +97,7 @@ const toggleFullScreen = () => {
   .tags-scrollbar {
     flex: 1;
     width: 100%;
-    padding: 0px 15px;
+    padding: 0px 5px;
     height: 30px;
   }
 
@@ -120,7 +121,8 @@ const toggleFullScreen = () => {
   }
 
   .tag:not(:first-child) {
-    margin: 0px 5px;
+    margin-left: 5px;
+    // margin-right: 5px;
   }
 }
 </style>

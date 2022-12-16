@@ -37,8 +37,17 @@
 }
 /* .el-button:focus,  */
 .el-button:hover {
-    border-radius: 20px !important;
+    border-radius: 0px !important;
     transition: border-radius .5s;
+}
+
+.el-button:focus, .el-button:hover {
+    /* background-color: inherit !important; */
+    /* background-color: rgba(200, 200, 200, 0.2) !important; */
+}
+
+.el-tag {
+    border-radius: 0px !important;
 }
 
 /* ********************************************************************全局的组件样式修改end*********************************************** */

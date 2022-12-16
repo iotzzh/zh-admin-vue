@@ -84,13 +84,15 @@ const defaultSelectTab = computed(() => {
   --el-menu-hover-text-color: red !important;
   --el-menu-bg-color: rgb(12,33,53);
   --el-menu-hover-bg-color: rgba(9,96,189, 0.8) !important;
+  // --el-color-primary
   // --el-menu-active-color: rgb(255, 255, 255, 1) !important;
   &:deep(.el-menu-item) {
     color: rgb(255, 255, 255, 0.8) !important;
   }
   &:deep(.el-menu-item.is-active) {
     color: white !important;
-    background-color: rgba(9,96,189, 0.8);
+    // background-color: rgba(9,96,189, 0.8);
+    background-color: var(--el-color-primary);
   }
 
 }
