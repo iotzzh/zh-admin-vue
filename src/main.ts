@@ -2,6 +2,7 @@ import './styles/element-override.css';
 import './styles/iconfont-override.css';
 import 'element-plus/dist/index.css';
 import './styles/global.css';
+import "./assets/iconfont/iconfont.css";
 
 import App from './App.vue';
 import { createApp } from 'vue';

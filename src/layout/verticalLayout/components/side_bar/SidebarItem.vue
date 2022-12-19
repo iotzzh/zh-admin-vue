@@ -1,13 +1,13 @@
 <template>
   <!-- 这里没有url，跳转到新的界面：提示配置该路由 -->
   <el-menu-item v-if="!item || !item.children || item.children.length === 0" :index="item ? item.url : ''">
-    <i :class="item?.icon"></i>
+    <i :class="'iconfont ' + item?.icon"></i>
     <template #title><span class="tab">{{ item?.name }}</span></template>
   </el-menu-item>
 
   <el-sub-menu :index="item ? item.id : ''" v-else>
     <template #title>
-      <i :class="item?.icon"></i>
+      <i :class="'iconfont ' + item?.icon"></i>
       <span class="tab">{{ item?.name }}</span>
     </template>
 
@@ -16,7 +16,7 @@
         <sidebar-item :key="child.id" :item="child" />
       </template>
       <el-menu-item v-else :index="child.url">
-        <!-- <i :class="child?.icon" /> -->
+        <i :class="'iconfont ' + item?.icon"></i>
         <span class="tab sub">{{ child.name }}</span>
       </el-menu-item>
     </div>
