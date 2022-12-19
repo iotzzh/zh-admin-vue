@@ -9,7 +9,10 @@
     <div class="options-box">
       <div>刷</div>
       <div>下</div>
-      <div @click="toggleFullScreen">屏</div>
+      <div @click="toggleFullScreen">
+        <i v-if="fullScreen" class="iconfont icon-fullscreen-shrink"></i>
+        <i v-else class="iconfont icon-fullscreen-expand"></i>
+      </div>
     </div>
   </div>
 </template>
@@ -76,13 +79,14 @@ const toggleFullScreen = () => {
 .options-box {
   div {
     display: inline-block;
-    border-left: 1px solid rgba(0,0,0, 0.1);
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
     width: 30px;
     line-height: 30px;
     height: 30px;
     vertical-align: middle;
     text-align: center;
     cursor: pointer;
+    // background-color: red;
   }
 }
 

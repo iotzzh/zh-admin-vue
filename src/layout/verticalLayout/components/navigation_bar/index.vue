@@ -28,10 +28,13 @@
     <!-- info -->
     <div class="info">
       <!-- <span>搜索</span> -->
-      <span><el-badge is-dot class="item"><el-icon>
-            <Bell />
-          </el-icon></el-badge></span>
-      <span class="fullscreen">全屏</span>
+      <span class="bell"><el-badge is-dot class="item"><el-icon><Bell /></el-icon></el-badge></span>
+
+      <span class="fullscreen" @click="toggleFullScreen">
+        <i v-if="fullscreen" class="iconfont icon-fullscreen-shrink"></i>
+        <i v-else class="iconfont icon-fullscreen-expand"></i>
+      </span>
+      
       <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
         <i :size="50" class="iconfont icon-language-outline" />
         <template #dropdown>
@@ -61,6 +64,7 @@
 import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useLayoutStore } from '@/layout/layout';
+import UIHelper from '@/utils/uiHelper';
 
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);
@@ -77,6 +81,13 @@ const handleCommand = (command: string | number | object) => {
   if (command === 'logout') {
     // logout();
   }
+};
+
+
+const fullscreen = ref(false);
+const toggleFullScreen = () => {
+  UIHelper.toggleFullScreen(document.body, !fullscreen.value);
+  fullscreen.value = !fullscreen.value;
 };
 
 </script>
