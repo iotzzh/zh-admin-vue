@@ -1,6 +1,6 @@
 import type { App } from 'vue';
 
-import { createI18n } from 'vue-i18n/dist/vue-i18n.cjs.js';
+import { createI18n } from 'vue-i18n';
 import { setHtmlPageLang, setLoadLocalePool } from './helper';
 import { localeSetting } from './localeSetting';
 import { useLocaleStoreWithOut } from './store';

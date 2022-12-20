@@ -31,6 +31,14 @@ export const basicRoutes: Array<RouteRecordRaw> = [
           title: 'tableExample1',
         },
       },
+      {
+        path: '/tableExample2',
+        name: 'tableExample2',
+        component: () => import('@/examples/zh-virtual-scroll-table-examples/example1.vue'),
+        meta: {
+          title: 'tableExample2',
+        },
+      }
     ],
   },
   {
@@ -83,13 +91,13 @@ export const basicRoutes: Array<RouteRecordRaw> = [
     meta: {
       title: 'treeExample1',
     },
-  },
-  {
-    path: '/tableExample2',
-    name: 'tableExample2',
-    component: () => import('@/examples/zh-virtual-scroll-table-examples/example1.vue'),
-    meta: {
-      title: 'tableExample2',
-    },
   }
+  // {
+  //   path: '/tableExample2',
+  //   name: 'tableExample2',
+  //   component: () => import('@/examples/zh-virtual-scroll-table-examples/example1.vue'),
+  //   meta: {
+  //     title: 'tableExample2',
+  //   },
+  // }
 ];

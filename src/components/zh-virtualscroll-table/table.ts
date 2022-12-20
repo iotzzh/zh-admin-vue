@@ -72,10 +72,19 @@ export default class Table {
   // 无限滚动
   _handleScrollEvent = async (params: any) => {
     const tableDom = params.$event.target;
-    if (params.scrollHeight - params.scrollTop === tableDom.clientHeight && this.data.value.length < this.pageData.value.total) {
+      if (this._isInChangePageRange(params.scrollHeight, params.scrollTop, tableDom.clientHeight) && this.data.value.length < this.pageData.value.total) {
       this.pageData.value.current++;
       this.initData(null, false, true);
     }
+  };
+
+  // 滚动范围 -4 ~ 4
+  _isInChangePageRange = (scrollHeight:number, scrollTop: number, clientHeight: number) => {
+    if ((scrollHeight - scrollTop - clientHeight >= 0 && scrollHeight - scrollTop - clientHeight <= 4) ||
+    (scrollHeight - scrollTop - clientHeight >= -4 && scrollHeight - scrollTop - clientHeight <= 0)) {
+      return true;
+    }
+    return false;
   };
 
   debounceInitData = debounce(this.initData, 500);

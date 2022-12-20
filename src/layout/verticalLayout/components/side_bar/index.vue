@@ -52,6 +52,18 @@ let menuList = ref([
         url: '/tableExample1',
       },
     ],
+  },
+  {
+    id: '005',
+    name: '测试页2',
+    icon: 'icon-menu1',
+    children: [
+      {
+        id: '0051',
+        name: '首页导航11',
+        url: '/tableExample2',
+      },
+    ],
   }
 ] as any);
 
