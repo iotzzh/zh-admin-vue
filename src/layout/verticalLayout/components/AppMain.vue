@@ -34,6 +34,18 @@ const { cachedViews } = storeToRefs(store);
   }
 }
 
+.fade-transition {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+  }
+}
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s ease-in-out;
