@@ -16,7 +16,7 @@ import SidebarItem from './SidebarItem.vue';
 import { storeToRefs } from 'pinia';
 import { computed, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useLayoutStore } from '@/layout/layout';
+import { useLayoutStore } from '@/layout/store';
 
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);

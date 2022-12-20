@@ -52,7 +52,7 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-      <span class="setting-icon"><el-icon>
+      <span class="setting-icon" @click="changeLayout"><el-icon>
           <Setting />
         </el-icon></span>
     </div>
@@ -63,8 +63,13 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
-import { useLayoutStore } from '@/layout/layout';
+import { useLayoutStore } from '@/layout/store';
 import UIHelper from '@/utils/uiHelper';
+
+import VerticalLayout from '@/layout/verticalLayout/index.vue';
+import HorizontalLayout from '@/layout/horizontalLayout/index.vue';
+import { RouteRecordRaw, useRouter } from 'vue-router';
+import { router } from '@/router/index';
 
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);
@@ -90,6 +95,30 @@ const toggleFullScreen = () => {
   fullscreen.value = !fullscreen.value;
 };
 
+// const router = useRouter();
+const changeLayout = () => {
+  const roots = router.getRoutes();
+  const rootName = roots[roots.length - 1].name || '';
+  router.removeRoute(rootName);
+  // RouteRecordRaw
+  const rou:RouteRecordRaw = {
+    path: '/',
+    component: () => import('@/layout/horizontalLayout/index.vue'),
+    name: 'root1',
+    children: [
+      {
+        path: 'dashboard',
+        name: 'dashboard',
+        component: () => import('@/views/dashboard/index.vue'),
+        meta: {
+          title: '首页',
+        },
+      },
+    ]
+  };
+  router.addRoute(rou);
+  router.push('/');
+};
 </script>
 
 <style lang="scss" scoped>

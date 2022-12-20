@@ -27,7 +27,7 @@
 import { toRef, ref, reactive, onMounted } from 'vue';
 import { onBeforeRouteUpdate, useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
-import { useLayoutStore } from '@/layout/layout';
+import { useLayoutStore } from '@/layout/store';
 import { RouteType } from '@/layout/type';
 
 const store = useLayoutStore();

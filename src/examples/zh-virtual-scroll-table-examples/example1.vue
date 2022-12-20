@@ -217,6 +217,10 @@ const pageSettings = ref({ layout: 'total, sizes', size: 1000 } as TZHTablePageS
 
 </script>
 
+<script lang="ts">
+export default { name: 'tableExample2' };
+</script>
+
 <style lang="scss" scoped>
 
 </style>

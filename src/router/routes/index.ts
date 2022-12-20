@@ -6,6 +6,7 @@ export const basicRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
     component: VerticalLayout,
+    name: 'root',
     children: [
       {
         path: 'dashboard',
@@ -41,33 +42,33 @@ export const basicRoutes: Array<RouteRecordRaw> = [
       }
     ],
   },
-  {
-    path: '/examples',
-    name: 'examples',
-    component: () => import('@/examples/index.vue'),
-    meta: {
-      title: 'examples',
-    },
-    children: [
-      {
-        path: '/d',
-        name: 'Dashboard',
-        component: () => import('@/views/dashboard/index.vue'),
-        meta: {
-          title: 'Dashboard',
-        },
-      },
+  // {
+  //   path: '/examples',
+  //   name: 'examples',
+  //   component: () => import('@/examples/index.vue'),
+  //   meta: {
+  //     title: 'examples',
+  //   },
+  //   children: [
+  //     {
+  //       path: '/d',
+  //       name: 'Dashboard',
+  //       component: () => import('@/views/dashboard/index.vue'),
+  //       meta: {
+  //         title: 'Dashboard',
+  //       },
+  //     },
 
-    ],
-  },
-  {
-    path: '/d',
-    name: 'Dashboard',
-    component: () => import('@/views/dashboard/index.vue'),
-    meta: {
-      title: 'Dashboard',
-    },
-  },
+  //   ],
+  // },
+  // {
+  //   path: '/d',
+  //   name: 'Dashboard',
+  //   component: () => import('@/views/dashboard/index.vue'),
+  //   meta: {
+  //     title: 'Dashboard',
+  //   },
+  // },
   // {
   //   path: '/layoutExamplesExample1',
   //   name: 'layoutExamplesExample1',
@@ -84,14 +85,14 @@ export const basicRoutes: Array<RouteRecordRaw> = [
   //     title: 'tableExample1',
   //   },
   // },
-  {
-    path: '/treeExample1',
-    name: 'treeExample1',
-    component: () => import('@/examples/zh-tree-examples/example1.vue'),
-    meta: {
-      title: 'treeExample1',
-    },
-  }
+  // {
+  //   path: '/treeExample1',
+  //   name: 'treeExample1',
+  //   component: () => import('@/examples/zh-tree-examples/example1.vue'),
+  //   meta: {
+  //     title: 'treeExample1',
+  //   },
+  // }
   // {
   //   path: '/tableExample2',
   //   name: 'tableExample2',

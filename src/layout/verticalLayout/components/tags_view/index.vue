@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { useLayoutStore } from '@/layout/layout';
+import { useLayoutStore } from '@/layout/store';
 import { RouteType } from '@/layout/type';
 import UIHelper from '@/utils/uiHelper';
 import { storeToRefs } from 'pinia';

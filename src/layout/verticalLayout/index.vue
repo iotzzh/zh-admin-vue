@@ -17,7 +17,7 @@
 <script setup lang="ts">
 import { Sidebar, Navbar, AppMain, TagsView } from './components';
 import { storeToRefs } from 'pinia';
-import { useLayoutStore } from '../layout';
+import { useLayoutStore } from '../store';
 
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);

@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useLayoutStore } from '@/layout/layout';
+import { useLayoutStore } from '@/layout/store';
 import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 const store = useLayoutStore();

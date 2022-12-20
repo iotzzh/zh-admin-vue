@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import { useLayoutStore } from '@/layout/layout';
+import { useLayoutStore } from '@/layout/store';
 import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 const store = useLayoutStore();

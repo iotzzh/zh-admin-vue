@@ -41,7 +41,7 @@
 import SidebarLogo from './SidebarLogo.vue';
 import SidebarItem from './SidebarItem.vue';
 import { ref, reactive, onMounted } from 'vue';
-import { useLayoutStore } from '@/layout/layout';
+import { useLayoutStore } from '@/layout/store';
 const store = useLayoutStore();
 
 // const userInfo = storage.getUserInfo();
