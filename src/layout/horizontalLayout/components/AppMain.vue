@@ -29,6 +29,10 @@ onMounted(() => {
   padding: 10px;
   height: calc(100vh - 90px);
   width: 100%;
+  
+  background-color: rgb(223,223,223);
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .fade-transition {
