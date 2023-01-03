@@ -1,7 +1,8 @@
 <template>
-  <router-link key="expand" :to="allMenuList && allMenuList.length > 1 ? '/dashboard' : ''" class="root-link">
+  <div>logo 占位</div>
+  <!-- <router-link key="expand" :to="allMenuList && allMenuList.length > 1 ? '/dashboard' : ''" class="root-link">
     <img src="@/assets/img/logo1.png" class="logo">
-  </router-link>
+  </router-link> -->
 </template>
 
 <script setup lang="ts">

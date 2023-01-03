@@ -1,11 +1,12 @@
 import { RouteRecordRaw } from 'vue-router';
 
 import VerticalLayout from '@/layout/verticalLayout/index.vue';
+import H from '@/layout/horizontalLayout/index.vue';
 
 export const basicRoutes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    component: VerticalLayout,
+    component: H,
     name: 'root',
     children: [
       {

@@ -1,8 +1,10 @@
 <template>
   <div class="layout">
     <NavigationBar />
-    <TagsView />
+    <div class="tags-content">
+      <TagsView />
     <AppMain />
+    </div>
   </div>
 </template>
 
@@ -17,5 +19,12 @@ onMounted(() => {
 
 
 <style lang="scss" scoped>
+.layout {
+  background-color: white;
+}
+
+.tags-content {
+  background-color: white;
+}
 
 </style>

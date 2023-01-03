@@ -106,7 +106,7 @@ const changeLayout = () => {
     component: () => import('@/layout/horizontalLayout/index.vue'),
     name: 'root1',
     children: [
-      {
+    {
         path: 'dashboard',
         name: 'dashboard',
         component: () => import('@/views/dashboard/index.vue'),
@@ -114,10 +114,34 @@ const changeLayout = () => {
           title: '首页',
         },
       },
+      {
+        path: '/layoutExamplesExample1',
+        name: 'layoutExamplesExample1',
+        component: () => import('@/examples/zh-layout-examples/eaxmple1.vue'),
+        meta: {
+          title: 'layoutExamplesExample1',
+        },
+      },
+      {
+        path: '/tableExample1',
+        name: 'tableExample1',
+        component: () => import('@/examples/zh-table-examples/example1.vue'),
+        meta: {
+          title: 'tableExample1',
+        },
+      },
+      {
+        path: '/tableExample2',
+        name: 'tableExample2',
+        component: () => import('@/examples/zh-virtual-scroll-table-examples/example1.vue'),
+        meta: {
+          title: 'tableExample2',
+        },
+      }
     ]
   };
   router.addRoute(rou);
-  router.push('/');
+  router.push('/dashboard');
 };
 </script>
 

@@ -6,19 +6,13 @@
         @close="closeSingleTag(cachedView)">{{ cachedView.meta?.title }}</el-tag>
     </el-scrollbar>
 
-    <div class="tags-close-box">
-      <el-dropdown @command="handleTags">
-        <el-button size="small" type="primary" plain>
-          标签选项
-          <i class="el-icon-arrow-down el-icon--right"></i>
-        </el-button>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="other">关闭其他</el-dropdown-item>
-            <!-- <el-dropdown-item command="all">关闭全部</el-dropdown-item> -->
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+    <div class="options-box">
+      <div>刷</div>
+      <div>下</div>
+      <div @click="toggleFullScreen">
+        <i v-if="fullScreen" class="iconfont icon-fullscreen-shrink"></i>
+        <i v-else class="iconfont icon-fullscreen-expand"></i>
+      </div>
     </div>
   </div>
 </template>
@@ -29,6 +23,7 @@ import { onBeforeRouteUpdate, useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useLayoutStore } from '@/layout/store';
 import { RouteType } from '@/layout/type';
+import UIHelper from '@/utils/uiHelper';
 
 const store = useLayoutStore();
 const { cachedViews } = storeToRefs(store);
@@ -75,12 +70,18 @@ const clickTab = (path: any) => {
 onMounted(() => {
   console.log();
 });
+
+const fullScreen = ref(false);
+const toggleFullScreen = () => {
+  UIHelper.toggleFullScreen(document.body.getElementsByClassName('tags-content')[0], !fullScreen.value);
+  fullScreen.value = !fullScreen.value;
+};
 </script>
 
 <style lang="scss" scoped>
 .tags-box {
-  padding-top: 5px;
-  display: flex;
+  // padding-top: 2px;
+  // display: flex;
 
   .tags-scrollbar {
     flex: 1;
@@ -109,6 +110,62 @@ onMounted(() => {
 
   .tag:not(:first-child) {
     margin: 0px 5px;
+    margin-top: 2px;
+  }
+}
+
+.options-box {
+  div {
+    display: inline-block;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    width: 30px;
+    line-height: 30px;
+    height: 30px;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    // background-color: red;
+  }
+}
+
+.tags-box {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  background-color: white;
+  box-sizing: border-box;
+  // padding-top: 5px;
+  display: flex;
+  height: 30px;
+
+  .tags-scrollbar {
+    flex: 1;
+    width: 100%;
+    padding: 0px 5px;
+    height: 30px;
+  }
+
+  .tags {
+    display: flex;
+
+    &:deep(.el-scrollbar__view) {
+      display: flex;
+    }
+  }
+
+  .tag {
+    display: inline-block;
+    cursor: pointer;
+    line-height: 21px;
+    margin-top: 2px;
+  }
+
+  .tags-close-box {
+    width: 100px;
+  }
+
+  .tag:not(:first-child) {
+    margin-left: 5px;
+    // margin-right: 5px;
   }
 }
 </style>
