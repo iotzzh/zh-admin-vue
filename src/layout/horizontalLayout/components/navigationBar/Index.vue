@@ -306,6 +306,7 @@ const changeLayout = () => {
 
 .info {
   width: 310px;
+  min-width: 310px;
   line-height: 59px;
   height: 59px;
   text-align: right;
