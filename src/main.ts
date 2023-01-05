@@ -7,7 +7,7 @@ import "./assets/iconfont/iconfont.css";
 import App from './App.vue';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
-import { router, setupRouter } from '@/router';
+import { setupRouter } from '@/router';
 import { setupRouterGuard } from '@/router/guard';
 import ElementPlus from 'element-plus';
 import * as Icons from '@element-plus/icons-vue';
@@ -28,6 +28,8 @@ async function boostrap() {
   // 配置 store
   app.use(createPinia());
 
+  if (process.env.NODE_ENV === 'dev') { setupMock(); }
+
   // 注册Icons 全局组件，element plus icon
   Object.keys(Icons).forEach(key => {
     app.component(key, Icons[key]);
@@ -37,13 +39,11 @@ async function boostrap() {
   await setupI18n(app);
 
   // 配置路由
-  setupRouter(app);
+  await setupRouter(app);
 
   // router-guard
   // 路由守卫
-  setupRouterGuard(router);
-
-  if (process.env.NODE_ENV === 'dev') { setupMock(); }
+  // setupRouterGuard(router);
 
   // 加载Element Plus
   app.use(ElementPlus, { locale });

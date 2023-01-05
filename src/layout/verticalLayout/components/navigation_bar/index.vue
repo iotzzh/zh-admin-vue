@@ -70,6 +70,8 @@ import VerticalLayout from '@/layout/verticalLayout/index.vue';
 import HorizontalLayout from '@/layout/horizontalLayout/index.vue';
 import { RouteRecordRaw, useRouter } from 'vue-router';
 import { router } from '@/router/index';
+import ZHRequest from '@/components/zh-request';
+import { updateMenuToRouter } from '@/utils/dataConvert';
 
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);
@@ -96,52 +98,72 @@ const toggleFullScreen = () => {
 };
 
 // const router = useRouter();
-const changeLayout = () => {
-  const roots = router.getRoutes();
+const  changeLayout = async () => {
+  const roots = router!.getRoutes();
   const rootName = roots[roots.length - 1].name || '';
-  router.removeRoute(rootName);
-  // RouteRecordRaw
-  const rou:RouteRecordRaw = {
+  router!.removeRoute(rootName);
+
+  const params = {
+    url: '/api/menu/list',
+    conditions: {},
+  };
+  const result = await ZHRequest.post(params);
+  console.log(result);
+  // RouteRecordRaw[]
+  const routes:RouteRecordRaw[] = result.data.records;
+  updateMenuToRouter(routes);
+  const rou: RouteRecordRaw =  {
     path: '/',
     component: () => import('@/layout/horizontalLayout/index.vue'),
     name: 'root1',
-    children: [
-    {
-        path: 'dashboard',
-        name: 'dashboard',
-        component: () => import('@/views/dashboard/index.vue'),
-        meta: {
-          title: '首页',
-        },
-      },
-      {
-        path: '/layoutExamplesExample1',
-        name: 'layoutExamplesExample1',
-        component: () => import('@/examples/zh-layout-examples/eaxmple1.vue'),
-        meta: {
-          title: 'layoutExamplesExample1',
-        },
-      },
-      {
-        path: '/tableExample1',
-        name: 'tableExample1',
-        component: () => import('@/examples/zh-table-examples/example1.vue'),
-        meta: {
-          title: 'tableExample1',
-        },
-      },
-      {
-        path: '/tableExample2',
-        name: 'tableExample2',
-        component: () => import('@/examples/zh-virtual-scroll-table-examples/example1.vue'),
-        meta: {
-          title: 'tableExample2',
-        },
-      }
-    ]
-  };
+    children: routes,
+  }
+  ;
+
+  // RouteRecordRaw
+  // const rou:RouteRecordRaw = {
+  //   path: '/',
+  //   component: () => import('@/layout/horizontalLayout/index.vue'),
+  //   name: 'root1',
+  //   children: [
+  //   {
+  //       path: 'dashboard',
+  //       name: 'dashboard',
+  //       component: () => import('@/views/dashboard/index.vue'),
+  //       meta: {
+  //         title: '首页',
+  //       },
+  //     },
+  //     {
+  //       path: '/layoutExamplesExample1',
+  //       name: 'layoutExamplesExample1',
+  //       component: () => import('@/examples/zh-layout-examples/eaxmple1.vue'),
+  //       meta: {
+  //         title: 'layoutExamplesExample1',
+  //       },
+  //     },
+  //     {
+  //       path: '/tableExample1',
+  //       name: 'tableExample1',
+  //       component: () => import('@/examples/zh-table-examples/example1.vue'),
+  //       meta: {
+  //         title: 'tableExample1',
+  //       },
+  //     },
+  //     {
+  //       path: '/tableExample2',
+  //       name: 'tableExample2',
+  //       component: () => import('@/examples/zh-virtual-scroll-table-examples/example1.vue'),
+  //       meta: {
+  //         title: 'tableExample2',
+  //       },
+  //     }
+  //   ]
+  // };
+
+
   router.addRoute(rou);
-  router.push('/dashboard');
+  router.push('/authorityManagement/userManagement');
 };
 </script>
 

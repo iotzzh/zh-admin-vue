@@ -14,9 +14,10 @@
 import SidebarLogo from './SidebarLogo.vue';
 import SidebarItem from './SidebarItem.vue';
 import { storeToRefs } from 'pinia';
-import { computed, reactive, ref } from 'vue';
+import { computed, reactive, ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useLayoutStore } from '@/layout/store';
+import ZHRequest from '@/components/zh-request';
 
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);
@@ -36,7 +37,7 @@ let menuList = ref([
       {
         id: '003',
         name: '首页导航',
-        url: '/layoutExamplesExample1',
+        url: '/views/authorityManagement/userManagement',
         icon: 'icon-menu1',
       },
     ],
@@ -49,7 +50,7 @@ let menuList = ref([
       {
         id: '0031',
         name: '首页导航1',
-        url: '/tableExample1',
+        url: '/views/authorityManagement/roleManagement',
       },
     ],
   },
@@ -61,11 +62,22 @@ let menuList = ref([
       {
         id: '0051',
         name: '首页导航11',
-        url: '/tableExample2',
+        url: '/views/authorityManagement/organizationalStructure',
       },
     ],
   }
 ] as any);
+
+onMounted(async () => {
+  const params = {
+    url: '/api/menu/list',
+    conditions: {},
+  };
+  const result = await ZHRequest.post(params);
+  console.log(result);
+  // RouteRecordRaw[]
+  menuList.value = result.data.records;
+});
 
 const router = useRouter();
 const showLogo = ref(true);

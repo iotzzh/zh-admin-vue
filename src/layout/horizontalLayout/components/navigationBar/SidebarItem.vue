@@ -1,13 +1,13 @@
 <template>
   <el-menu-item :index="item ? item.url : ''" v-if="!item || !item.children || item.children.length === 0">
     <i :class="'iconfont ' + item?.icon"></i>
-    <template #title><span class="tab">{{ item?.name }}</span></template>
+    <template #title><span class="tab">{{ item?.permsionName }}</span></template>
   </el-menu-item>
 
   <el-sub-menu :index="item ? item.id : ''" v-else>
     <template #title>
       <i :class="'iconfont ' + item?.icon"></i>
-      <span class="tab">{{ item?.name }}</span>
+      <span class="tab">{{ item?.permsionName }}</span>
     </template>
 
     <div v-for="(child, index) in item?.children" :key="index">
@@ -16,7 +16,7 @@
       </template>
       <el-menu-item v-else :index="child.url">
         <i :class="'iconfont ' + item?.icon"></i>
-        <span class="tab sub">{{ child.name }}</span>
+        <span class="tab sub">{{ child.permsionName }}</span>
       </el-menu-item>
     </div>
   </el-sub-menu>

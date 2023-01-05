@@ -1,7 +1,8 @@
-import type { RouteRecordRaw } from 'vue-router';
+import type { Router, RouteRecordRaw } from 'vue-router';
 import type { App } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import { basicRoutes } from './routes';
+import { getBasicRoutes } from './routes';
+import { rangeRight } from 'lodash';
 
 const PUBLIC_PATH = import.meta.env.VITE_PUBLIC_PATH;
 
@@ -17,25 +18,49 @@ const WHITE_NAME_LIST: string[] = [];
 // app router
 // 创建一个可以被 Vue 应用程序使用的路由实例
 console.log(PUBLIC_PATH);
-export const router = createRouter({
-  history: createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
-  routes: basicRoutes,
-  // 是否应该禁止尾部斜杠。默认为假
-  // strict: true,
-  scrollBehavior: () => ({ left: 0, top: 0 }),
-});
+// export const router = createRouter({
+//   history: createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
+//   routes: basicRoutes,
+//   // 是否应该禁止尾部斜杠。默认为假
+//   // strict: true,
+//   scrollBehavior: () => ({ left: 0, top: 0 }),
+// });
 
 // reset router
-export function resetRouter() {
-  router.getRoutes().forEach((route) => {
-    const { name } = route;
-    // if (name && !WHITE_NAME_LIST.includes(name as string)) {
-    //   router.hasRoute(name) && router.removeRoute(name);
-    // }
+// export function resetRouter() {
+//   router.getRoutes().forEach((route) => {
+//     const { name } = route;
+//     // if (name && !WHITE_NAME_LIST.includes(name as string)) {
+//     //   router.hasRoute(name) && router.removeRoute(name);
+//     // }
+//   });
+// }
+
+let router: Router | null = null;
+
+async function getRouter () {
+  const routes = await getBasicRoutes();
+  router = createRouter({
+    history: createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
+    routes,
+    // 是否应该禁止尾部斜杠。默认为假
+    // strict: true,
+    scrollBehavior: () => ({ left: 0, top: 0 }),
   });
+
+  return router;
 }
 
+export function getCurrentRouter () {
+  return router;
+}
+
+export {
+  router,
+};
+
 // config router
-export function setupRouter(app: App<Element>) {
+export async function setupRouter(app: App<Element>) {
+  const router = await getRouter();
   app.use(router);
 }

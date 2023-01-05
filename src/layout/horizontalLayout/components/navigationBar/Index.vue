@@ -58,6 +58,7 @@ import { useLayoutStore } from '@/layout/store';
 import UIHelper from '@/utils/uiHelper';
 import { router } from '@/router';
 import { RouteRecordRaw } from 'vue-router';
+import ZHRequest from '@/components/zh-request';
 const store = useLayoutStore();
 
 // const userInfo = storage.getUserInfo();
@@ -109,6 +110,17 @@ let menuList = ref([
   }
 ] as any);
 
+
+onMounted(async () => {
+  const params = {
+    url: '/api/menu/list',
+    conditions: {},
+  };
+  const result = await ZHRequest.post(params);
+  console.log(result);
+  // RouteRecordRaw[]
+  menuList.value = result.data.records;
+});
 
 // 退出登录事件
 const handleCommand = (command: string | number | object) => {
