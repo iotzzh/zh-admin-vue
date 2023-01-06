@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ 'has-logo': showLogo }">
+  <div :class="{ 'has-logo': showLogo }" v-loading="loading">
     <!-- <SidebarLogo v-if="showLogo" :collapse="collapse" /> -->
     <div style="height: 45px;">Logo 占位</div>
     <el-scrollbar class="scrollbar" wrap-class="scrollbar-wrapper">
@@ -14,7 +14,7 @@
 import SidebarLogo from './SidebarLogo.vue';
 import SidebarItem from './SidebarItem.vue';
 import { storeToRefs } from 'pinia';
-import { computed, reactive, ref, onMounted } from 'vue';
+import { computed, reactive, ref, onMounted, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import { useLayoutStore } from '@/layout/store';
 import ZHRequest from '@/components/zh-request';
@@ -69,6 +69,7 @@ const menuList = ref([] as any);
 //     ],
 //   }
 // ] as any);
+const loading = ref(true);
 
 onMounted(async () => {
   const params = {
@@ -79,6 +80,9 @@ onMounted(async () => {
   console.log(result);
   // RouteRecordRaw[]
   menuList.value = result.data.records;
+
+  await nextTick();
+  loading.value = false; 
 });
 
 const router = useRouter();

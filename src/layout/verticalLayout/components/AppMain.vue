@@ -2,7 +2,8 @@
   <div class="app-main">
     <router-view v-slot="{ Component }">
       <transition name="fade-slide">
-        <keep-alive :include="cachedViews && cachedViews.map((x: any) => x.name)">
+        <!-- <keep-alive :include="cachedViews && cachedViews.map((x: any) => x.name)"> -->
+        <keep-alive>
         <component :is="Component" />
       </keep-alive>
       </transition>
