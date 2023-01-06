@@ -23,7 +23,7 @@
     </ZHForm>
 
     <!-- table部分：配置文件对象 tableSettings  -->
-    <el-table ref="refTable" class="zh-el-table" :data="table.data.value" size="small"
+    <el-table ref="refTable" class="zh-el-table" :data="table.data.value" size="middle"
       :height="tableSettings.height || '100%'" :highlight-current-row="tableSettings.highlightCurrentRow"
       v-loading="table.loading.value" :row-key="tableSettings.rowKey" @row-click="table.rowClick">
 

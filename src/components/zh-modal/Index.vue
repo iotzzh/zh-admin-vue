@@ -11,9 +11,12 @@
         <div class="left"></div>
         <div class="center">{{ modal.title }}</div>
         <div class="right">
-          <el-button link @click="zhModal.toggleFullScreen" type="primary">{{ zhModal.fullscreen.value ? '退出全屏' : '全屏'
-          }}</el-button>
-          <el-button link @click="zhModal.close" type="primary">关闭</el-button>
+          <el-button link @click="zhModal.toggleFullScreen" type="primary">
+          <i v-if="zhModal.fullscreen.value" class="iconfont icon-fullscreen-shrink"></i>
+          <i v-else class="iconfont icon-fullscreen-expand"></i>
+        </el-button>
+          <el-button link @click="zhModal.close" type="primary" style="margin-left: 0px;"><i class="iconfont icon-close_light"></i></el-button>
+          
         </div>
       </div>
     </template>
@@ -86,5 +89,9 @@ export default { name: 'ZHModal' };
   .right {
     text-align: right;
   }
+}
+
+.iconfont {
+  cursor: pointer;
 }
 </style>

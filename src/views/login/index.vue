@@ -10,12 +10,7 @@
           <el-input v-model="inputPassword" class="w-50 m-2 input-box" size="large" placeholder="密码" type="password"
             :prefix-icon="Lock" clearable></el-input>
           <el-button type="primary" class="login-button button" @click="login()">登录</el-button>
-          <el-checkbox label="记住我" v-model="rememberPassword" size="large"></el-checkbox>
-        </div>
-
-        <div class="login-select-laboratory" v-else>
-          <el-button type="primary" class="button" v-for="(item, index) in userLabListHs" :key="index"
-            @click="goTo(item, 2)">{{ item.labName }}</el-button>
+          <!-- <el-checkbox label="记住我" v-model="rememberPassword" size="large"></el-checkbox> -->
         </div>
       </div>
     </div>
@@ -57,6 +52,7 @@ const userLabListHs = ref([]) as any; //实验室
 
 // 登录
 const login = async () => {
+  router.push('/dashboard');
   // const params = { url: api.login, conditions: { loginPass: inputPassword.value, loginId: inputAccount.value }, errorMessage: '登录失败' } as RequestParamsModel;
   // const result = await get(params);
   // if (!result.success) return;

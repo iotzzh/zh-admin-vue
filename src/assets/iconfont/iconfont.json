@@ -6,6 +6,13 @@
   "description": "zh-admin-vue项目",
   "glyphs": [
     {
+      "icon_id": "1493701",
+      "name": "close_light",
+      "font_class": "close_light",
+      "unicode": "e7dc",
+      "unicode_decimal": 59356
+    },
+    {
       "icon_id": "2966209",
       "name": "下拉",
       "font_class": "xiala",

@@ -39,13 +39,14 @@ export default class Modal {
   formSettings = computed(() => {
     return {
       // eslint-disable-next-line no-prototype-builtins
-      fields: this.table.columns.value?.filter((x: any) => x.hasOwnProperty('addEditInfo')).map((y: any) => {
+      fields: this.tableSettings.value.columns?.filter((x: any) => x.hasOwnProperty('addEditInfo')).map((y: any) => {
         return {
           ...this._getObjctWithoutFunction(y),
           ...y.addEditInfo,
         };
-      }),
+      }).sort((m:any, n: any) => m.addSort - n.addSort > 0 ? 1 : -1),
       customValidate: this.tableSettings.value.modal?.customValidate,
+      ... this.tableSettings.value.modal
     } as TZHFormSettings;
   });
 
@@ -59,6 +60,7 @@ export default class Modal {
     // 在新增时，有些字段带有默认值
     this.refZHFormModal.value.init();
     this.modal.value.show = true;
+    this.modal.value = { ...this.modal.value, ...this.tableSettings.value.modal};
   };
 
 
@@ -66,6 +68,7 @@ export default class Modal {
     this.formModel.value = { ...row };
     this.modal.value.type = 'edit';
     this.modal.value.show = true;
+    this.modal.value = { ...this.modal.value, ...this.tableSettings.value.modal};
   };
 
   close = () => {
