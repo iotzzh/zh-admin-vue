@@ -22,51 +22,53 @@ import ZHRequest from '@/components/zh-request';
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);
 
-let menuList = ref([
-  {
-    id: '001',
-    name: '首页导航',
-    url: '/dashboard',
-    icon: 'icon-menu1',
-  },
-  {
-    id: '002',
-    name: '测试页',
-    icon: 'icon-menu1',
-    children: [
-      {
-        id: '003',
-        name: '首页导航',
-        url: '/views/authorityManagement/userManagement',
-        icon: 'icon-menu1',
-      },
-    ],
-  },
-  {
-    id: '004',
-    name: '测试页1',
-    icon: 'icon-menu1',
-    children: [
-      {
-        id: '0031',
-        name: '首页导航1',
-        url: '/views/authorityManagement/roleManagement',
-      },
-    ],
-  },
-  {
-    id: '005',
-    name: '测试页2',
-    icon: 'icon-menu1',
-    children: [
-      {
-        id: '0051',
-        name: '首页导航11',
-        url: '/views/authorityManagement/organizationalStructure',
-      },
-    ],
-  }
-] as any);
+const menuList = ref([] as any);
+
+// let menuList = ref([
+//   {
+//     id: '001',
+//     name: '首页导航',
+//     url: '/dashboard',
+//     icon: 'icon-menu1',
+//   },
+//   {
+//     id: '002',
+//     name: '测试页',
+//     icon: 'icon-menu1',
+//     children: [
+//       {
+//         id: '003',
+//         name: '首页导航',
+//         url: '/views/authorityManagement/userManagement',
+//         icon: 'icon-menu1',
+//       },
+//     ],
+//   },
+//   {
+//     id: '004',
+//     name: '测试页1',
+//     icon: 'icon-menu1',
+//     children: [
+//       {
+//         id: '0031',
+//         name: '首页导航1',
+//         url: '/views/authorityManagement/roleManagement',
+//       },
+//     ],
+//   },
+//   {
+//     id: '005',
+//     name: '测试页2',
+//     icon: 'icon-menu1',
+//     children: [
+//       {
+//         id: '0051',
+//         name: '首页导航11',
+//         url: '/views/authorityManagement/organizationalStructure',
+//       },
+//     ],
+//   }
+// ] as any);
 
 onMounted(async () => {
   const params = {

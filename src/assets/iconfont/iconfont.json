@@ -6,6 +6,55 @@
   "description": "zh-admin-vue项目",
   "glyphs": [
     {
+      "icon_id": "2966209",
+      "name": "下拉",
+      "font_class": "xiala",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "999117",
+      "name": "布局",
+      "font_class": "ai216",
+      "unicode": "e6cc",
+      "unicode_decimal": 59084
+    },
+    {
+      "icon_id": "8802660",
+      "name": "块布局",
+      "font_class": "kuaibuju",
+      "unicode": "e652",
+      "unicode_decimal": 58962
+    },
+    {
+      "icon_id": "9512579",
+      "name": "布局",
+      "font_class": "layout-fill",
+      "unicode": "e627",
+      "unicode_decimal": 58919
+    },
+    {
+      "icon_id": "16383220",
+      "name": "布局",
+      "font_class": "buju",
+      "unicode": "e718",
+      "unicode_decimal": 59160
+    },
+    {
+      "icon_id": "20905071",
+      "name": "布局",
+      "font_class": "buju1",
+      "unicode": "e646",
+      "unicode_decimal": 58950
+    },
+    {
+      "icon_id": "23238233",
+      "name": "布局-fill",
+      "font_class": "layout-2-fill",
+      "unicode": "e617",
+      "unicode_decimal": 58903
+    },
+    {
       "icon_id": "15838495",
       "name": "fullscreen-shrink",
       "font_class": "fullscreen-shrink",

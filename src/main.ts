@@ -7,6 +7,8 @@ import "./assets/iconfont/iconfont.css";
 import App from './App.vue';
 import { createApp } from 'vue';
 import { createPinia } from 'pinia';
+import { createPersistedState } from 'pinia-plugin-persistedstate';
+
 import { setupRouter } from '@/router';
 import { setupRouterGuard } from '@/router/guard';
 import ElementPlus from 'element-plus';
@@ -26,7 +28,17 @@ async function boostrap() {
   const app = createApp(App);
 
   // 配置 store
-  app.use(createPinia());
+  const store = createPinia();
+  store.use(createPersistedState({
+    storage: sessionStorage,
+    // beforeRestore: () => {},
+    // afterRestore: () => {},
+    serializer: {
+      serialize: JSON.stringify,
+      deserialize: JSON.parse,
+    }
+  }));
+  app.use(store);
 
   if (process.env.NODE_ENV === 'dev') { setupMock(); }
 

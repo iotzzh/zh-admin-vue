@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="layout" v-loading="loading">
     <div :class="collapse ? 'left' : 'left-fold'">
       <Sidebar />
     </div>
@@ -18,9 +18,15 @@
 import { Sidebar, Navbar, AppMain, TagsView } from './components';
 import { storeToRefs } from 'pinia';
 import { useLayoutStore } from '../store';
+import { onMounted, ref } from 'vue';
 
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);
+
+const loading = ref(true);
+
+
+onMounted(() => { loading.value = false; });
 </script>
 
 

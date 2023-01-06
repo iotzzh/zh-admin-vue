@@ -8,7 +8,17 @@
 
     <div class="options-box">
       <div>刷</div>
-      <div>下</div>
+      <div>
+        <el-dropdown :hide-on-click="false" class="name" @command="changeDropdownCloseTag">
+        <span><i class="iconfont icon-xiala"></i></span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item command="closeother">关闭其他</el-dropdown-item>
+            <!-- <el-dropdown-item command="closeall">关闭全部</el-dropdown-item> -->
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
+      </div>
       <div @click="toggleFullScreen">
         <i v-if="fullScreen" class="iconfont icon-fullscreen-shrink"></i>
         <i v-else class="iconfont icon-fullscreen-expand"></i>
@@ -34,9 +44,9 @@ onBeforeRouteUpdate((to) => {
   store.addCachedViews(to);
 });
 
-const handleTags = (command: string) => {
+const changeDropdownCloseTag = (command: string) => {
   // console.log(command);
-  if (command === 'other') {
+  if (command === 'closeother') {
     const activeViewPath: any = router.currentRoute.value.meta.fatherPath ? router.currentRoute.value.meta.fatherPath : router.currentRoute.value.fullPath;
     const activeView: any = cachedViews.value.find(x => x.fullPath === activeViewPath);
     store.updateCachedViews([activeView]);
@@ -128,5 +138,10 @@ const toggleFullScreen = () => {
     margin-left: 5px;
     // margin-right: 5px;
   }
+}
+
+.iconfont {
+  margin: 0px;
+  padding: 0px;
 }
 </style>

@@ -35,6 +35,9 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
+      <span class="setting-icon" @click="changeLayout">
+        <i class="iconfont icon-ai216"></i> 
+      </span>
       <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
         <span>个人信息（头像 + Name）</span>
         <template #dropdown>
@@ -43,9 +46,6 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-      <span class="setting-icon" @click="changeLayout"><el-icon>
-          <Setting />
-        </el-icon></span>
     </div>
   </div>
 </template>
@@ -59,56 +59,58 @@ import UIHelper from '@/utils/uiHelper';
 import { router } from '@/router';
 import { RouteRecordRaw } from 'vue-router';
 import ZHRequest from '@/components/zh-request';
+import { updateMenuToRouter } from '@/utils/dataConvert';
 const store = useLayoutStore();
 
 // const userInfo = storage.getUserInfo();
 
+const menuList = ref([] as any);
 
-let menuList = ref([
-  {
-    id: '001',
-    name: '首页导航',
-    url: '/dashboard',
-    icon: 'icon-menu1',
-  },
-  {
-    id: '002',
-    name: '测试页',
-    icon: 'icon-menu1',
-    children: [
-      {
-        id: '003',
-        name: '首页导航',
-        url: '/layoutExamplesExample1',
-        icon: 'icon-menu1',
-      },
-    ],
-  },
-  {
-    id: '004',
-    name: '测试页1',
-    icon: 'icon-menu1',
-    children: [
-      {
-        id: '0031',
-        name: '首页导航1',
-        url: '/tableExample1',
-      },
-    ],
-  },
-  {
-    id: '005',
-    name: '测试页2',
-    icon: 'icon-menu1',
-    children: [
-      {
-        id: '0051',
-        name: '首页导航11',
-        url: '/tableExample2',
-      },
-    ],
-  }
-] as any);
+// let menuList = ref([
+//   {
+//     id: '001',
+//     name: '首页导航',
+//     url: '/dashboard',
+//     icon: 'icon-menu1',
+//   },
+//   {
+//     id: '002',
+//     name: '测试页',
+//     icon: 'icon-menu1',
+//     children: [
+//       {
+//         id: '003',
+//         name: '首页导航',
+//         url: '/layoutExamplesExample1',
+//         icon: 'icon-menu1',
+//       },
+//     ],
+//   },
+//   {
+//     id: '004',
+//     name: '测试页1',
+//     icon: 'icon-menu1',
+//     children: [
+//       {
+//         id: '0031',
+//         name: '首页导航1',
+//         url: '/tableExample1',
+//       },
+//     ],
+//   },
+//   {
+//     id: '005',
+//     name: '测试页2',
+//     icon: 'icon-menu1',
+//     children: [
+//       {
+//         id: '0051',
+//         name: '首页导航11',
+//         url: '/tableExample2',
+//       },
+//     ],
+//   }
+// ] as any);
 
 
 onMounted(async () => {
@@ -140,52 +142,29 @@ const toggleFullScreen = () => {
 };
 
 // const router = useRouter();
-const changeLayout = () => {
-  const roots = router.getRoutes();
+const changeLayout = async () => {
+  const roots = router!.getRoutes();
   const rootName = roots[roots.length - 1].name || '';
-  router.removeRoute(rootName);
-  // RouteRecordRaw
-  const rou: RouteRecordRaw = {
+  router!.removeRoute(rootName);
+
+  const params = {
+    url: '/api/menu/list',
+    conditions: {},
+  };
+  const result = await ZHRequest.post(params);
+  console.log(result);
+  // RouteRecordRaw[]
+  const routes:RouteRecordRaw[] = result.data.records;
+  updateMenuToRouter(routes);
+  const rou: RouteRecordRaw =  {
     path: '/',
     component: () => import('@/layout/verticalLayout/index.vue'),
     name: 'root1',
-    children: [
-    {
-        path: 'dashboard',
-        name: 'dashboard',
-        component: () => import('@/views/dashboard/index.vue'),
-        meta: {
-          title: '首页',
-        },
-      },
-      {
-        path: '/layoutExamplesExample1',
-        name: 'layoutExamplesExample1',
-        component: () => import('@/examples/zh-layout-examples/eaxmple1.vue'),
-        meta: {
-          title: 'layoutExamplesExample1',
-        },
-      },
-      {
-        path: '/tableExample1',
-        name: 'tableExample1',
-        component: () => import('@/examples/zh-table-examples/example1.vue'),
-        meta: {
-          title: 'tableExample1',
-        },
-      },
-      {
-        path: '/tableExample2',
-        name: 'tableExample2',
-        component: () => import('@/examples/zh-virtual-scroll-table-examples/example1.vue'),
-        meta: {
-          title: 'tableExample2',
-        },
-      }
-    ]
+    children: routes,
   };
-  router.addRoute(rou);
-  router.push('/dashboard');
+
+  router!.addRoute(rou);
+  router!.push('/authorityManagement/userManagement');
 };
 </script>
 

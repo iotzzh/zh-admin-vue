@@ -1,5 +1,5 @@
 <template>
-  <div class="layout">
+  <div class="layout" v-loading="loading">
     <NavigationBar />
     <div class="tags-content">
       <TagsView />
@@ -9,12 +9,11 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { NavigationBar, AppMain, TagsView } from './components';
 
-onMounted(() => {
-  console.log();
-});
+const loading = ref(true);
+onMounted(() => { loading.value = false; });
 </script>
 
 
