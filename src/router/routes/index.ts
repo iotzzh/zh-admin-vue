@@ -28,7 +28,7 @@ export const basicRoutes: Array<RouteRecordRaw> = [
     },
     {
       path: '/login',
-      component: () => import('@/views/login/Index.vue'),
+      component: () => import('@/views/login/index.vue'),
       name: '登录',
       meta: {
         title: 'login',

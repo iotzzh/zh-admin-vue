@@ -31,6 +31,9 @@ import storage from '@/utils/storage';
 import { convertMenuArrToTree } from '@/utils/dataConvert';
 import { popErrorMessage, popSuccessMessage } from '@/components/zh-message';
 import { useLayoutStore } from '@/layout/store';
+// import ImgLoginBg from '@/assets/img/loginBg.png';
+ 
+
 const router = useRouter();
 const store = useLayoutStore();
 
@@ -54,52 +57,52 @@ const userLabListHs = ref([]) as any; //实验室
 
 // 登录
 const login = async () => {
-  const params = { url: api.login, conditions: { loginPass: inputPassword.value, loginId: inputAccount.value }, errorMessage: '登录失败' } as RequestParamsModel;
-  const result = await get(params);
-  if (!result.success) return;
-  popSuccessMessage('登录成功！');
-  setFormInfo();
-  setUserInfo(result.data);
-  setToken(result.data.token);
-  // console.log('登录返回值：：：', result);
-  if (result.data.userLabList.length > 1) {
-    showLoginForm.value = false;
-    userLabListHs.value = result.data.userLabList;
-  } else if (result.data.userLabList.length === 1) {
-    const params = { labCode: result.data.userLabList[0].labCode, labName: result.data.userLabList[0].labName, };
-    goTo(params, 1); //只有一个实验室
-  } else {
-    popErrorMessage(result.errorMsg);
-  }
+  // const params = { url: api.login, conditions: { loginPass: inputPassword.value, loginId: inputAccount.value }, errorMessage: '登录失败' } as RequestParamsModel;
+  // const result = await get(params);
+  // if (!result.success) return;
+  // popSuccessMessage('登录成功！');
+  // setFormInfo();
+  // setUserInfo(result.data);
+  // setToken(result.data.token);
+  // // console.log('登录返回值：：：', result);
+  // if (result.data.userLabList.length > 1) {
+  //   showLoginForm.value = false;
+  //   userLabListHs.value = result.data.userLabList;
+  // } else if (result.data.userLabList.length === 1) {
+  //   const params = { labCode: result.data.userLabList[0].labCode, labName: result.data.userLabList[0].labName, };
+  //   goTo(params, 1); //只有一个实验室
+  // } else {
+  //   popErrorMessage(result.errorMsg);
+  // }
 };
 
 // 添加监听enter事件
 onMounted(() => {
-  const isCloud = storage.getIsCloud();
-  sysName.value = isCloud ? '云实验室LIS系统' : '实验室LIS系统';
-  const loginFormInfo: any = storage.getLoginFormInfo();
-  if (loginFormInfo && loginFormInfo.rememberPass) {
-    rememberPassword.value = true;
-    inputPassword.value = loginFormInfo.pass;
-    inputAccount.value = loginFormInfo.account;
-  } else {
-    rememberPassword.value = false;
-    inputPassword.value = '';
-    inputAccount.value = '';
-  }
+  // const isCloud = storage.getIsCloud();
+  // sysName.value = isCloud ? '云实验室LIS系统' : '实验室LIS系统';
+  // const loginFormInfo: any = storage.getLoginFormInfo();
+  // if (loginFormInfo && loginFormInfo.rememberPass) {
+  //   rememberPassword.value = true;
+  //   inputPassword.value = loginFormInfo.pass;
+  //   inputAccount.value = loginFormInfo.account;
+  // } else {
+  //   rememberPassword.value = false;
+  //   inputPassword.value = '';
+  //   inputAccount.value = '';
+  // }
 });
 
 const goTo = async (value: any, num: number) => {
-  //切换实验室
-  const params = { url: api.changeLab, conditions: { labCode: value.labCode, labName: value.labName, labLibraryName: value.labName, topicName: value.labCode }, } as RequestParamsModel;
-  const res = await postWithoutCommonParams(params);
-  if (res.success) {
-    // 存取实验室code和name
-    setCommoParams({ labCode: res.data.labCode, labName: res.data.labName, labLibraryName: res.data.labName, topicName: res.data.labCode });
-    await getMenus();
-  } else {
-    popErrorMessage(res.errorMsg);
-  }
+  // //切换实验室
+  // const params = { url: api.changeLab, conditions: { labCode: value.labCode, labName: value.labName, labLibraryName: value.labName, topicName: value.labCode }, } as RequestParamsModel;
+  // const res = await postWithoutCommonParams(params);
+  // if (res.success) {
+  //   // 存取实验室code和name
+  //   setCommoParams({ labCode: res.data.labCode, labName: res.data.labName, labLibraryName: res.data.labName, topicName: res.data.labCode });
+  //   await getMenus();
+  // } else {
+  //   popErrorMessage(res.errorMsg);
+  // }
   
 };
 
@@ -121,11 +124,11 @@ const getMenus = async () => {
 
 // 查询用户菜单接口
 const getMenusList = async () => {
-  const params = { url: api.getMenus, conditions: {}, errorMessage: '获取菜单数据失败' } as RequestParamsModel;
-  const result = await post(params);
-  if (!result.success) return;
-  const menuList = convertMenuArrToTree(result.data);
-  return menuList;
+  // const params = { url: api.getMenus, conditions: {}, errorMessage: '获取菜单数据失败' } as RequestParamsModel;
+  // const result = await post(params);
+  // if (!result.success) return;
+  // const menuList = convertMenuArrToTree(result.data);
+  // return menuList;
 };
 
 </script>
