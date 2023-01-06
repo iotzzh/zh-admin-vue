@@ -6,7 +6,7 @@ export interface TZHFormSettings {
   fields?: Array<TZHFromField>
   hideUnimportantFields?: boolean
 
-  customModel: { [x: string]: any } // 自定义额外字段
+  customModel?: { [x: string]: any } // 自定义额外字段
   customValidate?: (modelValue: { [x: string]: any }) => boolean // 自定义额外的校验
 }
 

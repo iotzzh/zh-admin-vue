@@ -21,7 +21,7 @@
               @click="(e: any) => openModal(2, e, node, data)">
               <edit-pen />
             </el-icon>
-            
+
             <el-icon v-if="treeSettings.hasDelete" class="icon" color="#FF0000" @click="remove(node, data)">
               <delete />
             </el-icon>
@@ -36,16 +36,16 @@
       <span v-else style="color: #767C88;">暂<br />无<br />数<br />据</span>
     </div>
 
-    <ZhFormModal v-if="treeSettings.formSettings" :modal="modal" v-model="formModel"
-      :formSettings="treeSettings.formSettings" @cancel="() => modal.show = false" @close="() => modal.show = false"
-      @submit="submit"></ZhFormModal>
+    <ZhModalForm v-if="treeSettings.modal?.formSettings" :modal="modal" v-model="formModel"
+      :formSettings="treeSettings.modal?.formSettings" @cancel="() => modal.show = false"
+      @close="() => modal.show = false" @submit="submit"></ZhModalForm>
   </div>
 </template>
 
 <script setup lang="ts">
 import { toRefs, PropType, computed, ref, reactive, Ref, watch, onMounted } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
-import ZhFormModal from '../zh-form-modal/index.vue';
+import ZhModalForm from '../zh-modal-form/index.vue';
 import { TZHModal } from '../zh-modal/type';
 import { TZHFromField } from '../zh-form/type';
 import { TZHTreeRequest, TZHTreeSetting } from './type';
@@ -138,7 +138,7 @@ const modal = ref({ show: false, title: '新增', loadingSubmit: false } as TZHM
 // 0: 总， 1：新增， 2：编辑
 const openModal = (type: number, e?: any, node?: any, data?: any) => {
   e && e.stopPropagation();
-  const fields = treeSettings!.value!.formSettings!.fields as TZHFromField[];
+  const fields = treeSettings!.value!.modal?.formSettings!.fields as TZHFromField[];
   if (type === 0) {
     modal.value.type = 'add';
   } else if (type === 1) {
@@ -150,6 +150,8 @@ const openModal = (type: number, e?: any, node?: any, data?: any) => {
   } else { }
 
   modal.value.show = true;
+
+  modal.value = { ...modal.value, ...treeSettings.value.modal };
 };
 
 const closeModal = () => {

@@ -1,3 +1,4 @@
+import { TZHModalForm } from '../zh-modal-form/type';
 import { TZHFromField, TZHFormSettings } from '../zh-form/type';
 //#region Request
 export interface TZHTableRequest {
@@ -88,8 +89,8 @@ export interface TZHTableSetting {
   onBeforeInitData?: Function // 在初始化数据之前执行
 }
 
-export interface TZHTableModal extends TZHFormSettings {
-  customModel: {[x:string]: any}
+export interface TZHTableModal extends TZHModalForm {
+  customModel?: {[x:string]: any}
 }
 
 export interface TZHTableColumn {

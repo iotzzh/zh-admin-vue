@@ -14,4 +14,10 @@ export default {
     updateMenu: api + '/menu/update',
     deleteMenu: api + '/menu/delete',
     batchDeleteMenu: api + '/menu/batchDelete',
+
+    // 组织管理
+    getOrgList: api + '/org/list',
+    addOrg: api + '/org/add',
+    updateOrg: api + '/org/update',
+    deleteOrg: api + '/org/delete',
 };

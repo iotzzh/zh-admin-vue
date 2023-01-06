@@ -1,5 +1,5 @@
 import { computed, Ref, ref, nextTick } from 'vue';
-import { TZHFormModal } from '../zh-form-modal/type';
+import { TZHModalForm } from '../zh-modal-form/type';
 import { TZHTableRequest, TZHTableRequestResult, TZHTableColumnAddEditInfo, TZHTableFromField, TZHFromFieldConvertDateTime, TZHTableSetting, TZHTableColumn, TObject } from './type';
 import Table from './table';
 import ZHRequest from '../zh-request';
@@ -45,12 +45,12 @@ export default class Modal {
           ...y.addEditInfo,
         };
       }).sort((m:any, n: any) => m.addSort - n.addSort > 0 ? 1 : -1),
-      customValidate: this.tableSettings.value.modal?.customValidate,
-      ... this.tableSettings.value.modal
+      customValidate: this.tableSettings.value.modal?.formSettings && this.tableSettings.value.modal?.formSettings.customValidate,
+      ... this.tableSettings.value.modal?.formSettings
     } as TZHFormSettings;
   });
 
-  modal = ref({ show: false, title: '新增', loadingSubmit: false, } as TZHFormModal);
+  modal = ref({ show: false, title: '新增', loadingSubmit: false, } as TZHModalForm);
 
   formModel = ref({} as any);
   convertedModel = ref({} as any);

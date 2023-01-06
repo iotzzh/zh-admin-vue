@@ -55,22 +55,11 @@ const tableSettings = reactive({
     hasSelection: true,
     rowKey: 'id',
     modal: {
-        customModel: {},
-        footer: {
-            hasCancelButton: true,
-            hasSubmitButton: true,
+        title: '',
+        footer: {},
+        formSettings: {
+            formLabelWidth: '90px',
         },
-        formLabelWidth: '90px',
-        // customValidate: (model: { [x: string]: any }) => {
-        //     console.log('customValidate', model);
-        //     if (model.sex === 0) {
-        //         popErrorMessage('男若磐石，不变不移~');
-        //         return false;
-        //     }
-        //     return true;
-        // },
-
-
     },
     columns: [
         {

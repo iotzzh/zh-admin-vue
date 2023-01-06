@@ -1,10 +1,10 @@
 export interface TZHModal {
-  show: boolean
+  show?: boolean
   width?: string
   loadingSubmit?: boolean
   loadingPage?: boolean
   bodyHeight?: string | number
-  title: string
+  title?: string
   // 暂存数据
   data?: any
   type?: any
@@ -16,6 +16,6 @@ export interface TZHModal {
 }
 
 export interface TZHModalFooter {
-  hasCancelButton?: boolean,
-  hasSubmitButton?: boolean,
+  hasCancelButton?: boolean
+  hasSubmitButton?: boolean
 }

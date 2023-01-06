@@ -1,4 +1,6 @@
 import { TZHFormSettings } from '../zh-form/type';
+import { TZHModalForm } from '../zh-modal-form/type';
+import { TZHTableModal } from '../zh-table/type';
 
 export interface TZHTreeSetting {
   hasAdd?: boolean
@@ -8,7 +10,11 @@ export interface TZHTreeSetting {
   hasRootAdd?: boolean
   labelDisplayMaxLength?: number
 
-  formSettings?: TZHFormSettings
+  modal?: TZHTreeModal // 弹窗配置
+}
+
+export interface TZHTreeModal extends TZHModalForm {
+  customModel?: {[x:string]: any}
 }
 
 export interface TZHTreeRequest {
