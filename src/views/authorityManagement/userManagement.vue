@@ -2,6 +2,10 @@
 <template>
     <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
         :usePage="true" :request="request" @changeModel="changeModel">
+        <template v-slot:zh-table-status="scope">
+            <div v-if="scope.row.status">在职</div>
+            <div v-else>不在职</div>
+        </template>
     </Table>
 </template>
 
@@ -71,7 +75,7 @@ const tableSettings = reactive({
                 addSort: 1,
                 defaultValue: '',
                 placeholder: '请输入',
-                span: 8,
+                span: 12,
                 required: true,
             }
         },
@@ -85,14 +89,15 @@ const tableSettings = reactive({
                 addSort: 2,
                 defaultValue: '',
                 placeholder: '请输入',
-                span: 8,
+                span: 12,
                 required: true,
             }
         },
         {
             label: '性别', prop: 'sex', convert: (row: any) => row.sex === 0 ? '男' : '女', allowCellEdit: true,
             addEditInfo: {
-                type: 'select', defaultValue: 0, addSort: 3, placeholder: '请选择', span: 8, options: [{ label: '男', value: 0 }, { label: '女', value: 1 }], required: true,
+                type: 'select', defaultValue: 0, addSort: 3, placeholder: '请选择', span: 12, 
+                options: [{ label: '男', value: 0 }, { label: '女', value: 1 }], required: true,
             }
         },
         {
@@ -102,37 +107,41 @@ const tableSettings = reactive({
                 addSort: 4,
                 defaultValue: '',
                 placeholder: '请输入',
-                span: 8,
+                span: 12,
                 required: true,
             }
         },
-        {
-            label: '生日', prop: 'test', notDisplay: true,
-            addEditInfo: {
-                type: 'input',
-                addSort: 5,
-                defaultValue: '',
-                placeholder: '请输入',
-                span: 8,
-                required: true,
-            }
-        },
+        // {
+        //     label: '生日', prop: 'test', notDisplay: true,
+        //     addEditInfo: {
+        //         type: 'input',
+        //         addSort: 5,
+        //         defaultValue: '',
+        //         placeholder: '请输入',
+        //         span: 8,
+        //         required: true,
+        //     }
+        // },
         {
             label: '手机号', prop: 'phone', addEditInfo: {
                 addSort: 6,
-                type: 'input', defaultValue: null, placeholder: '请输入', span: 8, required: true,
+                type: 'input', defaultValue: null, placeholder: '请输入', span: 12, required: true,
             }
         },
-        {
-            label: '工号', prop: 'employeeNum', addEditInfo: {
-                addSort: 5,
-                type: 'input', defaultValue: null, placeholder: '请输入', span: 8, required: true,
-            }
-        },
+        // {
+        //     label: '工号', prop: 'employeeNum', addEditInfo: {
+        //         addSort: 5,
+        //         type: 'input', defaultValue: null, placeholder: '请输入', span: 8, required: true,
+        //     }
+        // },
         {
             label: '角色', prop: 'role', addEditInfo: {
-                type: 'input', defaultValue: null, addSort: 7, placeholder: '请输入', span: 8,
+                type: 'input', defaultValue: null, addSort: 7, placeholder: '请输入', span: 12,
             }
+        },
+
+        {
+            label: '状态', prop: 'status', useSlot: true,
         },
     ],
     actionColumn: {

@@ -52,7 +52,7 @@
 
               <!-- 自定义内容 -->
               <template v-else-if="item.useSlot">
-                <slot :name="'table-' + item.prop" :row="scope.row" :index="scope.$index" :label="item.label" />
+                <slot :name="'zh-table-' + item.prop" :row="scope.row" :index="scope.$index" :label="item.label" />
               </template>
 
               <span v-else>

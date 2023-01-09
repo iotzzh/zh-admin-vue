@@ -22,6 +22,7 @@ export default [
           'id|+1': Math.round(new Date() as any), // 加一
           name: '@cname', // 随机姓名
           'sex|0-1': 0, // 0-1随机
+          'status|0-1': 0, // 0-1随机
           'age|0-180': 180, // 0-180随机
           phone: '@phone',
           employeeNum: '@workNumber',
