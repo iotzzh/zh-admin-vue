@@ -32,6 +32,7 @@ const updateMenuToRouter = (array: Array<any>) => {
     for (let i = 0; i < array.length; i++) {
         array[i].meta = { ...array[i].meta };
         array[i].meta.title = array[i].permsionName;
+        array[i].name = array[i].routeName;
         array[i].path = array[i].url || '/';
 
         if (array[i].menuType === 2) {

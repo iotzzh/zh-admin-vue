@@ -49,6 +49,7 @@ export default [
                               'parentId': '83065105051861056',
                               'permsionName': '用户管理',
                               'url': '/userManagement',
+                              'routeName': 'userManagement',
                               'filePath': 'views/authorityManagement/userManagement',
                               'menuType': 2,
                               'permsionCode': 'NJHS:/publicSystems/authorityManagement/userManagement',

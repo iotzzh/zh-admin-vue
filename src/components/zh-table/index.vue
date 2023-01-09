@@ -117,6 +117,7 @@
             @click.stop="modalInstance.openEditModal(scope.row)">编辑</el-button>
           <el-button v-if="tableSettings.actionColumn?.hasRowDeleteAction" link type="danger" size="small"
             :icon="Delete" @click.stop="table.rowDelete(scope.row)">删除</el-button>
+
           <el-button v-for="(item, buttonIndex) in tableSettings.actionColumn.buttons" :key="buttonIndex" link
             v-show="!item?.hide" :type="item?.type" :size="item?.size ? item.size : 'small'" :icon="item?.icon"
             :style="item?.style" @click.stop="item?.onClick && item?.onClick(scope.row, scope.$index)">{{ item.label }}
@@ -199,6 +200,9 @@ const {
 
 const refZHForm = ref();
 
+const emit = defineEmits(['changeModel']);
+
+
 //#region common
 // 分页的组件内部数据
 const pageData: Ref<TZHTablePage> = ref({
@@ -219,6 +223,8 @@ watch(
     if (!form._compareNeedTriggerSearchFieldsIsEqual(newVal, oldVal)) {
       table.debounceInitData();
     }
+
+    emit('changeModel', newVal);
   }, { immediate: false });
 
 // 自定义插槽

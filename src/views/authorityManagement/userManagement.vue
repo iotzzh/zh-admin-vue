@@ -1,27 +1,17 @@
 <!-- 用户管理 -->
 <template>
     <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
-        :usePage="true" :request="request">
-        <template v-slot:zh-table-form-test>
-            <el-input placeholder="请输入自定义搜索" v-model="formSettings.customModel!.test"></el-input>
-        </template>
+        :usePage="true" :request="request" @changeModel="changeModel">
     </Table>
 </template>
 
 <script lang="ts" setup>
-import { TZHFromField } from '@/components/zh-form/type';
 import Table from '@/components/zh-table/index.vue';
-import { TObject, TZHTableRequest, TZHTableFormSettings, TZHTableSetting, TZHTableColumn } from '@/components/zh-table/type';
+import { TZHTableRequest, TZHTableFormSettings, TZHTableSetting } from '@/components/zh-table/type';
 import { onMounted, reactive, ref } from 'vue';
 import api from '@/api/authorityManagement';
-import { popErrorMessage } from '@/components/zh-message';
 
 const refZHTable = ref();
-
-const getSearchFormModel = () => {
-    const model = refZHTable.value.getSearchFormModel();
-    console.log(model);
-};
 
 const formSettings = ref({
     hasAddButton: true,
@@ -45,8 +35,15 @@ const formSettings = ref({
     fields: [
         { label: '手机号', type: 'input', prop: 'name', width: '200px', },
         { label: '姓名', type: 'input', prop: 'name111', width: '200px', },
-        { label: '登录账号', type: 'input', prop: 'name111', width: '200px', },
-        { label: '员工编号', type: 'input', prop: 'name111', width: '200px', }
+        // { label: '登录账号', type: 'input', prop: 'name111', width: '200px', },
+        { label: '员工编号', type: 'input', prop: 'name1111', width: '200px', },
+        {
+            label: '状态', type: 'select', prop: 'name11111', width: '200px', defaultValue: 0,
+            options: [
+                { label: '在职', value: 0 },
+                { label: '离职', value: 1 },
+            ],
+        },
     ],
 } as TZHTableFormSettings);
 
@@ -134,7 +131,7 @@ const tableSettings = reactive({
         },
         {
             label: '角色', prop: 'role', addEditInfo: {
-                type: 'input', defaultValue: null, addSort: 7,  placeholder: '请输入', span: 8,
+                type: 'input', defaultValue: null, addSort: 7, placeholder: '请输入', span: 8,
             }
         },
     ],
@@ -144,7 +141,8 @@ const tableSettings = reactive({
         hasRowDeleteAction: true,
         hasRowEditAction: true,
         buttons: [
-            { label: '重置密码', type: 'primary', icon: 'Refresh', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } }
+            { label: '重置密码', hide: false, type: 'primary', icon: 'Refresh', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
+            { label: '激活', hide: true, type: 'primary', icon: 'Refresh', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
         ],
     },
 } as TZHTableSetting);
@@ -164,6 +162,33 @@ const request = ref({
     batchDelete: { url: api.batchDeleteUser, successMessage: '批量删除成功', errorMessage: '批量删除失败' },
 } as TZHTableRequest);
 
+
+const changeModel = (model: any) => {
+    const actionColumn = tableSettings?.actionColumn;
+    const button0 = tableSettings?.actionColumn?.buttons && tableSettings?.actionColumn?.buttons[0];
+    const button1 = tableSettings?.actionColumn?.buttons && tableSettings?.actionColumn?.buttons[1];
+    if (model.name11111) {
+        button0!.hide = true;
+        button1!.hide = false;
+        actionColumn!.hasRowDeleteAction = false;
+        actionColumn!.hasRowEditAction = false;
+        formSettings.value.hasAddButton = false;
+        formSettings.value.hasDeleteButton = false;
+    } else {
+        button0!.hide = false;
+        button1!.hide = true;
+        actionColumn!.hasRowDeleteAction = true;
+        actionColumn!.hasRowEditAction = true;
+
+        formSettings.value.hasAddButton = true;
+        formSettings.value.hasDeleteButton = true;
+    }
+};
+
+</script>
+
+<script lang="ts">
+export default { name: 'userManagement' };
 </script>
 
 <style lang="scss" scoped>

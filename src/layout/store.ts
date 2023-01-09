@@ -20,6 +20,7 @@ export const useLayoutStore = defineStore({
   
   actions: {
     addCachedViews(route: any):void {
+      if (!route.name) return;
       if (!this.cachedViews.find((x:any) => x.fullPath == route.fullPath) && !route.meta.fatherPath) this.cachedViews.push(route);
     },
 
