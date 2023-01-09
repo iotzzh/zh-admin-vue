@@ -2,7 +2,8 @@
   <div class="zh-tree" v-loading="loadingTree">
     <el-input v-model="filterText" placeholder="过滤搜索" style="width: 100%;" />
     <el-button v-if="treeSettings.hasRootAdd" type="success" @click="openModal(0)">新增</el-button>
-    <el-tree v-if="tData && tData.length > 0" ref="refZHTree" class="tree" :data="tData" :props="defaultProps"
+    <el-scrollbar class="scrollbar">
+      <el-tree v-if="tData && tData.length > 0" ref="refZHTree" class="tree" :data="tData" :props="defaultProps"
       :indent="0" default-expand-all :filter-node-method="filterNode">
       <template #default="{ node, data }">
         <span class="custom-tree-node">
@@ -36,6 +37,7 @@
       </el-icon>
       <span v-else style="color: #767C88;">暂<br />无<br />数<br />据</span>
     </div>
+    </el-scrollbar>
 
     <ZhModalForm v-if="treeSettings.modal?.formSettings" :modal="modal" v-model="formModel"
       :formSettings="treeSettings.modal?.formSettings" @cancel="() => modal.show = false"

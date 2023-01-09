@@ -2,7 +2,7 @@
     <el-row class="row" :gutter="10">
      <el-col class="column" :span="12">
         <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
-         :usePage="true" :requestTable="request">
+         :usePage="true" :requestTable="requestTable">
          <template v-slot:zh-table-form-test>
              <el-input placeholder="请输入自定义搜索" v-model="formSettings.customModel!.test"></el-input>
          </template>
@@ -10,7 +10,7 @@
      </el-col>
      <el-col class="column" :span="12">
        <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
-         :usePage="true" :requestTable="request">
+         :usePage="true" :requestTable="requestTable">
          <template v-slot:zh-table-form-test>
              <el-input placeholder="请输入自定义搜索" v-model="formSettings.customModel!.test"></el-input>
          </template>
@@ -29,40 +29,7 @@
  import api from '@/api/authorityManagement';
  import { popErrorMessage } from '@/components/zh-message';
  
- const treeSettings = ref({
-     hasEmptyAdd: true,
-     hasRootAdd: true,
-     hasAdd: true,
-     hasEdit: true,
-     hasDelete: true,
-     labelDisplayMaxLength: 30,
-     modal: {
-         footer: {
-             hasCancelButton: true,
-             hasSubmitButton: true,
-         },
-         formSettings: {
-             formLabelWidth: '50px',
-         fields: [
-             { label: '父级', prop: 'parent', type: 'input', span: 12, },
-             { label: '禁用', prop: 'parent1', type: 'input', span: 12, disabled: true, defaultValue: 'Test' },
-             { label: '名称', prop: 'name', type: 'select', span: 12, options: [{ label: 'zzh', value: 'zzh' }, { label: 'lff', value: 'lff' }] },
-         ],
-         },
-     },
  
- } as TZHTreeSetting);
- 
- const defaultProps = ref({
-     label: 'label',
- });
- 
- const request = ref({
-     urlGet: api.getOrgList,
-     urlAdd: api.addOrg,
-     urlEdit: api.updateOrg,
-     urlDelete: api.deleteOrg,
- } as TZHTreeRequest);
  
  const refZHTable = ref();
  

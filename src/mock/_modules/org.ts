@@ -21,7 +21,7 @@ export default [
                         { id: 2, label: '目录2', age: 28, parent: 0 },
                         { id: 2.1, label: '目录2.1', age: 22, parent: 2 },
                         { id: 2.2, label: '目录2.2', age: 22, parent: 2 },
-                        { id: 2.21, label: '目录2.2.1', age: 221, parent: 2.2 },
+                        { id: 2.21, label: '目录2.2.1', age: 221, parent: 2.2 }
                     ],
                 },
             };
