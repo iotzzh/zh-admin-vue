@@ -11,6 +11,7 @@
             :content="getTooltipHTMLContent(node[defaultProps.label])" placement="top" style="width: 100%;" raw-content>
             <span>{{ getTooltipOriginContent(node[defaultProps.label]) }}</span>
           </el-tooltip>
+
           <span class="actions">
             <el-icon v-if="treeSettings.hasAdd" class="icon" color="#6196EA"
               @click="(e: any) => openModal(1, e, node, data)">
@@ -104,7 +105,7 @@ const filterNode = (value: string, data: any) => {
 };
 
 const getTooltipHTMLContent = (content: string) => {
-  return '<div style="width: 500px; word-break: break-all;">' + content + '</div>';
+  return '<div style="width: 300px; word-break: break-all;">' + content + '</div>';
 };
 
 const getTooltipOriginContent = (content: string) => {

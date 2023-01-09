@@ -14,8 +14,8 @@ export default [
                 data: {
                     total: 110,
                     records: [
-                        { id: 1, label: '目录11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111', age: 18, parent: 0 },
-                        { id: 1.1, label: '目录1.1', age: 2, parent: 1 },
+                        { id: 1, label: '南京实验室江北', age: 18, parent: 0 },
+                        { id: 1.1, label: '南京实验室江北分实验室', age: 2, parent: 1 },
                         { id: 1.2, label: '目录1.2', age: 12, parent: 1 },
                         { id: 1.21, label: '目录1.2.1', age: 121, parent: 1.2 },
                         { id: 2, label: '目录2', age: 28, parent: 0 },

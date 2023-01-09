@@ -31,19 +31,35 @@
     flex: 1;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    // justify-content: space-between;
     width: 100%;
-  }
 
-  .actions {
-    // width: 70px;
-    .icon {
-      margin-right: 7px;
+    span {
+      display: block;
+    }
+
+    &:deep(.el-tooltip__trigger) {
+      flex: 1;
+    }
+
+    .el-tooltip__trigger {
+      flex: 1;
+    }
+
+    .custom-tree-node-tooltip {
+      flex: 1;
+    }
+
+    .actions {
+      width: 70px;
+      .icon {
+        margin-right: 7px;
+      }
     }
   }
 
-  .custom-tree-node-tooltip {
-    width: 100px;
-    overflow: hidden;
-  }
+  // .custom-tree-node-tooltip {
+  //   width: 100px;
+  //   overflow: hidden;
+  // }
 }

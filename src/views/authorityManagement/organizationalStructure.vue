@@ -1,10 +1,10 @@
 <template>
    <el-row class="row" :gutter="10">
-    <el-col class="column" :span="12">
+    <el-col class="column" :span="6">
       <ZHTree :treeSettings="treeSettings" :defaultProps="defaultProps" :request="request">
     </ZHTree>
     </el-col>
-    <el-col class="column" :span="12">
+    <el-col class="column" :span="18">
       <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
         :usePage="true" :requestTable="request">
         <template v-slot:zh-table-form-test>
@@ -31,18 +31,27 @@ const treeSettings = ref({
     hasAdd: true,
     hasEdit: true,
     hasDelete: true,
-    labelDisplayMaxLength: 30,
+    labelDisplayMaxLength: 10,
     modal: {
         footer: {
             hasCancelButton: true,
             hasSubmitButton: true,
         },
         formSettings: {
-            formLabelWidth: '50px',
+            formLabelWidth: '120px',
         fields: [
-            { label: '父级', prop: 'parent', type: 'input', span: 12, },
-            { label: '禁用', prop: 'parent1', type: 'input', span: 12, disabled: true, defaultValue: 'Test' },
-            { label: '名称', prop: 'name', type: 'select', span: 12, options: [{ label: 'zzh', value: 'zzh' }, { label: 'lff', value: 'lff' }] },
+            { label: '上级部门名称', prop: 'parent1', type: 'input', span: 12, },
+            { label: '部门名称', prop: 'parent2', type: 'input', span: 12, required: true, },
+            { label: '部门名称', prop: 'parent3', type: 'radio-group', span: 12, required: true, 
+                options: [
+                    { label: '公司', value: '1' },
+                    { label: '部门', value: '1' },
+                    { label: '组', value: '1' },
+                    { label: '小组', value: '1' },
+                ]
+            },
+            { label: '层级深度', prop: 'parent4', type: 'input', span: 12, },
+            { label: '是否启用', prop: 'parent5', type: 'switch', span: 12, },
         ],
         },
     },

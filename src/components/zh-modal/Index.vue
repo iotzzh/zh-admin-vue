@@ -76,7 +76,7 @@ export default { name: 'ZHModal' };
 
 .body-box {
   height: 100%;
-  width: 100%;
+  width: calc(100% - 5px);
 }
 
 .header {
