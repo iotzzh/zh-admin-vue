@@ -3,7 +3,7 @@ const convertMenuArrToTree = (array: Array<any>) => {
     const rootMenus = array.filter(x => x.parentId === '');
     const childrenMenus = array.filter(x => x.parentId !== '');
     for (let i = 0; i < rootMenus.length; i++) {
-        rootMenus[i].component = () => import('/src/' + rootMenus[i].componentPath);
+        rootMenus[i].component = () => import(/* @vite-ignore */'/src/' + rootMenus[i].componentPath);
     }
 
     for (let i = 0; i < rootMenus.length; i++) {
@@ -35,7 +35,7 @@ const updateMenuToRouter = (array: Array<any>) => {
         array[i].path = array[i].url || '/';
 
         if (array[i].menuType === 2) {
-            array[i].component = () => import('/src/' + array[i].filePath + '.vue');
+            array[i].component = () => import(/* @vite-ignore */'/src/' + array[i].filePath + '.vue');
         }
     }
 
