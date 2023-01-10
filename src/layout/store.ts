@@ -10,6 +10,7 @@ export const useLayoutStore = defineStore({
     menuList: [] as MenuNode[],
     systemName: '',
     allMenuList: [] as any, // 所有系统的菜单
+    isOpenDrawerMenu: false,
   }),
 
   // persist: true,
@@ -39,6 +40,10 @@ export const useLayoutStore = defineStore({
     // 开启/关闭左侧tab栏函数
     toggleCollapse() {
       this.collapse = !this.collapse;
+    },
+
+    changeIsOpenDrawerMenu(isOpen: boolean) {
+      this.isOpenDrawerMenu = isOpen;
     },
 
     //#region 操作选择哪一个系统的路由

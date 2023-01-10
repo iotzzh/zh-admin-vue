@@ -12,6 +12,20 @@ export default class storage {
     //#endregion
 
     //#region session storage
+    // 登录设备是否是手机端
+    static setIsMobile = function (data: boolean) {
+        sessionStorage.setItem('isMobile', JSON.stringify(data));
+    };
+
+    static getIsMobile = function() {
+        const data = sessionStorage.getItem('isMobile');
+        if(data) return JSON.parse(data);
+        else return false;
+    };
+
+
+
+
     // 存入isCloud
     static setIsCloud = function (data: Boolean) {
         sessionStorage.setItem('isCloud', JSON.stringify(data));

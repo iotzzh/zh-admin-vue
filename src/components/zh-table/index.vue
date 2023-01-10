@@ -1,6 +1,6 @@
 <template>
   <div class="zh-table">
-    <ZHForm ref="refZHForm" class="zh-form" v-if="useSearchForm" v-model="form.formModel"
+    <ZHForm ref="refZHForm" class="zh-form" :style="{ maxHeight: isMobile ? '30%' : '', overflow: isMobile ? 'auto' : ''  }" v-if="useSearchForm" v-model="form.formModel"
       v-model:converted-model="form.convertedFormModel" :form-settings="formSettings">
       <!-- 传递form默认插槽 -->
       <template #default>
@@ -156,6 +156,7 @@ import Table from './table';
 import Form from './form';
 import Modal from './modal';
 import { TZHFromField, TZHFormSettings, TZHFromFieldSelectOption } from '../zh-form/type';
+import storage from '@/utils/storage';
 
 const props = defineProps({
   useSearchForm: {
@@ -202,6 +203,8 @@ const refZHForm = ref();
 
 const emit = defineEmits(['changeModel']);
 
+
+const isMobile = ref(storage.getIsMobile());
 
 //#region common
 // 分页的组件内部数据

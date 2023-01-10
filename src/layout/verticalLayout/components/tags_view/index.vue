@@ -7,7 +7,7 @@
     </el-scrollbar>
 
     <div class="options-box">
-      <div>刷</div>
+      <!-- <div>刷</div> -->
       <div>
         <el-dropdown :hide-on-click="false" class="name" @command="changeDropdownCloseTag">
         <span><i class="iconfont icon-xiala"></i></span>

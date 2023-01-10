@@ -3,7 +3,7 @@
     <!-- <SidebarLogo v-if="showLogo" :collapse="collapse" /> -->
     <div style="height: 45px; line-height: 45px; text-align: center;vertical-align: middle;">Logo 占位</div>
     <el-scrollbar class="scrollbar" wrap-class="scrollbar-wrapper">
-      <el-menu class="menu el-menu-vertical" router :collapse="!collapse" :collapse-transition="false">
+      <el-menu class="menu el-menu-vertical" router :collapse="!collapse" :collapse-transition="false" @select="changeSelectMenu">
         <SidebarItem v-for="menu in menuList" :key="menu.id" :item="menu"></SidebarItem>
       </el-menu>
     </el-scrollbar>
@@ -45,6 +45,10 @@ const showLogo = ref(true);
 const defaultSelectTab = computed(() => {
   return router.currentRoute.value.path;
 });
+
+const changeSelectMenu = (index:any, indexPath:any) => {
+  store.changeIsOpenDrawerMenu(false);
+};
 
 </script>
 

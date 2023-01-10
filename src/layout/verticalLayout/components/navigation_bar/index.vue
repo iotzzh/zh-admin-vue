@@ -6,7 +6,7 @@
         <i v-else class="iconfont icon-zhedie2" />
       </span>
 
-      <span class="menu">
+      <!-- <span class="menu">
         <el-dropdown class="dropdown">
           <span class="el-dropdown-link">
             菜单
@@ -22,7 +22,7 @@
             </el-dropdown-menu>
           </template>
         </el-dropdown>/子菜单
-      </span>
+      </span> -->
     </div>
 
     <!-- info -->
@@ -48,7 +48,7 @@
         <i class="iconfont icon-layout-2-fill"></i>        
       </span>
       <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
-        <span>个人信息（头像 + Name）</span>
+        <span>张中华</span>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="logout">退出登录</el-dropdown-item>
@@ -72,10 +72,20 @@ import { RouteRecordRaw, useRouter } from 'vue-router';
 import { router } from '@/router/index';
 import ZHRequest from '@/components/zh-request';
 import { updateMenuToRouter } from '@/utils/dataConvert';
+import storage from '@/utils/storage';
 
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);
-const toggleSideBar = () => { store.toggleCollapse(); };
+
+const isMobile = storage.getIsMobile();
+
+const toggleSideBar = () => { 
+  if (isMobile) {
+    store.changeIsOpenDrawerMenu(true);
+  } else {
+    store.toggleCollapse(); 
+  }
+};
 
 const userInfo = ref({} as any);
 
