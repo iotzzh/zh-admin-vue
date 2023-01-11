@@ -1,7 +1,8 @@
 <template>
   <div class="zh-table">
-    <ZHForm ref="refZHForm" class="zh-form" :style="{ maxHeight: isMobile ? '30%' : '', overflow: isMobile ? 'auto' : ''  }" v-if="useSearchForm" v-model="form.formModel"
-      v-model:converted-model="form.convertedFormModel" :form-settings="formSettings">
+    <ZHForm ref="refZHForm" class="zh-form"
+      :style="{ maxHeight: isMobile ? '30%' : '', overflow: isMobile ? 'auto' : '' }" v-if="useSearchForm"
+      v-model="form.formModel" v-model:converted-model="form.convertedFormModel" :form-settings="formSettings">
       <!-- 传递form默认插槽 -->
       <template #default>
         <slot name="zh-table-form-default-before"></slot>
@@ -21,10 +22,54 @@
       </template>
     </ZHForm>
 
+    <!-- table设置行部分：配置文件对象 tableSettingPanel -->
+    <div class="zh-table-panel-setting" v-if="tableSettings.tablePanelSetting">
+      <el-row>
+        <el-col :span="12">
+          <div class="table-title">
+            <el-icon v-if="tableSettings.tablePanelSetting.title">
+              <Grid />
+            </el-icon>
+            {{ tableSettings.tablePanelSetting.title }}
+            <span v-if="tableSettings.tablePanelSetting.secondaryTitle" style="color: blue">
+              ({{ tableSettings.tablePanelSetting.secondaryTitle }})
+            </span>
+          </div>
+        </el-col>
+      </el-row>
+      <!-- <el-row>
+        <el-col :span="12">
+          <div class="table-title">
+            <el-icon v-if="tableSettingPanel.tableTitle">
+              <help />
+            </el-icon>
+            {{ tableSettingPanel.tableTitle }}
+            <span v-if="tableSettingPanel.secondaryTitle" style="color: blue">({{ tableSettingPanel.secondaryTitle
+            }})</span>
+          </div>
+        </el-col>
+        <el-col :span="12" class="setting-panel right">
+          <span class="export-setting" v-if="tableSettingPanel.showExportSettingButton" @click="clickExportSetting">
+            <el-icon>
+              <Setting />
+            </el-icon>导出设置
+          </span>
+          <span class="display-setting" v-if="tableSettingPanel.showDisplaySettingButton" @click="clickDisplaySetting">
+            <el-icon>
+              <Setting />
+            </el-icon>显示设置
+          </span>
+        </el-col>
+      </el-row> -->
+
+      <!-- <i class="el-icon-s-tools setting-define-columns" @click="openDefineColumnsModal">定制列</i> -->
+    </div>
+
     <!-- table部分：配置文件对象 tableSettings  -->
     <el-table ref="refTable" class="zh-el-table" :data="table.data.value" size="default"
       :height="tableSettings.height || '100%'" :highlight-current-row="tableSettings.highlightCurrentRow"
-      v-loading="table.loading.value" :row-key="tableSettings.rowKey" @row-click="table.rowClick">
+      v-loading="table.loading.value" :row-key="tableSettings.rowKey === undefined ? 'id' : tableSettings.rowKey"
+      @row-click="table.rowClick">
 
       <el-table-column v-if="tableSettings.hasSelection" type="selection" width="50" align="center" reserve-selection>
       </el-table-column>
@@ -42,11 +87,11 @@
 
             <span class="cell-content" v-if="!table.cellCanShowSaveCancel(scope)">
               <span v-if="item.convert">{{
-                  item.convert(scope.row, scope.$index)
+                item.convert(scope.row, scope.$index)
               }}</span>
 
               <span v-else-if="item.format">{{
-                  scope.row[item.prop as string] &&
+                scope.row[item.prop as string] &&
                   dayjs(scope.row[item.prop as string]).format(item.format)
               }}</span>
 
@@ -57,10 +102,10 @@
 
               <span v-else>
                 {{
-                    scope.row[item.prop as string] === undefined ||
-                      scope.row[item.prop as string] === null
-                      ? item.nullValue
-                      : scope.row[item.prop as string]
+                  scope.row[item.prop as string] === undefined ||
+                    scope.row[item.prop as string] === null
+                    ? item.nullValue
+                    : scope.row[item.prop as string]
                 }}
               </span>
             </span>
@@ -105,9 +150,9 @@
         </template>
       </el-table-column>
 
-      <el-table-column v-if="tableSettings.actionColumn" :fixed="tableSettings.actionColumn?.fixed"
-        :width="tableSettings.actionColumn?.width" :min-width="tableSettings.actionColumn?.minWidth"
-        :label="tableSettings.actionColumn?.label" :align="
+      <el-table-column v-if="tableSettings.actionColumn"
+        :fixed="isMobile ? undefined : tableSettings.actionColumn?.fixed" :width="tableSettings.actionColumn?.width"
+        :min-width="tableSettings.actionColumn?.minWidth" :label="tableSettings.actionColumn?.label" :align="
           tableSettings.actionColumn?.align
             ? tableSettings.actionColumn.align
             : 'center'
@@ -119,8 +164,9 @@
             :icon="Delete" @click.stop="table.rowDelete(scope.row)">删除</el-button>
 
           <el-button v-for="(item, buttonIndex) in tableSettings.actionColumn.buttons" :key="buttonIndex" link
-            v-show="!item?.hide" :type="item?.type" :size="item?.size ? item.size : 'small'" :icon="item?.icon"
-            :style="item?.style" @click.stop="item?.onClick && item?.onClick(scope.row, scope.$index)">{{ item.label }}
+            v-show="(item?.hide === undefined ? true : !item?.hide) && (item?.displayMethod === undefined ? true : !!item?.displayMethod(scope.row))"
+            :type="item?.type" :size="item?.size ? item.size : 'small'" :icon="item?.icon" :style="item?.style"
+            @click.stop="item?.onClick && item?.onClick(scope.row, scope.$index)">{{ item.label }}
           </el-button>
         </template>
       </el-table-column>
@@ -267,6 +313,7 @@ defineExpose({
   getDataWithInitTable: table.getDataWithInitTable, // 获取接口数据，并刷新表格
 
 });
+
 </script>
 
 <script lang="ts">

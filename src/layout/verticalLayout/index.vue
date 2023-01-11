@@ -14,7 +14,6 @@
 
     <el-drawer
     v-model="isOpenDrawerMenu"
-    title="I am the title"
     direction="ltr"
     :with-header="false"
     size="70%"
@@ -40,7 +39,12 @@ const isMobile = ref(storage.getIsMobile());
 const loading = ref(true);
 
 
-onMounted(() => { loading.value = false; });
+onMounted(() => { 
+  loading.value = false; 
+  if (document.body.offsetWidth <= 820 && !isMobile.value) {
+    store.toggleCollapse(false);
+  }
+});
 
 // const drawer = ref(false);
 let activeIndex = ref('');

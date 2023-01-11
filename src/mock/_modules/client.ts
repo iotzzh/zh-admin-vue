@@ -34,7 +34,7 @@ export default [
     },
   },
   {
-    url: '/api/user/update',
+    url: '/api/client/update',
     type: 'post',
     response: () => {
       return {
@@ -60,7 +60,7 @@ export default [
     },
   },
   {
-    url: '/api/user/add',
+    url: '/api/client/add',
     type: 'post',
     response: () => {
       return {
@@ -86,7 +86,7 @@ export default [
     },
   },
   {
-    url: '/api/user/delete',
+    url: '/api/client/delete',
     type: 'post',
     response: () => {
       return {
@@ -112,7 +112,7 @@ export default [
     },
   },
   {
-    url: '/api/user/batchDelete',
+    url: '/api/client/batchDelete',
     type: 'post',
     response: () => {
       return {

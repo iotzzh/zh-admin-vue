@@ -9,7 +9,7 @@ const mocks = Object.keys(modulesFiles).reduce((modues:any, item:any) => {
 
 
 //设置延时时间
-Mock.setup({ timeout: '1000-3000' });
+Mock.setup({ timeout: '500-1000' });
 
 // 拓展mockjs
 // 手机号

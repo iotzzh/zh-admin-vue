@@ -6,6 +6,14 @@
   // justify-content: center;
   flex-direction: column;
 
+  .top-box {
+    display: flex;
+    padding-bottom: 7px;
+    .add-button {
+      margin-left: 15px;
+    }
+  }
+
   .scrollbar {
     background-color: white;
   }

@@ -1,7 +1,8 @@
 <template>
-  <el-dialog v-model="modal.show" :title="modal.title" :closeOnClickModal="false" :width="modal.width"
-    @close="zhModal.close" :top="modal.top" :fullscreen="zhModal.fullscreen.value"
-    :class="(modal.customClass || '') + ' zh-modal'" @opened="onOpened" :append-to-body="true" :show-close="false">
+  <el-dialog v-model="modal.show" :title="modal.title" :closeOnClickModal="false"
+    :width="isMobile ? '90%' : modal.width || ''" @close="zhModal.close" :top="modal.top"
+    :fullscreen="zhModal.fullscreen.value" :class="classNames" @opened="onOpened"
+    :append-to-body="true" :show-close="false">
     <div class="body-box">
       <slot></slot>
     </div>
@@ -12,11 +13,12 @@
         <div class="center">{{ modal.title }}</div>
         <div class="right">
           <el-button link @click="zhModal.toggleFullScreen" type="primary">
-          <i v-if="zhModal.fullscreen.value" class="iconfont icon-fullscreen-shrink"></i>
-          <i v-else class="iconfont icon-fullscreen-expand"></i>
-        </el-button>
-          <el-button link @click="zhModal.close" type="primary" style="margin-left: 0px;"><i class="iconfont icon-close_light"></i></el-button>
-          
+            <i v-if="zhModal.fullscreen.value" class="iconfont icon-fullscreen-shrink"></i>
+            <i v-else class="iconfont icon-fullscreen-expand"></i>
+          </el-button>
+          <el-button link @click="zhModal.close" type="primary" style="margin-left: 0px;"><i
+              class="iconfont icon-close_light"></i></el-button>
+
         </div>
       </div>
     </template>
@@ -34,7 +36,10 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, PropType, onMounted } from 'vue';
+import { useLayoutStore } from '@/layout/store';
+import storage from '@/utils/storage';
+import { computed } from '@vue/reactivity';
+import { toRefs, PropType, ref, watch } from 'vue';
 import { ZHModal } from './index';
 import { TZHModal } from './type';
 
@@ -49,11 +54,17 @@ const { modal } = toRefs(props);
 
 const emit = defineEmits(['close', 'submit', 'cancel', 'onOpened']);
 
+const isMobile = ref(storage.getIsMobile());
+
 const zhModal = new ZHModal({ modal, emit });
 
 const onOpened = () => { emit('onOpened'); };
 
 defineExpose({});
+
+const classNames = computed(() => {
+  return (modal.value.customClass || '') + ' zh-modal ' + (zhModal.fullscreen.value ? 'vh80' : 'vh60');
+});
 
 </script>
 
@@ -62,10 +73,30 @@ export default { name: 'ZHModal' };
 </script>
 
 <style lang="scss" scoped>
-
 </style>
 
 <style lang="scss">
+.zh-modal {
+  .el-dialog__body {
+    padding: 0px;
+    overflow-y: auto;
+    // height: 60vh;
+  }
+}
+
+.zh-modal.vh80 {
+  .el-dialog__body {
+    max-height: 80vh;
+  }
+}
+
+.zh-modal.vh60 {
+  .el-dialog__body {
+    max-height: 60vh;
+  }
+}
+
+
 .el-dialog__header {
   text-align: center;
   font-size: 18px;
@@ -76,9 +107,10 @@ export default { name: 'ZHModal' };
 
 .body-box {
   height: 100%;
-  width: calc(100% - 5px);
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
-
 .header {
   display: flex;
 
@@ -94,4 +126,5 @@ export default { name: 'ZHModal' };
 .iconfont {
   cursor: pointer;
 }
+
 </style>

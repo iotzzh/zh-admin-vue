@@ -4,6 +4,7 @@
     style="flex-wrap: wrap; flex-direction: row">
     <el-row style="display: flex; flex-wrap: wrap">
       <TransitionGroup name="list">
+        <!-- xs: <768, sm: >=768, md: >= 992, lg: >= 1200, xl: >= 1920 -->
         <el-col v-for="(item, index) in fieldList" :key="index" :span="item.span || 0" :xl="item.xl || item.span || 0"
           :lg="item.lg || item.span || 0" :md="item.md || item.span || 0" :sm="item.sm || item.span || 0"
           :xs="item.xs || item.span || 0" :style="{

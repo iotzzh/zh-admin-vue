@@ -38,8 +38,12 @@ export const useLayoutStore = defineStore({
     },
 
     // 开启/关闭左侧tab栏函数
-    toggleCollapse() {
-      this.collapse = !this.collapse;
+    toggleCollapse(isCollapse:boolean | undefined = undefined) {
+      if (isCollapse === undefined) {
+        this.collapse = !this.collapse;
+      } else {
+        this.collapse = isCollapse;
+      }
     },
 
     changeIsOpenDrawerMenu(isOpen: boolean) {

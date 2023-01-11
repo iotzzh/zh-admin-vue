@@ -1,7 +1,10 @@
 <template>
   <div class="zh-tree" v-loading="loadingTree">
-    <el-input v-model="filterText" placeholder="过滤搜索" style="width: 100%;" />
-    <el-button v-if="treeSettings.hasRootAdd" type="success" @click="openModal(0)">新增</el-button>
+    <div class="top-box">
+      <el-input class="search-box" v-model="filterText" placeholder="过滤搜索" />
+      <el-button class="add-button" v-if="treeSettings.hasRootAdd" type="success" @click="openModal(0)">新增</el-button>
+    </div>
+
     <el-scrollbar class="scrollbar">
       <el-tree v-if="tData && tData.length > 0" ref="refZHTree" class="tree" :data="tData" :props="defaultProps"
       :indent="0" default-expand-all :filter-node-method="filterNode">

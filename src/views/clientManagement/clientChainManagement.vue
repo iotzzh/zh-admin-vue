@@ -1,29 +1,108 @@
-<!-- 用户管理 -->
+<!-- 客户连锁管理 -->
 <template>
-    <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
-        :usePage="true" :request="request" @changeModel="changeModel">
-        <template v-slot:zh-table-status="scope">
-            <div v-if="scope.row.status">在职</div>
-            <div v-else>不在职</div>
-        </template>
-    </Table>
+    <el-row class="row" :gutter="10">
+        <el-col class="column" :span="isMobile ? 0 : 6">
+            <ZHTree :treeSettings="treeSettings" :defaultProps="defaultProps" :request="request">
+            </ZHTree>
+        </el-col>
+        <el-col class="column" :span="isMobile ? 24 : 18">
+            <span class="icon" @click="openTreeSettings" v-if="isMobile" style="position: absolute; top: 0; z-index: 10000; right: 0;">
+                <i class="iconfont icon-zhedie2" />
+        <!-- <i v-if="collapse" class="iconfont icon-zhedie1" />
+        <i v-else class="iconfont icon-zhedie2" /> -->
+      </span>
+            <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
+                :usePage="true" :request="requestTable">
+                <template v-slot:zh-table-form-test>
+                    <el-input placeholder="请输入自定义搜索" v-model="formSettings.customModel!.test"></el-input>
+                </template>
+            </Table>
+        </el-col>
+
+        <el-drawer
+    v-model="isOpenDrawerMenu"
+    title="客户连锁管理"
+    :show-close="true"
+    direction="rtl"
+    :with-header="true"
+    size="70%"
+    modal-class="layout-menu-drawer"
+  >
+  <ZHTree :treeSettings="treeSettings" :defaultProps="defaultProps" :request="request">
+            </ZHTree>
+  </el-drawer>
+    </el-row>
 </template>
 
 <script lang="ts" setup>
+import ZHTree from '@/components/zh-tree/index.vue';
+import { TZHTreeRequest, TZHTreeSetting } from '@/components/zh-tree/type';
 import Table from '@/components/zh-table/index.vue';
 import { TZHTableRequest, TZHTableFormSettings, TZHTableSetting } from '@/components/zh-table/type';
 import { onMounted, reactive, ref } from 'vue';
-import api from '@/api/authorityManagement';
+import treeApi from '@/api/authorityManagement';
+import api from '@/api/clientManagement';
+import storage from '@/utils/storage';
+
+const treeSettings = ref({
+    hasEmptyAdd: true,
+    hasRootAdd: true,
+    hasAdd: true,
+    hasEdit: true,
+    hasDelete: true,
+    labelDisplayMaxLength: 10,
+    modal: {
+        footer: {
+            hasCancelButton: true,
+            hasSubmitButton: true,
+        },
+        formSettings: {
+            formLabelWidth: '120px',
+            fields: [
+                { label: '上级部门名称', prop: 'parent1', type: 'input', span: 12, },
+                { label: '部门名称', prop: 'parent2', type: 'input', span: 12, required: true, },
+                {
+                    label: '部门名称', prop: 'parent3', type: 'radio-group', span: 12, required: true,
+                    options: [
+                        { label: '公司', value: '1' },
+                        { label: '部门', value: '1' },
+                        { label: '组', value: '1' },
+                        { label: '小组', value: '1' },
+                    ]
+                },
+                { label: '层级深度', prop: 'parent4', type: 'input', span: 12, },
+                { label: '是否启用', prop: 'parent5', type: 'switch', span: 12, },
+            ],
+        },
+    },
+
+} as TZHTreeSetting);
+
+const defaultProps = ref({
+    label: 'label',
+});
+
+const request = ref({
+    urlGet: treeApi.getOrgList,
+    urlAdd: treeApi.addOrg,
+    urlEdit: treeApi.updateOrg,
+    urlDelete: treeApi.deleteOrg,
+} as TZHTreeRequest);
 
 const refZHTable = ref();
 
+const getSearchFormModel = () => {
+    const model = refZHTable.value.getSearchFormModel();
+    console.log(model);
+};
+
 const formSettings = ref({
-    hasAddButton: true,
+    hasAddButton: false,
     hasSearchButton: true,
     hasDeleteButton: true,
     hasUploadButton: false,
     hasExportButton: false,
-    hasResetButton: true,
+    hasResetButton: false,
     hideUnimportantFields: false,
     customModel: {},
     convertParams: (params: { [x: string]: any }) => {
@@ -33,173 +112,87 @@ const formSettings = ref({
         };
     },
     buttons: [
-        // { label: '自定义按钮1', icon: 'Filter', method: () => { console.log('hello world'); }, style: 'color: pink; background-color: blue;' }
+        { label: '添加', icon: 'Plus', method: () => { console.log('hello world'); }, style: 'color: white; background-color: blue;' }
     ],
     formLabelWidth: '70px',
     fields: [
-        { label: '手机号', type: 'input', prop: 'name', width: '200px', },
-        { label: '姓名', type: 'input', prop: 'name111', width: '200px', },
-        // { label: '登录账号', type: 'input', prop: 'name111', width: '200px', },
-        { label: '员工编号', type: 'input', prop: 'name1111', width: '200px', },
-        {
-            label: '状态', type: 'select', prop: 'name11111', width: '200px', defaultValue: 0,
-            options: [
-                { label: '在职', value: 0 },
-                { label: '离职', value: 1 },
-            ],
-        },
+        { label: '客户编码', type: 'input', prop: 'name', width: '200px', },
+        { label: '客户名称', type: 'input', prop: 'name1112', width: '200px', },
+        { label: '状态', type: 'select', prop: 'name111', width: '200px', options: [
+            { label: '是', value: 1},
+            { label: '否', value: 0},
+        ], },
     ],
 } as TZHTableFormSettings);
 
 const tableSettings = reactive({
+    tablePanelSetting: {
+        title: '客户列表',
+        secondaryTitle: '某某医院'
+    },
     hasIndex: true,
     hasSelection: true,
-    rowKey: 'id',
     modal: {
-        title: '',
-        footer: {},
-        formSettings: {
-            formLabelWidth: '90px',
+        customModel: {},
+        footer: {
+            hasCancelButton: true,
+            hasSubmitButton: true,
         },
+        formLabelWidth: '90px',
     },
+    
     columns: [
-        {
-            label: '默认不显示列',
-            prop: 'id0',
-            notDisplay: true,
-        },
-        {
-            label: '登录账号', prop: 'test', notDisplay: true,
-            addEditInfo: {
-                type: 'input',
-                addSort: 1,
-                defaultValue: '',
-                placeholder: '请输入',
-                span: 12,
-                required: true,
-            }
-        },
-        { label: 'ID', prop: 'id', },
-        {
-            label: '姓名',
-            prop: 'name',
-            allowCellEdit: false,
-            addEditInfo: {
-                type: 'input',
-                addSort: 2,
-                defaultValue: '',
-                placeholder: '请输入',
-                span: 12,
-                required: true,
-            }
-        },
-        {
-            label: '性别', prop: 'sex', convert: (row: any) => row.sex === 0 ? '男' : '女', allowCellEdit: true,
-            addEditInfo: {
-                type: 'select', defaultValue: 0, addSort: 3, placeholder: '请选择', span: 12, 
-                options: [{ label: '男', value: 0 }, { label: '女', value: 1 }], required: true,
-            }
-        },
-        {
-            label: '部门名称', prop: 'test', notDisplay: true,
-            addEditInfo: {
-                type: 'input',
-                addSort: 4,
-                defaultValue: '',
-                placeholder: '请输入',
-                span: 12,
-                required: true,
-            }
-        },
-        // {
-        //     label: '生日', prop: 'test', notDisplay: true,
-        //     addEditInfo: {
-        //         type: 'input',
-        //         addSort: 5,
-        //         defaultValue: '',
-        //         placeholder: '请输入',
-        //         span: 8,
-        //         required: true,
-        //     }
-        // },
-        {
-            label: '手机号', prop: 'phone', addEditInfo: {
-                addSort: 6,
-                type: 'input', defaultValue: null, placeholder: '请输入', span: 12, required: true,
-            }
-        },
-        // {
-        //     label: '工号', prop: 'employeeNum', addEditInfo: {
-        //         addSort: 5,
-        //         type: 'input', defaultValue: null, placeholder: '请输入', span: 8, required: true,
-        //     }
-        // },
-        {
-            label: '角色', prop: 'role', addEditInfo: {
-                type: 'input', defaultValue: null, addSort: 7, placeholder: '请输入', span: 12,
-            }
-        },
-
-        {
-            label: '状态', prop: 'status', useSlot: true,
-        },
+        { label: '客户编码', prop: 'id', }, 
+        { label: '客户名称', prop: 'name', }, 
+        { label: '税号', prop: 'sex', }, 
+        { label: '联系人', prop: 'phone', }, 
+        { label: '客户地址', prop: 'test', }, 
     ],
+
     actionColumn: {
         label: '操作',
-        width: '215px',
-        hasRowDeleteAction: true,
-        hasRowEditAction: true,
+        width: '100px',
+        hasRowDeleteAction: false,
+        hasRowEditAction: false,
+        fixed: 'right',
         buttons: [
-            { label: '重置密码', hide: false, type: 'primary', icon: 'Refresh', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
-            { label: '激活', hide: true, type: 'primary', icon: 'Refresh', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
+            { label: '移出', displayMethod: (row: any) => row.sex, type: 'danger', icon: 'Minus', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
+            { label: '添加', displayMethod: (row: any) => !row.sex, type: 'primary', icon: 'Plus', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
         ],
     },
 } as TZHTableSetting);
 
 onMounted(() => {
     // 控制列是否显示
-    const idColumn: any = tableSettings.columns?.find((x: any) => x.prop === 'id');
-    idColumn.notDisplay = true;
+    //  const idColumn: any = tableSettings.columns?.find((x: any) => x.prop === 'id');
+    //  idColumn.notDisplay = true;
     // idColumn.notDisplay = false;
 });
 
-const request = ref({
-    list: { url: api.getUserList, successMessage: '查询成功', errorMessage: '查询失败' },
-    add: { url: api.addUser, successMessage: '新增成功', errorMessage: '新增失败' },
-    update: { url: api.updateUser, successMessage: '更新成功', errorMessage: '更新失败' },
-    delete: { url: api.deleteUser, successMessage: '删除成功', errorMessage: '删除失败' },
-    batchDelete: { url: api.batchDeleteUser, successMessage: '批量删除成功', errorMessage: '批量删除失败' },
+const requestTable = ref({
+    list: { url: api.getClientList, successMessage: '查询成功', errorMessage: '查询失败' },
+    add: { url: api.addClient, successMessage: '新增成功', errorMessage: '新增失败' },
+    update: { url: api.updateClient, successMessage: '更新成功', errorMessage: '更新失败' },
+    delete: { url: api.deleteClient, successMessage: '删除成功', errorMessage: '删除失败' },
+    batchDelete: { url: api.batchDeleteClient, successMessage: '批量删除成功', errorMessage: '批量删除失败' },
 } as TZHTableRequest);
 
+const isMobile = ref(storage.getIsMobile());
 
-const changeModel = (model: any) => {
-    const actionColumn = tableSettings?.actionColumn;
-    const button0 = tableSettings?.actionColumn?.buttons && tableSettings?.actionColumn?.buttons[0];
-    const button1 = tableSettings?.actionColumn?.buttons && tableSettings?.actionColumn?.buttons[1];
-    if (model.name11111) {
-        button0!.hide = true;
-        button1!.hide = false;
-        actionColumn!.hasRowDeleteAction = false;
-        actionColumn!.hasRowEditAction = false;
-        formSettings.value.hasAddButton = false;
-        formSettings.value.hasDeleteButton = false;
-    } else {
-        button0!.hide = false;
-        button1!.hide = true;
-        actionColumn!.hasRowDeleteAction = true;
-        actionColumn!.hasRowEditAction = true;
+const isOpenDrawerMenu = ref(false);
 
-        formSettings.value.hasAddButton = true;
-        formSettings.value.hasDeleteButton = true;
-    }
+const openTreeSettings = () => {
+    isOpenDrawerMenu.value = true;
 };
-
 </script>
 
 <script lang="ts">
-export default { name: 'userManagement' };
+export default { name: 'clientChainManagement' };
 </script>
 
 <style lang="scss" scoped>
-
+.row,
+.column {
+    height: 100%;
+}
 </style>

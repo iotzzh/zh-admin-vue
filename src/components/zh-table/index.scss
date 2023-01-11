@@ -2,17 +2,45 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: rgb(223,223,223);
+  background-color: rgb(223, 223, 223);
   // padding: 7px;
+
+  .zh-table-panel-setting {
+    background-color: white;
+    font-size: 14px;
+    min-height: 30px;
+    width: 100%;
+
+    .table-title {
+      color: #154EC1;
+      font-size: 14px;
+      font-weight: 500;
+      margin-left: 15px;
+    }
+
+    .setting-panel.right {
+      color: #154EC1;
+      font-size: 14px;
+      font-weight: 500;
+      text-align: right;
+
+      .export-setting,
+      .display-setting {
+        padding: 0px 5px;
+        cursor: pointer;
+      }
+    }
+  }
 
   .zh-form {
     // margin-bottom: 5px;
   }
+
   .zh-form .el-form-item {
     margin-right: 15px;
   }
 
-  .zh-form .el-form-item.zh-table-inline-button{
+  .zh-form .el-form-item.zh-table-inline-button {
     margin-left: 15px;
     margin-right: 0px;
   }

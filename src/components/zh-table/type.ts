@@ -71,7 +71,14 @@ export interface TZHTablePageSetting {
   layout?: string // 'pre,next,total'
 }
 
+
+export interface TZHTablePanelSetting {
+  title?: string
+  secondaryTitle?: string
+}
+
 export interface TZHTableSetting {
+  tablePanelSetting?: TZHTablePanelSetting
   height?: string | number // 表格高度，示例：'100%', '100px', 100
   highlightCurrentRow?: boolean // 高亮选中行
   rowKey?: string // 行内唯一值，没有该值，！！无法使用checkbox！！
@@ -79,6 +86,7 @@ export interface TZHTableSetting {
   hasIndex?: boolean // 是否存在Index列
   columns?: Array<TZHTableColumn> // 列配置，内包含新增和编辑的列配置
   actionColumn?: TZHTableActionColumn // 操作列配置
+
 
   modal?: TZHTableModal // 弹窗配置
 
