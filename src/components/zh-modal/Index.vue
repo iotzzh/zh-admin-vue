@@ -1,7 +1,10 @@
 <template>
-  <el-dialog v-model="modal.show" :title="modal.title" :closeOnClickModal="false"
+  <el-dialog 
+    v-model="modal.show" 
+    v-if="modal.show"
+    :title="modal.title" :closeOnClickModal="false"
     :width="isMobile ? '90%' : modal.width || ''" @close="zhModal.close" :top="modal.top"
-    :fullscreen="zhModal.fullscreen.value" :class="classNames" @opened="onOpened"
+    :fullscreen="zhModal.fullscreen.value" :class="classNames" @opened="opened"
     :append-to-body="true" :show-close="false">
     <div class="body-box">
       <slot></slot>
@@ -52,13 +55,13 @@ const props = defineProps({
 
 const { modal } = toRefs(props);
 
-const emit = defineEmits(['close', 'submit', 'cancel', 'onOpened']);
+const emit = defineEmits(['close', 'submit', 'cancel', 'opened']);
 
 const isMobile = ref(storage.getIsMobile());
 
 const zhModal = new ZHModal({ modal, emit });
 
-const onOpened = () => { emit('onOpened'); };
+const opened = () => { emit('opened'); };
 
 defineExpose({});
 

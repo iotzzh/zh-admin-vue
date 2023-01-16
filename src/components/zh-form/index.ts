@@ -26,9 +26,14 @@ export default class Form {
     )
       return;
     for (const field of this.formSettings.value.fields) {
-      if (this.modelValue && this.modelValue.value) this.modelValue.value[field.prop] = field.defaultValue;
-      if (this.convertedModel && this.convertedModel.value) this.convertedModel.value[field.prop] = field.defaultValue;
+      if (this.modelValue && this.modelValue.value && !this.modelValue.value[field.prop]) this.modelValue.value[field.prop] = field.defaultValue;
     }
+    if (this.modelValue && this.modelValue.value) this.setConvertModel(this.modelValue.value);
+  };
+
+  clearFormData = () => {
+    this.modelValue.value = {};
+    this.convertedModel.value = {};
   };
 
   validate = async () => {
@@ -42,7 +47,7 @@ export default class Form {
 
   //#region model 转换方法
   // 针对需要转换数据的情况：field: a -> b
-  useConvert = (model: { [key: string]: string }, convertedModel: { [key: string]: string }, fields: TZHFromField[]) => {
+  useConvert = (model: { [key: string]: any }, convertedModel: { [key: string]: any }, fields: TZHFromField[]) => {
     const needConverTFromFields = fields.filter((x) => x.convert);
     for (let i = 0; i < needConverTFromFields.length; i++) {
       const method: Function | undefined = needConverTFromFields[i].convert;
@@ -54,25 +59,34 @@ export default class Form {
     }
   };
 
-  useConvertDateTime = (model: { [key: string]: string }, convertedModel: { [key: string]: string }, fields: TZHFromField[]) => {
+  useConvertDateTime = (model: { [key: string]: any }, convertedModel: { [key: string]: any }, fields: TZHFromField[]) => {
     const needConvertDateTimeFields: TZHFromField[] = fields.filter(
       (x) => x.convertDateTime
     );
     for (let i = 0; i < needConvertDateTimeFields.length; i++) {
       const value = model[needConvertDateTimeFields[i].prop];
-      if (!value || !convertedModel) continue;
-      for (let j = 0; j < value.length; j++) {
+      if (!convertedModel) continue;
+      if (value) {
+        for (let j = 0; j < value.length; j++) {
+          const convertDateTimeArr = needConvertDateTimeFields[i]
+            .convertDateTime as Array<TZHFromFieldConvertDateTime>;
+          const field = convertDateTimeArr[j].field;
+          const format = convertDateTimeArr[j].format;
+          convertedModel[field] = dayjs(value[j]).format(format);
+        }
+      } else {
         const convertDateTimeArr = needConvertDateTimeFields[i]
-          .convertDateTime as Array<TZHFromFieldConvertDateTime>;
-        const field = convertDateTimeArr[j].field;
-        const format = convertDateTimeArr[j].format;
-        convertedModel[field] = dayjs(value[j]).format(format);
+        .convertDateTime as Array<TZHFromFieldConvertDateTime>;
+        for (let j = 0; j < convertDateTimeArr.length; j++) {
+          const field = convertDateTimeArr[j].field;
+          convertedModel[field] = undefined;
+        }
       }
-      delete convertedModel[needConvertDateTimeFields[i].prop];
+      // delete convertedModel[needConvertDateTimeFields[i].prop];
     }
   };
 
-  useExtendedFieldMethod = (model: { [key: string]: string }, convertedModel: { [key: string]: string }, fields: TZHFromField[]) => {
+  useExtendedFieldMethod = (model: { [key: string]: any }, convertedModel: { [key: string]: any }, fields: TZHFromField[]) => {
     // 针对需要额外扩展的参数，例如 { a: 'a' } => { b: 'a1', c: 'a2' }
     const needExtendFields: TZHFromField[] = fields.filter(
       (x) => x.extendedFieldMethod
@@ -81,25 +95,43 @@ export default class Form {
       const method: Function | undefined =
         needExtendFields[i].extendedFieldMethod;
       if (!method || !convertedModel) return;
-      const extendMethodResult = method(model[needExtendFields[i].prop], model);
+      const result = method(model[needExtendFields[i].prop], model);
 
-      extendMethodResult.forEach(
+      result && Array.isArray(result) &&  result.forEach(
         (element: { property: string | number, value: any }) => {
           convertedModel[element.property] = element.value;
         }
       );
-      delete convertedModel[needExtendFields[i].prop];
+      // delete convertedModel[needExtendFields[i].prop];
     }
   };
 
+  useConvertCascader = (model: { [key: string]: any }, convertedModel: { [key: string]: any }, fields: TZHFromField[]) => {
+    const needConvertCascaderFields: TZHFromField[] = fields.filter( (x) => x.convertCascader );
+    for (let i = 0; i < needConvertCascaderFields.length; i++) {
+      const method: Function | undefined =
+      needConvertCascaderFields[i].convertCascader;
+      if (!method || !convertedModel) return;
+      const result = method(model[needConvertCascaderFields[i].prop], model, needConvertCascaderFields[i]);
+
+      result && Array.isArray(result) &&  result.forEach(
+        (element: { property: string | number, value: any }) => {
+          convertedModel[element.property] = element.value;
+        }
+      );
+      // delete convertedModel[needConvertCascaderFields[i].prop];
+    }
+   };
+
   setConvertModel = async (newVal: any) => {
     if (!this.convertedModel) return;
-    this.convertedModel.value = _.cloneDeep(newVal);
+    const keys = Object.keys(newVal);
+    for (const key of keys) { this.convertedModel.value[key] = newVal[key]; }
     if (!this.convertedModel.value) return;
     this.useConvert(newVal, this.convertedModel.value, this.formSettings.value.fields || []);
     this.useConvertDateTime(newVal, this.convertedModel.value, this.formSettings.value.fields || []);
     this.useExtendedFieldMethod(newVal, this.convertedModel.value, this.formSettings.value.fields || []);
-
+    this.useConvertCascader(newVal, this.convertedModel.value, this.formSettings.value.fields || []);
   };
   //#endregion
 

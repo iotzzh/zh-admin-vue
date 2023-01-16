@@ -1,7 +1,7 @@
 <template>
   <div :class="{ 'has-logo': showLogo }" v-loading="loading">
     <!-- <SidebarLogo v-if="showLogo" :collapse="collapse" /> -->
-    <div style="height: 45px; line-height: 45px; text-align: center;vertical-align: middle;">Logo 占位</div>
+    <div style="height: 45px; line-height: 45px; text-align: center;vertical-align: middle;">隆回管理系统</div>
     <el-scrollbar class="scrollbar" wrap-class="scrollbar-wrapper">
       <el-menu class="menu el-menu-vertical" router :collapse="!collapse" :collapse-transition="false" @select="changeSelectMenu">
         <SidebarItem v-for="menu in menuList" :key="menu.id" :item="menu"></SidebarItem>

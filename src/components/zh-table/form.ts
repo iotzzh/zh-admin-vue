@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
 import { Ref, ref } from 'vue';
-import { TZHTablePage, TZHTableRequest, TZHTableFormSettings, TZHTableFromField, TZHFromFieldConvertDateTime } from './type';
+import { TZHTablePage, TZHTableRequest, TZHTableFormSettings, TZHTableFromField } from './type';
 import _ from 'lodash';
 
 
@@ -48,6 +48,13 @@ export default class Form {
 
   getSearchFormModel = () => {
     return this.formModel.value;
+  };
+
+  setSearchFormModel = (data:{[x:string]: any}) => {
+    const keys = Object.keys(data);
+    for (const key of keys) {
+      this.formModel.value[key] = data[key];
+    }
   };
 
   getSearchFormParams = () => {

@@ -2,16 +2,15 @@
 <template>
     <el-row class="row" :gutter="10">
         <el-col class="column" :span="isMobile ? 0 : 6">
-            <ZHTree :treeSettings="treeSettings" :defaultProps="defaultProps" :request="request">
+            <ZHTree ref="refTree" :treeSettings="treeSettings" :defaultProps="defaultProps" :request="request">
             </ZHTree>
         </el-col>
         <el-col class="column" :span="isMobile ? 24 : 18">
-            <span class="icon" @click="openTreeSettings" v-if="isMobile" style="position: absolute; top: 0; z-index: 10000; right: 0;">
+            <span class="icon" @click="openTreeSettings" v-if="isMobile"
+                style="position: absolute; top: 0; z-index: 1; right: 0;">
                 <i class="iconfont icon-zhedie2" />
-        <!-- <i v-if="collapse" class="iconfont icon-zhedie1" />
-        <i v-else class="iconfont icon-zhedie2" /> -->
-      </span>
-            <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
+            </span>
+            <Table ref="refTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
                 :usePage="true" :request="requestTable">
                 <template v-slot:zh-table-form-test>
                     <el-input placeholder="请输入自定义搜索" v-model="formSettings.customModel!.test"></el-input>
@@ -19,18 +18,12 @@
             </Table>
         </el-col>
 
-        <el-drawer
-    v-model="isOpenDrawerMenu"
-    title="客户连锁管理"
-    :show-close="true"
-    direction="rtl"
-    :with-header="true"
-    size="70%"
-    modal-class="layout-menu-drawer"
-  >
-  <ZHTree :treeSettings="treeSettings" :defaultProps="defaultProps" :request="request">
+        <!-- 手机端显示 -->
+        <el-drawer v-model="isOpenDrawerMenu" title="客户连锁管理" :show-close="true" direction="rtl" :with-header="true"
+            size="70%" modal-class="layout-menu-drawer">
+            <ZHTree :treeSettings="treeSettings" :defaultProps="defaultProps" :request="request">
             </ZHTree>
-  </el-drawer>
+        </el-drawer>
     </el-row>
 </template>
 
@@ -44,6 +37,9 @@ import treeApi from '@/api/authorityManagement';
 import api from '@/api/clientManagement';
 import storage from '@/utils/storage';
 
+const refTree = ref();
+const refTable = ref();
+
 const treeSettings = ref({
     hasEmptyAdd: true,
     hasRootAdd: true,
@@ -51,27 +47,25 @@ const treeSettings = ref({
     hasEdit: true,
     hasDelete: true,
     labelDisplayMaxLength: 10,
+    nodeClick: (data: any, node: any, treeNode: any, event: any) => {
+        console.log('data', data);
+        console.log('node', node);
+        console.log('treeNode', treeNode);
+        console.log('event', event);
+        refTable.value.setSearchFormModel({ status: 1 });
+        refTable.value.initData();
+    },
     modal: {
+        width: '500px',
         footer: {
             hasCancelButton: true,
             hasSubmitButton: true,
         },
         formSettings: {
-            formLabelWidth: '120px',
+            formLabelWidth: '100px',
             fields: [
-                { label: '上级部门名称', prop: 'parent1', type: 'input', span: 12, },
-                { label: '部门名称', prop: 'parent2', type: 'input', span: 12, required: true, },
-                {
-                    label: '部门名称', prop: 'parent3', type: 'radio-group', span: 12, required: true,
-                    options: [
-                        { label: '公司', value: '1' },
-                        { label: '部门', value: '1' },
-                        { label: '组', value: '1' },
-                        { label: '小组', value: '1' },
-                    ]
-                },
-                { label: '层级深度', prop: 'parent4', type: 'input', span: 12, },
-                { label: '是否启用', prop: 'parent5', type: 'switch', span: 12, },
+                { label: '连锁名称', prop: 'parent1', type: 'input', required: true, span: 24 },
+                { label: '税号', prop: 'parent2', type: 'input', span: 24, required: true, },
             ],
         },
     },
@@ -118,17 +112,19 @@ const formSettings = ref({
     fields: [
         { label: '客户编码', type: 'input', prop: 'name', width: '200px', },
         { label: '客户名称', type: 'input', prop: 'name1112', width: '200px', },
-        { label: '状态', type: 'select', prop: 'name111', width: '200px', options: [
-            { label: '是', value: 1},
-            { label: '否', value: 0},
-        ], },
+        {
+            label: '状态', type: 'select', prop: 'status', width: '200px', options: [
+                { label: '是', value: 1 },
+                { label: '否', value: 0 },
+            ],
+        },
     ],
 } as TZHTableFormSettings);
 
 const tableSettings = reactive({
     tablePanelSetting: {
         title: '客户列表',
-        secondaryTitle: '某某医院'
+        secondaryTitle: '全部'
     },
     hasIndex: true,
     hasSelection: true,
@@ -140,13 +136,13 @@ const tableSettings = reactive({
         },
         formLabelWidth: '90px',
     },
-    
+
     columns: [
-        { label: '客户编码', prop: 'id', }, 
-        { label: '客户名称', prop: 'name', }, 
-        { label: '税号', prop: 'sex', }, 
-        { label: '联系人', prop: 'phone', }, 
-        { label: '客户地址', prop: 'test', }, 
+        { label: '客户编码', prop: 'id', },
+        { label: '客户名称', prop: 'name', },
+        { label: '税号', prop: 'sex', },
+        { label: '联系人', prop: 'phone', },
+        { label: '客户地址', prop: 'test', },
     ],
 
     actionColumn: {

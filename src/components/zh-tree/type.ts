@@ -10,6 +10,8 @@ export interface TZHTreeSetting {
   hasRootAdd?: boolean
   labelDisplayMaxLength?: number
 
+  nodeClick?: Function
+
   modal?: TZHTreeModal // 弹窗配置
 }
 

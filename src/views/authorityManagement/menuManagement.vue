@@ -71,22 +71,6 @@ const tableSettings = reactive({
 
     },
     columns: [
-        {
-            label: '默认不显示列',
-            prop: 'id0',
-            notDisplay: true,
-        },
-        {
-            label: '登录账号', prop: 'test', notDisplay: true,
-            addEditInfo: {
-                type: 'input',
-                addSort: 1,
-                defaultValue: '',
-                placeholder: '请输入',
-                span: 8,
-                required: true,
-            }
-        },
         { label: 'ID', prop: 'id', },
         {
             label: '菜单名称',
@@ -103,13 +87,17 @@ const tableSettings = reactive({
             }
         },
         {
-            label: '性别', prop: 'sex', convert: (row: any) => row.sex === 0 ? '男' : '女', allowCellEdit: true,
+            label: 'URL', prop: 'url',
             addEditInfo: {
-                type: 'select', defaultValue: 0, addSort: 3, placeholder: '请选择', span: 8, options: [{ label: '男', value: 0 }, { label: '女', value: 1 }], required: true,
+                type: 'input', 
+                defaultValue: null, 
+                addSort: 3, 
+                span: 8,
+                required: true,
             }
         },
         {
-            label: '部门名称', prop: 'test', notDisplay: true,
+            label: '文件路径', prop: 'filePath', notDisplay: false,
             addEditInfo: {
                 type: 'input',
                 addSort: 4,
@@ -120,31 +108,30 @@ const tableSettings = reactive({
             }
         },
         {
-            label: '生日', prop: 'test', notDisplay: true,
+            label: '类型', prop: 'menuType', notDisplay: false,
             addEditInfo: {
-                type: 'input',
+                type: 'select',
                 addSort: 5,
                 defaultValue: '',
                 placeholder: '请输入',
                 span: 8,
                 required: true,
+                options: [
+                    { label: '目录', value: '目录' },
+                    { label: '菜单', value: '菜单' },
+                    { label: '按钮', value: '按钮' },
+                ],
             }
         },
         {
-            label: '手机号', prop: 'phone', addEditInfo: {
-                addSort: 6,
-                type: 'input', defaultValue: null, placeholder: '请输入', span: 8, required: true,
-            }
-        },
-        {
-            label: '工号', prop: 'employeeNum', addEditInfo: {
-                addSort: 5,
-                type: 'input', defaultValue: null, placeholder: '请输入', span: 8, required: true,
-            }
-        },
-        {
-            label: '角色', prop: 'role', addEditInfo: {
-                type: 'input', defaultValue: null, addSort: 7,  placeholder: '请输入', span: 8,
+            label: 'ICON', prop: 'icon', notDisplay: false,
+            addEditInfo: {
+                type: 'input',
+                addSort: 4,
+                defaultValue: '',
+                placeholder: '请输入',
+                span: 8,
+                required: true,
             }
         },
     ],

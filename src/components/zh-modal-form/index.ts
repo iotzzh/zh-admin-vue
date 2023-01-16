@@ -20,12 +20,18 @@ export default class ZHFormModal {
         this.refZHForm.value && this.refZHForm.value.init();
     };
 
+    clearFormData = () => {
+        this.refZHForm.value && this.refZHForm.value.clearFormData();
+    };
+
     close = () => {
         this.emit('close');
+        // this.refZHForm.value && this.refZHForm.value.clearFormData();
     };
 
     cancel = () => {
         this.emit('cancel');
+        // this.refZHForm.value && this.refZHForm.value.clearFormData();
     };
 
     submit = async () => {

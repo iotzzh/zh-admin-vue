@@ -12,18 +12,21 @@ export default class Table {
   pageData: any;
   form: Form;
   tableSettings: Ref<TZHTableSetting>;
+  emit: any;
   constructor(
     tableSettings: Ref<TZHTableSetting>,
     refTable: any,
     request: Ref<TZHTableRequest | undefined> | undefined,
     form: Form,
-    pageData: Ref<TZHTablePage>
+    pageData: Ref<TZHTablePage>,
+    emit:any
   ) {
     this.tableSettings = tableSettings;
     this.refTable = refTable;
     this.request = request;
     this.pageData = pageData;
     this.form = form;
+    this.emit = emit;
   }
 
   data = ref([] as any);
@@ -55,8 +58,8 @@ export default class Table {
     const result: TZHTableRequestResult = await ZHRequest.post(args);
     // 处理数据
     if (result.success) {
-      this.data.value = result.data.records;
-      this.pageData.value.total = result.data.total;
+      this.data.value = result.data.records || result.data;
+      this.pageData.value.total = isNaN(Number(result.data.total)) ? 0 : Number(result.data.total);
     } else {
       this.data.value = [];
       this.pageData.value.total = 0;
@@ -101,7 +104,10 @@ export default class Table {
     if (!msgResult) return;
     const params: TZHRequestParams = {
       url: this.request?.value?.delete?.url || '',
-      conditions: { ...row },
+      // conditions: { ...row },
+      conditions: {
+        ids: [ row.id ]
+      },
     };
     const result: TZHTableRequestResult = await ZHRequest.post(params);
     if (result.success) {

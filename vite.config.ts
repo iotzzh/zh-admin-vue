@@ -30,7 +30,7 @@ export default ({ mode }) => {
     // 静态资源服务的文件夹
     publicDir: 'public',
     // base: environment === 'cloud' ? '/test1/' :  '/test2/',
-    base: '/dev/',
+    base: '/hsp-admin/',
     // 静态资源处理
     assetsInclude: '',
     // 控制台输出的级别 info 、warn、error、silent
@@ -116,16 +116,21 @@ export default ({ mode }) => {
       https: false, // 是否启用 http 2
       cors: true, // 默认启用并允许任何源
       open: true, // 在服务器启动时自动在浏览器中打开应用程序
-      port: 9000,
+      port: 8888,
       strictPort: false, // 设为true时端口被占用则直接退出，不会尝试下一个可用端口
       force: true, // 是否强制依赖预构建
       hmr: true, // 禁用或配置 HMR 连接
       // 反向代理配置，注意rewrite写法
       proxy: {
-        '/api': {
-          target: 'http://0.0.0.0:9001/',
+        '/apiWH': {
+          target: 'http://10.161.2.63:8082/hsp-admin/', // 王慧
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
+          rewrite: (path) => path.replace(/^\/apiWH/, ''),
+        },
+        '/apiDEVCloudlabadmin': {
+          target: 'http://dev.cloudlis.hwason.cn/cloudlabadmin',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/apiDEVCloudlabadmin/, ''),
         },
       },
     },

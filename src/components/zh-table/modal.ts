@@ -14,15 +14,19 @@ export default class Modal {
   table: Table;
   refZHFormModal: Ref<any>;
   tableSettings: Ref<TZHTableSetting>;
+  emit: any;
   constructor(
     request: Ref<TZHTableRequest | undefined> | undefined,
     table: Table,
     refZHFormModal: Ref<any>,
-    tableSettings: Ref<TZHTableSetting>) {
+    tableSettings: Ref<TZHTableSetting>,
+    emit:any
+    ) {
     this.table = table;
     this.request = request;
     this.refZHFormModal = refZHFormModal;
     this.tableSettings = tableSettings;
+    this.emit = emit;
   }
 
   _getObjctWithoutFunction = (obj: TObject) => {
@@ -55,20 +59,41 @@ export default class Modal {
   formModel = ref({} as any);
   convertedModel = ref({} as any);
 
-  openAddModal = () => {
+  openAddModalData = ref({} as any);
+  openAddModal = (data:any = undefined) => {
     this.modal.value.type = 'add';
+    this.modal.value.title = '新增';
     // 在新增时，有些字段带有默认值
     this.refZHFormModal.value.init();
     this.modal.value.show = true;
+    this.openAddModalData.value = data;
     this.modal.value = { ...this.modal.value, ...this.tableSettings.value.modal};
   };
-
-
+  
+  openEditModalData = ref({} as any);
   openEditModal = (row: any) => {
     this.formModel.value = { ...row };
     this.modal.value.type = 'edit';
+    this.modal.value.title = '编辑';
     this.modal.value.show = true;
+    this.openEditModalData.value = { ...row };
     this.modal.value = { ...this.modal.value, ...this.tableSettings.value.modal};
+  };
+
+  opened = () => {
+    this.emit('opened', { 
+      modal: this.modal.value, 
+      formModel: this.formModel.value, 
+      openAddModalData: this.openAddModalData.value, 
+      openEditModalData: this.openEditModalData.value  
+    });
+  };
+
+  setModalFormModel = (data:{[x:string]: any}) => {
+    const keys = Object.keys(data);
+    for (const key of keys) {
+      this.formModel.value[key] = data[key];
+    }
   };
 
   close = () => {
@@ -84,14 +109,14 @@ export default class Modal {
 
 
   getParams = () => {
-    const model = this.convertedModel.value
+    const convertedModel = this.convertedModel.value
       ? JSON.parse(JSON.stringify(this.convertedModel.value))
       : {};
 
     const customModel = this.tableSettings.value.modal?.customModel && JSON.parse(JSON.stringify(this.tableSettings.value.modal?.customModel));
 
     const params = {
-      ...model,
+      ...convertedModel,
       ...customModel,
     };
 
@@ -111,6 +136,8 @@ export default class Modal {
         this.request?.value?.add?.url || '' :
         this.request?.value?.update?.url || '',
       conditions: this.getParams(),
+      successMessage: this.modal.value.type === 'add' ? this.request?.value?.add?.successMessage : this.request?.value?.update?.successMessage,
+      errorMessage: this.modal.value.type === 'add' ? this.request?.value?.add?.errorMessage : this.request?.value?.update?.errorMessage,
     };
 
     console.log('submit', params);

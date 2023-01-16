@@ -3,14 +3,12 @@
     <div class="login-box" v-on:keypress.enter="login">
       <div class="user-box">
         <div class="login-title">{{ sysName }}</div>
-
         <div class="login-form" v-if="showLoginForm">
           <el-input v-model="inputAccount" class="w-50 m-2 input-box" size="large" placeholder="工号"
             :prefix-icon="Avatar" clearable></el-input>
           <el-input v-model="inputPassword" class="w-50 m-2 input-box" size="large" placeholder="密码" type="password"
             :prefix-icon="Lock" clearable></el-input>
           <el-button type="primary" class="login-button button" @click="login()">登录</el-button>
-          <!-- <el-checkbox label="记住我" v-model="rememberPassword" size="large"></el-checkbox> -->
         </div>
       </div>
     </div>
@@ -26,13 +24,12 @@ import storage from '@/utils/storage';
 import { convertMenuArrToTree } from '@/utils/dataConvert';
 import { popErrorMessage, popSuccessMessage } from '@/components/zh-message';
 import { useLayoutStore } from '@/layout/store';
-// import ImgLoginBg from '@/assets/img/loginBg.png';
- 
+
 
 const router = useRouter();
 const store = useLayoutStore();
 
-const sysName = ref();
+const sysName = ref('后台管理系统');
 const inputAccount = ref('') as any;
 const inputPassword = ref('') as any;
 const showLoginForm = ref(true);
@@ -99,7 +96,7 @@ const goTo = async (value: any, num: number) => {
   // } else {
   //   popErrorMessage(res.errorMsg);
   // }
-  
+
 };
 
 // 查询用户菜单接口
@@ -130,50 +127,5 @@ const getMenusList = async () => {
 </script>
 
 <style lang="scss" scoped>
-.main-content {
-  width: 100%;
-  height: 100vh;
-  background: url(../../assets/img/loginBg.png) no-repeat center center;
-  background-size: cover;
-  position: relative;
-}
-
-.login-box {
-  width: 800px;
-  min-height: 353px;
-  // height: 50vw;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border-radius: 10px;
-  background-color: #f5f5f5;
-  font-family: Arial, Helvetica, sans-serif;
-  padding: 30px;
-  background: url(../../assets/img/userBg.png) no-repeat center center;
-  background-size: 100% 100%;
-
-  .user-box {
-    width: 338px;
-    height: 100%;
-    float: right;
-  }
-
-  .login-title {
-    text-align: center;
-    font-size: 22px;
-    padding: 10px 0 20px 0px;
-    color: #6196ea;
-  }
-
-  .input-box {
-    margin: 15px 0px;
-  }
-
-  .button {
-    width: 100%;
-    height: 40px;
-    margin: 15px 0px 0px 0px;
-  }
-}
+@import './index.scss';
 </style>

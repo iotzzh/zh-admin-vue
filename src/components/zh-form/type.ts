@@ -1,3 +1,4 @@
+import { CascaderOption, CascaderProps } from 'element-plus';
 
 
 export interface TZHFormSettings {
@@ -33,10 +34,11 @@ export interface TZHFromField {
   required?: boolean // 是否必填
 
   // 下拉选择/级联选择
-  options?: Array<TZHFromFieldSelectOption> | Array<TZHFromFieldCascaderOption> | Array<{ [x: string]: any }>
+  // options?: Array<TZHFromFieldSelectOption> | Array<TZHFromFieldCascaderOption> | Array<{ [x: string]: any }>
+  options?: Array<TZHFromFieldSelectOption> | Array<CascaderOption> | Array<{ [x: string]: any }>
 
   // 级联选择器的参数
-  props?: TZHFromFieldCascaderProps
+  props?: CascaderProps
   // 输入框 input
   inputType?: string
 
@@ -72,6 +74,8 @@ export interface TZHFromField {
   // 转换方法：一对多转换， 针对需要额外扩展的参数，例如 { a: 'a' } => { b: 'a1', c: 'a2' }
   extendedFieldMethod?: Function
   notDeleteOriginPropertyWhenUseExtendedFieldMethod?: boolean
+
+  convertCascader?: Function
   //#endregion
 }
 
@@ -92,9 +96,9 @@ export interface TZHFromFieldCascaderOption {
 
 }
 
-export interface TZHFromFieldCascaderProps {
-  expandTrigger?: string
-}
+// export interface TZHFromFieldCascaderProps {
+//   expandTrigger?: string
+// }
 
 export interface TObject {
   [x: string]: any

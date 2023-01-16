@@ -112,6 +112,23 @@ export default [
                           'isDel': 0,
                           'children': [
                             {
+                              'id': '83065799775404096312212223333322222222',
+                              'systemId': '830651050518610552222222222222',
+                              'parentId': '83065105051861056123111',
+                              'permsionName': '客户类别管理',
+                              'url': '/clientClassManagement',
+                              'routeName': 'clientClassManagement',
+                              'filePath': 'views/clientManagement/clientClassManagement',
+                              'menuType': 2,
+                              'permsionCode': 'NJHS:/publicSystems/authorityManagement/clientClassManagement',
+                              'sourceBy': null,
+                              'sortNo': 1,
+                              'icon': 'menu',
+                              'description': null,
+                              'isEbl': 1,
+                              'isDel': 0,
+                            },
+                            {
                               'id': '8306579977540409612221222',
                               'systemId': '8306510505186105522',
                               'parentId': '83065105051861056123111',

@@ -1,6 +1,6 @@
 <template>
   <ZHModal ref="refZHModal" :modal="modal" @close="zhFormModal.close" @submit="zhFormModal.submit"
-    @cancel="zhFormModal.cancel">
+    @cancel="zhFormModal.cancel" @opened="opened">
     <ZHForm ref="refZHForm" :formSettings="formSettings" v-model="modelValue" v-model:convertedModel="convertedModel"></ZHForm>
   </ZHModal>
 </template>
@@ -35,18 +35,20 @@ const props = defineProps({
 const { modal, modelValue, formSettings } = toRefs(props);
 const refZHModal = ref();
 const refZHForm = ref();
-const emit = defineEmits(['close', 'submit', 'cancel', 'update:modelValue', 'update:convertedModel']);
-
+const emit = defineEmits(['close', 'submit', 'cancel', 'update:modelValue', 'update:convertedModel', 'opened']);
 
 const zhFormModal = new ZHFormModal({ emit, refZHModal, refZHForm, modelValue, formSettings });
 
+const opened = () => { emit('opened'); };
+
 defineExpose({
   init: zhFormModal.init,
+  clearFormData: zhFormModal.clearFormData,
 });
 </script>
 
 <script lang="ts">
-export default { name: 'ZHModal' };
+export default { name: 'ZHModalForm' };
 </script>
 
 <style lang="scss" scoped>

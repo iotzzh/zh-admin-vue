@@ -7,7 +7,7 @@
 
     <el-scrollbar class="scrollbar">
       <el-tree v-if="tData && tData.length > 0" ref="refZHTree" class="tree" :data="tData" :props="defaultProps"
-      :indent="0" default-expand-all :filter-node-method="filterNode">
+      :indent="0" default-expand-all :filter-node-method="filterNode" @node-click="treeSettings.nodeClick">
       <template #default="{ node, data }">
         <span class="custom-tree-node">
           <el-tooltip popper-class="custom-tree-node-tooltip" effect="light"

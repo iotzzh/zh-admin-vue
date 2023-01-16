@@ -6,19 +6,20 @@ const request = axios.create({
 
 request.interceptors.request.use(
     config => {
+        // const token: any = storage.getToken();
         const timestamp = new Date().getTime(); //时间戳           
         if (config.headers) {
-            // config.headers['token'] = token;
+            config.headers['token'] = '18b097dd4051457a89302a605b9d39fa';
             config.headers['Cache-Control'] = 'no-cache';
         }
 
         if (config.method === 'post') {
             config.params = {
-                // ts: timestamp,
+                ts: timestamp,
             };
         } else if (config.method === 'get') {
             config.params = {
-                // ts: timestamp,
+                ts: timestamp,
                 ...config.params
             };
         }

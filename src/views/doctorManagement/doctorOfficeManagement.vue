@@ -1,28 +1,29 @@
 <!-- 用户管理 -->
 <template>
     <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
-        :usePage="true" :request="request" @changeModel="changeModel">
-        <template v-slot:zh-table-status="scope">
-            <div v-if="scope.row.status">在职</div>
-            <div v-else>不在职</div>
-        </template>
+        :usePage="true" :request="request" @opened="opened">
     </Table>
+    <ModalForm :modal="modal" :formSettings="modalFormSettings" v-model="modalModel" @opened="opened"></ModalForm>
 </template>
 
 <script lang="ts" setup>
 import Table from '@/components/zh-table/index.vue';
+import ModalForm from '@/components/zh-modal-form/index.vue';
 import { TZHTableRequest, TZHTableFormSettings, TZHTableSetting } from '@/components/zh-table/type';
-import { onMounted, reactive, ref } from 'vue';
-import api from '@/api/authorityManagement';
+import { onMounted, reactive, Ref, ref } from 'vue';
+import api from '@/api/doctorManagement';
+import dataListHelper from '@/utils/dataListHelper';
+import { TZHModal } from '@/components/zh-modal/type';
+import { TZHFormSettings } from '@/components/zh-form/type';
 
 const refZHTable = ref();
 
 const formSettings = ref({
     hasAddButton: true,
     hasSearchButton: true,
-    hasDeleteButton: true,
+    hasDeleteButton: false,
     hasUploadButton: false,
-    hasExportButton: false,
+    hasExportButton: true,
     hasResetButton: true,
     hideUnimportantFields: false,
     customModel: {},
@@ -37,17 +38,10 @@ const formSettings = ref({
     ],
     formLabelWidth: '70px',
     fields: [
-        { label: '手机号', type: 'input', prop: 'name', width: '200px', },
-        { label: '姓名', type: 'input', prop: 'name111', width: '200px', },
-        // { label: '登录账号', type: 'input', prop: 'name111', width: '200px', },
-        { label: '员工编号', type: 'input', prop: 'name1111', width: '200px', },
-        {
-            label: '状态', type: 'select', prop: 'name11111', width: '200px', defaultValue: 0,
-            options: [
-                { label: '在职', value: 0 },
-                { label: '离职', value: 1 },
-            ],
-        },
+        { label: '诊室编码', type: 'input', prop: 'id', width: '200px', },
+        { label: '诊室名称', type: 'input', prop: 'consultingName', width: '200px', },
+        { label: '诊室医生', type: 'input', prop: 'caaFullName', width: '200px', },
+        { label: '所属医院', type: 'input', prop: 'calName', width: '200px', },
     ],
 } as TZHTableFormSettings);
 
@@ -56,148 +50,211 @@ const tableSettings = reactive({
     hasSelection: true,
     rowKey: 'id',
     modal: {
-        title: '',
         footer: {},
         formSettings: {
-            formLabelWidth: '90px',
+            formLabelWidth: '120px',
         },
     },
     columns: [
+        { label: '诊室编码', prop: 'id', minWidth: '100px', },
         {
-            label: '默认不显示列',
-            prop: 'id0',
-            notDisplay: true,
-        },
-        {
-            label: '登录账号', prop: 'test', notDisplay: true,
+            label: '诊室名称', prop: 'consultingName',
             addEditInfo: {
                 type: 'input',
                 addSort: 1,
-                defaultValue: '',
-                placeholder: '请输入',
-                span: 12,
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 8,
+                xl: 8,
                 required: true,
             }
         },
-        { label: 'ID', prop: 'id', },
         {
-            label: '姓名',
-            prop: 'name',
-            allowCellEdit: false,
-            addEditInfo: {
+            label: '诊室医生', prop: 'caaFullName', addEditInfo: {
                 type: 'input',
                 addSort: 2,
-                defaultValue: '',
-                placeholder: '请输入',
-                span: 12,
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 8,
+                xl: 8,
                 required: true,
             }
         },
         {
-            label: '性别', prop: 'sex', convert: (row: any) => row.sex === 0 ? '男' : '女', allowCellEdit: true,
-            addEditInfo: {
-                type: 'select', defaultValue: 0, addSort: 3, placeholder: '请选择', span: 12, 
-                options: [{ label: '男', value: 0 }, { label: '女', value: 1 }], required: true,
+            label: '诊室手机号', prop: 'caaPhoneNumber', addEditInfo: {
+                type: 'input',
+                addSort: 3,
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 8,
+                xl: 8,
+                required: true,
             }
         },
         {
-            label: '部门名称', prop: 'test', notDisplay: true,
+            label: '医生职位', prop: 'orgstaPosition', addEditInfo: {
+                type: 'input',
+                addSort: 7,
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 8,
+                xl: 8,
+                required: true,
+            }
+        },
+        {
+            label: '科室', prop: 'departmentName', addEditInfo: {
+                type: 'input',
+                addSort: 6,
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 8,
+                xl: 8,
+                required: true,
+            }
+        },
+        {
+            label: '所属医院', prop: 'calName',
+            addEditInfo: {
+                prop: 'cal',
+                type: 'select',
+                addSort: 4,
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 8,
+                xl: 8,
+                valueKey: 'calCode',
+                extendedFieldMethod: (model: any, convertModel: any, fields: any) => {
+                    return [
+                        { property: 'calCode', value: model && model.calCode },
+                        { property: 'calName', value: model && model.calName },
+                    ];
+                },
+                required: true,
+            }
+        },
+        {
+            label: '诊室地址', prop: 'departmentAddress', addEditInfo: {
+                type: 'input',
+                addSort: 8,
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 8,
+                xl: 8,
+                required: false,
+            }
+        },
+        {
+            label: '登录账户', prop: 'caaLoginAccount', notDisplay: true,
             addEditInfo: {
                 type: 'input',
-                addSort: 4,
-                defaultValue: '',
-                placeholder: '请输入',
-                span: 12,
+                addSort: 5,
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 8,
+                xl: 8,
                 required: true,
-            }
-        },
-        // {
-        //     label: '生日', prop: 'test', notDisplay: true,
-        //     addEditInfo: {
-        //         type: 'input',
-        //         addSort: 5,
-        //         defaultValue: '',
-        //         placeholder: '请输入',
-        //         span: 8,
-        //         required: true,
-        //     }
-        // },
-        {
-            label: '手机号', prop: 'phone', addEditInfo: {
-                addSort: 6,
-                type: 'input', defaultValue: null, placeholder: '请输入', span: 12, required: true,
-            }
-        },
-        // {
-        //     label: '工号', prop: 'employeeNum', addEditInfo: {
-        //         addSort: 5,
-        //         type: 'input', defaultValue: null, placeholder: '请输入', span: 8, required: true,
-        //     }
-        // },
-        {
-            label: '角色', prop: 'role', addEditInfo: {
-                type: 'input', defaultValue: null, addSort: 7, placeholder: '请输入', span: 12,
             }
         },
 
         {
-            label: '状态', prop: 'status', useSlot: true,
+            label: '诊室简介', prop: 'introduction', notDisplay: true,
+            addEditInfo: {
+                type: 'input',
+                inputType: 'textarea',
+                addSort: 9,
+                xs: 24,
+                sm: 24,
+                md: 12,
+                lg: 12,
+                xl: 12,
+                required: true,
+            }
+        },
+
+        {
+            label: '医生擅长方向', prop: 'expertiseField', notDisplay: true,
+            addEditInfo: {
+                type: 'input',
+                inputType: 'textarea',
+                addSort: 10,
+                xs: 24,
+                sm: 24,
+                md: 12,
+                lg: 12,
+                xl: 12,
+                required: true,
+            }
         },
     ],
     actionColumn: {
         label: '操作',
-        width: '215px',
+        width: '280px',
         hasRowDeleteAction: true,
         hasRowEditAction: true,
         buttons: [
-            { label: '重置密码', hide: false, type: 'primary', icon: 'Refresh', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
-            { label: '激活', hide: true, type: 'primary', icon: 'Refresh', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
+            { label: '启用', displayMethod: (row: any) => row.sex, type: 'primary', icon: 'Unlock', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
+            { label: '禁用', type: 'primary', icon: 'Lock', style: 'color: #E42222;', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
+            { label: '重置密码', hide: false, type: 'success', icon: 'RefreshLeft', onClick: (row: any, index: any) => { clickResetPwd(row); } },
         ],
     },
 } as TZHTableSetting);
 
-onMounted(() => {
-    // 控制列是否显示
-    const idColumn: any = tableSettings.columns?.find((x: any) => x.prop === 'id');
-    idColumn.notDisplay = true;
-    // idColumn.notDisplay = false;
-});
-
 const request = ref({
-    list: { url: api.getUserList, successMessage: '查询成功', errorMessage: '查询失败' },
-    add: { url: api.addUser, successMessage: '新增成功', errorMessage: '新增失败' },
-    update: { url: api.updateUser, successMessage: '更新成功', errorMessage: '更新失败' },
-    delete: { url: api.deleteUser, successMessage: '删除成功', errorMessage: '删除失败' },
-    batchDelete: { url: api.batchDeleteUser, successMessage: '批量删除成功', errorMessage: '批量删除失败' },
+    list: { url: api.getDoctorAccountList, successMessage: '查询成功', errorMessage: '查询失败' },
+    add: { url: api.addDoctorAccount, successMessage: '新增成功', errorMessage: '新增失败' },
+    update: { url: api.updateDoctorAccount, successMessage: '更新成功', errorMessage: '更新失败' },
+    delete: { url: api.deleteDoctorAccount, successMessage: '删除成功', errorMessage: '删除失败' },
+    batchDelete: { url: api.deleteDoctorAccount, successMessage: '批量删除成功', errorMessage: '批量删除失败' },
 } as TZHTableRequest);
 
+onMounted(async () => {
+    // 获取医院
+    const item = tableSettings.columns?.find((x: any) => x.label === '所属医院');
+    const result: any = await dataListHelper.getClientList();
+    item!.addEditInfo!.options = result;
+});
 
-const changeModel = (model: any) => {
-    const actionColumn = tableSettings?.actionColumn;
-    const button0 = tableSettings?.actionColumn?.buttons && tableSettings?.actionColumn?.buttons[0];
-    const button1 = tableSettings?.actionColumn?.buttons && tableSettings?.actionColumn?.buttons[1];
-    if (model.name11111) {
-        button0!.hide = true;
-        button1!.hide = false;
-        actionColumn!.hasRowDeleteAction = false;
-        actionColumn!.hasRowEditAction = false;
-        formSettings.value.hasAddButton = false;
-        formSettings.value.hasDeleteButton = false;
-    } else {
-        button0!.hide = false;
-        button1!.hide = true;
-        actionColumn!.hasRowDeleteAction = true;
-        actionColumn!.hasRowEditAction = true;
+const modalModel = ref({} as any);
+const modal: Ref<TZHModal> = ref({
+    width: '500px',
+    show: false,
+    title: '修改密码',
+    footer: {},
+});
 
-        formSettings.value.hasAddButton = true;
-        formSettings.value.hasDeleteButton = true;
+const modalFormSettings: Ref<TZHFormSettings> = ref({
+    fields: [
+        { label: '管理账号:', prop: 'test', type: 'text', span: 24, },
+        { label: '管理密码:', prop: 'test1', type: 'input', span: 24, disabled: true, },
+    ],
+});
+
+const clickResetPwd = (row: any) => {
+    modal.value.show = true;
+};
+
+
+const opened = (params: any) => {
+    if (params.modal.type === 'edit') {
+        const item = tableSettings.columns?.find((x: any) => x.label === '所属医院');
+        const calCodeValue = item?.addEditInfo?.options?.find((x: any) => x.calCode === params.openEditModalData.calCode);
+        refZHTable.value.setModalFormModel({ cal: calCodeValue });
     }
 };
 
 </script>
 
 <script lang="ts">
-export default { name: 'userManagement' };
+export default { name: 'doctorOfficeManagement' };
 </script>
 
 <style lang="scss" scoped>

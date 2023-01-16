@@ -21,11 +21,11 @@
             <el-input v-if="item.type === 'input'" :style="{ width: item.width ? `${item.width}` : '100%' }"
               v-model="modelValue[item.prop]" :placeholder="item.placeholder" :disabled="item.disabled === undefined ? false :
               typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)" :type="item.inputType"
-              :clearable="item.clearable"></el-input>
+              :clearable="item.clearable === undefined ? true : item.clearable"></el-input>
 
             <!-- 文本显示 -->
             <span v-if="item.type === 'text'" :style="{ width: item.width ? `${item.width}` : '100%' }">{{
-                modelValue[item.prop]
+              modelValue[item.prop]
             }}</span>
 
             <!-- 开关 -->
@@ -42,9 +42,15 @@
 
             <!-- 下拉 -->
             <el-select v-else-if="item.type === 'select'" v-model="modelValue[item.prop]"
-              :style="{ width: item.width ? `${item.width}` : '100%' }" :value-key="item.valueKey" :disabled="item.disabled === undefined ? false :
-              typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)" :multiple="item.multiple"
-              filterable clearable :remote="item.remote" :remote-method="item.remoteMethod" :placeholder="
+              :style="{ width: item.width ? `${item.width}` : '100%' }" 
+              :value-key="item.valueKey" 
+              :disabled="item.disabled === undefined ? false : typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)" 
+              :multiple="item.multiple"
+              filterable 
+              clearable 
+              :remote="item.remote" 
+              :remote-method="item.remoteMethod" 
+              :placeholder="
                 item.placeholder
                   ? item.placeholder
                   : item.remoteMethod
@@ -53,7 +59,8 @@
               ">
               <el-option
                 v-for="(subItem, subIndex) in (item.options as Array<TZHFromFieldSelectOption> | Array<{ [x: string]: any }>)"
-                :key="item.valueKey ? subItem[item.valueKey] : subIndex" :label="subItem.label"
+                :key="item.valueKey ? subItem[item.valueKey] : subIndex" 
+                :label="subItem.label"
                 :value="item.valueKey ? subItem : subItem.value"></el-option>
             </el-select>
 
@@ -65,7 +72,7 @@
               :clearable="item.clearable"></el-date-picker>
 
             <!-- 级联选择器  -->
-            <el-cascader v-else-if="item.type === 'cascader'" :options="item.options" :props="item.props"
+            <el-cascader v-else-if="item.type === 'cascader'" :options="(item.options as CascaderOption[])" :props="item.props"
               :style="{ width: item.width ? `${item.width}` : '100%' }"
               @change="formInstance.changeCascader(itemRefs, item.refName, formSettings)" :ref="(el: any) => {
                 if (item.refName) itemRefs[item.refName] = el;
@@ -108,6 +115,7 @@ import { toRefs, PropType, ref, computed, onMounted, watch } from 'vue';
 import Form from './index';
 import { TZHFormSettings, TZHFromFieldSelectOption, TZHFromField } from './type';
 import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit, ArrowUp, ArrowDown } from '@element-plus/icons-vue';
+import { CascaderOption } from 'element-plus';
 
 const props = defineProps({
   modelValue: {
@@ -169,19 +177,16 @@ onMounted(() => {
   formInstance.init();
 });
 
-watch(modelValue?.value, (newVal: any) => {
+const modelValueC = computed(() => modelValue?.value);
+
+watch(modelValueC, (newVal: any) => {
   formInstance.setConvertModel(newVal);
-  // if (!convertedModel) return;
-  // convertedModel.value = JSON.parse(JSON.stringify(newVal));
-  // if (!convertedModel.value) return;
-  // formInstance.useConvert(newVal, convertedModel.value, fieldList.value || []);
-  // formInstance.useConvertDateTime(newVal, convertedModel.value, fieldList.value || []);
-  // formInstance.useExtendedFieldMethod(newVal, convertedModel.value, fieldList.value || []);
-});
+}, { deep: true });
 
 defineExpose({
   validate: formInstance.validate,
-  init: formInstance.init
+  init: formInstance.init,
+  clearFormData: formInstance.clearFormData,
 });
 </script>
 

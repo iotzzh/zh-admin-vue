@@ -4,7 +4,7 @@
         <el-button type="primary" :icon="Search" @click="() => table.throttleInitData()">查询</el-button>
     </el-form-item>
     <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasAddButton">
-        <el-button type="success" :icon="Plus" @click="modalInstance.openAddModal">新增</el-button>
+        <el-button type="success" :icon="Plus" @click="() => modalInstance.openAddModal()">新增</el-button>
     </el-form-item>
     <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasUploadButton">
         <el-button type="warning" :icon="Upload">导入</el-button>

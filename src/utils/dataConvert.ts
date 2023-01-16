@@ -45,13 +45,7 @@ const updateMenuToRouter = (array: Array<any>) => {
         for (let j = 0;  j < array[i].children.length; j++) {
             updateMenuToRouter(array[i].children);
         }
-        // if (childrenMenus.find(x => x.parentId === rootMenus[i].id)) {
-        //     rootMenus[i].children = getRootMenuChild(rootMenus[i].id, childrenMenus);
-        // } else {
-        //     rootMenus[i].children = [];
-        // }
     }
-    // return rootMenus;
 };
 
 export {

@@ -184,7 +184,7 @@
 
     <ZhModalForm ref="refZhModalForm" :modal="modalInstance.modal.value" v-model="modalInstance.formModel.value"
       v-model:converted-model="modalInstance.convertedModel.value" :formSettings="modalInstance.formSettings.value"
-      @cancel="modalInstance.cancel" @close="modalInstance.close" @submit="modalInstance.submit"></ZhModalForm>
+      @cancel="modalInstance.cancel" @close="modalInstance.close" @submit="modalInstance.submit" @opened="modalInstance.opened"></ZhModalForm>
   </div>
 </template>
 
@@ -247,7 +247,7 @@ const {
 
 const refZHForm = ref();
 
-const emit = defineEmits(['changeModel']);
+const emit = defineEmits(['changeModel', 'opened']);
 
 
 const isMobile = ref(storage.getIsMobile());
@@ -282,7 +282,7 @@ const sloTFromFields = formSettings?.value?.fields?.filter((x: TZHFromField) => 
 
 //#region table
 const refTable = ref<InstanceType<typeof ElTable>>();
-const table = new Table(tableSettings, refTable, request, form, pageData);
+const table = new Table(tableSettings, refTable, request, form, pageData, emit);
 onMounted(() => {
   if (request?.value && request.value.list?.url && (request.value.initialData || request.value.initialData === undefined))
     table.debounceInitData();
@@ -297,13 +297,17 @@ if (usePage.value) page = new Page(pageSettings?.value, pageData, table);
 
 //#region add/edit modal
 const refZhModalForm = ref();
-const modalInstance = new Modal(request, table, refZhModalForm, tableSettings);
+const modalInstance = new Modal(request, table, refZhModalForm, tableSettings, emit);
 //#endregion
 
 defineExpose({
   // 表单
   getSearchFormModel: form.getSearchFormModel,
+  setSearchFormModel: form.setSearchFormModel,
   getSearchFormParams: form.getSearchFormParams,
+  // 弹窗
+  openAddModal: modalInstance.openAddModal,
+  setModalFormModel: modalInstance.setModalFormModel,
   // 表格
   debounceInitData: table.debounceInitData, // 防抖查询
   throttleInitData: table.throttleInitData, // 节流查询
@@ -311,7 +315,6 @@ defineExpose({
   getData: table.getData, // 获取当前表格数据
   getDataAsync: table.getDataAsync, // 从接口获取表格数据，且不刷新表格
   getDataWithInitTable: table.getDataWithInitTable, // 获取接口数据，并刷新表格
-
 });
 
 </script>

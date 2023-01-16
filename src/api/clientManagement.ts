@@ -1,10 +1,18 @@
-import { api } from '@/api/config';
+import { apiWH } from '@/api/config';
 
 export default {
+    // 客户分类管理
+    getClientClassList: apiWH + '/channelClassification/query',
+    addClientClass: apiWH + '/channelClassification/insert',
+    updateClientClass: apiWH + '/channelClassification/replaceType',
+    deleteClientClass: apiWH + '/channelClassification/remove',
+    batchDeleteClientClass: apiWH + '/channelClassification/remove',
+
     // 客户管理
-    getClientList: api + '/client/list',
-    addClient: api + '/client/add',
-    updateClient: api + '/client/update',
-    deleteClient: api + '/client/delete',
-    batchDeleteClient: api + '/client/batchDelete',
+    getClientList: apiWH + '/channelLibrary/queryChennelLibrary',
+    addClient: apiWH + '/channelLibrary/insertChennelLibrary',
+    updateClient: apiWH + '/channelLibrary/updateChennelLibrary',
+    deleteClient: apiWH + '/channelLibrary/remove',
+    batchDeleteClient: apiWH + '/channelLibrary/remove',
+    resetPwdClient: apiWH + '/channelLibrary/reset',
 };

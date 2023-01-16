@@ -2,6 +2,7 @@ export interface TZHRequestParams {
   url: string
   conditions?: Object
   timeout?: number
+  notNeedBackEndErrorMessage?: boolean
   errorMessage?: string
   successMessage?: string
 }
