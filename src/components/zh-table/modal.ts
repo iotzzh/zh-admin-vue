@@ -64,7 +64,7 @@ export default class Modal {
     this.modal.value.type = 'add';
     this.modal.value.title = '新增';
     // 在新增时，有些字段带有默认值
-    this.refZHFormModal.value.init();
+    this.refZHFormModal.value.initForm();
     this.modal.value.show = true;
     this.openAddModalData.value = data;
     this.modal.value = { ...this.modal.value, ...this.tableSettings.value.modal};
@@ -113,7 +113,7 @@ export default class Modal {
       ? JSON.parse(JSON.stringify(this.convertedModel.value))
       : {};
 
-    const customModel = this.tableSettings.value.modal?.customModel && JSON.parse(JSON.stringify(this.tableSettings.value.modal?.customModel));
+    const customModel = this.tableSettings.value.modal?.formSettings?.customModel && JSON.parse(JSON.stringify(this.tableSettings.value.modal?.formSettings?.customModel));
 
     const params = {
       ...convertedModel,

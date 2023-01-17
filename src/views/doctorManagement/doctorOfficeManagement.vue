@@ -1,9 +1,21 @@
 <!-- 用户管理 -->
 <template>
-    <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
+    <Table ref="refTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
         :usePage="true" :request="request" @opened="opened">
     </Table>
-    <ModalForm :modal="modal" :formSettings="modalFormSettings" v-model="modalModel" @opened="opened"></ModalForm>
+    <ModalForm 
+        ref="refModalForm" 
+        :modal="modal" 
+        :formSettings="modalFormSettings" 
+        v-model="modalModel" 
+        @opened="openedModalChangePwd"
+        @submit="submit"
+        >
+        <template v-slot:zh-form-buttons>
+           <el-button type="info" @click="resetPwd">重置密码</el-button>
+           <el-button type="success" @click="changePwd">修改密码</el-button>
+        </template>
+    </ModalForm>
 </template>
 
 <script lang="ts" setup>
@@ -15,8 +27,12 @@ import api from '@/api/doctorManagement';
 import dataListHelper from '@/utils/dataListHelper';
 import { TZHModal } from '@/components/zh-modal/type';
 import { TZHFormSettings } from '@/components/zh-form/type';
+import { TZHRequestParams } from '@/components/zh-request/type';
+import { isMessageConfirm } from '@/components/zh-message';
+import ZHRequest from '@/components/zh-request';
 
-const refZHTable = ref();
+const refTable = ref();
+const refModalForm = ref();
 
 const formSettings = ref({
     hasAddButton: true,
@@ -201,8 +217,8 @@ const tableSettings = reactive({
         hasRowDeleteAction: true,
         hasRowEditAction: true,
         buttons: [
-            { label: '启用', displayMethod: (row: any) => row.sex, type: 'primary', icon: 'Unlock', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
-            { label: '禁用', type: 'primary', icon: 'Lock', style: 'color: #E42222;', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
+            // { label: '启用', displayMethod: (row: any) => row.sex, type: 'primary', icon: 'Unlock', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
+            // { label: '禁用', type: 'primary', icon: 'Lock', style: 'color: #E42222;', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
             { label: '重置密码', hide: false, type: 'success', icon: 'RefreshLeft', onClick: (row: any, index: any) => { clickResetPwd(row); } },
         ],
     },
@@ -223,6 +239,7 @@ onMounted(async () => {
     item!.addEditInfo!.options = result;
 });
 
+//#region 修改密码
 const modalModel = ref({} as any);
 const modal: Ref<TZHModal> = ref({
     width: '500px',
@@ -233,24 +250,63 @@ const modal: Ref<TZHModal> = ref({
 
 const modalFormSettings: Ref<TZHFormSettings> = ref({
     fields: [
-        { label: '管理账号:', prop: 'test', type: 'text', span: 24, },
-        { label: '管理密码:', prop: 'test1', type: 'input', span: 24, disabled: true, },
+        { label: '管理账号:', prop: 'caaLoginAccount', type: 'text', span: 24, },
+        { label: '管理密码:', prop: 'caaLoginPassword', type: 'input', inputType: 'password', showPassword: true, span: 24, defaultValue: '*********', disabled: true, },
+        { label: '', prop: 'buttons', type: 'slot', span: 24,  },
     ],
 });
-
-const clickResetPwd = (row: any) => {
-    modal.value.show = true;
-};
-
 
 const opened = (params: any) => {
     if (params.modal.type === 'edit') {
         const item = tableSettings.columns?.find((x: any) => x.label === '所属医院');
         const calCodeValue = item?.addEditInfo?.options?.find((x: any) => x.calCode === params.openEditModalData.calCode);
-        refZHTable.value.setModalFormModel({ cal: calCodeValue });
+        refTable.value.setModalFormModel({ cal: calCodeValue });
     }
 };
 
+const clickResetPwd = (row: any) => {
+    modal.value.show = true;
+    modal.value.data = row;
+};
+
+const openedModalChangePwd = (params: any) => {
+    refModalForm.value.setModalFormModel({ caaLoginAccount: modal.value.data.caaLoginAccount });
+};
+
+const resetPwd = async () => {
+    const msgResult = await isMessageConfirm('是否确认重置?', '确认');
+    if(!msgResult) return;
+    const params: TZHRequestParams = {
+        url: api.resetPwd,
+        conditions: {
+            id: modal.value.data.id
+        },
+        errorMessage: '重置失败',
+        successMessage: '重置成功',
+    };
+    const result = await ZHRequest.post(params);
+};
+
+const changePwd = async () => {
+    refModalForm.value.setModalFormModel({ caaLoginPassword: '' });
+    const item:any = modalFormSettings!.value!.fields;
+    item[1].disabled = false;
+};
+
+const submit = async() => {
+    const params: TZHRequestParams = {
+        url: api.updatePwd,
+        conditions: {
+            id: modal.value.data.id,
+            caaLoginPassword: modalModel.value.caaLoginPassword,
+        },
+        errorMessage: '修改失败',
+        successMessage: '修改成功',
+    };
+    const result = await ZHRequest.post(params);
+    if (result.success) modal.value.show = false;
+};
+//#endregion
 </script>
 
 <script lang="ts">

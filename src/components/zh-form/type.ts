@@ -22,7 +22,7 @@ export interface TZHFromField {
   type: string
   unimportant?: boolean
   label?: string
-  prop: string
+  prop?: string
   refName?: string // ref name
   defaultValue?: any // 默认值
   labelWidth?: string | number // 标签宽度
@@ -41,6 +41,7 @@ export interface TZHFromField {
   props?: CascaderProps
   // 输入框 input
   inputType?: string
+  showPassword?: boolean
 
   // 开关Switch
   activeText?: string

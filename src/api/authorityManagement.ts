@@ -1,12 +1,19 @@
-import { api } from '@/api/config';
+import { api, apiXXZ } from '@/api/config';
 
 export default {
+    // 角色管理
+    getRoleList: apiXXZ + '/userRole/userHaveRoles',
+    addRole: apiXXZ + '/role/add',
+    updateRole: apiXXZ + '/role/modify',
+    deleteRole: apiXXZ + '/role/remove',
+    batchDeleteRole: apiXXZ + '/role/remove',
+
     // 用户管理
     getUserList: api + '/user/list',
     addUser: api + '/user/add',
-    updateUser: api + '/user/update',
-    deleteUser: api + '/user/delete',
-    batchDeleteUser: api + '/user/batchDelete',
+    updateUser: api + '/user/modify',
+    deleteUser: api + '/user/remove',
+    batchDeleteUser: api + '/user/remove',
 
     // 菜单管理
     getMenuList: api + '/menu/list',

@@ -19,6 +19,7 @@
             v-show="!item.hide">
             <!-- 输入框 -->
             <el-input v-if="item.type === 'input'" :style="{ width: item.width ? `${item.width}` : '100%' }"
+            :show-password="item.showPassword"
               v-model="modelValue[item.prop]" :placeholder="item.placeholder" :disabled="item.disabled === undefined ? false :
               typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)" :type="item.inputType"
               :clearable="item.clearable === undefined ? true : item.clearable"></el-input>

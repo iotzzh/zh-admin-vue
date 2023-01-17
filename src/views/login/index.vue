@@ -19,11 +19,13 @@
 import { ref, onMounted } from 'vue';
 import { Avatar, Lock } from '@element-plus/icons-vue';
 import { useRouter } from 'vue-router';
-import { api } from '../../api/login';
+import api from '@/api/login';
 import storage from '@/utils/storage';
 import { convertMenuArrToTree } from '@/utils/dataConvert';
 import { popErrorMessage, popSuccessMessage } from '@/components/zh-message';
 import { useLayoutStore } from '@/layout/store';
+import { TZHRequestParams } from '@/components/zh-request/type';
+import ZHRequest from '@/components/zh-request';
 
 
 const router = useRouter();
@@ -49,6 +51,25 @@ const userLabListHs = ref([]) as any; //实验室
 
 // 登录
 const login = async () => {
+  const params:TZHRequestParams = {
+    url: api.login,
+    conditions: {
+      loginType: 'account',
+      loginChannel: 'admin',
+      loginId: inputAccount.value,
+      loginPass: inputPassword.value,
+    },
+    errorMessage: '登录失败',
+    successMessage: '登录成功',
+  };
+
+  const result = await ZHRequest.get(params);
+  if (!result.success) return;
+
+  setFormInfo();
+  setUserInfo(result.data);
+  setToken(result.data.token);
+
   router.push('/dashboard');
   // const params = { url: api.login, conditions: { loginPass: inputPassword.value, loginId: inputAccount.value }, errorMessage: '登录失败' } as RequestParamsModel;
   // const result = await get(params);

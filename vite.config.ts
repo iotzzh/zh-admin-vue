@@ -127,10 +127,20 @@ export default ({ mode }) => {
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/apiWH/, ''),
         },
-        '/apiDEVCloudlabadmin': {
-          target: 'http://dev.cloudlis.hwason.cn/cloudlabadmin',
+        '/apiXXZ': {
+          target: 'http://10.161.2.56:8082/upms-hsp/', // 徐希芝
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/apiDEVCloudlabadmin/, ''),
+          rewrite: (path) => path.replace(/^\/apiXXZ/, ''),
+        },
+        '/apiSSODev': {
+          target: 'http://dev.admin.hwason.cn/sso/', // 单点登录：开发环境
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/apiSSODev/, ''),
+        },
+        '/apiSSOLocal': {
+          target: 'http://10.161.2.56:8083/sso/', // 单点登录：本地接口
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/apiSSOLocal/, ''),
         },
       },
     },

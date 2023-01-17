@@ -1,12 +1,14 @@
 <template>
   <ZHModal ref="refZHModal" :modal="modal" @close="zhFormModal.close" @submit="zhFormModal.submit"
     @cancel="zhFormModal.cancel" @opened="opened">
-    <ZHForm ref="refZHForm" :formSettings="formSettings" v-model="modelValue" v-model:convertedModel="convertedModel"></ZHForm>
+    <ZHForm ref="refZHForm" :formSettings="formSettings" v-model="modelValue" v-model:convertedModel="convertedModel">
+      <slot v-for="(item, index) in slotFields" :name="'zh-form-' + item.prop" :key="index" />
+    </ZHForm>
   </ZHModal>
 </template>
 
 <script setup lang="ts">
-import { toRefs, PropType, ref } from 'vue';
+import { toRefs, PropType, ref, computed } from 'vue';
 import ZHModal from '../zh-modal/index.vue';
 import { TZHModal } from '../zh-modal/type';
 import ZHForm from '../zh-form/index.vue';
@@ -41,9 +43,15 @@ const zhFormModal = new ZHFormModal({ emit, refZHModal, refZHForm, modelValue, f
 
 const opened = () => { emit('opened'); };
 
+const slotFields = computed(() => {
+  return formSettings?.value?.fields?.filter((x:any) => x.type === 'slot');
+});
+
+
 defineExpose({
-  init: zhFormModal.init,
+  initForm: zhFormModal.initForm,
   clearFormData: zhFormModal.clearFormData,
+  setModalFormModel: zhFormModal.setModalFormModel,
 });
 </script>
 

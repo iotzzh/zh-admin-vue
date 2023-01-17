@@ -1,3 +1,6 @@
-export const api = {
-    login: '/login/index', // 登录
+import { api, apiSSOLocal, apiSSODev } from '@/api/config';
+
+export default {
+    // 账号登录
+    login: apiSSOLocal + '/login/index',
 };

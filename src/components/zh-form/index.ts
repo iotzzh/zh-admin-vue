@@ -124,7 +124,7 @@ export default class Form {
    };
 
   setConvertModel = async (newVal: any) => {
-    if (!this.convertedModel) return;
+    if (!this.convertedModel.value) return;
     const keys = Object.keys(newVal);
     for (const key of keys) { this.convertedModel.value[key] = newVal[key]; }
     if (!this.convertedModel.value) return;

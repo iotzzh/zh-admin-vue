@@ -4,3 +4,6 @@ const ENV = import.meta.env;
 const isDeployed = ENV.VITE_Deployed === 'true';
 export const api = isDeployed ? '/api' : '/api';
 export const apiWH = isDeployed ? '/hsp-admin' : '/apiWH';
+export const apiXXZ = isDeployed ? '/upms-hsp' : '/apiXXZ';
+export const apiSSODev = isDeployed ? '/sso' : '/apiSSODev';
+export const apiSSOLocal = isDeployed ? '/sso' : '/apiSSOLocal';

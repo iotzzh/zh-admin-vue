@@ -16,8 +16,15 @@ export default class ZHFormModal {
         this.modelValue = params.modelValue;
     }
 
-    init = () => {
+    initForm = () => {
         this.refZHForm.value && this.refZHForm.value.init();
+    };
+
+    setModalFormModel = (data:{[x:string]: any}) => {
+        const keys = Object.keys(data);
+        for (const key of keys) {
+            this.modelValue.value[key] = data[key];
+        }
     };
 
     clearFormData = () => {

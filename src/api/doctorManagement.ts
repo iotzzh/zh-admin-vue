@@ -7,4 +7,9 @@ export default {
     updateDoctorAccount: apiWH + '/doctorAccount/modify',
     deleteDoctorAccount: apiWH + '/doctorAccount/remove',
     batchDoctorAccount: apiWH + '/doctorAccount/remove',
+
+    updatePwd: apiWH + '/doctorAccount/modifyDoctorPassword',
+    resetPwd: apiWH + '/doctorAccount/resetDoctorPassword',
+
+
 };
