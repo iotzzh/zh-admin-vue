@@ -85,6 +85,63 @@ export default class dataListHelper {
         }
     };
 
+    // 获取用户客户(医院)列表
+    static getUserClientList = async function (appoint = true, userId: null | string = null) {
+        const params: TZHRequestParams = {
+            url: api.getUserCalList,
+            conditions: {
+                size: 1000,
+                current: 1,
+                appoint,
+                userId,
+            },
+        };
+        const result = await ZHRequest.post(params);
+        if (result.success) {
+            return result.data.map((x: any) => {
+                x.label = x.calName;
+                return x;
+            });
+        }
+    };
+
+    // 获取角色列表
+    static getRoleList = async function () {
+        const params: TZHRequestParams = {
+            url: api.getRoleList,
+            conditions: {
+                size: 1000,
+                current: 1,
+            },
+        };
+        const result = await ZHRequest.post(params);
+        if (result.success) {
+            return result.data.records.map((x: any) => {
+                x.label = x.roleName;
+                return x;
+            });
+        }
+    };
+
+    // 获取用户角色列表
+    static getUserRoleList = async function (userId:string) {
+        const params: TZHRequestParams = {
+            url: api.getUserRoleList,
+            conditions: {
+                userId,
+                size: 1000,
+                current: 1,
+            },
+        };
+        const result = await ZHRequest.post(params);
+        if (result.success) {
+            return result.data.map((x: any) => {
+                x.label = x.roleName;
+                return x;
+            });
+        }
+    };
+
     // // 获取用户列表
     // static getUserList = async function () {
     //     const params = {

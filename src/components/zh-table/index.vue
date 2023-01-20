@@ -69,7 +69,7 @@
     <el-table ref="refTable" class="zh-el-table" :data="table.data.value" size="default"
       :height="tableSettings.height || '100%'" :highlight-current-row="tableSettings.highlightCurrentRow"
       v-loading="table.loading.value" :row-key="tableSettings.rowKey === undefined ? 'id' : tableSettings.rowKey"
-      @row-click="table.rowClick">
+      @row-click="table.rowClick" :tree-props="tableSettings.treeProps" :lazy="tableSettings.lazy" :load="table.load">
 
       <el-table-column v-if="tableSettings.hasSelection" type="selection" width="50" align="center" reserve-selection>
       </el-table-column>
@@ -315,6 +315,7 @@ defineExpose({
   getData: table.getData, // 获取当前表格数据
   getDataAsync: table.getDataAsync, // 从接口获取表格数据，且不刷新表格
   getDataWithInitTable: table.getDataWithInitTable, // 获取接口数据，并刷新表格
+  reloadTableTreeChild: table.reloadTableTreeChild,
 });
 
 </script>

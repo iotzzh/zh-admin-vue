@@ -19,7 +19,7 @@ export default class Table {
     request: Ref<TZHTableRequest | undefined> | undefined,
     form: Form,
     pageData: Ref<TZHTablePage>,
-    emit:any
+    emit: any
   ) {
     this.tableSettings = tableSettings;
     this.refTable = refTable;
@@ -99,6 +99,36 @@ export default class Table {
     }
   };
 
+  loadMap = ref(new Map());
+
+  load = (row: any, treeNode: any, resolve: (data: any[]) => void) => {
+    this.tableSettings.value.load && this.tableSettings.value.load(row, treeNode, resolve);
+
+    //将获取到的节点数据添加到loadMap变量中
+    this.loadMap.value.set(row.id, { row, treeNode, resolve });
+  };
+
+  reloadTableTreeChild = (parentId: any) => {
+    // parentId = parentId ? parseInt(parentId) : 0;
+    const { row, treeNode, resolve } = this.loadMap.value.get(parentId);
+
+    //通过ref获取table的子节点数
+    if (
+      this.refTable.value.store.states.lazyTreeNodeMap.value[parentId]
+        .length > 1
+    ) {
+      //说明该节点下有多个子节点
+      this.refTable.value.table.store.states.lazyTreeNodeMap[parentId] = [];
+    } else {
+      //说明该节点只有一个节点
+      this.refTable.value.store.states.lazyTreeNodeMap.value[parentId] =
+        [];
+    }
+
+    this.load(row, treeNode, resolve);
+
+  };
+
   rowDelete = async (row: any) => {
     const msgResult = await isMessageConfirm('确认删除？', '提示');
     if (!msgResult) return;
@@ -106,12 +136,18 @@ export default class Table {
       url: this.request?.value?.delete?.url || '',
       // conditions: { ...row },
       conditions: {
-        ids: [ row.id ]
+        ids: [row.id]
       },
     };
     const result: TZHTableRequestResult = await ZHRequest.post(params);
     if (result.success) {
-      this.debounceInitData();
+      if (this.tableSettings.value.load) {
+        this.reloadTableTreeChild(row.parentId);
+
+      } else {
+        this.debounceInitData();
+
+      }
     }
   };
 
@@ -126,17 +162,17 @@ export default class Table {
   _convertPropToEditingProp = (prop: string) => { return prop + 'editing'; };
   _convertEditingPropToProp = (editingProp: string) => { return editingProp.substring(0, editingProp.length - 7); };
 
-  cellCanShowEdit = (scope:any) => {
-    return this.cellMouseOver.value?.index === scope.$index && 
-    this.cellMouseOver.value?.cellIndex === scope.cellIndex;
+  cellCanShowEdit = (scope: any) => {
+    return this.cellMouseOver.value?.index === scope.$index &&
+      this.cellMouseOver.value?.cellIndex === scope.cellIndex;
   };
 
-  cellCanShowSaveCancel = (scope:any) => {
-    return !(this.cellMouseOver.value?.index === scope.$index && 
-      this.cellMouseOver.value?.cellIndex === scope.cellIndex) && this.cellEditList.value.find((x:any) => x.index === scope.$index && x.cellIndex === scope.cellIndex );
+  cellCanShowSaveCancel = (scope: any) => {
+    return !(this.cellMouseOver.value?.index === scope.$index &&
+      this.cellMouseOver.value?.cellIndex === scope.cellIndex) && this.cellEditList.value.find((x: any) => x.index === scope.$index && x.cellIndex === scope.cellIndex);
   };
 
-  cellContentOver = (scope:any) => {
+  cellContentOver = (scope: any) => {
     if (this.cellCanShowSaveCancel(scope)) return;
     this.cellMouseOver.value = { index: scope.$index, cellIndex: scope.cellIndex };
   };
@@ -145,25 +181,24 @@ export default class Table {
     this.cellMouseOver.value = null;
   };
 
-  clickInlineEdit = (scope:any) => {
+  clickInlineEdit = (scope: any) => {
     this.cellMouseOver.value = null;
     this.cellEditList.value.push({ index: scope.$index, cellIndex: scope.cellIndex });
     scope.row[this._convertPropToEditingProp(scope.column.property)] = scope.row[scope.column.property];
   };
 
-  clickInlineCancel = (scope:any) => {
+  clickInlineCancel = (scope: any) => {
     this.cellMouseOver.value = null;
-    this.cellEditList.value = this.cellEditList.value.filter((x:any) => x.index !== scope.$index || x.cellIndex !== scope.cellIndex);
+    this.cellEditList.value = this.cellEditList.value.filter((x: any) => x.index !== scope.$index || x.cellIndex !== scope.cellIndex);
   };
 
-  clickInlineSave = (scope:any) => {
-    if(this.tableSettings.value.modal?.customValidate && !this.tableSettings.value.modal?.customValidate(scope.row)) return;
+  clickInlineSave = (scope: any) => {
+    if (this.tableSettings.value.modal?.customValidate && !this.tableSettings.value.modal?.customValidate(scope.row)) return;
     // 调用接口触发
     popSuccessMessage('修改成功');
     scope.row[scope.column.property] = scope.row[this._convertPropToEditingProp(scope.column.property)];
     this.cellMouseOver.value = null;
-    this.cellEditList.value = this.cellEditList.value.filter((x:any) => x.index !== scope.$index || x.cellIndex !== scope.cellIndex);
+    this.cellEditList.value = this.cellEditList.value.filter((x: any) => x.index !== scope.$index || x.cellIndex !== scope.cellIndex);
   };
-
   //#endregion
 }

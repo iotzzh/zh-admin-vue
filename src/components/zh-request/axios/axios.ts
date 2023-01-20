@@ -37,12 +37,13 @@ request.interceptors.request.use(
 request.interceptors.response.use(
     response => {
         if (response.status === 200) {
-            if (response.data.errorCode === 'C10' || response.data.errCode === 'C10' || response.data.errorCode === 'C11' || response.data.errCode === 'C11') {
+            if (response.data.errorCode === 'C10' || response.data.errCode === 'C10' || response.data.errorCode === 'C11' || response.data.errCode === 'C11'
+            || response.data.errorCode === 'E996' || response.data.errCode === 'E996') {
                 popErrorMessage('Token已过期，请重新登录');
                 sessionStorage.clear();
                 localStorage.clear();
-                router && router.push('/');
-                location.reload();
+                router && router.push('/login');
+                // location.reload();
             } else {
                 return response.data;
             }

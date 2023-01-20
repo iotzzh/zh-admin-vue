@@ -130,12 +130,15 @@ export default class Modal {
   submit = async () => {
     // this.refZHFormModal.value.toggleLodadingSubmit(true);
     this.modal.value.loadingSubmit = true;
-    // TODO: 搜索前操作，例如变换某个字段， tableSettings.onBeforeSubmit(type: 'add | update')
+    const conditions = this.getParams();
+
+    if (this.tableSettings?.value?.modal?.onBeforeSubmit) { await this.tableSettings.value.modal.onBeforeSubmit({ modal: this.modal.value, conditions, }); }
+    
     const params: TZHRequestParams = {
       url: this.modal.value.type === 'add' ?
         this.request?.value?.add?.url || '' :
         this.request?.value?.update?.url || '',
-      conditions: this.getParams(),
+      conditions,
       successMessage: this.modal.value.type === 'add' ? this.request?.value?.add?.successMessage : this.request?.value?.update?.successMessage,
       errorMessage: this.modal.value.type === 'add' ? this.request?.value?.add?.errorMessage : this.request?.value?.update?.errorMessage,
     };

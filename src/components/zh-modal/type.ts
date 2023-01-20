@@ -13,6 +13,8 @@ export interface TZHModal {
   customClass?: string
 
   footer?: TZHModalFooter
+
+  onBeforeSubmit?: Function
 }
 
 export interface TZHModalFooter {

@@ -56,7 +56,7 @@ const tableSettings = reactive({
             }
         },
         {
-            label: '是否启用', prop: 'isEbl',
+            label: '是否启用', prop: 'isEbl', convert: (row: any) => { return row.isEbl ? '是' : '否'; },
             addEditInfo: {
                 type: 'switch',
                 addSort: 5,
