@@ -1,10 +1,6 @@
 /**
  * 该文件统一管理整站的storage管理，包括sessionStorage/localStorage
- * 
  */
-
-import { json } from "stream/consumers";
-
 export default class storage {
     //#region 清除所有storage
     static clearAllStorage = function () {
@@ -64,6 +60,15 @@ export default class storage {
             return objData && objData.id;
         }
         else return null;
+    };
+
+    // 根菜单id
+    static setRootId = function (id: string) {
+        sessionStorage.setItem('rootId', id);
+    };
+
+    static getRootId = function () {
+        return sessionStorage.getItem('rootId');
     };
 
 

@@ -1,12 +1,9 @@
 <template>
-  <el-dialog 
-    v-model="modal.show" 
-    v-if="modal.show"
-    :title="modal.title" :closeOnClickModal="false"
+  <el-dialog v-model="modal.show" v-if="modal.show" :title="modal.title" :closeOnClickModal="false"
     :width="isMobile ? '90%' : modal.width || ''" @close="zhModal.close" :top="modal.top"
-    :fullscreen="zhModal.fullscreen.value" :class="classNames" @opened="opened"
-    :append-to-body="true" :show-close="false">
-    <div class="body-box">
+    :fullscreen="zhModal.fullscreen.value" :class="classNames" @opened="opened" :append-to-body="true"
+    :show-close="false">
+    <div class="body-box" v-loading="modal.loadingPage">
       <slot></slot>
     </div>
 
@@ -21,7 +18,6 @@
           </el-button>
           <el-button link @click="zhModal.close" type="primary" style="margin-left: 0px;"><i
               class="iconfont icon-close_light"></i></el-button>
-
         </div>
       </div>
     </template>
@@ -39,10 +35,9 @@
 </template>
 
 <script setup lang="ts">
-import { useLayoutStore } from '@/layout/store';
 import storage from '@/utils/storage';
 import { computed } from '@vue/reactivity';
-import { toRefs, PropType, ref, watch } from 'vue';
+import { toRefs, PropType, ref } from 'vue';
 import { ZHModal } from './index';
 import { TZHModal } from './type';
 
@@ -76,6 +71,7 @@ export default { name: 'ZHModal' };
 </script>
 
 <style lang="scss" scoped>
+
 </style>
 
 <style lang="scss">
@@ -114,6 +110,7 @@ export default { name: 'ZHModal' };
   overflow-x: hidden;
   overflow-y: auto;
 }
+
 .header {
   display: flex;
 
@@ -129,5 +126,4 @@ export default { name: 'ZHModal' };
 .iconfont {
   cursor: pointer;
 }
-
 </style>

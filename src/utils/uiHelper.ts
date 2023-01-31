@@ -1,3 +1,4 @@
+// DOM操作
 export default class UIHelper {
     static toggleFullScreen = (element: HTMLElement | Element, isFullScreen: boolean) => {
         if (!element) return;

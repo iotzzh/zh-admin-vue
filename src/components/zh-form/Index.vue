@@ -112,7 +112,7 @@
 
 <script setup lang="ts">
 
-import { toRefs, PropType, ref, computed, onMounted, watch } from 'vue';
+import { toRefs, PropType, ref, computed, onMounted, watch, nextTick } from 'vue';
 import Form from './index';
 import { TZHFormSettings, TZHFromFieldSelectOption, TZHFromField } from './type';
 import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit, ArrowUp, ArrowDown } from '@element-plus/icons-vue';
@@ -174,7 +174,7 @@ const rules = computed(() => {
   return newRules;
 });
 
-onMounted(() => {
+onMounted(async () => {
   formInstance.init();
 });
 

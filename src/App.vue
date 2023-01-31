@@ -21,66 +21,66 @@ onMounted(async () => {
   
   const treeData = {
   r: {
-    name: "",
+    name: '',
     children: [
       {
-        name: "股东",
+        name: '股东',
         children: [
-          {name: "何少华", value: '[董事长,董事]'},
-          {name: "何少华", value: '[副董事长,董事]'},
-          {name: "何少华", value: '[董事,副行长]'},
-          {name: "何少华", value: '[董事]'},
-          {name: "何少华", value: '[董事]'},
-          {name: "何少华", value: '[董事]'},
+          {name: '何少华', value: '[董事长,董事]'},
+          {name: '何少华', value: '[副董事长,董事]'},
+          {name: '何少华', value: '[董事,副行长]'},
+          {name: '何少华', value: '[董事]'},
+          {name: '何少华', value: '[董事]'},
+          {name: '何少华', value: '[董事]'},
         ]
       }, {
-        name: "供应商",
+        name: '供应商',
         children: [
-          {name: "福德生命人寿保险股份有限公司-万能H", value: `[4.33%]`},
-          {name: "福德生命人寿保险股份有限公司-万能H", value: `[4.33%]`},
-          {name: "绍兴"}
+          {name: '福德生命人寿保险股份有限公司-万能H', value: '[4.33%]'},
+          {name: '福德生命人寿保险股份有限公司-万能H', value: '[4.33%]'},
+          {name: '绍兴'}
         ]
       },
       {
-        name: "合伙人",
+        name: '合伙人',
         children:
           [
-            {name: "何少华", value: '[董事长,董事]'},
-            {name: "何少华", value: '[副董事长,董事]'},
+            {name: '何少华', value: '[董事长,董事]'},
+            {name: '何少华', value: '[副董事长,董事]'},
           ]
       }
     ]
   },
   l: {
-    name: "",
+    name: '',
     children: [
       {
-        name: "合伙人",
+        name: '合伙人',
         children:
           [
-            {name: "何少华", value: '[董事]'},
-            {name: "何少华", value: '[董事]'},
-            {name: "何少华", value: '[董事]'},
+            {name: '何少华', value: '[董事]'},
+            {name: '何少华', value: '[董事]'},
+            {name: '何少华', value: '[董事]'},
           ]
       },
       {
-        name: "合作公司",
+        name: '合作公司',
         children: [
           {
-            name: "绍兴2",
+            name: '绍兴2',
             value: 100,
-            children: [{name: "绍兴2221"}, {name: "绍兴2222"}, {name: "绍兴2223"}, {name: "绍兴2224"}, {name: "绍兴2221"}, {name: "绍兴2222"}, {name: "绍兴2223"}, {name: "绍兴2224"}, {name: "绍兴2221"}, {name: "绍兴2222"}, {name: "绍兴2223"}, {name: "绍兴2224"}]
+            children: [{name: '绍兴2221'}, {name: '绍兴2222'}, {name: '绍兴2223'}, {name: '绍兴2224'}, {name: '绍兴2221'}, {name: '绍兴2222'}, {name: '绍兴2223'}, {name: '绍兴2224'}, {name: '绍兴2221'}, {name: '绍兴2222'}, {name: '绍兴2223'}, {name: '绍兴2224'}]
           },
           {
-            name: "宁波2",
+            name: '宁波2',
             value: 100,
             children: [{
-              name: "绍兴333",
-              children: [{name: "绍兴3221"}, {name: "绍兴3222"}, {name: "绍兴3223"}, {name: "绍兴3224"}, {name: "绍兴3221"}, {name: "绍兴3222"}, {name: "绍兴3223"}, {name: "绍兴3224"}]
+              name: '绍兴333',
+              children: [{name: '绍兴3221'}, {name: '绍兴3222'}, {name: '绍兴3223'}, {name: '绍兴3224'}, {name: '绍兴3221'}, {name: '绍兴3222'}, {name: '绍兴3223'}, {name: '绍兴3224'}]
             }]
           },
-          {name: "温州"},
-          {name: "绍兴"}
+          {name: '温州'},
+          {name: '绍兴'}
         ]
       }
     ]
@@ -99,9 +99,9 @@ onMounted(async () => {
         centralPoint: [0, 0],//画布中心点坐标x,y
         root: {r: {}, l: {}},//左右2块数据源
         rootNodeLength: 0,//根节点名称长度
-        rootName: ["计算机", "基础"],//根节点名称
+        rootName: ['计算机', '基础'],//根节点名称
         textSpace: 15,//多行文字间距
-        themeColor: "#2196F3",//主色
+        themeColor: '#2196F3',//主色
         nodeSize: [30, 100],//节点间距(高/水平)
         fontSize: 12,//字体大小，也是单字所占宽高
         rectMinWidth: 50,//节点方框默认最小，
@@ -132,12 +132,12 @@ onMounted(async () => {
         function s4() {
           return Math.floor((1 + Math.random()) * 0x10000)
             .toString(16)
-            .substring(1)
+            .substring(1);
         }
 
         return (
           s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4()
-        )
+        );
       },
 
       //初始化
@@ -161,7 +161,7 @@ onMounted(async () => {
 
         //g标签
         this.container = svg.append('g')
-          .attr('class', "container")
+          .attr('class', 'container')
           .attr('transform', `translate(${margin.left},${margin.top}) scale(1)`);
         //画出根节点
         this.drawRoot();
@@ -194,15 +194,15 @@ onMounted(async () => {
       //画根节点
       drawRoot() {
         const title = this.container.append('g')
-          .attr('id', "rootTitle")
-          .attr("transform", `translate(${this.centralPoint[1]},${this.centralPoint[0]})`);
+          .attr('id', 'rootTitle')
+          .attr('transform', `translate(${this.centralPoint[1]},${this.centralPoint[0]})`);
         title.append('svg:rect')
-          .attr('class', "rootTitle")
-          .attr("y", 0)
-          .attr("x", -this.rootNodeLength / 2)
-          .attr("width", this.rootNodeLength)
-          .attr("height", 0)
-          .attr("rx", 5) //圆角
+          .attr('class', 'rootTitle')
+          .attr('y', 0)
+          .attr('x', -this.rootNodeLength / 2)
+          .attr('width', this.rootNodeLength)
+          .attr('height', 0)
+          .attr('rx', 5) //圆角
           .style('fill', this.themeColor);
         this.rootName.forEach((name, index) => {
           title.append('text').attr('fill', 'white')
@@ -234,13 +234,13 @@ onMounted(async () => {
         const node = this.container.selectAll(`g.${className}`).data(nodes, d => d.id);
 
         //新增节点，tree会根据数据内的children扩展相关节点
-        const nodeEnter = node.enter().append("g")
+        const nodeEnter = node.enter().append('g')
           .attr('id', d => `g${d.id}`)
           .attr('class', className)
-          .attr("transform", d => `translate(${source.y0},${source.x0})`)
-          .attr("fill-opacity", 0)
-          .attr("stroke-opacity", 0)
-          .on("click", (d) => {
+          .attr('transform', d => `translate(${source.y0},${source.x0})`)
+          .attr('fill-opacity', 0)
+          .attr('stroke-opacity', 0)
+          .on('click', (d) => {
             d.depth !== 0 && this.clickNode(d, direction);//根节点不执行点击事件
           });
 
@@ -275,15 +275,15 @@ onMounted(async () => {
 
         // 更新节点：节点enter和exit时都会触发tree更新
         const nodeUpdate = node.merge(nodeEnter).transition().duration(this.duration)
-          .attr("transform", d => `translate(${d.y - dirRight * this.rectMinWidth / 2},${d.x})`)
-          .attr("fill-opacity", 1)
-          .attr("stroke-opacity", 1);
+          .attr('transform', d => `translate(${d.y - dirRight * this.rectMinWidth / 2},${d.x})`)
+          .attr('fill-opacity', 1)
+          .attr('stroke-opacity', 1);
 
         // 移除节点:tree移除掉数据内不包含的节点(即，children = false)
         const nodeExit = node.exit().transition().duration(this.duration).remove()
-          .attr("transform", d => `translate(${source.y},${source.x})`)
-          .attr("fill-opacity", 0)
-          .attr("stroke-opacity", 0);
+          .attr('transform', d => `translate(${source.y},${source.x})`)
+          .attr('fill-opacity', 0)
+          .attr('stroke-opacity', 0);
 
 
         // Update the links 根据 className来实现分块更新
@@ -291,22 +291,22 @@ onMounted(async () => {
 
         // Enter any new links at the parent's previous position.
         //insert是在g标签前面插入，防止连接线挡住G节点内容
-        const linkEnter = link.enter().insert("path", 'g')
+        const linkEnter = link.enter().insert('path', 'g')
           .attr('class', className)
-          .attr("d", d => {
+          .attr('d', d => {
             const o = {x: source.x0, y: source.y0};
             return this.diagonal({source: o, target: o});
           })
-          .attr("fill", 'none')
-          .attr("stroke-width", 1)
+          .attr('fill', 'none')
+          .attr('stroke-width', 1)
           .attr('stroke', '#dddddd');
 
         // Transition links to their new position.
-        link.merge(linkEnter).transition().duration(this.duration).attr("d", this.diagonal);
+        link.merge(linkEnter).transition().duration(this.duration).attr('d', this.diagonal);
 
         // Transition exiting nodes to the parent's new position.
         link.exit().transition().duration(this.duration).remove()
-          .attr("d", d => {
+          .attr('d', d => {
             const o = {x: source.x, y: source.y};
             return this.diagonal({source: o, target: o});
           });
@@ -331,9 +331,9 @@ onMounted(async () => {
       //画文本
       drawText(id, dirRight) {
         dirRight = dirRight > 0;//右为1，左为-1
-        return d3.select(`#${id}`).append("text")
+        return d3.select(`#${id}`).append('text')
           .attr('y', this.textPadding)
-          .attr("x", d => dirRight ? this.textPadding : -this.textPadding)
+          .attr('x', d => dirRight ? this.textPadding : -this.textPadding)
           .attr('text-anchor', dirRight ? 'start' : 'end')
           .style('font-size', this.fontSize)
           .text(d => d.data.name);
@@ -358,23 +358,23 @@ onMounted(async () => {
         return d3.select(`#${id}`).insert('rect', 'text')
           .attr('x', dirRight > 0 ? 0 : -realw)
           .attr('y', -this.textSpace + this.textPadding)
-          .attr("width", realw)
-          .attr("height", this.textSpace + this.textPadding)
-          .attr("rx", 2) //圆角
+          .attr('width', realw)
+          .attr('height', this.textSpace + this.textPadding)
+          .attr('rx', 2) //圆角
           .style('stroke', d => this.getRectStorke(d.parent.data.name))
-          .style('fill', "#ffffff");
+          .style('fill', '#ffffff');
       },
 
       //画circle
       drawCircle(id) {
         let gMark = d3.select(`#${id}`).append('g')
           .attr('class', 'node-circle')
-          .attr("stroke", "#ffa500")
+          .attr('stroke', '#ffa500')
           .attr('stroke-width', 1);
 
-        gMark.append("circle")
+        gMark.append('circle')
           .attr('fill', 'none')
-          .attr("r", d => d.depth === 0 ? 0 : this.circleR)//根节点不设置圆圈
+          .attr('r', d => d.depth === 0 ? 0 : this.circleR)//根节点不设置圆圈
           .attr('fill', '#ffffff');
         let padding = this.circleR - 2;
         gMark.append('path').attr('d', `m -${padding} 0 l ${2 * padding} 0`);//横线
@@ -383,7 +383,7 @@ onMounted(async () => {
           .attr('d', `m 0 -${padding} l 0 ${2 * padding}`)
           .attr('stroke-width', 0)
           .attr('class', 'node-circle-vertical');
-        return gMark
+        return gMark;
       },
 
       //点击某个节点

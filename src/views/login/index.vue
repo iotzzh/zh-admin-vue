@@ -1,35 +1,42 @@
 <template>
   <div class="main-content">
-    <div class="login-box" v-on:keypress.enter="login">
+    <div class="login-box" v-on:keypress.enter="login" v-if="showLoginForm">
       <div class="user-box">
         <div class="login-title">{{ sysName }}</div>
-        <div class="login-form" v-if="showLoginForm">
+        <form class="login-form" v-if="showLoginForm">
           <el-input v-model="inputAccount" class="w-50 m-2 input-box" size="large" placeholder="工号"
             :prefix-icon="Avatar" clearable></el-input>
           <el-input v-model="inputPassword" class="w-50 m-2 input-box" size="large" placeholder="密码" type="password"
-            :prefix-icon="Lock" clearable></el-input>
+            :prefix-icon="Lock" clearable show-password></el-input>
           <el-button type="primary" class="login-button button" @click="login()">登录</el-button>
-        </div>
+        </form>
       </div>
+    </div>
+
+    <div class="login-select-org" v-else>
+      <el-button type="primary" class="button" v-for="(item, index) in orgList" :key="index"
+        @click="goTo(item)">{{ item.calName }}</el-button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { Avatar, Lock } from '@element-plus/icons-vue';
 import { useRouter } from 'vue-router';
 import api from '@/api/login';
 import storage from '@/utils/storage';
-import { convertMenuArrToTree } from '@/utils/dataConvert';
-import { popErrorMessage, popSuccessMessage } from '@/components/zh-message';
+import { popErrorMessage } from '@/components/zh-message';
 import { useLayoutStore } from '@/layout/store';
 import { TZHRequestParams } from '@/components/zh-request/type';
 import ZHRequest from '@/components/zh-request';
+import { convertMenuArrToTree } from '@/utils/dataConvert';
+import { setLayout } from '@/router/routes';
 
 
 const router = useRouter();
 const store = useLayoutStore();
+const orgList = ref([]) as any; // 机构列表
 
 const sysName = ref('后台管理系统');
 const inputAccount = ref('') as any;
@@ -45,13 +52,13 @@ const setFormInfo = () => {
   });
 };
 const setToken = (token: string) => storage.setToken(token);
-const setCommoParams = (params: any) => storage.setCommonParams(params);
 const setUserInfo = (params: any) => storage.setUserInfo(params);
-const userLabListHs = ref([]) as any; //实验室
+const setCommoParams = (params: any) => storage.setCommonParams(params);
+const setRootId = (id:string) => storage.setRootId(id);
 
 // 登录
 const login = async () => {
-  const params:TZHRequestParams = {
+  const params: TZHRequestParams = {
     url: api.login,
     conditions: {
       loginType: 'account',
@@ -70,15 +77,21 @@ const login = async () => {
   setUserInfo(result.data);
   setToken(result.data.token);
 
-  router.push('/dashboard');
-  // const params = { url: api.login, conditions: { loginPass: inputPassword.value, loginId: inputAccount.value }, errorMessage: '登录失败' } as RequestParamsModel;
-  // const result = await get(params);
-  // if (!result.success) return;
-  // popSuccessMessage('登录成功！');
-  // setFormInfo();
-  // setUserInfo(result.data);
-  // setToken(result.data.token);
-  // // console.log('登录返回值：：：', result);
+  if (result.data.userCalList.length > 1) {
+    showLoginForm.value = false;
+    orgList.value = result.data.userCalList;
+  } else if (result.data.userCalList.length === 1) {
+    showLoginForm.value = false;
+    orgList.value = result.data.userCalList;
+  } else {
+    popErrorMessage(result.errorMsg);
+  }
+
+
+
+  // await getMenus();
+  // router.push('/dashboard');
+
   // if (result.data.userLabList.length > 1) {
   //   showLoginForm.value = false;
   //   userLabListHs.value = result.data.userLabList;
@@ -89,62 +102,60 @@ const login = async () => {
   //   popErrorMessage(result.errorMsg);
   // }
 };
-
-// 添加监听enter事件
-onMounted(() => {
-  // const isCloud = storage.getIsCloud();
-  // sysName.value = isCloud ? '云实验室LIS系统' : '实验室LIS系统';
-  // const loginFormInfo: any = storage.getLoginFormInfo();
-  // if (loginFormInfo && loginFormInfo.rememberPass) {
-  //   rememberPassword.value = true;
-  //   inputPassword.value = loginFormInfo.pass;
-  //   inputAccount.value = loginFormInfo.account;
-  // } else {
-  //   rememberPassword.value = false;
-  //   inputPassword.value = '';
-  //   inputAccount.value = '';
-  // }
-});
-
-const goTo = async (value: any, num: number) => {
-  // //切换实验室
-  // const params = { url: api.changeLab, conditions: { labCode: value.labCode, labName: value.labName, labLibraryName: value.labName, topicName: value.labCode }, } as RequestParamsModel;
-  // const res = await postWithoutCommonParams(params);
-  // if (res.success) {
-  //   // 存取实验室code和name
-  //   setCommoParams({ labCode: res.data.labCode, labName: res.data.labName, labLibraryName: res.data.labName, topicName: res.data.labCode });
-  //   await getMenus();
-  // } else {
-  //   popErrorMessage(res.errorMsg);
-  // }
-
-};
-
 // 查询用户菜单接口
 const getMenus = async () => {
   const allMenuList: any = await getMenusList();
-  store.setAllSystemMenuList(allMenuList);
-  // 如果用户有多个系统的权限，由用户选择进入某个系统；如果用户只有一个系统的权限，直接进入该系统首页
-  if (allMenuList.length > 1) {
-    router.push('/dashboard');
-  } else if (allMenuList.length === 1) {
-    store.setSystemName(allMenuList[0].permsionName);
-    router.push(allMenuList[0].url);
-  } else {
-    popErrorMessage('该用户暂未配置任何系统权限，请配置后重新登录');
-  }
-
+  store.setSystemMenuList(allMenuList);
+  setLayout(allMenuList);
 };
 
 // 查询用户菜单接口
 const getMenusList = async () => {
-  // const params = { url: api.getMenus, conditions: {}, errorMessage: '获取菜单数据失败' } as RequestParamsModel;
-  // const result = await post(params);
-  // if (!result.success) return;
-  // const menuList = convertMenuArrToTree(result.data);
-  // return menuList;
+  const params: TZHRequestParams = {
+    url: api.getMenus,
+    conditions: {},
+  };
+
+  const result = await ZHRequest.get(params);
+  if (!result.success) return;
+  const sortedData = result.data.sort((x:any, y:any) => (Number(x.sortNo) - Number(y.sortNo) > 0) ? 0 : -1);
+  const list = convertMenuArrToTree(sortedData);
+  return list;
 };
 
+
+const goTo = async (value: any) => {
+  const params: TZHRequestParams = {
+    url: api.changeCal,
+    conditions: {
+      calCode: value.calCode,
+      calName: value.calName,
+    },
+  };
+
+  const result = await ZHRequest.post(params);
+  if (result.success) {
+    setCommoParams({ defaultCalCode: result.data.defaultCalCode, defaultCalName: result.data.defaultCalName });
+    await getCalRootPermissionId();
+    await getMenus();
+    router.push('/dashboard');
+  }
+};
+
+const getCalRootPermissionId = async () => {
+    const apiParams: TZHRequestParams = {
+        url: api.getCalRootPermissionId,
+        conditions: {},
+        errorMessage: '获取根目录数据失败',
+    };
+    const result = await ZHRequest.post(apiParams);
+    if (result.success) setRootId(result.data.id);
+};
+
+</script>
+
+<script lang="ts">
+export default { name: 'login' };
 </script>
 
 <style lang="scss" scoped>

@@ -3,7 +3,6 @@ import { MenuNode, RouteType } from './type';
 
 export const useLayoutStore = defineStore({
   id: 'layout',
-
   state: () => ({
     cachedViews: [] as RouteType[], // 缓存哪些界面
     collapse: true, // 侧边栏是否展开
@@ -13,7 +12,7 @@ export const useLayoutStore = defineStore({
     isOpenDrawerMenu: false,
   }),
 
-  // persist: true,
+  persist: true,
   
   getters: {
     // doubleCount: (state) => state.counter * 2

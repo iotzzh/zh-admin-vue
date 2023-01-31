@@ -15,6 +15,7 @@ export interface TZHModal {
   footer?: TZHModalFooter
 
   onBeforeSubmit?: Function
+  onAfterSubmit?: Function
 }
 
 export interface TZHModalFooter {

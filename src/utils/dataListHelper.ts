@@ -1,9 +1,10 @@
+// 获取数据列表操作集合，可以是接口i请求，也可以是静态数据，目前多为数据请求
+// 这里请求1000条数据，当数据大于一千条数据时，请考虑模糊搜索远程加载/分段加载等其他方式进行查询
 import { TZHRequestParams } from '@/components/zh-request/type';
 import { ref } from 'vue';
 import api from '@/api/common';
 import ZHRequest from '@/components/zh-request';
 
-// 这里请求1000条数据，当数据大于一千条数据时，请考虑模糊搜索远程加载/分段加载等其他方式进行查询
 export default class dataListHelper {
 
     // 获取收款主体列表

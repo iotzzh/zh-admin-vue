@@ -4,7 +4,6 @@ import { TZHTableRequest, TZHTableRequestResult, TZHTableColumnAddEditInfo, TZHT
 import Table from './table';
 import ZHRequest from '../zh-request';
 import { TZHRequestParams } from '../zh-request/type';
-import dayjs from 'dayjs';
 import { TZHFormSettings } from '../zh-form/type';
 
 
@@ -152,5 +151,7 @@ export default class Modal {
     }
     await nextTick();
     this.modal.value.loadingSubmit = false;
+
+    if (this.tableSettings?.value?.modal?.onAfterSubmit) { await this.tableSettings.value.modal.onAfterSubmit({ modal: this.modal.value, conditions, }); }
   };
 }

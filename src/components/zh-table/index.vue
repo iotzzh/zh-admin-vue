@@ -69,7 +69,8 @@
     <el-table ref="refTable" class="zh-el-table" :data="table.data.value" size="default"
       :height="tableSettings.height || '100%'" :highlight-current-row="tableSettings.highlightCurrentRow"
       v-loading="table.loading.value" :row-key="tableSettings.rowKey === undefined ? 'id' : tableSettings.rowKey"
-      @row-click="table.rowClick" :tree-props="tableSettings.treeProps" :lazy="tableSettings.lazy" :load="table.load">
+      @row-click="table.rowClick" :tree-props="tableSettings.treeProps" :lazy="tableSettings.lazy" :load="table.load"
+      :default-expand-all="tableSettings.defaultExpandAll">
 
       <el-table-column v-if="tableSettings.hasSelection" type="selection" width="50" align="center" reserve-selection>
       </el-table-column>
@@ -158,9 +159,16 @@
             : 'center'
         ">
         <template #default="scope">
-          <el-button v-if="tableSettings.actionColumn?.hasRowEditAction" link type="primary" size="small" :icon="Edit"
+          <el-button 
+            v-if="tableSettings.actionColumn?.hasRowEditAction" 
+            v-show="tableSettings.actionColumn?.displayRowEditActionMethod === undefined ? true : !!tableSettings.actionColumn?.displayRowEditActionMethod(scope.row)"
+            link 
+            type="primary" 
+            size="small" 
+            :icon="Edit"
             @click.stop="modalInstance.openEditModal(scope.row)">编辑</el-button>
           <el-button v-if="tableSettings.actionColumn?.hasRowDeleteAction" link type="danger" size="small"
+          v-show="tableSettings.actionColumn?.displayRowDeleteActionMethod === undefined ? true : !!tableSettings.actionColumn?.displayRowDeleteActionMethod(scope.row)"
             :icon="Delete" @click.stop="table.rowDelete(scope.row)">删除</el-button>
 
           <el-button v-for="(item, buttonIndex) in tableSettings.actionColumn.buttons" :key="buttonIndex" link
@@ -313,6 +321,7 @@ defineExpose({
   throttleInitData: table.throttleInitData, // 节流查询
   initData: table.initData, // 正常查询
   getData: table.getData, // 获取当前表格数据
+  setData: table.setData,
   getDataAsync: table.getDataAsync, // 从接口获取表格数据，且不刷新表格
   getDataWithInitTable: table.getDataWithInitTable, // 获取接口数据，并刷新表格
   reloadTableTreeChild: table.reloadTableTreeChild,

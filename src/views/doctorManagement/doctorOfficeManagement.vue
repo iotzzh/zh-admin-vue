@@ -10,6 +10,8 @@
         v-model="modalModel" 
         @opened="openedModalChangePwd"
         @submit="submit"
+        @cancel="() => modal.show = false"
+        @close="() => modal.show = false"
         >
         <template v-slot:zh-form-buttons>
            <el-button type="info" @click="resetPwd">重置密码</el-button>
@@ -178,6 +180,25 @@ const tableSettings = reactive({
                 lg: 8,
                 xl: 8,
                 required: true,
+            }
+        },
+
+        {
+            label: '挂号费设置', prop: 'registrationType', notDisplay: true,
+            addEditInfo: {
+                type: 'select',
+                addSort: 8.5,
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 8,
+                xl: 8,
+                required: true,
+                defaultValue: 0,
+                options: [
+                    { label: '咨询前支付', value: 1 },
+                    { label: '开单时支付', value: 0 },
+                ],
             }
         },
 

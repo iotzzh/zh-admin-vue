@@ -27,14 +27,15 @@ const menuList = ref([] as any);
 const loading = ref(true);
 
 onMounted(async () => {
-  const params = {
-    url: '/api/menu/list',
-    conditions: {},
-  };
-  const result = await ZHRequest.post(params);
-  console.log(result);
-  // RouteRecordRaw[]
-  menuList.value = result.data.records;
+  // const params = {
+  //   url: '/api/menu/list',
+  //   conditions: {},
+  // };
+  // const result = await ZHRequest.post(params);
+  // console.log(result);
+  // // RouteRecordRaw[]
+  // menuList.value = result.data.records;
+  menuList.value = store.menuList;
 
   await nextTick();
   loading.value = false; 

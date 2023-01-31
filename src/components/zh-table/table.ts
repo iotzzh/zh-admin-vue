@@ -72,6 +72,8 @@ export default class Table {
 
   getData = () => { return this.data.value; };
 
+  setData = (data:Array<any>) => { this.data.value = data; };
+
   getDataAsync = async (propParams?: Object) => {
     const params = propParams || this.form.getSearchParams();
     const result: TZHTableRequestResult = await ZHRequest.post(params);
@@ -110,15 +112,13 @@ export default class Table {
 
   reloadTableTreeChild = (parentId: any) => {
     // parentId = parentId ? parseInt(parentId) : 0;
+    if (!parentId || !this.loadMap.value.get(parentId)) return;
     const { row, treeNode, resolve } = this.loadMap.value.get(parentId);
 
     //通过ref获取table的子节点数
-    if (
-      this.refTable.value.store.states.lazyTreeNodeMap.value[parentId]
-        .length > 1
-    ) {
+    if (!!this.refTable.value.store.states.lazyTreeNodeMap.value[parentId] && this.refTable.value.store.states.lazyTreeNodeMap.value[parentId].length > 1) {
       //说明该节点下有多个子节点
-      this.refTable.value.table.store.states.lazyTreeNodeMap[parentId] = [];
+      this.refTable.value.store.states.lazyTreeNodeMap[parentId] = [];
     } else {
       //说明该节点只有一个节点
       this.refTable.value.store.states.lazyTreeNodeMap.value[parentId] =
@@ -141,12 +141,10 @@ export default class Table {
     };
     const result: TZHTableRequestResult = await ZHRequest.post(params);
     if (result.success) {
-      if (this.tableSettings.value.load) {
+      if (this.tableSettings.value.load && (this.tableSettings.value.validateLoad === undefined ? true : this.tableSettings.value.validateLoad(row)) ) {
         this.reloadTableTreeChild(row.parentId);
-
       } else {
         this.debounceInitData();
-
       }
     }
   };

@@ -1,10 +1,26 @@
+// 数据转换工具
+
+import storage from './storage';
+
 // 由于菜单数据并非一颗树，而是多棵树组成的数据，顾当成由树组成的数组的处理
 const convertMenuArrToTree = (array: Array<any>) => {
-    const rootMenus = array.filter(x => x.parentId === '');
+    const rootId = storage.getRootId();
+    const rootMenus = array.filter(x => x.parentId === rootId);
     const childrenMenus = array.filter(x => x.parentId !== '');
-    for (let i = 0; i < rootMenus.length; i++) {
-        rootMenus[i].component = () => import(/* @vite-ignore */'/src/' + rootMenus[i].componentPath);
-    }
+    // for (let i = 0; i < rootMenus.length; i++) {
+    //     // rootMenus[i].component = () => import(/* @vite-ignore */'/src/' + rootMenus[i].filePath);
+
+    //     rootMenus[i].meta = { ...rootMenus[i].meta };
+    //     rootMenus[i].meta.title = rootMenus[i].permsionName;
+    //     // array[i].meta.fatherPath = array[i].fatherPath;
+
+    //     rootMenus[i].name = rootMenus[i].routeName;
+    //     rootMenus[i].path = rootMenus[i].url || '/';
+
+    //     if (rootMenus[i].filePath) {
+    //         rootMenus[i].component = () => import(/* @vite-ignore */'/src/' + rootMenus[i].filePath + '.vue');
+    //     }
+    // }
 
     for (let i = 0; i < rootMenus.length; i++) {
         if (childrenMenus.find(x => x.parentId === rootMenus[i].id)) {
@@ -32,10 +48,12 @@ const updateMenuToRouter = (array: Array<any>) => {
     for (let i = 0; i < array.length; i++) {
         array[i].meta = { ...array[i].meta };
         array[i].meta.title = array[i].permsionName;
+        // array[i].meta.fatherPath = array[i].fatherPath;
+
         array[i].name = array[i].routeName;
         array[i].path = array[i].url || '/';
 
-        if (array[i].menuType === 2) {
+        if (array[i].filePath) {
             array[i].component = () => import(/* @vite-ignore */'/src/' + array[i].filePath + '.vue');
         }
     }

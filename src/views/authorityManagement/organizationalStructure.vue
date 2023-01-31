@@ -218,6 +218,10 @@ const requestTable = ref({
 } as TZHTableRequest);
 </script>
 
+<script lang="ts">
+export default { name: 'organizationalStructure' };
+</script>
+
 <style lang="scss" scoped>
  .row, .column {
     height: 100%;

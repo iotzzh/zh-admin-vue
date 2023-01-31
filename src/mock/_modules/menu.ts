@@ -67,7 +67,7 @@ export default [
                               'permsionName': '角色管理',
                               'url': '/roleManagement',
                               'filePath': 'views/authorityManagement/roleManagement',
-                              'routeName': 'userManagement1',
+                              'routeName': 'roleManagement',
                               'menuType': 2,
                               'permsionCode': 'NJHS:/publicSystems/authorityManagement/roleManagement',
                               'sourceBy': null,

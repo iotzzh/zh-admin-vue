@@ -26,15 +26,6 @@ const formSettings = ref({
     hasResetButton: true,
     hideUnimportantFields: false,
     customModel: {},
-    convertParams: (params: { [x: string]: any }) => {
-        return {
-            ...params,
-            convertParams: true,
-        };
-    },
-    buttons: [
-        // { label: '自定义按钮1', icon: 'Filter', method: () => { console.log('hello world'); }, style: 'color: pink; background-color: blue;' }
-    ],
     formLabelWidth: '70px',
     fields: [
         { label: '手机号', type: 'input', prop: 'account', width: '200px', },
@@ -96,8 +87,9 @@ const tableSettings = reactive({
             }
         },
         {
-            label: '手机号', prop: 'phone', addEditInfo: {
+            label: '账号', prop: 'account', addEditInfo: {
                 addSort: 2.5,
+                label: '手机号', prop: 'phone',
                 type: 'input', defaultValue: null, placeholder: '请输入', span: 8, xs: 24,
                 sm: 12,
                 md: 8,

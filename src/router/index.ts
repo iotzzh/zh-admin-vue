@@ -1,7 +1,7 @@
 import type { Router, RouteRecordRaw } from 'vue-router';
 import type { App } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import { getBasicRoutes, basicRoutes } from './routes';
+import { getBasicRoutes, basicRoutes, setLayout } from './routes';
 import { rangeRight } from 'lodash';
 
 const PUBLIC_PATH = import.meta.env.VITE_PUBLIC_PATH;
@@ -39,12 +39,10 @@ console.log(PUBLIC_PATH);
 let router: Router | null = null;
 
 async function getRouter () {
-  const routes = await getBasicRoutes();
+  const routes:any = await getBasicRoutes();
   router = createRouter({
     history: createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
-    routes: [...basicRoutes, ...routes],
-    // 是否应该禁止尾部斜杠。默认为假
-    // strict: true,
+    routes: [...basicRoutes, ...routes ],
     scrollBehavior: () => ({ left: 0, top: 0 }),
   });
 
@@ -57,6 +55,7 @@ export function getCurrentRouter () {
 
 export {
   router,
+  setLayout,
 };
 
 // config router

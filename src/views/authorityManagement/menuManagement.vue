@@ -1,6 +1,6 @@
 <!-- 权限管理 - 菜单管理 -->
 <template>
-    <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
+    <Table ref="refTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
         :usePage="true" :request="request" @opened="opened">
         <template v-slot:zh-table-form-test>
             <el-input placeholder="请输入自定义搜索" v-model="formSettings.customModel!.test"></el-input>
@@ -9,20 +9,18 @@
 </template>
 
 <script lang="ts" setup>
-import { TZHFromField } from '@/components/zh-form/type';
 import Table from '@/components/zh-table/index.vue';
-import { TObject, TZHTableRequest, TZHTableFormSettings, TZHTableSetting, TZHTableColumn } from '@/components/zh-table/type';
+import { TZHTableRequest, TZHTableFormSettings, TZHTableSetting } from '@/components/zh-table/type';
 import { onMounted, reactive, ref } from 'vue';
 import api from '@/api/authorityManagement';
-import { popErrorMessage } from '@/components/zh-message';
 import { TZHRequestParams } from '@/components/zh-request/type';
 import ZHRequest from '@/components/zh-request';
 
-const refZHTable = ref();
+const refTable = ref();
 const rootPermision = ref({} as any);
 
 const getSearchFormModel = () => {
-    const model = refZHTable.value.getSearchFormModel();
+    const model = refTable.value.getSearchFormModel();
     console.log(model);
 };
 
@@ -63,36 +61,76 @@ const tableSettings = reactive({
             hasSubmitButton: true,
         },
         formLabelWidth: '90px',
+        onBeforeSubmit: async (params:any) => {
+            // if (params.conditions.menuType === 2) params.conditions.isSkip = true;
+            // else params.conditions.isSkip = false;
+        },
+        onAfterSubmit: async (params: any) => {
+            refTable.value && refTable.value.reloadTableTreeChild(params.conditions.parentId);
+        },
     },
+    validateLoad: (row:any) => { return row.menuType !== 1; },
     load: async (
         row: any,
         treeNode: unknown,
         resolve: (data: any[]) => void
     ) => {
-        resolve([{id: '123', parentId: '83065105051861056'}]);
-        // const apiParams: TZHRequestParams = {
-        //     url: api.getPermisMenuList,
-        //     conditions: {
-        //         parentId: row.id
-        //     },
-        //     errorMessage: '获取子节点数据失败',
-        // };
-        // const result = await ZHRequest.post(apiParams);
-        // if (result.success) resolve(result.data.records);
+        const apiParams: TZHRequestParams = {
+            url: api.getPermisMenuChildList,
+            conditions: {
+                moduleId: row.id
+            },
+            errorMessage: '获取子节点数据失败',
+        };
+        const result = await ZHRequest.post(apiParams);
+        if (result.success) resolve(result.data[0] ? result.data[0].children : []);
     },
     columns: [
-        { label: 'ID', prop: 'id', },
         {
             label: '菜单名称',
             prop: 'permsionName',
             allowCellEdit: false,
+            width: '200px',
             align: 'left',
             addEditInfo: {
                 type: 'input',
                 addSort: 1,
                 defaultValue: '',
                 placeholder: '请输入',
-                span: 8,
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                xl: 12,
+                required: true,
+            }
+        },
+        {
+            label: '排序', prop: 'sortNo', notDisplay: false,
+            addEditInfo: {
+                type: 'input',
+                inputType: 'number',
+                addSort: 5,
+                defaultValue: '',
+                placeholder: '请输入',
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                xl: 12,
+            }
+        },
+        {
+            label: 'URL', prop: 'url', width: '200px',
+            addEditInfo: {
+                type: 'input',
+                defaultValue: null,
+                addSort: 3,
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                xl: 12,
                 required: true,
             }
         },
@@ -100,45 +138,40 @@ const tableSettings = reactive({
             label: '权限编码',
             prop: 'permsionCode',
             allowCellEdit: false,
+            notDisplay: true,
             align: 'left',
             addEditInfo: {
                 type: 'input',
                 addSort: 2,
                 defaultValue: '',
                 placeholder: '请输入',
-                span: 8,
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                xl: 12,
                 required: true,
             }
         },
         {
-            label: 'URL', prop: 'url',
-            addEditInfo: {
-                type: 'input',
-                defaultValue: null,
-                addSort: 3,
-                span: 8,
-                required: true,
-            }
-        },
-        {
-            label: '文件路径', prop: 'filePath', notDisplay: false,
-            addEditInfo: {
-                type: 'input',
-                addSort: 4,
-                defaultValue: '',
-                placeholder: '请输入',
-                span: 8,
-                required: true,
-            }
-        },
-        {
-            label: '类型', prop: 'menuType', notDisplay: false,
+            label: '类型', prop: 'menuType', notDisplay: false, convert: (row: any) => {
+                switch (row.menuType) {
+                    case 0: return '系统';
+                    case 1: return '目录';
+                    case 2: return '菜单';
+                    case 3: return '按钮';
+                    default: return '未知';
+                }
+            },
             addEditInfo: {
                 type: 'select',
-                addSort: 5,
-                defaultValue: '',
+                addSort: 2,
                 placeholder: '请输入',
-                span: 8,
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                xl: 12,
                 required: true,
                 options: [
                     { label: '系统', value: 0 },
@@ -149,14 +182,82 @@ const tableSettings = reactive({
             }
         },
         {
-            label: 'ICON', prop: 'icon', notDisplay: false,
+            label: '图标', prop: 'icon', notDisplay: false,
             addEditInfo: {
                 type: 'input',
                 addSort: 4,
                 defaultValue: '',
                 placeholder: '请输入',
-                span: 8,
-                required: true,
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                xl: 12,
+            }
+        },
+        {
+            label: '路由名', prop: 'routeName', notDisplay: false,
+            addEditInfo: {
+                type: 'input',
+                addSort: 6,
+                defaultValue: '',
+                placeholder: '请输入',
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                xl: 12,
+            }
+        },
+        {
+            label: '可跳转', prop: 'isSkip', notDisplay: false, convert: (row: any) => { return row.isSkip ? '是' : '否'; },
+            addEditInfo: {
+                type: 'select',
+                addSort: 8,
+                defaultValue: true,
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                xl: 12,
+                options: [
+                    { label: '是', value: true },
+                    { label: '否', value: false },
+                ],
+            }
+        },
+        {
+            label: '是否启用', prop: 'isEbl', convert: (row: any) => { return row.isEbl ? '是' : '否'; },
+            addEditInfo: {
+                type: 'switch',
+                addSort: 9,
+                xs: 24,
+                sm: 24,
+                md: 24,
+                lg: 24,
+                xl: 24,
+                options: [
+                    { label: '启用', value: true },
+                    { label: '不启用', value: false },
+                ],
+                defaultValue: true,
+                activeValue: true,
+                inactiveValue: false,
+            }
+        },
+        {
+            label: '文件路径', prop: 'filePath', notDisplay: false,
+            width: '200px',
+            addEditInfo: {
+                type: 'input',
+                addSort: 7,
+                defaultValue: '',
+                placeholder: '请输入',
+                xs: 24,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                xl: 12,
             }
         },
     ],
@@ -164,9 +265,11 @@ const tableSettings = reactive({
         label: '操作',
         width: '215px',
         hasRowDeleteAction: true,
+        displayRowEditActionMethod: (row: any) => row.menuType !== 3,
         hasRowEditAction: true,
+        displayRowDeleteActionMethod: (row: any) => row.menuType !== 3,
         buttons: [
-            { label: '新建子级菜单', type: 'success', icon: 'Plus', onClick: (row: any, index: any) => { refZHTable.value && refZHTable.value.openAddModal(row); } }
+            { label: '新建子级菜单', type: 'success', icon: 'Plus', displayMethod: (row: any) => row.menuType !== 3, onClick: (row: any, index: any) => openAddModal(row) }
         ],
     },
 } as TZHTableSetting);
@@ -194,12 +297,28 @@ const getCalRootPermissionId = async () => {
     if (result.success) rootPermision.value = result.data;
 };
 
+const openAddModal = (row: any) => {
+    refTable.value && refTable.value.openAddModal(row);
+};
+
 const opened = async (params: any) => {
-    if (params.modal.type === 'add' && !params.openAddModalData) {
-        refZHTable.value.setModalFormModel({ parentId: rootPermision.value.id });
+    if (params.modal.type === 'add') {
+        if (!params.openAddModalData) {
+            refTable.value.setModalFormModel({ parentId: rootPermision.value.id });
+        } else {
+            refTable.value.setModalFormModel({ parentId: params.openAddModalData.id });
+        }
+    } else {
+        const modelWithoutChild = JSON.parse(JSON.stringify(params.openEditModalData));
+        modelWithoutChild.children = null;
+        refTable.value.setModalFormModel({ ...modelWithoutChild });
     }
 };
 
+</script>
+
+<script lang="ts">
+export default { name: 'menuManagement' };
 </script>
 
 <style lang="scss" scoped>

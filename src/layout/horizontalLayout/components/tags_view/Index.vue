@@ -10,14 +10,14 @@
       <div>刷</div>
       <div>
         <el-dropdown :hide-on-click="false" class="name" @command="changeDropdownCloseTag">
-        <span><i class="iconfont icon-xiala"></i></span>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="closeother">关闭其他</el-dropdown-item>
-            <!-- <el-dropdown-item command="closeall">关闭全部</el-dropdown-item> -->
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+          <span><i class="iconfont icon-xiala"></i></span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="closeother">关闭其他</el-dropdown-item>
+              <!-- <el-dropdown-item command="closeall">关闭全部</el-dropdown-item> -->
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </div>
       <div @click="toggleFullScreen">
         <i v-if="fullScreen" class="iconfont icon-fullscreen-shrink"></i>
@@ -90,9 +90,6 @@ const toggleFullScreen = () => {
 
 <style lang="scss" scoped>
 .tags-box {
-  // padding-top: 2px;
-  // display: flex;
-
   .tags-scrollbar {
     flex: 1;
     width: 100%;
@@ -140,7 +137,7 @@ const toggleFullScreen = () => {
 
 .tags-box {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
-  border-top: 1px solid rgba(0,0,0,0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   background-color: white;
   box-sizing: border-box;
   // padding-top: 5px;

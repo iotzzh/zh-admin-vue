@@ -66,53 +66,6 @@ const store = useLayoutStore();
 
 const menuList = ref([] as any);
 
-// let menuList = ref([
-//   {
-//     id: '001',
-//     name: '首页导航',
-//     url: '/dashboard',
-//     icon: 'icon-menu1',
-//   },
-//   {
-//     id: '002',
-//     name: '测试页',
-//     icon: 'icon-menu1',
-//     children: [
-//       {
-//         id: '003',
-//         name: '首页导航',
-//         url: '/layoutExamplesExample1',
-//         icon: 'icon-menu1',
-//       },
-//     ],
-//   },
-//   {
-//     id: '004',
-//     name: '测试页1',
-//     icon: 'icon-menu1',
-//     children: [
-//       {
-//         id: '0031',
-//         name: '首页导航1',
-//         url: '/tableExample1',
-//       },
-//     ],
-//   },
-//   {
-//     id: '005',
-//     name: '测试页2',
-//     icon: 'icon-menu1',
-//     children: [
-//       {
-//         id: '0051',
-//         name: '首页导航11',
-//         url: '/tableExample2',
-//       },
-//     ],
-//   }
-// ] as any);
-
-
 onMounted(async () => {
   const params = {
     url: '/api/menu/list',

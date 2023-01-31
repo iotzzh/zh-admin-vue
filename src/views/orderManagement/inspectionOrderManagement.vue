@@ -197,7 +197,7 @@ const changeModel = (model: any) => {
 </script>
 
 <script lang="ts">
-export default { name: 'userManagement' };
+export default { name: 'inspectionOrderManagement' };
 </script>
 
 <style lang="scss" scoped>

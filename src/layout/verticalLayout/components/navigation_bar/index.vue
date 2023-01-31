@@ -35,7 +35,7 @@
         <i v-else class="iconfont icon-fullscreen-expand"></i>
       </span>
       
-      <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
+      <!-- <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
         <i :size="50" class="iconfont icon-language-outline" />
         <template #dropdown>
           <el-dropdown-menu>
@@ -43,12 +43,12 @@
             <el-dropdown-item command="logout">English</el-dropdown-item>
           </el-dropdown-menu>
         </template>
-      </el-dropdown>
-      <span class="setting-icon" @click="changeLayout">
+      </el-dropdown> -->
+      <!-- <span class="setting-icon" @click="changeLayout">
         <i class="iconfont icon-layout-2-fill"></i>        
-      </span>
+      </span> -->
       <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
-        <span>张中华</span>
+        <span>{{ userInfo?.realName }}</span>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="logout">退出登录</el-dropdown-item>
@@ -90,13 +90,15 @@ const toggleSideBar = () => {
 const userInfo = ref({} as any);
 
 onMounted(() => {
-  // userInfo.value = storage.getUserInfo();
+  userInfo.value = storage.getUserInfo();
 });
 
 // 退出登录事件
 const handleCommand = (command: string | number | object) => {
   if (command === 'logout') {
-    // logout();
+    sessionStorage.clear();
+                localStorage.clear();
+                router && router.push('/login');
   }
 };
 

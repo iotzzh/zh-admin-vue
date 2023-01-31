@@ -70,4 +70,9 @@
     margin-right: 0px;
 }
 
+/* 弹框 表格 - 搜索表单：zh-form */
+.zh-modal .zh-table .el-form--inline.zh-form .el-form-item {
+    width: auto !important;
+}
+
 /* ********************************************************************重写在自己编写的组件中的element 的样式End*********************************************** */

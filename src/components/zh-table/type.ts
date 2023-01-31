@@ -88,8 +88,10 @@ export interface TZHTableSetting {
   columns?: Array<TZHTableColumn> // 列配置，内包含新增和编辑的列配置
   actionColumn?: TZHTableActionColumn // 操作列配置
   treeProps?: { [x:string]: any } // 树形展示配置
+  defaultExpandAll?: boolean
   lazy?: boolean
   load?: (row: any, treeNode: TreeNode, resolve: (data: any[]) => void) => void
+  validateLoad?: Function
 
 
   modal?: TZHTableModal // 弹窗配置
@@ -141,7 +143,9 @@ export interface TZHTableColumnAddEditInfo extends TZHFromField {
 // 表格操作列
 export interface TZHTableActionColumn {
   hasRowEditAction?: boolean
+  displayRowEditActionMethod?: Function
   hasRowDeleteAction?: boolean
+  displayRowDeleteActionMethod?: Function
   fixed?: string
   width?: string | number
   minWidth?: string
