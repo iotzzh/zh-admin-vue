@@ -96,17 +96,19 @@
             </template>
           </el-form-item>
         </el-col>
-
       </TransitionGroup>
       <slot></slot>
-    </el-row>
-    <slot name="zh-form-next-row"></slot>
-    <span v-if="formSettings?.hideUnimportantFields" class="folder-box">
-      <el-button v-if="formInstance.hideUnimportantFields.value" size="large" class="unfolder" type="primary" link
+      <span v-if="formSettings?.hideUnimportantFields" class="folder-box">
+        <i class="iconfont icon-shangla1 unfolder" v-if="formInstance.hideUnimportantFields.value"
+         @click="() => formInstance.hideUnimportantFields.value = false" ></i>
+        <i v-else class="iconfont icon-shangla folder" @click="() => formInstance.hideUnimportantFields.value = true"></i>
+      <!-- <el-button v-if="formInstance.hideUnimportantFields.value" size="large" class="unfolder" type="primary" link
         :icon="ArrowDown" @click="() => formInstance.hideUnimportantFields.value = false" />
       <el-button v-else type="primary" link :icon="ArrowUp" size="large" class="folder"
-        @click="() => formInstance.hideUnimportantFields.value = true" />
+        @click="() => formInstance.hideUnimportantFields.value = true" /> -->
     </span>
+    </el-row>
+    <slot name="zh-form-next-row"></slot>
   </el-form>
 </template>
 
@@ -230,14 +232,17 @@ export default { name: 'ZHForm' };
 }
 
 .folder-box {
-  position: absolute;
-  right: 5px;
-  bottom: 0px;
+  padding-top: 7px;
+  // position: absolute;
+  // right: 5px;
+  // bottom: 0px;
 }
 
 .folder,
 .unfolder {
-  font-size: 24px;
+  font-size: 18px;
+  padding: 7px;
+  color: var(--el-color-primary);
 }
 </style>
 

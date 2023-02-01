@@ -9,11 +9,11 @@ export default {
     batchDeleteRole: apiXXZ + '/role/remove',
 
     // 用户管理
-    getUserList: apiXXZ + '/user/list',
-    addUser: apiXXZ + '/user/add',
-    updateUser: apiXXZ + '/user/modify',
-    deleteUser: apiXXZ + '/user/remove',
-    batchDeleteUser: apiXXZ + '/user/remove',
+    getUserList: apiMock + '/user/list',
+    addUser: apiMock + '/user/add',
+    updateUser: apiMock + '/user/modify',
+    deleteUser: apiMock + '/user/remove',
+    batchDeleteUser: apiMock + '/user/remove',
 
     // 用户角色
     getUserRoleList: apiXXZ + '/userRole/userHaveRoles',

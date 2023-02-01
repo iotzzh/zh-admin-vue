@@ -1,7 +1,7 @@
 <template>
   <div class="zh-table">
     <ZHForm ref="refZHForm" class="zh-form"
-      :style="{ maxHeight: isMobile ? '30%' : '', overflow: isMobile ? 'auto' : '' }" v-if="useSearchForm"
+      :style="{ maxHeight: isMobile ? '50%' : '', height: isMobile ? '190px' : 'auto', overflow: isMobile ? 'auto' : '' }" v-if="useSearchForm"
       v-model="form.formModel" v-model:converted-model="form.convertedFormModel" :form-settings="formSettings">
       <!-- 传递form默认插槽 -->
       <template #default>

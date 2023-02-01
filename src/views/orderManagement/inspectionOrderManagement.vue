@@ -14,17 +14,20 @@ import Table from '@/components/zh-table/index.vue';
 import { TZHTableRequest, TZHTableFormSettings, TZHTableSetting } from '@/components/zh-table/type';
 import { onMounted, reactive, ref } from 'vue';
 import api from '@/api/authorityManagement';
+import isHelper from '@/utils/isHelper';
 
 const refZHTable = ref();
 
+const isMobile = isHelper.isMobile();
+
 const formSettings = ref({
-    hasAddButton: true,
+    hasAddButton: false,
     hasSearchButton: true,
-    hasDeleteButton: true,
+    hasDeleteButton: false,
     hasUploadButton: false,
     hasExportButton: false,
     hasResetButton: true,
-    hideUnimportantFields: false,
+    hideUnimportantFields: isMobile,
     customModel: {},
     convertParams: (params: { [x: string]: any }) => {
         return {
@@ -37,15 +40,46 @@ const formSettings = ref({
     ],
     formLabelWidth: '70px',
     fields: [
-        { label: '手机号', type: 'input', prop: 'name', width: '200px', },
-        { label: '姓名', type: 'input', prop: 'name111', width: '200px', },
+    {
+            label: '创建日期', type: 'date-picker', timeType: 'daterange', prop: 'createTimeTest', options: [],
+            width: '200px',
+            convertDateTime: [{ field: 'startCreateTime1', format: 'YYYY-MM-DD' }, { field: 'endCreateTime1', format: 'YYYY-MM-DD' }],
+        },
+        { label: '订单编号', type: 'input', prop: 'name111', width: '200px', },
         // { label: '登录账号', type: 'input', prop: 'name111', width: '200px', },
-        { label: '员工编号', type: 'input', prop: 'name1111', width: '200px', },
+        { label: '患者姓名', type: 'input', prop: 'name1111', width: '200px', unimportant: isMobile, },
+        { label: '医院名称', type: 'input', prop: 'name1111', width: '200px', unimportant: isMobile,  },
+        { label: '科室', type: 'input', prop: 'name1111', width: '200px', unimportant: isMobile, },
+        { label: '医生姓名', type: 'input', prop: 'name1111', width: '200px', unimportant: isMobile, },
         {
-            label: '状态', type: 'select', prop: 'name11111', width: '200px', defaultValue: 0,
+            label: '状态', type: 'select', prop: 'name11111', width: '200px', defaultValue: 0, unimportant: isMobile,
             options: [
-                { label: '在职', value: 0 },
-                { label: '离职', value: 1 },
+                { label: '已填写', value: 0 },
+                { label: '未填写', value: 1 },
+                { label: '已核收', value: 1 },
+            ],
+        },
+        {
+            label: '支付状态', type: 'select', prop: 'name11111', width: '200px', defaultValue: 0, unimportant: isMobile,
+            options: [
+                { label: '已支付', value: 0 },
+                { label: '未支付', value: 1 },
+            ],
+        },
+        {
+            label: '报告状态', type: 'select', prop: 'name11111', width: '200px', defaultValue: 0, unimportant: isMobile,
+            options: [
+                { label: '报告已出', value: 0 },
+                { label: '报告未出', value: 1 },
+            ],
+        },
+        {
+            label: '订单类型', type: 'select', prop: 'name11111', width: '200px', defaultValue: 0, unimportant: isMobile,
+            options: [
+                { label: '全部', value: 0 },
+                { label: '普通订单', value: 1 },
+                { label: '冲红订单', value: 1 },
+                { label: '原单加项', value: 1 },
             ],
         },
     ],
@@ -173,25 +207,25 @@ const request = ref({
 
 
 const changeModel = (model: any) => {
-    const actionColumn = tableSettings?.actionColumn;
-    const button0 = tableSettings?.actionColumn?.buttons && tableSettings?.actionColumn?.buttons[0];
-    const button1 = tableSettings?.actionColumn?.buttons && tableSettings?.actionColumn?.buttons[1];
-    if (model.name11111) {
-        button0!.hide = true;
-        button1!.hide = false;
-        actionColumn!.hasRowDeleteAction = false;
-        actionColumn!.hasRowEditAction = false;
-        formSettings.value.hasAddButton = false;
-        formSettings.value.hasDeleteButton = false;
-    } else {
-        button0!.hide = false;
-        button1!.hide = true;
-        actionColumn!.hasRowDeleteAction = true;
-        actionColumn!.hasRowEditAction = true;
+    // const actionColumn = tableSettings?.actionColumn;
+    // const button0 = tableSettings?.actionColumn?.buttons && tableSettings?.actionColumn?.buttons[0];
+    // const button1 = tableSettings?.actionColumn?.buttons && tableSettings?.actionColumn?.buttons[1];
+    // if (model.name11111) {
+    //     button0!.hide = true;
+    //     button1!.hide = false;
+    //     actionColumn!.hasRowDeleteAction = false;
+    //     actionColumn!.hasRowEditAction = false;
+    //     formSettings.value.hasAddButton = false;
+    //     formSettings.value.hasDeleteButton = false;
+    // } else {
+    //     button0!.hide = false;
+    //     button1!.hide = true;
+    //     actionColumn!.hasRowDeleteAction = true;
+    //     actionColumn!.hasRowEditAction = true;
 
-        formSettings.value.hasAddButton = true;
-        formSettings.value.hasDeleteButton = true;
-    }
+    //     formSettings.value.hasAddButton = true;
+    //     formSettings.value.hasDeleteButton = true;
+    // }
 };
 
 </script>

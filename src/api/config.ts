@@ -2,7 +2,7 @@
 const ENV = import.meta.env;
 
 const isDeployed = ENV.VITE_Deployed === 'true';
-export const apiMock = '/apiMock';
+export const apiMock = isDeployed ? '/hsp-admin' : '/apiMock';
 export const apiWH = isDeployed ? '/hsp-admin' : '/apiWH';
 export const apiXXZ = isDeployed ? '/upms-hsp' : '/apiXXZ';
 export const apiSSODev = isDeployed ? '/sso' : '/apiSSODev';
