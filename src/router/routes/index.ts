@@ -22,36 +22,36 @@ export const setLayout = async (data: any, isVertical = true) => {
 };
 
 export const getBasicRoutes = async (isVertical = true) => {
-  const params: TZHRequestParams = {
-    url: api.getMenus,
-    conditions: {},
-  };
-
-  const result = await ZHRequest.get(params);
-  if (!result.success) return;
-  const sortedData = result.data.sort((x:any, y:any) => (Number(x.sortNo) - Number(y.sortNo) > 0) ? 0 : -1);
-  const list:RouteRecordRaw[] = convertMenuArrToTree(sortedData);
-  updateMenuToRouter(list);
-  return [{
-    path: '/',
-    component: isVertical ? VerticalLayout : H,
-    name: isVertical ? 'root' : 'root1',
-    children: list,
-  }];
-  
-  // const params = {
-  //   url: '/api/menu/list',
+  // const params: TZHRequestParams = {
+  //   url: api.getMenus,
   //   conditions: {},
   // };
-  // const result = await ZHRequest.post(params);
-  // const routes:RouteRecordRaw[] = result.data.records;
-  // updateMenuToRouter(routes);
+
+  // const result = await ZHRequest.get(params);
+  // if (!result.success) return;
+  // const sortedData = result.data.sort((x:any, y:any) => (Number(x.sortNo) - Number(y.sortNo) > 0) ? 0 : -1);
+  // const list:RouteRecordRaw[] = convertMenuArrToTree(sortedData);
+  // updateMenuToRouter(list);
   // return [{
   //   path: '/',
   //   component: isVertical ? VerticalLayout : H,
   //   name: isVertical ? 'root' : 'root1',
-  //   children: routes,
+  //   children: list,
   // }];
+  
+  const params = {
+    url: '/apiMock/menu/list',
+    conditions: {},
+  };
+  const result = await ZHRequest.post(params);
+  const routes:RouteRecordRaw[] = result.data.records;
+  updateMenuToRouter(routes);
+  return [{
+    path: '/',
+    component: isVertical ? VerticalLayout : H,
+    name: isVertical ? 'root' : 'root1',
+    children: routes,
+  }];
 };
 
 export const basicRoutes: Array<RouteRecordRaw> = [

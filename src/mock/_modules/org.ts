@@ -3,7 +3,7 @@ import Mock from 'mockjs';
 export default [
     // GetUserList
     {
-        url: '/api/org/list',
+        url: '/apiMock/org/list',
         type: 'post',
         response: (conditions: any) => {
             const result = {
@@ -30,7 +30,7 @@ export default [
         },
     },
     {
-        url: '/api/org/update',
+        url: '/apiMock/org/update',
         type: 'post',
         response: () => {
             const result = {
@@ -57,7 +57,7 @@ export default [
         },
     },
     {
-        url: '/api/org/add',
+        url: '/apiMock/org/add',
         type: 'post',
         response: () => {
             const result = {
@@ -84,7 +84,7 @@ export default [
         },
     },
     {
-        url: '/api/org/delete',
+        url: '/apiMock/org/delete',
         type: 'post',
         response: () => {
             const result = {

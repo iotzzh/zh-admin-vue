@@ -14,8 +14,9 @@
     </div>
 
     <div class="login-select-org" v-else>
-      <el-button type="primary" class="button" v-for="(item, index) in orgList" :key="index"
-        @click="goTo(item)">{{ item.calName }}</el-button>
+      <el-button type="primary" class="button" v-for="(item, index) in orgList" :key="index" @click="goTo(item)">{{
+        item.calName
+      }}</el-button>
     </div>
   </div>
 </template>
@@ -54,7 +55,7 @@ const setFormInfo = () => {
 const setToken = (token: string) => storage.setToken(token);
 const setUserInfo = (params: any) => storage.setUserInfo(params);
 const setCommoParams = (params: any) => storage.setCommonParams(params);
-const setRootId = (id:string) => storage.setRootId(id);
+const setRootId = (id: string) => storage.setRootId(id);
 
 // 登录
 const login = async () => {
@@ -118,7 +119,7 @@ const getMenusList = async () => {
 
   const result = await ZHRequest.get(params);
   if (!result.success) return;
-  const sortedData = result.data.sort((x:any, y:any) => (Number(x.sortNo) - Number(y.sortNo) > 0) ? 0 : -1);
+  const sortedData = result.data.sort((x: any, y: any) => (Number(x.sortNo) - Number(y.sortNo) > 0) ? 0 : -1);
   const list = convertMenuArrToTree(sortedData);
   return list;
 };
@@ -143,13 +144,13 @@ const goTo = async (value: any) => {
 };
 
 const getCalRootPermissionId = async () => {
-    const apiParams: TZHRequestParams = {
-        url: api.getCalRootPermissionId,
-        conditions: {},
-        errorMessage: '获取根目录数据失败',
-    };
-    const result = await ZHRequest.post(apiParams);
-    if (result.success) setRootId(result.data.id);
+  const apiParams: TZHRequestParams = {
+    url: api.getCalRootPermissionId,
+    conditions: {},
+    errorMessage: '获取根目录数据失败',
+  };
+  const result = await ZHRequest.post(apiParams);
+  if (result.success) setRootId(result.data.id);
 };
 
 </script>

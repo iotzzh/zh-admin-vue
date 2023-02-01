@@ -3,7 +3,7 @@ import Mock from 'mockjs';
 export default [
   // GetUserList
   {
-    url: '/api/client/list',
+    url: '/apiMock/client/list',
     type: 'post',
     response: (conditions: any) => {
       const result = {
@@ -34,7 +34,7 @@ export default [
     },
   },
   {
-    url: '/api/client/update',
+    url: '/apiMock/client/update',
     type: 'post',
     response: () => {
       return {
@@ -60,7 +60,7 @@ export default [
     },
   },
   {
-    url: '/api/client/add',
+    url: '/apiMock/client/add',
     type: 'post',
     response: () => {
       return {
@@ -86,7 +86,7 @@ export default [
     },
   },
   {
-    url: '/api/client/delete',
+    url: '/apiMock/client/delete',
     type: 'post',
     response: () => {
       return {
@@ -112,7 +112,7 @@ export default [
     },
   },
   {
-    url: '/api/client/batchDelete',
+    url: '/apiMock/client/batchDelete',
     type: 'post',
     response: () => {
       return {

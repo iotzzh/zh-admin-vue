@@ -78,4 +78,12 @@
     width: 80%;
   }
 
+  .el-button+.el-button {
+    margin-left: 0px;
+  }
+
+  .el-button:not(:last-child) {
+    margin-bottom: 15px;
+  }
+
 }

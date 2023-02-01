@@ -1,7 +1,7 @@
 export default [
     // GetUserList
     {
-        url: '/api/menu/list',
+        url: '/apiMock/menu/list',
         type: 'post',
         response: (conditions: any) => {
             const result = {
@@ -274,7 +274,7 @@ export default [
         },
     },
     {
-        url: '/api/menu/update',
+        url: '/apiMock/menu/update',
         type: 'post',
         response: () => {
             const result = {
@@ -301,7 +301,7 @@ export default [
         },
     },
     {
-        url: '/api/menu/add',
+        url: '/apiMock/menu/add',
         type: 'post',
         response: () => {
             const result = {
@@ -328,7 +328,7 @@ export default [
         },
     },
     {
-        url: '/api/menu/delete',
+        url: '/apiMock/menu/delete',
         type: 'post',
         response: () => {
             const result = {
