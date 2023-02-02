@@ -61,8 +61,8 @@ export default class Form {
     return this.getSearchParams();
   };
 
-  _convertSlotName = (prop: string): string => {
-    return 'zh-form-' + prop;
+  _convertSlotName = (prop: string | undefined): string => {
+    return 'zh-form-' + (prop || '');
   };
 
   _getNotChangeTriggerSearchFields = () => {

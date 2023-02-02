@@ -69,3 +69,17 @@
 .zh-vxe-table ::-webkit-scrollbar-corner {
   background-color: #FFFFFF;
 }
+
+@media screen and (max-width: 820px) {
+  .zh-virtual-scroll-table {
+    padding: 0px;
+    .zh-form {
+      // margin-bottom: 5px;
+      padding: 0px;
+    }
+
+    .zh-el-table {
+      padding: 0px;
+    }
+  }
+}
