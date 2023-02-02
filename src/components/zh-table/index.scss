@@ -34,6 +34,7 @@
 
   .zh-form {
     // margin-bottom: 5px;
+    padding: 7px 15px;
   }
 
   .zh-form .el-form-item {
@@ -56,15 +57,34 @@
     margin: 0px 0px 0px 0px;
     padding-top: 7px;
     padding-bottom: 7px;
-    padding-right: 7px;
+    padding-right: 15px;
     justify-content: end;
     background-color: white;
   }
 
   .zh-el-table {
+    padding: 0px 15px;
 
     .el-button+.el-button {
       margin-left: 0px !important;
     }
+  }
+}
+
+
+@media screen and (max-width: 820px) {
+  .zh-table {
+    .zh-form {
+      // margin-bottom: 5px;
+      padding: 0px;
+    }
+
+    .zh-el-table {
+      padding: 0px;
+    }
+
+    // .zh-table-pagination {
+    //   padding-right: 15px;
+    // }
   }
 }

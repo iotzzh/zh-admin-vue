@@ -14,8 +14,11 @@ import Table from '@/components/zh-table/index.vue';
 import { TZHTableRequest, TZHTableFormSettings, TZHTableSetting } from '@/components/zh-table/type';
 import { onMounted, reactive, ref } from 'vue';
 import api from '@/api/authorityManagement';
+import isHelper from '@/utils/isHelper';
 
 const refZHTable = ref();
+
+const isMobile = isHelper.isMobile();
 
 const formSettings = ref({
     hasAddButton: true,
@@ -37,18 +40,57 @@ const formSettings = ref({
     ],
     formLabelWidth: '70px',
     fields: [
-        { label: '手机号', type: 'input', prop: 'name', width: '200px', },
-        { label: '姓名', type: 'input', prop: 'name111', width: '200px', },
-        // { label: '登录账号', type: 'input', prop: 'name111', width: '200px', },
-        { label: '员工编号', type: 'input', prop: 'name1111', width: '200px', },
         {
-            label: '状态', type: 'select', prop: 'name11111', width: '200px', defaultValue: 0,
+            label: '创建日期', type: 'date-picker', timeType: 'daterange', prop: 'createTimeTest', options: [],
+            width: '200px',
+            convertDateTime: [{ field: 'startCreateTime1', format: 'YYYY-MM-DD' }, { field: 'endCreateTime1', format: 'YYYY-MM-DD' }],
+        },
+        // { label: '登录账号', type: 'input', prop: 'name111', width: '200px', },
+        { label: '患者姓名', type: 'input', prop: 'name1111', width: '200px', },
+        { label: '条码号', type: 'input', prop: 'name1111', width: '200px', unimportant: isMobile, },
+        { label: '医院', type: 'input', prop: 'name1111', width: '200px', unimportant: isMobile, },
+        { label: '科室', type: 'input', prop: 'name1111', width: '200px', unimportant: isMobile, },
+        { label: '医生', type: 'input', prop: 'name1111', width: '200px', unimportant: isMobile, },
+        {
+            label: '报告日期', type: 'date-picker', timeType: 'daterange', prop: 'createTimeTest', options: [],
+            width: '200px',
+            convertDateTime: [{ field: 'startCreateTime1', format: 'YYYY-MM-DD' }, { field: 'endCreateTime1', format: 'YYYY-MM-DD' }],
+        },
+        {
+            label: '打印状态', type: 'select', prop: 'name11111', width: '200px', defaultValue: 0, unimportant: isMobile,
             options: [
-                { label: '在职', value: 0 },
-                { label: '离职', value: 1 },
+                { label: '全部', value: 0 },
+                { label: '已打印', value: 1 },
+                { label: '未打印', value: 1 },
             ],
         },
+        {
+            label: '纸张类型', type: 'select', prop: 'name11111', width: '200px', defaultValue: 0, unimportant: isMobile,
+            options: [
+                { label: '全部', value: 0 },
+                { label: 'A4中文模板', value: 1 },
+                { label: 'A5中文模板', value: 1 },
+                { label: 'A4英文模板', value: 1 },
+                { label: 'A4英文模板', value: 1 },
+                { label: 'A4中英文双语模板', value: 1 },
+            ],
+        },
+        { label: '项目名称', type: 'input', prop: 'name1111', width: '200px', unimportant: isMobile, },
+
     ],
+    actionColumn: {
+        label: '操作',
+        width: '280px',
+        hasRowDeleteAction: false,
+        hasRowEditAction: false,
+        fixed: 'right',
+        buttons: [
+            { label: '打印报告', type: 'success', icon: 'Plus', onClick: (row: any, index: any) => {  } },
+            { label: '打包下载', type: 'success', icon: 'Plus', onClick: (row: any, index: any) => {  } },
+            { label: '导出Excel', type: 'success', icon: 'Plus', onClick: (row: any, index: any) => {  } },
+            { label: '导出结果', type: 'success', icon: 'Plus', onClick: (row: any, index: any) => {  } },
+        ],
+    },
 } as TZHTableFormSettings);
 
 const tableSettings = reactive({

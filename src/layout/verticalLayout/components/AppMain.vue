@@ -20,7 +20,7 @@ const { cachedViews } = storeToRefs(store);
 
 <style lang="scss" scoped>
 .app-main {
-  padding: 10px;
+  padding: 10px 15px;
   flex: 1;
   height: 100%;
   // height: calc(100% - 50px);

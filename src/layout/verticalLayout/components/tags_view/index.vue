@@ -135,7 +135,7 @@ const toggleFullScreen = () => {
   }
 
   .tag:not(:first-child) {
-    margin-left: 5px;
+    margin-left: 7.5px;
     // margin-right: 5px;
   }
 }

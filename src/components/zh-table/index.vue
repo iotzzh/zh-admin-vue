@@ -70,7 +70,7 @@
       :height="tableSettings.height || '100%'" :highlight-current-row="tableSettings.highlightCurrentRow"
       v-loading="table.loading.value" :row-key="tableSettings.rowKey === undefined ? 'id' : tableSettings.rowKey"
       @row-click="table.rowClick" :tree-props="tableSettings.treeProps" :lazy="tableSettings.lazy" :load="table.load"
-      :default-expand-all="tableSettings.defaultExpandAll">
+      :default-expand-all="tableSettings.defaultExpandAll" :border="tableSettings.border === undefined ? true : tableSettings.border">
 
       <el-table-column v-if="tableSettings.hasSelection" type="selection" width="50" align="center" reserve-selection>
       </el-table-column>

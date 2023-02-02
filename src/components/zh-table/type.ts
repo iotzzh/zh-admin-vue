@@ -89,6 +89,7 @@ export interface TZHTableSetting {
   actionColumn?: TZHTableActionColumn // 操作列配置
   treeProps?: { [x:string]: any } // 树形展示配置
   defaultExpandAll?: boolean
+  border?: boolean
   lazy?: boolean
   load?: (row: any, treeNode: TreeNode, resolve: (data: any[]) => void) => void
   validateLoad?: Function
