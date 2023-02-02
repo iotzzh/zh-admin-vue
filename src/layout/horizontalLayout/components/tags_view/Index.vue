@@ -7,17 +7,17 @@
     </el-scrollbar>
 
     <div class="options-box">
-      <div>刷</div>
+      <!-- <div>刷</div> -->
       <div>
         <el-dropdown :hide-on-click="false" class="name" @command="changeDropdownCloseTag">
-          <span><i class="iconfont icon-xiala"></i></span>
-          <template #dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item command="closeother">关闭其他</el-dropdown-item>
-              <!-- <el-dropdown-item command="closeall">关闭全部</el-dropdown-item> -->
-            </el-dropdown-menu>
-          </template>
-        </el-dropdown>
+        <span><i class="iconfont icon-xiala"></i></span>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item command="closeother">关闭其他</el-dropdown-item>
+            <!-- <el-dropdown-item command="closeall">关闭全部</el-dropdown-item> -->
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
       </div>
       <div @click="toggleFullScreen">
         <i v-if="fullScreen" class="iconfont icon-fullscreen-shrink"></i>
@@ -124,7 +124,6 @@ const toggleFullScreen = () => {
 .options-box {
   div {
     display: inline-block;
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
     width: 30px;
     line-height: 30px;
     height: 30px;
@@ -133,6 +132,10 @@ const toggleFullScreen = () => {
     cursor: pointer;
     // background-color: red;
   }
+}
+
+.options-box>div {
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .tags-box {
@@ -174,5 +177,10 @@ const toggleFullScreen = () => {
     margin-left: 5px;
     // margin-right: 5px;
   }
+}
+
+.iconfont {
+  margin: 0px;
+  padding: 0px;
 }
 </style>

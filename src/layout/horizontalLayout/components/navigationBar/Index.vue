@@ -68,7 +68,7 @@ const menuList = ref([] as any);
 
 onMounted(async () => {
   const params = {
-    url: '/api/menu/list',
+    url: '/apiMock/menu/list',
     conditions: {},
   };
   const result = await ZHRequest.post(params);
@@ -101,7 +101,7 @@ const changeLayout = async () => {
   router!.removeRoute(rootName);
 
   const params = {
-    url: '/api/menu/list',
+    url: '/apiMock/menu/list',
     conditions: {},
   };
   const result = await ZHRequest.post(params);
@@ -117,7 +117,7 @@ const changeLayout = async () => {
   };
 
   router!.addRoute(rou);
-  router!.push('/authorityManagement/userManagement');
+  router!.push('/dashboard');
 };
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <div>logo 占位</div>
+  <div class="logo">隆回管理系统</div>
   <!-- <router-link key="expand" :to="allMenuList && allMenuList.length > 1 ? '/dashboard' : ''" class="root-link">
     <img src="@/assets/img/logo1.png" class="logo">
   </router-link> -->
@@ -26,7 +26,17 @@ onMounted(() => {
 
   .logo {
     width: 100%;
-    height: 100%;
+    height: 60px;
+    line-height: 60px;
+    vertical-align: middle;
   }
 }
+
+.logo {
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
+    vertical-align: middle;
+    text-align: center;
+  }
 </style>
