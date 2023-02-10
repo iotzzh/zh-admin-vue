@@ -86,7 +86,7 @@ export default class dataListHelper {
         }
     };
 
-    // 获取用户客户(医院)列表
+    // 获取用户客户(医院)列表（用户关联的机构列表）
     static getUserClientList = async function (appoint = true, userId: null | string = null) {
         const params: TZHRequestParams = {
             url: api.getUserCalList,
@@ -104,6 +104,29 @@ export default class dataListHelper {
                 return x;
             });
         }
+        return null;
+    };
+
+    // 获取用户客户(医院)列表（用户创建的机构列表）
+    static getUserCreatedClientList = async function (userId: null | string = null, calCode: string, calName: string) {
+        const params: TZHRequestParams = {
+            url: api.getUserCreatedCalList,
+            conditions: {
+                size: 1000,
+                current: 1,
+                createId: userId,
+                calCode,
+                calName,
+            },
+        };
+        const result = await ZHRequest.post(params);
+        if (result.success) {
+            return result.data.map((x: any) => {
+                x.label = x.calName;
+                return x;
+            });
+        }
+        return null;
     };
 
     // 获取角色列表
@@ -125,7 +148,7 @@ export default class dataListHelper {
     };
 
     // 获取用户角色列表
-    static getUserRoleList = async function (userId:string) {
+    static getUserRoleList = async function (userId: string) {
         const params: TZHRequestParams = {
             url: api.getUserRoleList,
             conditions: {
@@ -140,6 +163,15 @@ export default class dataListHelper {
                 x.label = x.roleName;
                 return x;
             });
+        }
+    };
+
+    // 获取收款主体编码
+    static getDictionariesCode = async function () {
+        const params: TZHRequestParams = { url: api.getCollectionSubjectCode, conditions: { coslCode: 'COSL' }, };
+        const result = await ZHRequest.post(params);
+        if (result.success) {
+            return result.data;
         }
     };
 

@@ -44,6 +44,8 @@ const getRootMenuChild = (id: string, childrenMenus: Array<any>): Array<any> => 
     return menus;
 };
 
+const modules = import.meta.glob('../views/**');
+
 const updateMenuToRouter = (array: Array<any>) => {
     for (let i = 0; i < array.length; i++) {
         array[i].meta = { ...array[i].meta };
@@ -54,7 +56,9 @@ const updateMenuToRouter = (array: Array<any>) => {
         array[i].path = array[i].url || '/';
 
         if (array[i].filePath) {
-            array[i].component = () => import(/* @vite-ignore */'/src/' + array[i].filePath + '.vue');
+            // array[i].component = () => import(/* @vite-ignore */'/src/' + array[i].filePath + '.vue');
+            // array[i].component = () => import(/* @vite-ignore */'../' + array[i].filePath + '.vue');
+            array[i].component = modules['../' + array[i].filePath + '.vue'];
         }
     }
 

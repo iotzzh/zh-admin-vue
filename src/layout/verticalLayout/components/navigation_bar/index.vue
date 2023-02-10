@@ -71,8 +71,9 @@ import HorizontalLayout from '@/layout/horizontalLayout/index.vue';
 import { RouteRecordRaw, useRouter } from 'vue-router';
 import { router } from '@/router/index';
 import ZHRequest from '@/components/zh-request';
-import { updateMenuToRouter } from '@/utils/dataConvert';
+import { updateMenuToRouter, convertMenuArrToTree } from '@/utils/dataConvert';
 import storage from '@/utils/storage';
+import api from '@/api/login';
 
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);
@@ -112,25 +113,35 @@ const toggleFullScreen = () => {
 // const router = useRouter();
 const  changeLayout = async () => {
   const roots = router!.getRoutes();
-  const rootName = roots[roots.length - 1].name || '';
-  router!.removeRoute(rootName);
+  // const rootName = roots[roots.length - 1].name || '';
+  // router!.removeRoute(rootName);
 
   const params = {
-    url: '/apiMock/menu/list',
+    url: api.getMenus,
     conditions: {},
   };
-  const result = await ZHRequest.post(params);
-  console.log(result);
+  const result = await ZHRequest.get(params);
+  // console.log(result);
   // RouteRecordRaw[]
-  const routes:RouteRecordRaw[] = result.data.records;
-  updateMenuToRouter(routes);
+  const routes:RouteRecordRaw[] = result.data;
+  const list:RouteRecordRaw[] = convertMenuArrToTree(routes);
+  updateMenuToRouter(list);
   const rou: RouteRecordRaw =  {
     path: '/',
     component: () => import('@/layout/horizontalLayout/index.vue'),
-    name: 'root1',
-    children: routes,
+    name: 'root',
+    children: [
+    {
+      path: '/dashboard',
+      component: () => import('@/views/dashboard/index.vue'),
+      name: '首页',
+      meta: {
+        title: '首页',
+      }
+    },
+      ...list,
+    ],
   };
-
   router!.addRoute(rou);
   router!.push('/dashboard');
 };

@@ -10,6 +10,7 @@ export const useLayoutStore = defineStore({
     systemName: '',
     allMenuList: [] as any, // 所有系统的菜单
     isOpenDrawerMenu: false,
+    routes: [] as any,
   }),
 
   persist: true,
@@ -60,6 +61,12 @@ export const useLayoutStore = defineStore({
 
     setSystemMenuList(menuList:MenuNode[]) {
       this.menuList = menuList;
+    },
+    //#endregion
+
+    //#region 路由配置数据
+    setRoutes(routes:any) {
+      this.routes = routes;
     },
     //#endregion
   }

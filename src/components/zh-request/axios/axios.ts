@@ -42,7 +42,7 @@ request.interceptors.response.use(
                 popErrorMessage('Token已过期，请重新登录');
                 sessionStorage.clear();
                 localStorage.clear();
-                router && router.push('/login');
+                router && router.push('/');
                 // location.reload();
             } else {
                 return response.data;

@@ -9,6 +9,9 @@ export interface TZHTreeSetting {
   hasEmptyAdd?: boolean
   hasRootAdd?: boolean
   labelDisplayMaxLength?: number
+  initialData?: boolean
+  checkStrictly?: boolean
+  showCheckbox?: boolean
 
   nodeClick?: Function
 

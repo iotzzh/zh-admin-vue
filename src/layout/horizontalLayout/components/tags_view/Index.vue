@@ -1,7 +1,7 @@
 <template>
   <div class="tags-box">
     <el-scrollbar class="tags-scrollbar tags">
-      <el-tag class="tag" v-for="cachedView in cachedViews" :key="cachedView.path" closable
+      <el-tag class="tag" v-for="cachedView in cachedViews" :key="cachedView?.path" closable
         :type="isActive(cachedView) ? '' : 'info'" @click="clickTab(cachedView.fullPath)"
         @close="closeSingleTag(cachedView)">{{ cachedView.meta?.title }}</el-tag>
     </el-scrollbar>
@@ -69,7 +69,7 @@ const closeSingleTag = (cachedView: RouteType) => {
 
 // 标签高亮
 const isActive = (route: RouteType) => {
-  return route.fullPath === (router.currentRoute.value.meta.fatherPath ? router.currentRoute.value.meta.fatherPath : router.currentRoute.value.fullPath);
+  return route && route.fullPath === (router.currentRoute.value?.meta?.fatherPath ? router.currentRoute.value?.meta?.fatherPath : router.currentRoute.value?.fullPath);
 };
 
 const clickTab = (path: any) => {

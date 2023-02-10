@@ -99,9 +99,13 @@
       </TransitionGroup>
       <slot></slot>
       <span v-if="formSettings?.hideUnimportantFields" class="folder-box">
-        <i class="iconfont icon-shangla1 unfolder" v-if="formInstance.hideUnimportantFields.value"
+        <span class="unfolder" v-if="formInstance.hideUnimportantFields.value"
+         @click="() => formInstance.hideUnimportantFields.value = false">展开</span>
+         <span v-else type="primary" link :icon="ArrowUp" size="large" class="folder"
+        @click="() => formInstance.hideUnimportantFields.value = true">折叠</span>
+        <!-- <i class="iconfont icon-shangla1 unfolder" v-if="formInstance.hideUnimportantFields.value"
          @click="() => formInstance.hideUnimportantFields.value = false" ></i>
-        <i v-else class="iconfont icon-shangla folder" @click="() => formInstance.hideUnimportantFields.value = true"></i>
+        <i v-else class="iconfont icon-shangla folder" @click="() => formInstance.hideUnimportantFields.value = true"></i> -->
       <!-- <el-button v-if="formInstance.hideUnimportantFields.value" size="large" class="unfolder" type="primary" link
         :icon="ArrowDown" @click="() => formInstance.hideUnimportantFields.value = false" />
       <el-button v-else type="primary" link :icon="ArrowUp" size="large" class="folder"
@@ -240,7 +244,7 @@ export default { name: 'ZHForm' };
 
 .folder,
 .unfolder {
-  font-size: 18px;
+  font-size: 14px;
   padding: 7px;
   color: var(--el-color-primary);
 }

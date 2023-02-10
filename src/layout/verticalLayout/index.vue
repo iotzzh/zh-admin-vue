@@ -12,15 +12,10 @@
       </div>
     </div>
 
-    <el-drawer
-    v-model="isOpenDrawerMenu"
-    direction="ltr"
-    :with-header="false"
-    size="70%"
-    modal-class="layout-menu-drawer"
-  >
-  <Sidebar />
-  </el-drawer>
+    <el-drawer v-model="isOpenDrawerMenu" direction="ltr" :with-header="false" size="70%"
+      modal-class="layout-menu-drawer">
+      <Sidebar />
+    </el-drawer>
   </div>
 </template>
 
@@ -39,8 +34,8 @@ const isMobile = ref(storage.getIsMobile());
 const loading = ref(true);
 
 
-onMounted(() => { 
-  loading.value = false; 
+onMounted(() => {
+  loading.value = false;
   if (document.body.offsetWidth <= 820 && !isMobile.value) {
     store.toggleCollapse(false);
   }

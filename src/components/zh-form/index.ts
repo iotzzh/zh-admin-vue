@@ -86,14 +86,13 @@ export default class Form {
     }
   };
 
-  useExtendedFieldMethod = (model: { [key: string]: any }, convertedModel: { [key: string]: any }, fields: TZHFromField[]) => {
+  useExtendedFieldMethod = (model: any, convertedModel: { [key: string]: any }, fields: TZHFromField[]) => {
     // 针对需要额外扩展的参数，例如 { a: 'a' } => { b: 'a1', c: 'a2' }
     const needExtendFields: TZHFromField[] = fields.filter(
       (x) => x.extendedFieldMethod
     );
     for (let i = 0; i < needExtendFields.length; i++) {
-      const method: Function | undefined =
-        needExtendFields[i].extendedFieldMethod;
+      const method: Function | undefined = needExtendFields[i].extendedFieldMethod;
       if (!method || !convertedModel) return;
       const result = method(model[needExtendFields[i].prop], model);
 
@@ -106,7 +105,7 @@ export default class Form {
     }
   };
 
-  useConvertCascader = (model: { [key: string]: any }, convertedModel: { [key: string]: any }, fields: TZHFromField[]) => {
+  useConvertCascader = (model: any, convertedModel: { [key: string]: any }, fields: TZHFromField[]) => {
     const needConvertCascaderFields: TZHFromField[] = fields.filter( (x) => x.convertCascader );
     for (let i = 0; i < needConvertCascaderFields.length; i++) {
       const method: Function | undefined =
@@ -126,7 +125,9 @@ export default class Form {
   setConvertModel = async (newVal: any) => {
     if (!this.convertedModel.value) return;
     const keys = Object.keys(newVal);
-    for (const key of keys) { this.convertedModel.value[key] = newVal[key]; }
+    for (let i = 0; i < keys.length; i++) {
+      this.convertedModel.value[keys[i]] = newVal[keys[i]];
+    }
     if (!this.convertedModel.value) return;
     this.useConvert(newVal, this.convertedModel.value, this.formSettings.value.fields || []);
     this.useConvertDateTime(newVal, this.convertedModel.value, this.formSettings.value.fields || []);

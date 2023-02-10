@@ -3,6 +3,8 @@ import type { App } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { getBasicRoutes, basicRoutes, setLayout } from './routes';
 import { rangeRight } from 'lodash';
+import { useLayoutStore } from '@/layout/store';
+import storage from '@/utils/storage';
 
 const PUBLIC_PATH = import.meta.env.VITE_PUBLIC_PATH;
 
@@ -39,10 +41,12 @@ console.log(PUBLIC_PATH);
 let router: Router | null = null;
 
 async function getRouter () {
-  const routes:any = await getBasicRoutes();
+  const store = useLayoutStore();
+  const routes:any = storage.getToken() ? await getBasicRoutes() : [];
   router = createRouter({
     history: createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
-    routes: [...basicRoutes, ...routes ],
+    // routes: [...basicRoutes, ...routes ],
+    routes: [ ...basicRoutes, ...routes ],
     scrollBehavior: () => ({ left: 0, top: 0 }),
   });
 

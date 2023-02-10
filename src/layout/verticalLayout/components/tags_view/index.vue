@@ -1,7 +1,7 @@
 <template>
   <div class="tags-box">
     <el-scrollbar class="tags-scrollbar tags">
-      <el-tag class="tag" v-for="cachedView in cachedViews" :key="cachedView.path" closable
+      <el-tag class="tag" v-for="cachedView in cachedViews" :key="cachedView?.path" closable
         :type="isActive(cachedView) ? '' : 'info'" @click="clickTab(cachedView.fullPath)"
         @close="closeSingleTag(cachedView)" effect="dark">{{ cachedView.meta?.title }}</el-tag>
     </el-scrollbar>

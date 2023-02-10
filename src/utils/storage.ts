@@ -12,11 +12,11 @@ export default class storage {
     //#region session storage
     // 登录设备是否是手机端
     static setIsMobile = function (data: boolean) {
-        sessionStorage.setItem('isMobile', JSON.stringify(data));
+        localStorage.setItem('isMobile', JSON.stringify(data));
     };
 
     static getIsMobile = function () {
-        const data = sessionStorage.getItem('isMobile');
+        const data = localStorage.getItem('isMobile');
         if (data) return JSON.parse(data);
         else return false;
     };

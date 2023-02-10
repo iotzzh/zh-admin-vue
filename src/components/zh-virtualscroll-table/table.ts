@@ -50,7 +50,7 @@ export default class Table {
       successMessage: this.request?.value?.list?.successMessage,
       errorMessage: this.request?.value?.list?.errorMessage,
     };
-    console.log('params', params);
+    // console.log('params', params);
     // 获取数据
     const result: TZHTableRequestResult = await ZHRequest.post(args);
     // 处理数据

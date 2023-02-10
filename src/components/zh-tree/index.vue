@@ -6,14 +6,23 @@
     </div>
 
     <el-scrollbar class="scrollbar">
-      <el-tree v-if="tData && tData.length > 0" ref="refZHTree" class="tree" :data="tData" :props="defaultProps"
-      :indent="0" default-expand-all :filter-node-method="filterNode" @node-click="treeSettings.nodeClick">
+      <el-tree v-if="tData && tData.length > 0" 
+        ref="refZHTree" 
+        class="tree" 
+        :data="tData" 
+        :props="defaultProps"
+        :check-strictly="treeSettings.checkStrictly"
+        :show-checkbox="treeSettings.showCheckbox"
+        :indent="0" 
+        default-expand-all 
+        :filter-node-method="filterNode" 
+        @node-click="treeSettings.nodeClick">
       <template #default="{ node, data }">
         <span class="custom-tree-node">
           <el-tooltip popper-class="custom-tree-node-tooltip" effect="light"
-            :disabled="node[defaultProps.label].length <= labelDisplayMaxLength"
-            :content="getTooltipHTMLContent(node[defaultProps.label])" placement="top" style="width: 100%;" raw-content>
-            <span>{{ getTooltipOriginContent(node[defaultProps.label]) }}</span>
+            :disabled="!node.data[defaultProps.label] || node.data[defaultProps.label].length <= labelDisplayMaxLength"
+            :content="getTooltipHTMLContent(node.data[defaultProps.label])" placement="top" style="width: 100%;" raw-content>
+            <span>{{ getTooltipOriginContent(node.data[defaultProps.label] || '') }}</span>
           </el-tooltip>
 
           <span class="actions">
@@ -98,8 +107,14 @@ const getTreeData = async () => {
   loadingTree.value = false;
 };
 
+const setData = (data:any) => {
+  loadingTree.value = true;
+  tData.value = data;
+  loadingTree.value = false;
+};
+
 onMounted(async () => {
-  getTreeData();
+  if (treeSettings.value.initialData === undefined || treeSettings.value.initialData) getTreeData();
 });
 
 watch(filterText, (val) => { refZHTree.value && refZHTree.value!.filter(val); });
@@ -181,6 +196,10 @@ const submit = async () => {
   modal.value.loadingSubmit = false;
 };
 //#endregion
+
+defineExpose({
+  setData,
+});
 </script>
 
 <script lang="ts">

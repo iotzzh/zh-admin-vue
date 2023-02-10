@@ -110,7 +110,7 @@ export default class Modal {
       conditions: this.getParams(),
     };
 
-    console.log('submit', params);
+    // console.log('submit', params);
 
     const result: TZHTableRequestResult = await ZHRequest.post(params);
     if (result.success) {

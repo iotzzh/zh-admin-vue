@@ -97,11 +97,13 @@ export default class Modal {
 
   close = () => {
     this.formModel.value = {};
+    this.convertedModel.value = {};
     this.modal.value.show = false;
   };
 
   cancel = () => {
     this.formModel.value = {};
+    this.convertedModel.value = {};
     this.modal.value.show = false;
   };
 
@@ -142,7 +144,7 @@ export default class Modal {
       errorMessage: this.modal.value.type === 'add' ? this.request?.value?.add?.errorMessage : this.request?.value?.update?.errorMessage,
     };
 
-    console.log('submit', params);
+    // console.log('submit', params);
 
     const result: TZHTableRequestResult = await ZHRequest.post(params);
     if (result.success) {
@@ -152,6 +154,6 @@ export default class Modal {
     await nextTick();
     this.modal.value.loadingSubmit = false;
 
-    if (this.tableSettings?.value?.modal?.onAfterSubmit) { await this.tableSettings.value.modal.onAfterSubmit({ modal: this.modal.value, conditions, }); }
+    if (this.tableSettings?.value?.modal?.onAfterSubmit) { await this.tableSettings.value.modal.onAfterSubmit({ modal: this.modal.value, conditions, result }); }
   };
 }

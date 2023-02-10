@@ -26,7 +26,7 @@
         <i v-else class="iconfont icon-fullscreen-expand"></i>
       </span>
 
-      <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
+      <!-- <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
         <i :size="50" class="iconfont icon-language-outline" />
         <template #dropdown>
           <el-dropdown-menu>
@@ -34,12 +34,12 @@
             <el-dropdown-item command="logout">English</el-dropdown-item>
           </el-dropdown-menu>
         </template>
-      </el-dropdown>
+      </el-dropdown> -->
       <span class="setting-icon" @click="changeLayout">
         <i class="iconfont icon-ai216"></i> 
       </span>
       <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
-        <span>个人信息（头像 + Name）</span>
+        <span>{{ userInfo?.realName }}</span>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="logout">退出登录</el-dropdown-item>
@@ -59,22 +59,28 @@ import UIHelper from '@/utils/uiHelper';
 import { router } from '@/router';
 import { RouteRecordRaw } from 'vue-router';
 import ZHRequest from '@/components/zh-request';
-import { updateMenuToRouter } from '@/utils/dataConvert';
+import { updateMenuToRouter, convertMenuArrToTree } from '@/utils/dataConvert';
+import storage from '@/utils/storage';
+import api from '@/api/login';
 const store = useLayoutStore();
 
 // const userInfo = storage.getUserInfo();
 
 const menuList = ref([] as any);
+const userInfo = ref({} as any);
+onMounted(() => {
+  userInfo.value = storage.getUserInfo();
+});
 
 onMounted(async () => {
-  const params = {
-    url: '/apiMock/menu/list',
-    conditions: {},
-  };
-  const result = await ZHRequest.post(params);
-  console.log(result);
-  // RouteRecordRaw[]
-  menuList.value = result.data.records;
+  // const params = {
+  //   url: '/apiMock/menu/list',
+  //   conditions: {},
+  // };
+  // const result = await ZHRequest.post(params);
+  // console.log(result);
+  // // RouteRecordRaw[]
+  menuList.value = store.menuList;
 });
 
 // 退出登录事件
@@ -96,26 +102,30 @@ const toggleFullScreen = () => {
 
 // const router = useRouter();
 const changeLayout = async () => {
-  const roots = router!.getRoutes();
-  const rootName = roots[roots.length - 1].name || '';
-  router!.removeRoute(rootName);
-
   const params = {
-    url: '/apiMock/menu/list',
+    url: api.getMenus,
     conditions: {},
   };
-  const result = await ZHRequest.post(params);
-  console.log(result);
-  // RouteRecordRaw[]
-  const routes:RouteRecordRaw[] = result.data.records;
-  updateMenuToRouter(routes);
+  const result = await ZHRequest.get(params);
+  const routes:RouteRecordRaw[] = result.data;
+  const list:RouteRecordRaw[] = convertMenuArrToTree(routes);
+  updateMenuToRouter(list);
   const rou: RouteRecordRaw =  {
     path: '/',
     component: () => import('@/layout/verticalLayout/index.vue'),
-    name: 'root1',
-    children: routes,
+    name: 'root',
+    children: [
+    {
+      path: '/dashboard',
+      component: () => import('@/views/dashboard/index.vue'),
+      name: '首页',
+      meta: {
+        title: '首页',
+      }
+    },
+      ...list,
+    ],
   };
-
   router!.addRoute(rou);
   router!.push('/dashboard');
 };
@@ -154,19 +164,6 @@ const changeLayout = async () => {
         justify-content: right;
       }
     }
-
-    // :deep(.el-menu--horizontal>.el-menu-item) {
-    //   color: #fff !important;
-    // }
-
-    // :deep(.el-scrollbar__view>.el-menu--horizontal>.el-menu-item.is-active) {
-    //   // color: #fff !important;
-    //   color: black !important;
-    // }
-
-    // :deep(.el-menu--horizontal .el-menu-item:not(.is-disabled):hover) {
-    //   color: var(--el-text-color-primary) !important;
-    // }
   }
 
   .info {
@@ -249,12 +246,12 @@ const changeLayout = async () => {
 }
 
 .info {
-  width: 310px;
-  min-width: 310px;
-  line-height: 59px;
-  height: 59px;
-  text-align: right;
-  vertical-align: middle;
+  width: 450px;
+        line-height: 59px;
+        height: 59px;
+        text-align: right;
+        vertical-align: middle;
+        padding-right: 22px;
 
   .bell {
     cursor: pointer;
@@ -272,7 +269,7 @@ const changeLayout = async () => {
   }
 
   span {
-    padding: 0px 7px;
+    padding: 0px 5px;
   }
 
   .name {
@@ -287,13 +284,17 @@ const changeLayout = async () => {
     vertical-align: middle !important;
     cursor: pointer;
     font-size: 14px;
-    // color: $menu-text-color;
     font-weight: bolder;
   }
 
   .setting-icon {
     cursor: pointer;
   }
+}
+
+.iconfont {
+    margin-right: 0px;
+    padding-right: 0px;
 }
 </style>
 

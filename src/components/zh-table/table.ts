@@ -53,7 +53,7 @@ export default class Table {
       successMessage: this.request?.value?.list?.successMessage,
       errorMessage: this.request?.value?.list?.errorMessage,
     };
-    console.log('params', params);
+    // console.log('params', params);
     // 获取数据
     const result: TZHTableRequestResult = await ZHRequest.post(args);
     // 处理数据
@@ -98,6 +98,7 @@ export default class Table {
     const result: TZHTableRequestResult = await ZHRequest.post(params);
     if (result.success) {
       this.debounceInitData();
+      this.refTable.value && this.refTable.value.clearSelection();
     }
   };
 
@@ -145,6 +146,7 @@ export default class Table {
         this.reloadTableTreeChild(row.parentId);
       } else {
         this.debounceInitData();
+        this.refTable.value && this.refTable.value.clearSelection();
       }
     }
   };

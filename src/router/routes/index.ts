@@ -22,35 +22,32 @@ export const setLayout = async (data: any, isVertical = true) => {
 };
 
 export const getBasicRoutes = async (isVertical = true) => {
-  // const params: TZHRequestParams = {
-  //   url: api.getMenus,
-  //   conditions: {},
-  // };
-
-  // const result = await ZHRequest.get(params);
-  // if (!result.success) return;
-  // const sortedData = result.data.sort((x:any, y:any) => (Number(x.sortNo) - Number(y.sortNo) > 0) ? 0 : -1);
-  // const list:RouteRecordRaw[] = convertMenuArrToTree(sortedData);
-  // updateMenuToRouter(list);
-  // return [{
-  //   path: '/',
-  //   component: isVertical ? VerticalLayout : H,
-  //   name: isVertical ? 'root' : 'root1',
-  //   children: list,
-  // }];
-  
-  const params = {
-    url: '/apiMock/menu/list',
+  const params: TZHRequestParams = {
+    url: api.getMenus,
     conditions: {},
   };
-  const result = await ZHRequest.post(params);
-  const routes:RouteRecordRaw[] = result.data.records;
-  updateMenuToRouter(routes);
+
+  const result = await ZHRequest.get(params);
+  if (!result.success) return [];
+  const sortedData = result.data.sort((x:any, y:any) => (Number(x.sortNo) - Number(y.sortNo) > 0) ? 0 : -1);
+  const list:RouteRecordRaw[] = convertMenuArrToTree(sortedData);
+  updateMenuToRouter(list);
   return [{
     path: '/',
     component: isVertical ? VerticalLayout : H,
     name: isVertical ? 'root' : 'root1',
-    children: routes,
+    // children: list,
+    children: [
+      {
+        path: '/dashboard',
+        component: () => import('@/views/dashboard/index.vue'),
+        name: '首页',
+        meta: {
+          title: '首页',
+        }
+      },
+      ...list,
+    ]
   }];
 };
 
@@ -67,5 +64,39 @@ export const basicRoutes: Array<RouteRecordRaw> = [
         title: 'login',
         affix: true
       }
-    }
+    },
+    {
+      path: '/404',
+      component: () =>
+        import(
+          /* webpackChunkName: "pathologicalSystem_404" */ '@/views/404.vue'
+        ),
+      meta: {
+        title: '404',
+      },
+    },
+    {
+      // 匹配所有路径  vue2使用*   vue3使用/:pathMatch(.*)*或/:pathMatch(.*)或/:catchAll(.*)
+      path: '/:pathMatch(.*)',
+      redirect: '/login',
+      meta: { hidden: true },
+    },
+    // {
+    //   path: '/dashboard',
+    // component: VerticalLayout,
+    // meta: {
+    //   title: '首页',
+    // },
+    // children: [
+    //   {
+    //     path: '/',
+    //     component: () => import('@/views/dashboard/index.vue'),
+    //     name: '首页',
+    //     meta: {
+    //       title: 'login',
+    //       affix: true
+    //     }
+    //   },
+    // ],
+    // },
 ];
