@@ -5,6 +5,7 @@ export interface TZHModalForm extends TZHModal {
   // show: boolean
   width?: string
   title?: string
+  mainTitle?: string
   type?: any // add/edit/other
   // 暂存数据
   data?: any 

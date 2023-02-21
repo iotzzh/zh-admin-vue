@@ -74,6 +74,7 @@ import ZHRequest from '@/components/zh-request';
 import { updateMenuToRouter, convertMenuArrToTree } from '@/utils/dataConvert';
 import storage from '@/utils/storage';
 import api from '@/api/login';
+import { store as summaryStore } from '@/stores/index';
 
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);
@@ -98,8 +99,10 @@ onMounted(() => {
 const handleCommand = (command: string | number | object) => {
   if (command === 'logout') {
     sessionStorage.clear();
-                localStorage.clear();
-                router && router.push('/login');
+    localStorage.clear();
+    router && router.push('/');
+    location.reload();
+    // summaryStore.state;
   }
 };
 

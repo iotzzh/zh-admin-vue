@@ -67,4 +67,14 @@ export default class isHelper {
       return false;
     }
   }
+
+  // 判断是否为手机号  
+  static isPhoneNum(phone: string) {
+    const phoneReg = /^[1][1,2,3,4,5,6,7,8,9][0-9]{9}$/;
+    if (phoneReg.test(phone)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

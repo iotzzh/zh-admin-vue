@@ -20,6 +20,15 @@ request.interceptors.request.use(
             config.params = {
                 ts: timestamp,
             };
+            if (config.data && config.data.toString() !== '[object FormData]' && !Array.isArray(config.data)) {
+                const newData:any = {};
+                  for (const key in config.data) {
+                    if (config.data[key] !== '' && config.data[key] !== null) {
+                      newData[key] = config.data[key];
+                    }
+                  }
+                  config.data = newData;
+              }
         } else if (config.method === 'get') {
             config.params = {
                 ts: timestamp,

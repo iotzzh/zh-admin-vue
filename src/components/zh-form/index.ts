@@ -22,13 +22,16 @@ export default class Form {
   init = () => {
     if (
       !this.formSettings?.value?.fields ||
-      this.formSettings.value?.fields.length === 0
+      this.formSettings.value?.fields.length === 0 ||
+      !this.modelValue ||
+      !this.modelValue.value
     )
       return;
     for (const field of this.formSettings.value.fields) {
-      if (this.modelValue && this.modelValue.value && !this.modelValue.value[field.prop]) this.modelValue.value[field.prop] = field.defaultValue;
+      // if (this.modelValue && this.modelValue.value && !this.modelValue.value[field.prop]) this.modelValue.value[field.prop] = field.defaultValue;
+      this.modelValue.value[field.prop || ''] = field.defaultValue;
     }
-    if (this.modelValue && this.modelValue.value) this.setConvertModel(this.modelValue.value);
+    this.setConvertModel(this.modelValue.value);
   };
 
   clearFormData = () => {

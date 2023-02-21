@@ -147,6 +147,24 @@ export default class dataListHelper {
         }
     };
 
+    // 获取当前用户创建的角色列表
+    static getUserCreatedRoleList = async function () {
+        const params: TZHRequestParams = {
+            url: api.getUserCreatedRoleList,
+            conditions: {
+                size: 1000,
+                current: 1,
+            },
+        };
+        const result = await ZHRequest.post(params);
+        if (result.success) {
+            return result.data.map((x: any) => {
+                x.label = x.roleName;
+                return x;
+            });
+        }
+    };
+
     // 获取用户角色列表
     static getUserRoleList = async function (userId: string) {
         const params: TZHRequestParams = {
