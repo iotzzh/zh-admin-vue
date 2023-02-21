@@ -24,14 +24,14 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { Avatar, Lock } from '@element-plus/icons-vue';
-import { useRouter } from 'vue-router';
+import { RouteRecordRaw, useRouter } from 'vue-router';
 import api from '@/api/login';
 import storage from '@/utils/storage';
 import { popErrorMessage } from '@/components/zh-message';
 import { useLayoutStore } from '@/layout/store';
 import { TZHRequestParams } from '@/components/zh-request/type';
 import ZHRequest from '@/components/zh-request';
-import { convertMenuArrToTree } from '@/utils/dataConvert';
+import { convertMenuArrToTree, updateMenuToRouter } from '@/utils/dataConvert';
 import { setLayout } from '@/router/routes';
 
 
@@ -87,21 +87,6 @@ const login = async () => {
   } else {
     popErrorMessage(result.errorMsg);
   }
-
-
-
-  // await getMenus();
-  // router.push('/dashboard');
-
-  // if (result.data.userLabList.length > 1) {
-  //   showLoginForm.value = false;
-  //   userLabListHs.value = result.data.userLabList;
-  // } else if (result.data.userLabList.length === 1) {
-  //   const params = { labCode: result.data.userLabList[0].labCode, labName: result.data.userLabList[0].labName, };
-  //   goTo(params, 1); //只有一个实验室
-  // } else {
-  //   popErrorMessage(result.errorMsg);
-  // }
 };
 // 查询用户菜单接口
 const getMenus = async () => {
@@ -124,6 +109,40 @@ const getMenusList = async () => {
   return list;
 };
 
+// 设置路由
+const setRoutes = async () => {
+  const roots = router!.getRoutes();
+  // const rootName = roots[roots.length - 1].name || '';
+  // router!.removeRoute(rootName);
+
+  const params = {
+    url: api.getMenus,
+    conditions: {},
+  };
+  const result = await ZHRequest.get(params);
+  // console.log(result);
+  // RouteRecordRaw[]
+  const routes:RouteRecordRaw[] = result.data;
+  const list:RouteRecordRaw[] = convertMenuArrToTree(routes);
+  updateMenuToRouter(list);
+  const rou: RouteRecordRaw =  {
+    path: '/',
+    component: () => import('@/layout/verticalLayout/index.vue'),
+    name: 'root',
+    children: [
+    {
+      path: '/dashboard',
+      component: () => import('@/views/dashboard/index.vue'),
+      name: '首页',
+      meta: {
+        title: 'dashboard',
+      }
+    },
+      ...list,
+    ],
+  };
+  router!.addRoute(rou);
+};
 
 const goTo = async (value: any) => {
   const params: TZHRequestParams = {
@@ -139,7 +158,9 @@ const goTo = async (value: any) => {
     setCommoParams({ defaultCalCode: result.data.defaultCalCode, defaultCalName: result.data.defaultCalName });
     await getCalRootPermissionId();
     await getMenus();
+    await setRoutes();
     router.push('/dashboard');
+    // router.push('/userManagement');
   }
 };
 

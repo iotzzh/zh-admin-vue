@@ -21,7 +21,7 @@ const rootPermision = ref({} as any);
 
 const getSearchFormModel = () => {
     const model = refTable.value.getSearchFormModel();
-    console.log(model);
+    // console.log(model);
 };
 
 const formSettings = ref({
@@ -94,8 +94,8 @@ const tableSettings = reactive({
             align: 'left',
             addEditInfo: {
                 type: 'input',
+                width: '100%',
                 addSort: 1,
-                defaultValue: '',
                 placeholder: '请输入',
                 xs: 24,
                 sm: 12,
@@ -111,7 +111,6 @@ const tableSettings = reactive({
                 type: 'input',
                 inputType: 'number',
                 addSort: 5,
-                defaultValue: '',
                 placeholder: '请输入',
                 xs: 24,
                 sm: 12,
@@ -124,7 +123,7 @@ const tableSettings = reactive({
             label: 'URL', prop: 'url', width: '200px',
             addEditInfo: {
                 type: 'input',
-                defaultValue: null,
+                width: '100%',
                 addSort: 3,
                 xs: 24,
                 sm: 12,
@@ -249,6 +248,7 @@ const tableSettings = reactive({
             label: '文件路径', prop: 'filePath', notDisplay: false,
             width: '200px',
             addEditInfo: {
+                width: '100%',
                 type: 'input',
                 addSort: 7,
                 defaultValue: '',

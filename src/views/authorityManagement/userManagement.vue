@@ -14,8 +14,11 @@ import dataListHelper from '@/utils/dataListHelper';
 import storage from '@/utils/storage';
 import ZHRequest from '@/components/zh-request';
 import { TZHRequestParams } from '@/components/zh-request/type';
+import isHelper from '@/utils/isHelper';
+import { popErrorMessage } from '@/components/zh-message';
 
 const refZHTable = ref();
+const isMobile = isHelper.isMobile();
 
 const formSettings = ref({
     hasAddButton: true,
@@ -24,16 +27,16 @@ const formSettings = ref({
     hasUploadButton: false,
     hasExportButton: false,
     hasResetButton: true,
-    hideUnimportantFields: false,
+    hideUnimportantFields: isMobile,
     customModel: {},
     formLabelWidth: '70px',
     fields: [
         { label: '手机号', type: 'input', prop: 'account', width: '200px', },
         { label: '姓名', type: 'input', prop: 'realName', width: '200px', },
         // { label: '登录账号', type: 'input', prop: 'name111', width: '200px', },
-        { label: '员工编号', type: 'input', prop: 'employeeNumber', width: '200px', },
+        { label: '员工编号', type: 'input', prop: 'employeeNumber', width: '200px', unimportant: isMobile,  }, 
         {
-            label: '状态', type: 'select', prop: 'isEbl', width: '200px', defaultValue: 1,
+            label: '状态', type: 'select', prop: 'isEbl', width: '200px', defaultValue: 1, unimportant: isMobile, 
             options: [
                 { label: '在职', value: 1 },
                 { label: '离职', value: 0 },
@@ -51,6 +54,14 @@ const tableSettings = reactive({
         footer: {},
         formSettings: {
             formLabelWidth: '90px',
+            customValidate: (modelValue:any) => {
+                const isPhoneNum = isHelper.isPhoneNum(modelValue.phone);
+                if (!isPhoneNum) {
+                    popErrorMessage('请输入正确的手机号');
+                    return false;
+                }
+                return true;
+            },
         },
         onBeforeSubmit: async (params: any) => {
             updateUserRole(params);
@@ -62,6 +73,7 @@ const tableSettings = reactive({
             label: '姓名',
             prop: 'realName',
             allowCellEdit: false,
+            minWidth: '100px',
             addEditInfo: {
                 type: 'input',
                 addSort: 1,
@@ -77,6 +89,7 @@ const tableSettings = reactive({
         },
         {
             label: '性别', prop: 'sex', convert: (row: any) => row.sex === 0 ? '未知' : row.sex === 1 ? '男' : '女',
+            minWidth: '80px',
             addEditInfo: {
                 type: 'select', defaultValue: null, addSort: 2, placeholder: '请选择', span: 12, xs: 24,
                 sm: 12,
@@ -87,7 +100,7 @@ const tableSettings = reactive({
             }
         },
         {
-            label: '账号', prop: 'account', addEditInfo: {
+            label: '账号', prop: 'account', minWidth: '150px', addEditInfo: {
                 addSort: 2.5,
                 label: '手机号', prop: 'phone',
                 type: 'input', defaultValue: null, placeholder: '请输入', span: 8, xs: 24,
@@ -120,7 +133,7 @@ const tableSettings = reactive({
             addEditInfo: {
                 addSort: 4,
                 type: 'select',
-                valueKey: 'id',
+                valueKey: 'calCode',
                 span: 12,
                 xs: 24,
                 sm: 12,
@@ -132,9 +145,9 @@ const tableSettings = reactive({
             }
         },
         {
-            label: '员工编号', prop: 'employeeNumber', addEditInfo: {
+            label: '员工编号', prop: 'employeeNumber', minWidth: '120px', addEditInfo: {
                 addSort: 5,
-                type: 'input', defaultValue: null, placeholder: '请输入', span: 8, xs: 24,
+                type: 'input', placeholder: '请输入', span: 8, xs: 24,
                 sm: 12,
                 md: 8,
                 lg: 8,
@@ -158,13 +171,21 @@ const tableSettings = reactive({
 onMounted(async () => {
     // 获取角色列表
     const itemRole = tableSettings.columns?.find((x: any) => x.label === '角色');
-    const resultRole = await dataListHelper.getRoleList();
+    const resultRole = await dataListHelper.getUserCreatedRoleList();
     itemRole!.addEditInfo!.options = resultRole;
 
     // 获取所属机构列表
     const itemClien = tableSettings.columns?.find((x: any) => x.label === '所属机构');
     const resultClient = await dataListHelper.getUserClientList();
-    itemClien!.addEditInfo!.options = resultClient;
+    const resultCreatedClient = await dataListHelper.getUserCreatedClientList(storage.getUserId(), storage.getCommonParams().defaultCalCode, storage.getCommonParams().defaultCalName,);
+    if (resultClient && resultCreatedClient) {
+        const list = [ ... resultCreatedClient];
+        for (let i = 0; i < resultClient.length; i++) {
+            if (!list.find((x:any) => x.calCode === resultClient[i].calCode)) list.push(resultClient[i]);
+        }
+
+        itemClien!.addEditInfo!.options = list;
+    }
 });
 
 const request = ref({
@@ -208,7 +229,7 @@ const updateUserCal = async (params: any) => {
 </script>
 
 <script lang="ts">
-export default { name: 'userManagement' };
+export default { name: 'userManagementNotCache' };
 </script>
 
 <style lang="scss" scoped>

@@ -1,26 +1,30 @@
 <!-- 角色管理 -->
 <template>
-    <Table ref="refTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
-        :usePage="false" :request="request">
-    </Table>
-    <Modal ref="refModal" :modal="modal" @opened="openedMenuModal" @cancel="closeModal" @close="closeModal"
-        @submit="submit">
-        <Table ref="refMenuTable" :useSearchForm="false" :tableSettings="menuTableSettings" :usePage="false">
-            <template v-slot:zh-table-module="scope">
-                <el-checkbox-group v-model="allCheckedList" style="display: inline">
-                    <el-checkbox :label="scope.row.id" :disabled="!isMenuEnabled(scope.row)" size="small"
-                        @change="(checked) => menuChange(checked, scope.row)">{{ scope.row.permsionName }}</el-checkbox>
-                </el-checkbox-group>
-            </template>
-
-            <template v-slot:zh-table-action="scope">
-                <el-checkbox-group v-model="allCheckedList">
-                    <el-checkbox v-for="item in scope.row.actions" :label="item.id" :key="item.id" :border="true"
-                        size="small" :disabled="!isButtonEnabled(scope.row)">{{ item.permsionName }}</el-checkbox>
-                </el-checkbox-group>
-            </template>
+    <div style="height: 100%; width: 100%;">
+        <Table ref="refTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
+            :usePage="false" :request="request">
         </Table>
-    </Modal>
+        <Modal ref="refModal" :modal="modal" @opened="openedMenuModal" @cancel="closeModal" @close="closeModal"
+            @submit="submit">
+            <Table ref="refMenuTable" :useSearchForm="false" :tableSettings="menuTableSettings" :usePage="false">
+                <template v-slot:zh-table-module="scope">
+                    <el-checkbox-group v-model="allCheckedList" style="display: inline">
+                        <el-checkbox :label="scope.row.id" :disabled="!isMenuEnabled(scope.row)" size="small"
+                            @change="(checked) => menuChange(checked, scope.row)">{{
+                                scope.row.permsionName
+                            }}</el-checkbox>
+                    </el-checkbox-group>
+                </template>
+
+                <template v-slot:zh-table-action="scope">
+                    <el-checkbox-group v-model="allCheckedList">
+                        <el-checkbox v-for="item in scope.row.actions" :label="item.id" :key="item.id" :border="true"
+                            size="small" :disabled="!isButtonEnabled(scope.row)">{{ item.permsionName }}</el-checkbox>
+                    </el-checkbox-group>
+                </template>
+            </Table>
+        </Modal>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -46,8 +50,8 @@ const formSettings = ref({
     hasResetButton: false,
     formLabelWidth: '100px',
     customModel: {
-        isAppoint: true,
-        userId: storage.getUserId(),
+        // isAppoint: true,
+        // userId: storage.getUserId(),
     },
     fields: [
         { label: '角色', type: 'input', prop: 'roleName', width: '200px', },
@@ -67,7 +71,7 @@ const tableSettings = reactive({
     },
     columns: [
         {
-            label: '角色名称', prop: 'roleName', addEditInfo: {
+            label: '角色名称', prop: 'roleName', minWidth: '120px', addEditInfo: {
                 type: 'input',
                 addSort: 1,
                 placeholder: '请输入',
@@ -80,7 +84,7 @@ const tableSettings = reactive({
             }
         },
         {
-            label: '是否启用', prop: 'isEbl', convert: (row: any) => { return row.isEbl ? '是' : '否'; },
+            label: '是否启用', prop: 'isEbl', minWidth: '120px', convert: (row: any) => { return row.isEbl ? '是' : '否'; },
             addEditInfo: {
                 type: 'switch',
                 addSort: 5,
@@ -101,7 +105,7 @@ const tableSettings = reactive({
             }
         },
         {
-            label: '角色描述', prop: 'description',
+            label: '角色描述', prop: 'description', minWidth: '120px',
             addEditInfo: {
                 type: 'input',
                 addSort: 4,
@@ -113,39 +117,39 @@ const tableSettings = reactive({
                 xl: 24,
             }
         },
-        {
-            label: '所属机构', prop: 'test',
-            addEditInfo: {
-                addSort: 2,
-                xs: 24,
-                sm: 24,
-                md: 24,
-                lg: 24,
-                xl: 24,
-                type: 'select',
-                multiple: true,
-                placeholder: '请输入',
-                disabled: true,
-            }
-        },
-        {
-            label: '所属部门', prop: 'test1',
-            addEditInfo: {
-                type: 'input',
-                addSort: 3,
-                placeholder: '请输入',
-                xs: 24,
-                sm: 24,
-                md: 24,
-                lg: 24,
-                xl: 24,
-                disabled: true,
-            }
-        },
+        // {
+        //     label: '所属机构', prop: 'test', minWidth: '120px',
+        //     addEditInfo: {
+        //         addSort: 2,
+        //         xs: 24,
+        //         sm: 24,
+        //         md: 24,
+        //         lg: 24,
+        //         xl: 24,
+        //         type: 'select',
+        //         multiple: true,
+        //         placeholder: '请输入',
+        //         disabled: true,
+        //     }
+        // },
+        // {
+        //     label: '所属部门', prop: 'test1', minWidth: '120px',
+        //     addEditInfo: {
+        //         type: 'input',
+        //         addSort: 3,
+        //         placeholder: '请输入',
+        //         xs: 24,
+        //         sm: 24,
+        //         md: 24,
+        //         lg: 24,
+        //         xl: 24,
+        //         disabled: true,
+        //     }
+        // },
     ],
     actionColumn: {
         label: '操作',
-        width: '280px',
+        width: '180px',
         hasRowDeleteAction: true,
         hasRowEditAction: true,
         fixed: 'right',
