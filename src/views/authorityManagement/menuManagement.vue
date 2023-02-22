@@ -75,15 +75,16 @@ const tableSettings = reactive({
         treeNode: unknown,
         resolve: (data: any[]) => void
     ) => {
-        const apiParams: TZHRequestParams = {
-            url: api.getPermisMenuChildList,
-            conditions: {
-                moduleId: row.id
-            },
-            errorMessage: '获取子节点数据失败',
-        };
-        const result = await ZHRequest.post(apiParams);
-        if (result.success) resolve(result.data[0] ? result.data[0].children : []);
+        return [];
+        // const apiParams: TZHRequestParams = {
+        //     url: api.getPermisMenuChildList,
+        //     conditions: {
+        //         moduleId: row.id
+        //     },
+        //     errorMessage: '获取子节点数据失败',
+        // };
+        // const result = await ZHRequest.post(apiParams);
+        // if (result.success) resolve(result.data[0] ? result.data[0].children : []);
     },
     columns: [
         {
@@ -226,7 +227,7 @@ const tableSettings = reactive({
             }
         },
         {
-            label: '是否启用', prop: 'isEbl', convert: (row: any) => { return row.isEbl ? '是' : '否'; },
+            label: '是否启用', prop: 'isEbl', convert: (row: any) => { return row.isEbl ? '是' : '否'; }, minWidth: '120px',
             addEditInfo: {
                 type: 'switch',
                 addSort: 9,
@@ -262,6 +263,7 @@ const tableSettings = reactive({
         },
     ],
     actionColumn: {
+        fixed: 'right',
         label: '操作',
         width: '215px',
         hasRowDeleteAction: true,
@@ -275,11 +277,11 @@ const tableSettings = reactive({
 } as TZHTableSetting);
 
 onMounted(() => {
-    getCalRootPermissionId();
+    // getCalRootPermissionId();
 });
 
 const request = ref({
-    list: { url: api.getPermisMenuList, successMessage: '查询成功', errorMessage: '查询失败' },
+    list: { url: api.getMenuList, successMessage: '查询成功', errorMessage: '查询失败' },
     add: { url: api.addMenu, successMessage: '新增成功', errorMessage: '新增失败' },
     update: { url: api.updateMenu, successMessage: '更新成功', errorMessage: '更新失败' },
     delete: { url: api.deleteMenu, successMessage: '删除成功', errorMessage: '删除失败' },
@@ -287,15 +289,15 @@ const request = ref({
 } as TZHTableRequest);
 
 
-const getCalRootPermissionId = async () => {
-    const apiParams: TZHRequestParams = {
-        url: api.getCalRootPermissionId,
-        conditions: {},
-        errorMessage: '获取根目录数据失败',
-    };
-    const result = await ZHRequest.post(apiParams);
-    if (result.success) rootPermision.value = result.data;
-};
+// const getCalRootPermissionId = async () => {
+//     const apiParams: TZHRequestParams = {
+//         url: api.getCalRootPermissionId,
+//         conditions: {},
+//         errorMessage: '获取根目录数据失败',
+//     };
+//     const result = await ZHRequest.post(apiParams);
+//     if (result.success) rootPermision.value = result.data;
+// };
 
 const openAddModal = (row: any) => {
     refTable.value && refTable.value.openAddModal(row);
