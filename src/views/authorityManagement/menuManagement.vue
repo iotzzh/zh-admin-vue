@@ -75,7 +75,8 @@ const tableSettings = reactive({
         treeNode: unknown,
         resolve: (data: any[]) => void
     ) => {
-        return [];
+        resolve([]);
+        // return [];
         // const apiParams: TZHRequestParams = {
         //     url: api.getPermisMenuChildList,
         //     conditions: {
