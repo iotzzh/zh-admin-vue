@@ -1,5 +1,5 @@
 <template>
-  <div class="logo">隆回管理系统</div>
+  <div class="logo">后台管理系统</div>
   <!-- <router-link key="expand" :to="allMenuList && allMenuList.length > 1 ? '/dashboard' : ''" class="root-link">
     <img src="@/assets/img/logo1.png" class="logo">
   </router-link> -->

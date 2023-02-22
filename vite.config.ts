@@ -30,7 +30,7 @@ export default ({ mode }) => {
     // 静态资源服务的文件夹
     publicDir: 'public',
     // base: environment === 'cloud' ? '/test1/' :  '/test2/',
-    base: '/hsp-admin/',
+    base: '/admin/',
     // 静态资源处理
     assetsInclude: '',
     // 控制台输出的级别 info 、warn、error、silent
@@ -123,7 +123,7 @@ export default ({ mode }) => {
       // 反向代理配置，注意rewrite写法
       proxy: {
         '/apiWH': {
-          target: 'http://10.161.2.63:8082/hsp-admin/', // 王慧
+          target: 'http://10.161.2.63:8082/admin/', // 王慧
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/apiWH/, ''),
         },

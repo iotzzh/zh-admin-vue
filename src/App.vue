@@ -1,4 +1,9 @@
-<!-- <script setup lang="ts">
+
+<template>
+  <router-view />
+</template>
+
+<script setup lang="ts">
 import { onMounted } from 'vue';
 import ZHRequest from './components/zh-request';
 import isHelper from './utils/isHelper';
@@ -12,11 +17,7 @@ onMounted(async () => {
 
 </script>
 
-<template>
-  <router-view />
-</template> -->
-
-<script>
+<!-- <script>
   import * as d3 from 'd3';
   
   const treeData = {
@@ -449,5 +450,5 @@ onMounted(async () => {
     height: 100vh;
     background-color: white;
   }
-</style>
+</style> -->
 
