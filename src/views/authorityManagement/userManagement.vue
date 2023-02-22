@@ -10,10 +10,6 @@ import Table from '@/components/zh-table/index.vue';
 import { TZHTableRequest, TZHTableFormSettings, TZHTableSetting } from '@/components/zh-table/type';
 import { onMounted, reactive, ref } from 'vue';
 import api from '@/api/authorityManagement';
-import dataListHelper from '@/utils/dataListHelper';
-import storage from '@/utils/storage';
-import ZHRequest from '@/components/zh-request';
-import { TZHRequestParams } from '@/components/zh-request/type';
 import isHelper from '@/utils/isHelper';
 import { popErrorMessage } from '@/components/zh-message';
 
@@ -31,12 +27,12 @@ const formSettings = ref({
     customModel: {},
     formLabelWidth: '70px',
     fields: [
-        { label: '手机号', type: 'input', prop: 'account', width: '200px', },
-        { label: '姓名', type: 'input', prop: 'realName', width: '200px', },
+        { label: '手机号', type: 'input', prop: 'phone', width: '200px', },
+        { label: '姓名', type: 'input', prop: 'name', width: '200px', },
         // { label: '登录账号', type: 'input', prop: 'name111', width: '200px', },
-        { label: '员工编号', type: 'input', prop: 'employeeNumber', width: '200px', unimportant: isMobile,  }, 
+        { label: '员工编号', type: 'input', prop: 'employeeNum', width: '200px', unimportant: isMobile,  }, 
         {
-            label: '状态', type: 'select', prop: 'isEbl', width: '200px', defaultValue: 1, unimportant: isMobile, 
+            label: '状态', type: 'select', prop: 'status', width: '200px', defaultValue: 1, unimportant: isMobile, 
             options: [
                 { label: '在职', value: 1 },
                 { label: '离职', value: 0 },
@@ -64,14 +60,18 @@ const tableSettings = reactive({
             },
         },
         onBeforeSubmit: async (params: any) => {
-            updateUserRole(params);
-            updateUserCal(params);
+            console.log('onBeforeSubmit');
+            // updateUserRole(params);
+            // updateUserCal(params);
+        },
+        onAfterSubmit: async (params: any) => {
+            console.log('onAfterSubmit');
         },
     },
     columns: [
         {
             label: '姓名',
-            prop: 'realName',
+            prop: 'name',
             allowCellEdit: false,
             minWidth: '100px',
             addEditInfo: {
@@ -88,7 +88,7 @@ const tableSettings = reactive({
             }
         },
         {
-            label: '性别', prop: 'sex', convert: (row: any) => row.sex === 0 ? '未知' : row.sex === 1 ? '男' : '女',
+            label: '性别', prop: 'sex', convert: (row: any) => row.sex === 0 ? '女' : row.sex === 1 ? '男' : '未知',
             minWidth: '80px',
             addEditInfo: {
                 type: 'select', defaultValue: null, addSort: 2, placeholder: '请选择', span: 12, xs: 24,
@@ -100,7 +100,7 @@ const tableSettings = reactive({
             }
         },
         {
-            label: '账号', prop: 'account', minWidth: '150px', addEditInfo: {
+            label: '账号', prop: 'phone', minWidth: '150px', addEditInfo: {
                 addSort: 2.5,
                 label: '手机号', prop: 'phone',
                 type: 'input', defaultValue: null, placeholder: '请输入', span: 8, xs: 24,
@@ -111,7 +111,7 @@ const tableSettings = reactive({
             }
         },
         {
-            label: '角色', prop: 'roleIds', notDisplay: true, addEditInfo: {
+            label: '角色', prop: 'role', notDisplay: true, addEditInfo: {
                 addSort: 3,
                 type: 'select',
                 valueKey: 'id',
@@ -122,39 +122,11 @@ const tableSettings = reactive({
                 lg: 8,
                 xl: 8,
                 required: true,
-                multiple: true,
                 convert: (model: any, convertModel: any, fields: any) => {
                     return model && model.map((x: any) => x.id);
                 },
             }
         },
-        {
-            label: '所属机构', prop: 'calLibraryList', notDisplay: true,
-            addEditInfo: {
-                addSort: 4,
-                type: 'select',
-                valueKey: 'calCode',
-                span: 12,
-                xs: 24,
-                sm: 12,
-                md: 8,
-                lg: 8,
-                xl: 8,
-                required: true,
-                multiple: true,
-            }
-        },
-        {
-            label: '员工编号', prop: 'employeeNumber', minWidth: '120px', addEditInfo: {
-                addSort: 5,
-                type: 'input', placeholder: '请输入', span: 8, xs: 24,
-                sm: 12,
-                md: 8,
-                lg: 8,
-                xl: 8, required: false,
-            }
-        },
-
     ],
     actionColumn: {
         label: '操作',
@@ -162,7 +134,6 @@ const tableSettings = reactive({
         hasRowDeleteAction: true,
         hasRowEditAction: true,
         buttons: [
-            // { label: '重置密码', hide: false, type: 'primary', icon: 'Refresh', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
             { label: '激活', hide: true, type: 'primary', icon: 'Refresh', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
         ],
     },
@@ -171,21 +142,12 @@ const tableSettings = reactive({
 onMounted(async () => {
     // 获取角色列表
     const itemRole = tableSettings.columns?.find((x: any) => x.label === '角色');
-    const resultRole = await dataListHelper.getUserCreatedRoleList();
-    itemRole!.addEditInfo!.options = resultRole;
-
-    // 获取所属机构列表
-    const itemClien = tableSettings.columns?.find((x: any) => x.label === '所属机构');
-    const resultClient = await dataListHelper.getUserClientList();
-    const resultCreatedClient = await dataListHelper.getUserCreatedClientList(storage.getUserId(), storage.getCommonParams().defaultCalCode, storage.getCommonParams().defaultCalName,);
-    if (resultClient && resultCreatedClient) {
-        const list = [ ... resultCreatedClient];
-        for (let i = 0; i < resultClient.length; i++) {
-            if (!list.find((x:any) => x.calCode === resultClient[i].calCode)) list.push(resultClient[i]);
-        }
-
-        itemClien!.addEditInfo!.options = list;
-    }
+    itemRole!.addEditInfo!.options = [ 
+        { label: '产品', id: '001' }, 
+        { label: '开发', id: '002' }, 
+        { label: '测试', id: '003' }, 
+        { label: '运营', id: '004' }, 
+    ];
 });
 
 const request = ref({
@@ -198,38 +160,14 @@ const request = ref({
 
 const opened = async (params: any) => {
     if (params.modal.type === 'edit') {
-        const resultClient = await dataListHelper.getUserClientList(false, params.openEditModalData.id);
-        const roleIds = await dataListHelper.getUserRoleList(params.openEditModalData.id);
-        refZHTable.value.setModalFormModel({ calLibraryList: resultClient, roleIds });
+        refZHTable.value.setModalFormModel({ role: {label: '产品', id: '001'} });
     }
-};
-
-const updateUserRole = async (params: any) => {
-    const apiParams: TZHRequestParams = {
-        url: api.updateUserRole,
-        conditions: {
-            id: params.conditions.id,
-            roleIds: params.conditions.roleIds,
-        },
-    };
-    const result = await ZHRequest.post(apiParams);
-};
-
-const updateUserCal = async (params: any) => {
-    const apiParams: TZHRequestParams = {
-        url: api.updateUserCal,
-        conditions: {
-            id: params.conditions.id,
-            calLibraryList: params.conditions.calLibraryList,
-        },
-    };
-    const result = await ZHRequest.post(apiParams);
 };
 
 </script>
 
 <script lang="ts">
-export default { name: 'userManagementNotCache' };
+export default { name: 'userManagement' };
 </script>
 
 <style lang="scss" scoped>

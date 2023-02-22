@@ -1,13 +1,13 @@
-import { apiWH, apiXXZ } from '@/api/config';
+import { apiWH, apiXXZ, apiMock } from '@/api/config';
 
 export default 
 {
-    getCollectionSubjectLibraryList: apiWH + '/collectionSubjectLibrary/list', // 收款主体列表
-    getAllRegionList: apiWH + '/regionalDatabase/queryAllRegion', // 获取省市区列表
-    getClientClassList: apiWH + '/channelClassification/query', // 获取客户类别数据列表
-    getPartnerList: apiWH + '/partnerLibrary/list', // 获取合作商列表
-    getClientList: apiWH + '/channelLibrary/queryChennelLibrary', // 获取客户（医院列表）
-    getRoleList: apiXXZ + '/role/list', // 获取角色列表
-    getUserCalList: apiXXZ + '/userCal/userCalList', // 获取用户所属机构
-    getUserRoleList: apiXXZ + '/userRole/userHaveRoles', // 获取用户角色
+    getCollectionSubjectLibraryList: apiMock + '/collectionSubjectLibrary/list', // 收款主体列表
+    getAllRegionList: apiMock + '/regionalDatabase/queryAllRegion', // 获取省市区列表
+    getClientClassList: apiMock + '/channelClassification/query', // 获取客户类别数据列表
+    getPartnerList: apiMock + '/partnerLibrary/list', // 获取合作商列表
+    getClientList: apiMock + '/channelLibrary/queryChennelLibrary', // 获取客户（医院列表）
+    getRoleList: apiMock + '/role/list', // 获取角色列表
+    getUserCalList: apiMock + '/userCal/userCalList', // 获取用户所属机构
+    getUserRoleList: apiMock + '/userRole/userHaveRoles', // 获取用户角色
 };

@@ -1,4 +1,4 @@
 export default 
 {
-    getMenuList: '/api/login/getMenus', // 获取菜单接口
+    getMenuList: '/apiMock/menu/list', // 获取菜单接口
 };

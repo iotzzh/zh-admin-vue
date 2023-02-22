@@ -81,22 +81,4 @@ export const basicRoutes: Array<RouteRecordRaw> = [
       redirect: '/login',
       meta: { hidden: true },
     },
-    // {
-    //   path: '/dashboard',
-    // component: VerticalLayout,
-    // meta: {
-    //   title: '首页',
-    // },
-    // children: [
-    //   {
-    //     path: '/',
-    //     component: () => import('@/views/dashboard/index.vue'),
-    //     name: '首页',
-    //     meta: {
-    //       title: 'login',
-    //       affix: true
-    //     }
-    //   },
-    // ],
-    // },
 ];

@@ -2,15 +2,12 @@ import './styles/element-override.css';
 import './styles/iconfont-override.css';
 import 'element-plus/dist/index.css';
 import './styles/global.css';
-import "./assets/iconfont/iconfont.css";
+import './assets/iconfont/iconfont.css';
 
-import App from './App.vue';
 import { createApp } from 'vue';
-import { createPinia } from 'pinia';
-import { createPersistedState } from 'pinia-plugin-persistedstate';
+import { setupStore } from '@/stores/index';
 
 import { setupRouter } from '@/router';
-import { setupRouterGuard } from '@/router/guard';
 import ElementPlus from 'element-plus';
 import * as Icons from '@element-plus/icons-vue';
 import locale from 'element-plus/lib/locale/lang/zh-cn';
@@ -22,25 +19,15 @@ import 'default-passive-events';
 import 'xe-utils';
 import VXETable from 'vxe-table';
 import 'vxe-table/lib/style.css';
-
+import App from './App.vue';
 
 async function boostrap() {
   const app = createApp(App);
 
-  // 配置 store
-  const store = createPinia();
-  store.use(createPersistedState({
-    storage: sessionStorage,
-    // beforeRestore: () => {},
-    // afterRestore: () => {},
-    serializer: {
-      serialize: JSON.stringify,
-      deserialize: JSON.parse,
-    }
-  }));
-  app.use(store);
-
-  if (process.env.NODE_ENV === 'dev') { setupMock(); }
+  setupStore(app);
+  
+  setupMock();
+  // if (process.env.NODE_ENV === 'dev') { setupMock(); }
 
   // 注册Icons 全局组件，element plus icon
   Object.keys(Icons).forEach(key => {
@@ -61,6 +48,7 @@ async function boostrap() {
   app.use(ElementPlus, { locale });
 
   app.use(VXETable);
+
 
   app.mount('#app');
 }
