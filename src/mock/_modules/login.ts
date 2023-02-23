@@ -178,6 +178,7 @@ export default [
                     'id': '00121',
                     'parentId': '0012',
                     'permsionName': '菜单1.1',
+                    'routeName': 'menuListPage1',
                     'menuType': 2,
                     'permsionCode': 'menuList',
                     'url': '/menuList',
@@ -205,7 +206,8 @@ export default [
                 {
                     'id': '001221',
                     'parentId': '00122',
-                    'permsionName': '菜单1.1',
+                    'permsionName': '菜单1.1.1',
+                    'routeName': 'menuListPage2',
                     'menuType': 2,
                     'url': '/menuList1',
                     'filePath': 'views/menuList/menu2',
@@ -239,6 +241,7 @@ export default [
                     'id': '00131',
                     'parentId': '0013',
                     'permsionName': '页面一',
+                    'routeName': 'outerPage1',
                     'menuType': 2,
                     'permsionCode': 'menuList',
                     'url': '/page1',
@@ -258,10 +261,10 @@ export default [
                 errorMessage: '',
                 exceptionMessage: '',
                 data: [
-                    ... index,
-                    ... auth,
-                    ... menuList,
-                    ... outerPage,
+                    ...index,
+                    ...auth,
+                    ...menuList,
+                    ...outerPage,
                 ],
             };
 
