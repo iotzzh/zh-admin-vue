@@ -218,7 +218,40 @@ export default [
                     'isDel': 0,
                 },
             ];
-            
+
+            // 外部界面
+            const outerPage = [
+                {
+                    'id': '0013',
+                    'parentId': '001',
+                    'permsionName': '外部界面',
+                    'url': '/outerPage',
+                    'menuType': 1,
+                    'permsionCode': 'outerPage',
+                    'sourceBy': null,
+                    'sortNo': 4,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+                {
+                    'id': '00131',
+                    'parentId': '0013',
+                    'permsionName': '页面一',
+                    'menuType': 2,
+                    'permsionCode': 'menuList',
+                    'url': '/page1',
+                    'filePath': 'views/outerPage/page1',
+                    'sourceBy': null,
+                    'sortNo': 1,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+            ];
+
             const result = {
                 success: true,
                 errorCode: '',
@@ -228,6 +261,7 @@ export default [
                     ... index,
                     ... auth,
                     ... menuList,
+                    ... outerPage,
                 ],
             };
 
