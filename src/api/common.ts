@@ -1,4 +1,4 @@
-import { apiWH, apiXXZ, apiMock } from '@/api/config';
+import { apiUser1, apiUser2, apiMock } from '@/api/config';
 
 export default 
 {

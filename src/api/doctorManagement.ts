@@ -1,15 +1,15 @@
-import { apiWH } from '@/api/config';
+import { apiUser1 } from '@/api/config';
 
 export default {
     // 诊室管理
-    getDoctorAccountList: apiWH + '/doctorAccount/list', // 诊室管理列表
-    addDoctorAccount: apiWH + '/doctorAccount/add',
-    updateDoctorAccount: apiWH + '/doctorAccount/modify',
-    deleteDoctorAccount: apiWH + '/doctorAccount/remove',
-    batchDoctorAccount: apiWH + '/doctorAccount/remove',
+    getDoctorAccountList: apiUser1 + '/doctorAccount/list', // 诊室管理列表
+    addDoctorAccount: apiUser1 + '/doctorAccount/add',
+    updateDoctorAccount: apiUser1 + '/doctorAccount/modify',
+    deleteDoctorAccount: apiUser1 + '/doctorAccount/remove',
+    batchDoctorAccount: apiUser1 + '/doctorAccount/remove',
 
-    updatePwd: apiWH + '/doctorAccount/modifyDoctorPassword',
-    resetPwd: apiWH + '/doctorAccount/resetDoctorPassword',
+    updatePwd: apiUser1 + '/doctorAccount/modifyDoctorPassword',
+    resetPwd: apiUser1 + '/doctorAccount/resetDoctorPassword',
 
 
 };

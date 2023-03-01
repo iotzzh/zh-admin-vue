@@ -1,18 +1,18 @@
-import { apiWH } from '@/api/config';
+import { apiUser1 } from '@/api/config';
 
 export default {
     // 客户分类管理
-    getClientClassList: apiWH + '/channelClassification/query',
-    addClientClass: apiWH + '/channelClassification/insert',
-    updateClientClass: apiWH + '/channelClassification/replaceType',
-    deleteClientClass: apiWH + '/channelClassification/remove',
-    batchDeleteClientClass: apiWH + '/channelClassification/remove',
+    getClientClassList: apiUser1 + '/channelClassification/query',
+    addClientClass: apiUser1 + '/channelClassification/insert',
+    updateClientClass: apiUser1 + '/channelClassification/replaceType',
+    deleteClientClass: apiUser1 + '/channelClassification/remove',
+    batchDeleteClientClass: apiUser1 + '/channelClassification/remove',
 
     // 客户管理
-    getClientList: apiWH + '/channelLibrary/queryChennelLibrary',
-    addClient: apiWH + '/channelLibrary/insertChennelLibrary',
-    updateClient: apiWH + '/channelLibrary/updateChennelLibrary',
-    deleteClient: apiWH + '/channelLibrary/remove',
-    batchDeleteClient: apiWH + '/channelLibrary/remove',
-    resetPwdClient: apiWH + '/channelLibrary/reset',
+    getClientList: apiUser1 + '/channelLibrary/queryChennelLibrary',
+    addClient: apiUser1 + '/channelLibrary/insertChennelLibrary',
+    updateClient: apiUser1 + '/channelLibrary/updateChennelLibrary',
+    deleteClient: apiUser1 + '/channelLibrary/remove',
+    batchDeleteClient: apiUser1 + '/channelLibrary/remove',
+    resetPwdClient: apiUser1 + '/channelLibrary/reset',
 };

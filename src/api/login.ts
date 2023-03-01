@@ -1,4 +1,4 @@
-import { apiMock, apiSSOLocal, apiSSODev, apiXXZ } from '@/api/config';
+import { apiMock, apiSSOLocal, apiSSODev, apiUser2 } from '@/api/config';
 
 export default {
     // 账号登录: sso

@@ -122,15 +122,15 @@ export default ({ mode }) => {
       hmr: true, // 禁用或配置 HMR 连接
       // 反向代理配置，注意rewrite写法
       proxy: {
-        '/apiWH': {
-          target: 'http://0.0.0.0:8082/admin/', // 王慧
+        '/apiUser1': {
+          target: 'http://0.0.0.0:8082/admin/', // 后端1
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/apiWH/, ''),
+          rewrite: (path) => path.replace(/^\/apiUser1/, ''),
         },
-        '/apiXXZ': {
-          target: 'http://0.0.0.0:8082/upms-hsp/', // 徐希芝
+        '/apiUser2': {
+          target: 'http://0.0.0.0:8082/admin/', // 后端2
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/apiXXZ/, ''),
+          rewrite: (path) => path.replace(/^\/apiUser2/, ''),
         },
         '/apiSSODev': {
           target: 'http://www.iotzzh.com/sso/', // 单点登录：开发环境
