@@ -123,22 +123,22 @@ export default ({ mode }) => {
       // 反向代理配置，注意rewrite写法
       proxy: {
         '/apiWH': {
-          target: 'http://10.161.2.63:8082/admin/', // 王慧
+          target: 'http://0.0.0.0:8082/admin/', // 王慧
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/apiWH/, ''),
         },
         '/apiXXZ': {
-          target: 'http://10.161.2.56:8082/upms-hsp/', // 徐希芝
+          target: 'http://0.0.0.0:8082/upms-hsp/', // 徐希芝
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/apiXXZ/, ''),
         },
         '/apiSSODev': {
-          target: 'http://dev.admin.hwason.cn/sso/', // 单点登录：开发环境
+          target: 'http://www.iotzzh.com/sso/', // 单点登录：开发环境
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/apiSSODev/, ''),
         },
         '/apiSSOLocal': {
-          target: 'http://10.161.2.56:8083/sso/', // 单点登录：本地接口
+          target: 'http://www.iotzzh.com/sso/', // 单点登录：本地接口
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/apiSSOLocal/, ''),
         },
