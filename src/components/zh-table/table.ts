@@ -44,6 +44,7 @@ export default class Table {
   initData = async (propParams: Object | null = null, initPage = true,) => {
     this.onBeforeInitData();
     this.loading.value = true;
+    // this.refTable.value.store.states.lazyTreeNodeMap.value = [];
     // 参数
     if (initPage) this.pageData.value.current = 1;
     const params = propParams || this.form.getSearchParams();

@@ -77,4 +77,14 @@ export default class isHelper {
       return false;
     }
   }
+
+  // 判断是否为合格的密码  
+  static isQualifiedPassword(pwd: string) {
+    const pattern = /^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d)(?=.*?[!#@*&.])[a-zA-Z\d!#@*&.]{8,}$/;
+    if (pattern.test(pwd)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
