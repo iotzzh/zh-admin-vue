@@ -30,7 +30,8 @@ export default ({ mode }) => {
     // 静态资源服务的文件夹
     publicDir: 'public',
     // base: environment === 'cloud' ? '/test1/' :  '/test2/',
-    base: '/admin/',
+    // base: '/admin/',
+    base: '/',
     // 静态资源处理
     assetsInclude: '',
     // 控制台输出的级别 info 、warn、error、silent
@@ -57,7 +58,7 @@ export default ({ mode }) => {
       cssTarget:'chrome83',
       // 浏览器兼容性  "esnext"|"modules"
       target: 'esnext',
-      outDir: 'dist', // 指定输出路径
+      outDir: 'zh-admin', // 指定输出路径
       assetsDir: 'assets', // 指定生成静态资源的存放路径
       minify: 'terser', // 混淆器，terser构建后文件体积更小
       // 启用/禁用 CSS 代码拆分
