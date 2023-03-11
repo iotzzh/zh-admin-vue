@@ -37,6 +37,7 @@ import { TZHModal } from '@/components/zh-modal/type';
 import Modal from '@/components/zh-modal/index.vue';
 import ZHRequest from '@/components/zh-request';
 import { TZHRequestParams } from '@/components/zh-request/type';
+import { popSuccessMessage } from '@/components/zh-message';
 
 const refTable = ref();
 const refModal = ref();
@@ -62,6 +63,7 @@ const tableSettings = reactive({
     hasIndex: true,
     hasSelection: false,
     modal: {
+        mainTitle: '角色',
         width: '500px',
         footer: {},
         formSettings: {
@@ -167,19 +169,20 @@ const request = ref({
     batchDelete: { url: api.batchDeleteRole, successMessage: '批量删除成功', errorMessage: '批量删除失败' },
 } as TZHTableRequest);
 
-const rootPermision = ref();
+const rootPermision = ref({id:'001'});
 const getCalRootPermissionId = async () => {
-    const apiParams: TZHRequestParams = {
-        url: api.getCalRootPermissionId,
-        conditions: {},
-        errorMessage: '获取根目录数据失败',
-    };
-    const result = await ZHRequest.post(apiParams);
-    if (result.success) rootPermision.value = result.data;
+    rootPermision.value = { id: '001' };
+    // const apiParams: TZHRequestParams = {
+    //     url: api.getCalRootPermissionId,
+    //     conditions: {},
+    //     errorMessage: '获取根目录数据失败',
+    // };
+    // const result = await ZHRequest.post(apiParams);
+    // if (result.success) rootPermision.value = result.data;
 };
 
 onMounted(async () => {
-    getCalRootPermissionId();
+    // getCalRootPermissionId();
 });
 //#endregion
 
@@ -214,30 +217,47 @@ const menuTableSettings = reactive({
 
 // 根据角色，获取角色拥有的权限接口
 const getOperatePermissionByRoleId = async () => {
-    const apiParams: TZHRequestParams = {
-        url: api.getPermisionByRoleId,
-        conditions: {
-            roleId: modal.value.data?.id,
-        },
-    };
-    const result = await ZHRequest.post(apiParams);
-    if (result.success) {
-        allCheckedList.value = result.data;
-        // allCheckedList.value = ['277907634932190720'];
-    }
+    // const apiParams: TZHRequestParams = {
+    //     url: api.getPermisionByRoleId,
+    //     conditions: {
+    //         roleId: modal.value.data?.id,
+    //     },
+    // };
+    // const result = await ZHRequest.post(apiParams);
+    // if (result.success) {
+    //     allCheckedList.value = result.data;
+    //     // allCheckedList.value = ['277907634932190720'];
+    // }
+
+    allCheckedList.value = [];
 };
 
 const openedMenuModal = async (params: any) => {
+    // const apiParams: TZHRequestParams = {
+    //     url: api.getUserCreatePermision,
+    //     conditions: {},
+    // };
+    // const result = await ZHRequest.post(apiParams);
+    // if (result.success) {
+    //     const newTree = convertChildToActions(result.data);
+    //     setTimeout(async () => {
+    //         await getOperatePermissionByRoleId();
+    //         refMenuTable.value.setData(newTree);
+    //         modal.value.loadingPage = false;
+    //     }, 400);
+    // }
+
     const apiParams: TZHRequestParams = {
-        url: api.getUserCreatePermision,
+        url: api.getMenuList,
         conditions: {},
     };
     const result = await ZHRequest.post(apiParams);
     if (result.success) {
-        const newTree = convertChildToActions(result.data);
+        // const newTree = convertChildToActions(result.data);
         setTimeout(async () => {
-            await getOperatePermissionByRoleId();
-            refMenuTable.value.setData(newTree);
+            // await getOperatePermissionByRoleId();
+            // refMenuTable.value.setData(newTree);
+            refMenuTable.value.setData(result.data.records);
             modal.value.loadingPage = false;
         }, 400);
     }
@@ -336,17 +356,19 @@ const convertChildToActions = (treeArr: any, checkedList = [] as any) => {
 };
 
 const submit = async () => {
-    const params: TZHRequestParams = {
-        url: api.authorizeByRole,
-        conditions: {
-            roleId: modal.value.data.id,
-            permissionIds: allCheckedList.value,
-        },
-        errorMessage: '修改失败',
-        successMessage: '修改成功',
-    };
-    const result = await ZHRequest.post(params);
-    if (result.success) modal.value.show = false;
+    popSuccessMessage('修改成功');
+    modal.value.show = false;
+    // const params: TZHRequestParams = {
+    //     url: api.authorizeByRole,
+    //     conditions: {
+    //         roleId: modal.value.data.id,
+    //         permissionIds: allCheckedList.value,
+    //     },
+    //     errorMessage: '修改失败',
+    //     successMessage: '修改成功',
+    // };
+    // const result = await ZHRequest.post(params);
+    // if (result.success) modal.value.show = false;
 };
 //#endregion
 </script>
