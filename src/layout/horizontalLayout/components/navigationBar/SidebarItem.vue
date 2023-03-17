@@ -14,7 +14,7 @@
       <template v-if="child.children && child.children.length > 0">
         <sidebar-item :key="child.id" :item="child" />
       </template>
-      <el-menu-item v-else :index="child.url">
+      <el-menu-item v-else :index="child.url" :key="child.id">
         <i :class="'iconfont ' + item?.icon"></i>
         <span class="tab sub">{{ child.permsionName }}</span>
       </el-menu-item>
