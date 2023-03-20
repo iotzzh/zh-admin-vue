@@ -255,6 +255,40 @@ export default [
                 },
             ];
 
+            // 功能界面
+            const functionPage = [
+                {
+                    'id': '0014',
+                    'parentId': '001',
+                    'permsionName': '功能',
+                    'url': '/funcPage',
+                    'menuType': 1,
+                    'permsionCode': 'funcPage',
+                    'sourceBy': null,
+                    'sortNo': 5,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+                {
+                    'id': '00141',
+                    'parentId': '0014',
+                    'permsionName': '打字机',
+                    'routeName': 'textPrinter',
+                    'menuType': 2,
+                    'permsionCode': 'funcPage',
+                    'url': '/textPrinter',
+                    'filePath': 'views/funcPage/textPrinter',
+                    'sourceBy': null,
+                    'sortNo': 1,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+            ];
+
             const result = {
                 success: true,
                 errorCode: '',
@@ -265,6 +299,7 @@ export default [
                     ...auth,
                     ...menuList,
                     ...outerPage,
+                    ...functionPage,
                 ],
             };
 
