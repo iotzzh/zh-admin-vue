@@ -7,14 +7,13 @@
     </el-scrollbar>
 
     <div class="options-box">
-      <!-- <div>刷</div> -->
+      <div @click="refresh"><el-icon :class="{refresh: isRefresh}"><Refresh /></el-icon></div>
       <div>
-        <el-dropdown :hide-on-click="false" class="name" @command="changeDropdownCloseTag">
-        <span><i class="iconfont icon-xiala"></i></span>
+        <el-dropdown :hide-on-click="false" class="name" style="border:none;" @command="changeDropdownCloseTag">
+        <span><i class="iconfont icon-xiala" style="font-size: 25px;"></i></span>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="closeother">关闭其他</el-dropdown-item>
-            <!-- <el-dropdown-item command="closeall">关闭全部</el-dropdown-item> -->
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -83,6 +82,13 @@ const toggleFullScreen = () => {
   fullScreen.value = !fullScreen.value;
 };
 
+const isRefresh = ref(false);
+const refresh = () => {
+  isRefresh.value = true;
+  const currentRoute = router.currentRoute;
+  router.replace(currentRoute.value.fullPath);
+  isRefresh.value = false;
+};
 </script>
 
 <style lang="scss" scoped>
@@ -144,4 +150,18 @@ const toggleFullScreen = () => {
   margin: 0px;
   padding: 0px;
 }
+
+@keyframes rotate1{
+	0%{
+		transform: rotateZ(0deg);/*从0度开始*/
+	}
+	100%{
+		transform: rotateZ(360deg);/*360度结束*/
+	}
+}
+
+.refresh {
+  animation: rotate1 2s infinite;
+}
+
 </style>

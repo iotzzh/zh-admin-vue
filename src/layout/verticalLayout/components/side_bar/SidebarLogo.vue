@@ -31,6 +31,7 @@ watch(collapse, (newVal) => {
 </script>
 
 <style lang="scss" scoped>
+@import '../../index.scss';
 .sidebarLogoFade-enter-active {
   transition: opacity 1.5s;
 }
@@ -43,8 +44,8 @@ watch(collapse, (newVal) => {
 .sidebar-logo-container {
   position: relative;
   width: 100%;
-  height: 45px;
-  line-height: 45px;
+  height: $topBarHeight;
+  line-height: $topBarHeight;
   text-align: center;
   overflow: hidden;
   // margin-bottom: 20px;
@@ -68,7 +69,7 @@ watch(collapse, (newVal) => {
       margin: 0;
       color: #435ebe;
       font-weight: 600;
-      line-height: 45px;
+      line-height: $topBarHeight;
       font-size: 22px;
       font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
       vertical-align: middle;

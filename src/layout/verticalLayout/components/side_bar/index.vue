@@ -1,7 +1,9 @@
 <template>
   <div :class="{ 'has-logo': showLogo }" v-loading="loading">
-    <!-- <SidebarLogo v-if="showLogo" :collapse="collapse" /> -->
-    <div style="height: 45px; line-height: 45px; text-align: center;vertical-align: middle;">后台管理系统</div>
+    <div class="logo">
+      <img class="logo-img" :src="Logo" alt="logo" />
+      <span v-if="collapse" class="logo-text">{{ t('layout.headerLeft.title') }}</span>
+    </div>
     <el-scrollbar class="scrollbar" wrap-class="scrollbar-wrapper">
       <el-menu class="menu el-menu-vertical" router :collapse="!collapse" :collapse-transition="false" @select="changeSelectMenu">
         <SidebarItem v-for="menu in menuList" :key="menu.id" :item="menu"></SidebarItem>
@@ -18,6 +20,8 @@ import { computed, reactive, ref, onMounted, nextTick } from 'vue';
 import { useRouter } from 'vue-router';
 import { useLayoutStore } from '@/layout/store';
 import ZHRequest from '@/components/zh-request';
+import Logo from '@/assets/img/logo.png';
+import { useI18n } from 'vue-i18n';
 
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);
@@ -51,13 +55,39 @@ const changeSelectMenu = (index:any, indexPath:any) => {
   store.changeIsOpenDrawerMenu(false);
 };
 
+const { t } = useI18n();
+
 </script>
 
 
 <style lang="scss" scoped>
+@import '../../index.scss';
 .has-logo {
+  .logo {
+    height: $topBarHeight; 
+    line-height: $topBarHeight; 
+    text-align: center;
+    vertical-align: middle; 
+    background-color: rgb(12,33,53) !important;
+    color: white;
+    display: flex;
+    padding-left: 7px;
+    align-items: center;
+    .logo-img {
+      width: 40px;
+      height: 40px;
+      filter: brightness(1.5);
+    }
+    .logo-text {
+      font-size: $leftTitleFontSize;
+      padding-left: 7px;
+      letter-spacing: 3px;
+      font-family: cursive;
+      font-weight: bolder;
+    }
+  }
   .scrollbar {
-    height: calc(100vh - 45px);
+    height: calc(100vh - $topBarHeight);
 
     &:deep(.el-scrollbar__view) {
       height: 100%;

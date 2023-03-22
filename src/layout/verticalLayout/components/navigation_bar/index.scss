@@ -1,5 +1,5 @@
 .navbar {
-    height: 45px;
+    height: $topBarHeight;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
     display: flex;
     justify-content: space-between;
@@ -7,8 +7,8 @@
     background-color: white;
 
     .left {
-        height: 45px;
-        line-height: 45px;
+        height: $topBarHeight;
+        line-height: $topBarHeight;
         vertical-align: middle;
         color: var(--el-text-color-regular);
         font-size: var(--el-font-size-base);
@@ -19,23 +19,49 @@
             position: relative;
             top: 2px;
         }
-
-        .menu {
-            font-size: 13px;
-            .dropdown {
-                margin-top: 14px;
-                cursor: pointer;
-            }
-        }
     }
 
     .info {
         width: 450px;
-        line-height: 59px;
-        height: 59px;
+        line-height: $topBarHeight;
+        height: $topBarHeight;
         text-align: right;
         vertical-align: middle;
         padding-right: 22px;
+
+        span, .lang {
+            padding-left: 12px !important;
+        }
+
+        .name {
+            height: 18px;
+            font-weight: bolder; 
+            font-size: 17px !important;
+        }
+
+        .lang {
+            font-size: 20px !important;
+        }
+
+        .fullscreen {
+            cursor: pointer;
+            position: relative;
+            top: 3px;
+            .iconfont {
+                font-size: 20px !important;
+            }
+        }
+
+        .el-dropdown {
+            vertical-align: middle !important;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bolder;
+        }
+
+        .setting-icon {
+            cursor: pointer;
+        }
 
         .bell {
             cursor: pointer;
@@ -43,42 +69,19 @@
                 height: 21px;
                 position: relative;
                 &:deep(.el-icon) {
+                    font-size: 20px !important;
                     position: absolute;
                     right: 0px;
                     top: 0px;
                 }
             }
         }
-
-        span {
-            padding: 0px 5px;
-        }
-
-        .name {
-            height: 18px;
-        }
-
-        .fullscreen {
-            cursor: pointer;
-        }
-
-        .el-dropdown {
-            vertical-align: middle !important;
-            cursor: pointer;
-            font-size: 14px;
-            // color: $menu-text-color;
-            font-weight: bolder;
-        }
-
-        .setting-icon {
-            cursor: pointer;
-        }
     }
 }
 
 
 .iconfont.icon-zhedie1, .iconfont.icon-zhedie2 {
-    font-size: 24px;
+    font-size: 28px;
 }
 
 .iconfont {
