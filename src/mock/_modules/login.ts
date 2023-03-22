@@ -255,6 +255,121 @@ export default [
                 },
             ];
 
+            // 功能界面
+            const functionPage = [
+                {
+                    'id': '0014',
+                    'parentId': '001',
+                    'permsionName': '功能',
+                    'url': '/funcPage',
+                    'menuType': 1,
+                    'permsionCode': 'funcPage',
+                    'sourceBy': null,
+                    'sortNo': 5,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+                {
+                    'id': '00141',
+                    'parentId': '0014',
+                    'permsionName': '打字机',
+                    'routeName': 'textPrinter',
+                    'menuType': 2,
+                    'permsionCode': 'funcPage',
+                    'url': '/textPrinter',
+                    'filePath': 'views/funcPage/textPrinter',
+                    'sourceBy': null,
+                    'sortNo': 1,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+            ];
+
+            // 图表
+            const graph = [
+                {
+                    'id': '0015',
+                    'parentId': '001',
+                    'permsionName': '图表',
+                    'url': '/graph',
+                    'menuType': 1,
+                    'permsionCode': 'graph',
+                    'sourceBy': null,
+                    'sortNo': 5,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+                {
+                    'id': '00151',
+                    'parentId': '0015',
+                    'permsionName': 'echarts',
+                    'menuType': 1,
+                    'permsionCode': '0015',
+                    'sourceBy': null,
+                    'sortNo': 1,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+                {
+                    'id': '001510',
+                    'parentId': '00151',
+                    'permsionName': '折线图',
+                    'routeName': 'lineChart',
+                    'menuType': 2,
+                    'url': '/lineChart',
+                    'filePath': 'views/graph/echarts/lineChart',
+                    'permsionCode': 'lineChart',
+                    'sourceBy': null,
+                    'sortNo': 1,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+            ];
+
+            // 图形编辑器
+            const graphicalEditor = [
+                {
+                    'id': '0014',
+                    'parentId': '001',
+                    'permsionName': '功能',
+                    'url': '/funcPage',
+                    'menuType': 1,
+                    'permsionCode': 'funcPage',
+                    'sourceBy': null,
+                    'sortNo': 5,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+                {
+                    'id': '00141',
+                    'parentId': '0014',
+                    'permsionName': '打字机',
+                    'routeName': 'textPrinter',
+                    'menuType': 2,
+                    'permsionCode': 'funcPage',
+                    'url': '/textPrinter',
+                    'filePath': 'views/funcPage/textPrinter',
+                    'sourceBy': null,
+                    'sortNo': 1,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+            ];
+
             const result = {
                 success: true,
                 errorCode: '',
@@ -265,6 +380,9 @@ export default [
                     ...auth,
                     ...menuList,
                     ...outerPage,
+                    ...functionPage,
+                    ...graph,
+                    ...graphicalEditor
                 ],
             };
 
