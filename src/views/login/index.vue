@@ -4,9 +4,9 @@
       <div class="user-box">
         <div class="login-title">{{ sysName }}</div>
         <form class="login-form" v-if="showLoginForm">
-          <el-input v-model="inputAccount" class="w-50 m-2 input-box" size="large" placeholder="工号"
+          <el-input v-model="inputAccount" class="w-50 m-2 input-box" size="large" placeholder="随便输入"
             :prefix-icon="Avatar" clearable></el-input>
-          <el-input v-model="inputPassword" class="w-50 m-2 input-box" size="large" placeholder="密码" type="password"
+          <el-input v-model="inputPassword" class="w-50 m-2 input-box" size="large" placeholder="随便输入" type="password"
             :prefix-icon="Lock" clearable show-password></el-input>
           <el-button type="primary" class="login-button button" @click="login()">登录</el-button>
         </form>
@@ -33,7 +33,6 @@ import { TZHRequestParams } from '@/components/zh-request/type';
 import ZHRequest from '@/components/zh-request';
 import { convertMenuArrToTree, updateMenuToRouter } from '@/utils/dataConvert';
 import { setLayout } from '@/router/routes';
-
 
 const router = useRouter();
 const store = useLayoutStore();

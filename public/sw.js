@@ -20,6 +20,8 @@ let filesToCache = [
   '/assets/images/icons/icon_512x512.png'
 ]
 
+const allSource = [];
+
 self.addEventListener('install', function (e) {
   console.log('SW Install')
   e.waitUntil(
@@ -47,52 +49,77 @@ self.addEventListener('activate', function (e) {
   return self.clients.claim()
 })
 
+// 目前使用需要FQ，故不使用
+self.addEventListener('push', function (e) {});
+
 self.addEventListener('notificationclick', function (event) {
   const notification = event.notification
   console.log('测试 data 通知时间:' + notification.data)
-  // event.source.postMessage("点击事件触发:",  notification.data);
-  // 点击点赞
-  if (event.action === 'like') {
-    console.log('点击了点赞按钮')
-  }
-  // 关闭通知
-  event.notification.close()
-  // 打开网页
-  if (notification.data && notification.data.url) {
-    event.waitUntil(clients.openWindow(event.notification.data.url))
-  }
+
+  // 不适合处理当有多个notification弹出时，有不同的action的场景
+  // event.waitUntil(
+  //   // 获取所有clients
+  //   self.clients.matchAll().then(function (clients) {
+  //       if (!clients || clients.length === 0) {
+  //           return;
+  //       }
+  //       clients.forEach(function (client) {
+  //           // 使用postMessage进行通信
+  //           client.postMessage(action);
+  //       });
+    // })
+// });
+  // // event.source.postMessage("点击事件触发:",  notification.data);
+  // // 点击点赞
+  // if (event.action === 'like') {
+  //   console.log('点击了点赞按钮')
+  // }
+  // // 关闭通知
+  // event.notification.close()
+  // // 打开网页
+  // if (notification.data && notification.data.url) {
+  //   event.waitUntil(clients.openWindow(event.notification.data.url))
+  // }
+});
+
+self.addEventListener('notificationclose', function (event) {
+  console.log('测试 data 通知时间:')
 })
 
-self.addEventListener("message", (event) => { 
-  // event is an ExtendableMessageEvent object
-  console.log(`The client sent me a message: ${event.data}`);
+self.addEventListener('notificationerror', function (event) {
+  console.log('测试 data 通知时间:')
+})
 
-  event.source.postMessage("Hi client");
+self.addEventListener('notificationshow', function (event) {
+  console.log('测试 data 通知时间:')
+})
 
-  const title = 'Notification 1 of 3';
-  const options = {
-    // requireInteraction: true, // 必须点击才能关闭
-    body: "With 'tag' of 'message-group-1'",
-    tag: 'message-group-1',
-  };
+// 注意：event.data.message.data传递只能是对象，且不能有currentSourceId字段
+self.addEventListener("message", (event) => {
+  const currentSourceId = event.source.id; // 传递到notification中
+  allSource.push(event.source); // 存储在内存中
+  // 扩展event.data.message.data
+  if (event.data.message && event.data.message.options) {
+    event.data.message.options.data ? 
+    event.data.message.options.data = { currentSourceId, ...event.data.message.options.data } : event.data.message.options.data = { currentSourceId };
+  }
 
-  const title1 = 'Notification 2 of 3';
-  const options1 = {
-    body: "With 'tag' of 'message-group-2'",
-    tag: 'message-group-2',
-  };
-
-  const title2 = 'Notification 3 of 3';;
-  const options2 = {
-    body: "With 'tag' of 'message-group-1'",
-    tag: 'message-group-1',
-  };
-
-  const preCache = async () => {
-    self.registration.showNotification(title, options);
-    self.registration.showNotification(title1, options1);
-    self.registration.showNotification(title2, options2);
-  };
-
-  event.waitUntil(preCache());
+  processReceiveMessage(event);
+  // event.source.postMessage("Hi client");
 });
+
+const displayNotification = async (title, options) => {
+  self.registration.showNotification(title, options);
+};
+
+const processReceiveMessage = (event) => {
+  switch(event.data.type) {
+    case 'notification': processReceiveMessageToNotification(event); break;
+    default: 
+      event.source.postMessage("Please send correct command!");
+  }
+};
+
+const processReceiveMessageToNotification = (event) => {
+  event.waitUntil(self.registration.showNotification(event.data.message.title, event.data.message.options));
+};

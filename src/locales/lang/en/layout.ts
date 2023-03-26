@@ -1,4 +1,7 @@
 export default {
+  headerLeft: {
+    title: 'Admin Dashboard'
+  },
   footer: { onlinePreview: 'Preview', onlineDocument: 'Document' },
   header: {
     // user dropdown

@@ -337,30 +337,64 @@ export default [
             ];
 
             // 图形编辑器
-            const graphicalEditor = [
+            // const graphicalEditor = [
+            //     {
+            //         'id': '0014',
+            //         'parentId': '001',
+            //         'permsionName': '功能',
+            //         'url': '/funcPage',
+            //         'menuType': 1,
+            //         'permsionCode': 'funcPage',
+            //         'sourceBy': null,
+            //         'sortNo': 5,
+            //         'icon': 'icon-menu',
+            //         'description': null,
+            //         'isEbl': 1,
+            //         'isDel': 0,
+            //     },
+            //     {
+            //         'id': '00141',
+            //         'parentId': '0014',
+            //         'permsionName': '打字机',
+            //         'routeName': 'textPrinter',
+            //         'menuType': 2,
+            //         'permsionCode': 'funcPage',
+            //         'url': '/textPrinter',
+            //         'filePath': 'views/funcPage/textPrinter',
+            //         'sourceBy': null,
+            //         'sortNo': 1,
+            //         'icon': 'icon-menu',
+            //         'description': null,
+            //         'isEbl': 1,
+            //         'isDel': 0,
+            //     },
+            // ];
+
+            // web渐进式应用
+            const pwa = [
                 {
-                    'id': '0014',
+                    'id': '0016',
                     'parentId': '001',
-                    'permsionName': '功能',
-                    'url': '/funcPage',
+                    'permsionName': 'PWA',
+                    'url': '/pwa',
                     'menuType': 1,
-                    'permsionCode': 'funcPage',
+                    'permsionCode': 'pwa',
                     'sourceBy': null,
-                    'sortNo': 5,
+                    'sortNo': 6,
                     'icon': 'icon-menu',
                     'description': null,
                     'isEbl': 1,
                     'isDel': 0,
                 },
                 {
-                    'id': '00141',
-                    'parentId': '0014',
-                    'permsionName': '打字机',
-                    'routeName': 'textPrinter',
+                    'id': '00161',
+                    'parentId': '0016',
+                    'permsionName': '桌面提示',
+                    'routeName': 'notification',
                     'menuType': 2,
-                    'permsionCode': 'funcPage',
-                    'url': '/textPrinter',
-                    'filePath': 'views/funcPage/textPrinter',
+                    'permsionCode': 'notification',
+                    'url': '/notification',
+                    'filePath': 'views/pwa/notification',
                     'sourceBy': null,
                     'sortNo': 1,
                     'icon': 'icon-menu',
@@ -382,7 +416,8 @@ export default [
                     ...outerPage,
                     ...functionPage,
                     ...graph,
-                    ...graphicalEditor
+                    // ...graphicalEditor,
+                    ...pwa
                 ],
             };
 

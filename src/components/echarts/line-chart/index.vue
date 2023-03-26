@@ -1,15 +1,18 @@
 <template>
     <div class="e-line-chart" v-loading="loading" ref="refELineChart" :id="id" :style="{ width: '800px', height: '400px' }">
-
     </div>
 </template>
 
 <script lang="ts" setup>
+import { number } from '@intlify/core-base';
 import * as echarts from 'echarts';
 import { ref, onMounted, PropType, toRefs } from 'vue';
 import { getUUID } from '../utils';
 
 const props = defineProps({
+    width: {
+        type: Number,
+    },
     modelValue: {
         type: Object as PropType<any>,
     },
