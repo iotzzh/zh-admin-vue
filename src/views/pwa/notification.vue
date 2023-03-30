@@ -1,5 +1,5 @@
 <template>
-    <div class="box">
+    <Box :use-scroll-content-box="true">
         <h1>notification 测试页面</h1>
         <span id="text"></span>
         <div class="button-box">
@@ -9,10 +9,32 @@
 
             <ZHLightButton text="点击才能关闭的提示" color="blue" 
             @click="(e:any) => { sendMessageToWorkerJS({ type: 'notification', message: { title: '点击才能关闭的提示', 
-                options: { body:'点击才能关闭的提示', requireInteraction: true, } }}) }">
+                options: { body:'点击才能关闭的提示内容', requireInteraction: true, } }}) }">
+            </ZHLightButton>
+
+            <ZHLightButton text="带ICON的提示" color="pink" 
+            @click="(e:any) => { sendMessageToWorkerJS({ type: 'notification', message: { title: '带ICON的提示', 
+                options: { body:'带ICON的提示内容', icon: ICON } }}) }">
+            </ZHLightButton>
+
+            <ZHLightButton text="带IMG的提示" color="yellow" 
+            @click="(e:any) => { sendMessageToWorkerJS({ type: 'notification', message: { title: '带IMG的提示', 
+                options: { body:'带IMG的提示内容', icon: ICON, image: IMG } }}) }">
+            </ZHLightButton>
+
+            <ZHLightButton text="带按钮的提示" color="gold" 
+            @click="(e:any) => { sendMessageToWorkerJS({ type: 'notification', message: { title: '带按钮的提示', 
+                options: { body:'带按钮的提示内容', icon: ICON, image: IMG, 
+                actions: [{ action: 'cancel', title: '取消' }, { action: 'confirm', title: '确认'}], } }}) }">
+            </ZHLightButton>
+
+            <ZHLightButton text="带输入框的提示" color="green" 
+            @click="(e:any) => { sendMessageToWorkerJS({ type: 'notification', message: { title: '带输入框的提示', 
+                options: { body:'带输入框的提示内容', icon: ICON, image: IMG, 
+                actions: [{ action: 'cancel', title: '取消', type: 'text' }, { action: 'confirm', title: '确认'}], } }}) }">
             </ZHLightButton>
         </div>
-    </div>
+    </Box>
 </template>
 
 <script lang="ts" setup>
@@ -21,6 +43,10 @@ import { stringLiteral } from '@babel/types';
 import { onMounted, ref, onUnmounted } from 'vue';
 import Typed from 'typed.js';
 import ZHLightButton from '@/components/zh-light-button/index.vue';
+import ICON from '@/assets/img/zhihu.png';
+import IMG from '@/assets/img/notification1.jpg';
+import { popSuccessMessage } from '@/components/zh-message';
+import Box from '@/components/zh-layout/index.vue';
 
 
 // 注册当前页面的全局的registration
@@ -55,6 +81,7 @@ onUnmounted(() => {
 
 const receiveWorkerJSMessage = (event: MessageEvent<any>) => {
     console.log(`The service worker sent me a message: ${event.data}`);
+    popSuccessMessage(`The service worker sent me a message: ${event.data}`);
 };
 
 interface TMessage {

@@ -99,6 +99,7 @@ self.addEventListener("notificationclick", function (event) {
           JSON.stringify({
             action: event.action,
             data: event.notification.data,
+            reply: event.reply,
           })
         );
     })
