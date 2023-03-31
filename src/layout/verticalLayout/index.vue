@@ -7,8 +7,8 @@
     <div class="right">
       <Navbar />
       <div class="right-content">
-        <TagsView />
-        <AppMain />
+        <TagsView @reload="reload" />
+        <AppMain v-if="isRouterAlive" />
       </div>
     </div>
 
@@ -23,7 +23,7 @@
 import { Sidebar, Navbar, AppMain, TagsView } from './components';
 import { storeToRefs } from 'pinia';
 import { useLayoutStore } from '../store';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, provide, nextTick } from 'vue';
 import storage from '@/utils/storage';
 
 const store = useLayoutStore();
@@ -47,6 +47,12 @@ let activeIndex = ref('');
 // const openMenu = () => {
 //   drawer.value = true;
 // };
+const isRouterAlive = ref(true);
+const reload = async () => {
+  isRouterAlive.value = false;
+  await nextTick();
+  isRouterAlive.value = true;
+};
 </script>
 
 

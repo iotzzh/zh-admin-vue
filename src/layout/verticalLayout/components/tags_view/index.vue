@@ -7,16 +7,18 @@
     </el-scrollbar>
 
     <div class="options-box">
-      <div @click="refresh"><el-icon :class="{refresh: isRefresh}"><Refresh /></el-icon></div>
+      <div @click="refresh"><el-icon :class="{ refresh: isRefresh }">
+          <Refresh />
+        </el-icon></div>
       <div>
         <el-dropdown :hide-on-click="false" class="name" style="border:none;" @command="changeDropdownCloseTag">
-        <span><i class="iconfont icon-xiala" style="font-size: 25px;"></i></span>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="closeother">关闭其他</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+          <span><i class="iconfont icon-xiala" style="font-size: 25px;"></i></span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="closeother">关闭其他</el-dropdown-item>
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </div>
       <div @click="toggleFullScreen">
         <i v-if="fullScreen" class="iconfont icon-fullscreen-shrink"></i>
@@ -31,10 +33,12 @@ import { useLayoutStore } from '@/layout/store';
 import { RouteType } from '@/layout/type';
 import UIHelper from '@/utils/uiHelper';
 import { storeToRefs } from 'pinia';
-import { toRef, ref, reactive } from 'vue';
+import { toRef, ref, reactive, inject } from 'vue';
 import { onBeforeRouteUpdate, useRouter } from 'vue-router';
 const store = useLayoutStore();
 const { cachedViews } = storeToRefs(store);
+
+const emit = defineEmits(['reload']);
 
 const router = useRouter();
 
@@ -71,7 +75,6 @@ const isActive = (route: RouteType) => {
 };
 
 const clickTab = (path: any) => {
-  // console.log(path);
   router.push(path);
 };
 
@@ -83,12 +86,14 @@ const toggleFullScreen = () => {
 };
 
 const isRefresh = ref(false);
-const refresh = () => {
+const refresh = async () => {
+  emit('reload');
   isRefresh.value = true;
-  const currentRoute = router.currentRoute;
-  router.replace(currentRoute.value.fullPath);
-  isRefresh.value = false;
+  setTimeout(() => {
+    isRefresh.value = false;
+  }, 2000);
 };
+
 </script>
 
 <style lang="scss" scoped>
@@ -151,17 +156,18 @@ const refresh = () => {
   padding: 0px;
 }
 
-@keyframes rotate1{
-	0%{
-		transform: rotateZ(0deg);/*从0度开始*/
-	}
-	100%{
-		transform: rotateZ(360deg);/*360度结束*/
-	}
+@keyframes rotate1 {
+  0% {
+    transform: rotateZ(0deg);
+    /*从0度开始*/
+  }
+
+  100% {
+    transform: rotateZ(360deg);
+    /*360度结束*/
+  }
 }
 
 .refresh {
   animation: rotate1 2s infinite;
-}
-
-</style>
+}</style>
