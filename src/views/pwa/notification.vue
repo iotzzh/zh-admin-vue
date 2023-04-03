@@ -30,7 +30,7 @@
 
             <ZHLightButton text="带输入框的提示" color="green" 
             @click="(e:any) => { sendMessageToWorkerJS({ type: 'notification', message: { title: '带输入框的提示', 
-                options: { body:'带输入框的提示内容', icon: ICON, image: IMG, 
+                options: { body:'带输入框的提示内容', icon: ICON, image: IMG,
                 actions: [{ action: 'cancel', title: '取消', type: 'text' }, { action: 'confirm', title: '确认'}], } }}) }">
             </ZHLightButton>
         </div>
