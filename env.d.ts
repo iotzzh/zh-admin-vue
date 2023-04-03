@@ -9,3 +9,5 @@ declare module '*.vue' {
 }
 
 declare module 'js-pinyin';
+
+declare module 'aos';

@@ -404,6 +404,40 @@ export default [
                 },
             ];
 
+            // 动画
+            const animation = [
+                {
+                    'id': '0017',
+                    'parentId': '001',
+                    'permsionName': '动画',
+                    'url': '/animation',
+                    'menuType': 1,
+                    'permsionCode': 'animation',
+                    'sourceBy': null,
+                    'sortNo': 7,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+                {
+                    'id': '00171',
+                    'parentId': '0017',
+                    'permsionName': 'AOS',
+                    'routeName': 'aos',
+                    'menuType': 2,
+                    'permsionCode': 'aos',
+                    'url': '/aos',
+                    'filePath': 'views/animation/aos',
+                    'sourceBy': null,
+                    'sortNo': 1,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+            ];
+
             const result = {
                 success: true,
                 errorCode: '',
@@ -417,7 +451,8 @@ export default [
                     ...functionPage,
                     ...graph,
                     // ...graphicalEditor,
-                    ...pwa
+                    ...pwa,
+                    ...animation,
                 ],
             };
 

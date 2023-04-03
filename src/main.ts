@@ -3,6 +3,7 @@ import './styles/iconfont-override.css';
 import 'element-plus/dist/index.css';
 import './styles/global.css';
 import './assets/iconfont/iconfont.css';
+import 'aos/dist/aos.css';
 
 import { createApp } from 'vue';
 import { setupStore } from '@/stores/index';
@@ -14,6 +15,8 @@ import locale from 'element-plus/lib/locale/lang/zh-cn';
 import { setupMock } from '@/mock/index';
 import { setupI18n } from './locales/setupI18n';
 import 'default-passive-events';
+
+import AOS from 'aos';
 
 // vex-table
 import 'xe-utils';
@@ -49,7 +52,9 @@ async function boostrap() {
 
   app.use(VXETable);
 
-
+  // AOS.init();
+  
+  // app.use(AOS);
   app.mount('#app');
 }
 
