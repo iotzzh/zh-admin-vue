@@ -4,11 +4,12 @@
     </el-scrollbar>
 </template>
 <script lang="ts" setup>
+import _ from 'lodash';
+
 const emit = defineEmits(['scroll']);
 
-const scroll = (e:any) => {
-    emit('scroll', e);
-};
+const scroll = (e:any) => { emit('scroll', e); };
+
 </script>
 
 

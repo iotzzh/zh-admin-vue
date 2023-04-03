@@ -344,7 +344,7 @@ a {
   position: fixed;
   -webkit-transform: translateZ(0);
           transform: translateZ(0);
-  z-index: 0; }
+  z-index: -1; }
   .backgrounds .background {
     width: 100%;
     height: 100%;
