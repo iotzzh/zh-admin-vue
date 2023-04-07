@@ -14,7 +14,7 @@
 				<i class="chevron bottom"></i>
 			</span>
 			<a href="http://github.com/michalsnik/aos" target="_blank" class="octocat aos-init aos-animate" data-aos="zoom-out" data-aos-delay="1500">
-				<img src="img/github_octocat.png" alt="">
+				<!-- <img src="img/github_octocat.png" alt=""> -->
 			</a>
 		</header>
 

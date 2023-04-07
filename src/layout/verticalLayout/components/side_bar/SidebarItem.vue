@@ -16,7 +16,7 @@
         <sidebar-item :key="child.id" :item="child" />
       </template>
       <el-menu-item v-else :index="child.url" :key="child.id">
-        <i :class="'iconfont ' + item?.icon"></i>
+        <i :class="'iconfont ' + child?.icon"></i>
         <span class="tab sub">{{ child?.permsionName }}</span>
       </el-menu-item>
     </div>

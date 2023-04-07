@@ -6,6 +6,62 @@
   "description": "zh-admin-vue项目",
   "glyphs": [
     {
+      "icon_id": "3739659",
+      "name": "动画",
+      "font_class": "donghua",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "3868287",
+      "name": "账号权限管理",
+      "font_class": "zhanghaoquanxianguanli",
+      "unicode": "eb68",
+      "unicode_decimal": 60264
+    },
+    {
+      "icon_id": "4876789",
+      "name": "首页",
+      "font_class": "shouye-copy-copy",
+      "unicode": "e62d",
+      "unicode_decimal": 58925
+    },
+    {
+      "icon_id": "7542445",
+      "name": "24gl-chartBarUpward",
+      "font_class": "24gl-chartBarUpward",
+      "unicode": "e846",
+      "unicode_decimal": 59462
+    },
+    {
+      "icon_id": "8288841",
+      "name": "功能",
+      "font_class": "gongneng",
+      "unicode": "e84a",
+      "unicode_decimal": 59466
+    },
+    {
+      "icon_id": "10452238",
+      "name": "web",
+      "font_class": "web",
+      "unicode": "e68b",
+      "unicode_decimal": 59019
+    },
+    {
+      "icon_id": "28715054",
+      "name": "多级菜单",
+      "font_class": "a-huaban2fuben6",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "34201231",
+      "name": "外部链接  ",
+      "font_class": "waibulianjie",
+      "unicode": "e858",
+      "unicode_decimal": 59480
+    },
+    {
       "icon_id": "13603528",
       "name": "下拉",
       "font_class": "shangla",
