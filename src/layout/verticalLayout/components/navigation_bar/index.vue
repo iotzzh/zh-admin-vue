@@ -26,9 +26,9 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-      <!-- <span class="setting-icon" @click="changeLayout">
+      <span class="setting-icon" @click="changeLayout">
         <i class="iconfont icon-layout-2-fill"></i>        
-      </span> -->
+      </span>
       <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
         <span>{{ userInfo?.realName }}</span>
         <template #dropdown>
