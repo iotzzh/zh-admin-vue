@@ -1,7 +1,8 @@
 import { RouteRecordRaw } from 'vue-router';
 
 import VerticalLayout from '@/layout/verticalLayout/index.vue';
-import H from '@/layout/horizontalLayout/index.vue';
+// import H from '../layout/horizontalLayout/index.vue';
+import H from '../../layout/horizontalLayout/index.vue';
 import ZHRequest from '@/components/zh-request';
 import { convertMenuArrToTree, updateMenuToRouter } from '@/utils/dataConvert';
 import { router } from '..';
