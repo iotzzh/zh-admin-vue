@@ -14,7 +14,6 @@ zh-admin-vue
 dist-ssr
 coverage
 *.local
-zh-admin-vue
 
 /cypress/videos/
 /cypress/screenshots/
