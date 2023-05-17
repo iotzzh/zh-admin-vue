@@ -27,7 +27,7 @@
       <el-row>
         <el-col :span="12">
           <div class="table-title">
-            <el-icon v-if="tableSettings.tablePanelSetting.title">
+            <el-icon class="icon" v-if="tableSettings.tablePanelSetting.title">
               <Grid />
             </el-icon>
             {{ tableSettings.tablePanelSetting.title }}

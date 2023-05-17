@@ -18,6 +18,11 @@
       font-size: 14px;
       font-weight: 500;
       margin-left: 15px;
+      display: flex;
+      align-items: center;
+      .icon {
+        margin-right: 3px;
+      }
     }
 
     .setting-panel.right {
