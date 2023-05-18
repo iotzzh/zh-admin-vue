@@ -26,8 +26,9 @@ export default class {
 
     post = async (params: TZHRequestParams) => {
         let result: any = {};
+        params.config = params.config ? { ...params.config } : {};
         try {
-            result = await request({ url: params.url, method: 'post', data: params.conditions, timeout: params.timeout, signal: this.controller.signal });
+            result = await request({ url: params.url, method: 'post', data: params.conditions, timeout: params.timeout, signal: this.controller.signal, ...params.config  });
             if (result.success) {
                 params.successMessage && popSuccessMessage(params.successMessage);
             } else {
