@@ -1,5 +1,5 @@
 import * as echarts from 'echarts';
-export default class Index {
+export default class Dashboard {
     loading3: any;
     loading4: any;
     loading2: any;

@@ -52,20 +52,20 @@ import Img1 from '@/assets/img/home_icon1.png';
 import Img2 from '@/assets/img/home_icon2.png';
 import Img3 from '@/assets/img/home_icon3.png';
 import Img4 from '@/assets/img/home_icon4.png';
-import Index from './index';
+import Dashboard from './index';
 import { onMounted, ref, onUnmounted } from 'vue';
 
 const loading1 = ref(false);
 const loading2 = ref(false);
 const loading3 = ref(false);
 const loading4 = ref(false);
-const index = new Index(loading1, loading2, loading3, loading4);
+const dashboard = new Dashboard(loading1, loading2, loading3, loading4);
 
 const drawChart = () => {
-  index.drawChart1();
-  index.drawChart2();
-  index.drawChart3();
-  index.drawChart4();
+  dashboard.drawChart1();
+  dashboard.drawChart2();
+  dashboard.drawChart3();
+  dashboard.drawChart4();
 };
 
 onMounted(() => {
