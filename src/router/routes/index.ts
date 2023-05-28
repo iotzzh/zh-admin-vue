@@ -43,7 +43,7 @@ export const getBasicRoutes = async (isVertical = true) => {
       {
         path: '/dashboard',
         // component: () => import('@/views/dashboard/index.vue'),
-        component: () => import('../../views/dashboard/index.vue'),
+        component: () => import('@/views/dashboard/index.vue'),
         name: '首页',
         meta: {
           title: '首页',

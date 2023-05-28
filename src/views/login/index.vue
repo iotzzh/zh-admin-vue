@@ -132,7 +132,7 @@ const setRoutes = async () => {
     children: [
     {
       path: '/dashboard',
-      component: () => import('../../views/dashboard/index.vue'),
+      component: () => import('@/views/dashboard/index.vue'),
       name: '首页',
       meta: {
         title: 'dashboard',
