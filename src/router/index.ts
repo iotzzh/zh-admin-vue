@@ -44,8 +44,8 @@ async function getRouter () {
   const store = useLayoutStore();
   const routes:any = storage.getToken() ? await getBasicRoutes() : [];
   router = createRouter({
-    // history: createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
-    history: createWebHistory(),
+    history: createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
+    // history: createWebHistory(),
     // routes: [...basicRoutes, ...routes ],
     routes: [ ...basicRoutes, ...routes ],
     scrollBehavior: () => ({ left: 0, top: 0 }),
