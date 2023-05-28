@@ -130,14 +130,14 @@ const setRoutes = async () => {
     component: () => import('@/layout/verticalLayout/index.vue'),
     name: 'root',
     children: [
-    {
-      path: '/dashboard',
-      component: () => import('@/views/dashboard/index.vue'),
-      name: '首页',
-      meta: {
-        title: 'dashboard',
-      }
-    },
+    // {
+    //   path: '/dashboard',
+    //   component: () => import('@/views/dashboard/index.vue'),
+    //   name: '首页',
+    //   meta: {
+    //     title: 'dashboard',
+    //   }
+    // },
       ...list,
     ],
   };
