@@ -40,14 +40,14 @@ export const getBasicRoutes = async (isVertical = true) => {
     name: isVertical ? 'root' : 'root1',
     // children: list,
     children: [
-      // {
-      //   path: '/dashboard',
-      //   component: () => import('@/views/dashboard/index.vue'),
-      //   name: '首页',
-      //   meta: {
-      //     title: '首页',
-      //   }
-      // },
+      {
+        path: '/dashboard',
+        component: () => import('@/views/dashboard/index.vue'),
+        name: '首页',
+        meta: {
+          title: '首页',
+        }
+      },
       ...list,
     ]
   }];
