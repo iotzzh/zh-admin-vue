@@ -13,7 +13,8 @@ const Timestamp = `${currentTime.getFullYear()}-${currentTime.getMonth() + 1}-${
  
 // https://vitejs.dev/config/
 export default ({ mode }) => {
-  const environment = loadEnv(mode, process.cwd()).VITE_ENVIRONMENT;
+  const env = loadEnv(mode, process.cwd());
+  const environment = env.VITE_ENVIRONMENT;
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   fs.writeFile(resolve('public/.env'), `environment: ${environment}`, err => {});
   return defineConfig({
@@ -31,7 +32,7 @@ export default ({ mode }) => {
     publicDir: 'public',
     // base: environment === 'cloud' ? '/test1/' :  '/test2/',
     // base: '/admin/',
-    base: '/admin/',
+    base: env.VITE_PUBLIC_PATH,
     // 静态资源处理
     assetsInclude: '',
     // 控制台输出的级别 info 、warn、error、silent
