@@ -41,7 +41,7 @@ export default ({ mode }) => {
     // 配置文件别名，vite1.0是/@/， 2.0改为/@
     resolve: {
       alias: {
-        '@': path.resolve(__dirname, './src'),
+        '@': path.resolve(__dirname, 'src'),
         'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
       }
     },
