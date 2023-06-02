@@ -32,7 +32,7 @@ export default ({ mode }) => {
     publicDir: 'public',
     // base: environment === 'cloud' ? '/test1/' :  '/test2/',
     // base: '/admin/',
-    base: `/${env.VITE_PUBLIC_PATH}/`,
+    base: `${env.VITE_PUBLIC_PATH ? '/' + env.VITE_PUBLIC_PATH + '/' : './'}`,
     // 静态资源处理
     assetsInclude: '',
     // 控制台输出的级别 info 、warn、error、silent
