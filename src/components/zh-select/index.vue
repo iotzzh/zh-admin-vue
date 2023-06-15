@@ -1,10 +1,10 @@
 <template>
     <div class="zh-select">
-        <el-select v-model="value" :loading="loading" :loading-text="loadingText" :multiple="multiple" 
+        <el-select :model="modelValue" :loading="loading" :loading-text="loadingText" :multiple="multiple" 
         :value-key="valueKey || undefined"  @change="change">
-            <el-option v-for="(item, index) in (options as any)" :key="(valueKey && item[valueKey]) || index"
+            <el-option v-for="(item, index) in (options as any)" :key="valueKey ? item[valueKey] : index"
                 :label="labelField ? item[labelField] : item.label" 
-                :value="item.valueKey ? item : valueField ? item[valueField] : item.value"></el-option>
+                :value="valueKey ? item : (valueField ? item[valueField] : item.value)"></el-option>
         </el-select>
 
     </div>
@@ -68,7 +68,6 @@ const props = defineProps({
     // },
     valueKey: {
         type: String,
-        default: 'value',
     },
     // collapseTags: Boolean,
     // collapseTagsTooltip: {
@@ -137,6 +136,8 @@ const {
     requestDataWhenMounted
 } = toRefs(props);
 
+const emit = defineEmits(['update:modelValue']);
+
 const refZHTree = ref();
 const loading = ref(false);
 const options = ref(defaultOptions && defaultOptions.value);
@@ -169,6 +170,7 @@ const getList = async () => {
         }
     }
 
+    loading.value = false;
 };
 
 onMounted(() => {
@@ -179,13 +181,11 @@ onMounted(() => {
 
 
 
-const value = ref(modelValue?.value || undefined);
 
-const emit = defineEmits(['update:modelValue']);
-
-const change = (newVal:any) => {
-    emit('update:modelValue', newVal);
+const change = (newVal:any) => { 
+    emit('update:modelValue', newVal); 
 };
+
 defineExpose({
     getList,
 });
