@@ -438,6 +438,40 @@ export default [
                 },
             ];
 
+            // 组件
+            const component = [
+                {
+                    'id': '0018',
+                    'parentId': '001',
+                    'permsionName': '组件',
+                    'url': '/component',
+                    'menuType': 1,
+                    'permsionCode': 'component',
+                    'sourceBy': null,
+                    'sortNo': 8,
+                    'icon': 'icon-donghua',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+                {
+                    'id': '00181',
+                    'parentId': '0018',
+                    'permsionName': 'zhselect',
+                    'routeName': 'zhselect',
+                    'menuType': 2,
+                    'permsionCode': 'zhselect',
+                    'url': '/component/zhselect',
+                    'filePath': 'views/component/zhselect',
+                    'sourceBy': null,
+                    'sortNo': 1,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+            ];
+
             const result = {
                 success: true,
                 errorCode: '',
@@ -453,6 +487,7 @@ export default [
                     // ...graphicalEditor,
                     ...pwa,
                     ...animation,
+                    ...component,
                 ],
             };
 

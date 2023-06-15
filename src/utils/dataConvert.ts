@@ -47,18 +47,18 @@ const getRootMenuChild = (id: string, childrenMenus: Array<any>): Array<any> => 
 const modules = import.meta.glob('../views/**');
 
 const updateMenuToRouter = (array: Array<any>) => {
-    for (let i = 0; i < array.length; i++) {
-        array[i].meta = { ...array[i].meta };
-        array[i].meta.title = array[i].permsionName;
+    for (const element of array) {
+        element.meta = { ...element.meta };
+        element.meta.title = element.permsionName;
         // array[i].meta.fatherPath = array[i].fatherPath;
 
-        array[i].name = array[i].routeName;
-        array[i].path = array[i].url || '/';
+        element.name = element.routeName;
+        element.path = element.url || '/';
 
-        if (array[i].filePath) {
+        if (element.filePath) {
             // array[i].component = () => import(/* @vite-ignore */'/src/' + array[i].filePath + '.vue');
             // array[i].component = () => import(/* @vite-ignore */'../' + array[i].filePath + '.vue');
-            array[i].component = modules['../' + array[i].filePath + '.vue'];
+            element.component = modules['../' + element.filePath + '.vue'];
         }
     }
 

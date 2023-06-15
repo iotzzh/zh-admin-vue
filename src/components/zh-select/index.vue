@@ -1,9 +1,10 @@
 <template>
     <div class="zh-select">
-        <el-select :model="modelValue" :loading="loading" :loading-text="loadingText" :multiple="multiple"
-            :disabled="disabled" :value-key="valueKey" :size="size" :clearable="clearable">
+        <el-select v-model="value" :loading="loading" :loading-text="loadingText" :multiple="multiple" 
+        :value-key="valueKey || undefined"  @change="change">
             <el-option v-for="(item, index) in (options as any)" :key="(valueKey && item[valueKey]) || index"
-                :label="item.label" :value="item.valueKey ? item : item.value"></el-option>
+                :label="labelField ? item[labelField] : item.label" 
+                :value="item.valueKey ? item : valueField ? item[valueField] : item.value"></el-option>
         </el-select>
 
     </div>
@@ -11,7 +12,6 @@
   
 <script setup lang="ts">
 import { toRefs, PropType, computed, ref, reactive, Ref, watch, onMounted } from 'vue';
-import { iconPropType, isValidComponentSize } from 'element-plus/lib/utils';
 
 import { ComponentSize } from './type';
 import { TZHRequestParams } from '../zh-request/type';
@@ -24,91 +24,88 @@ const props = defineProps({
         type: [Array, String, Number, Boolean, Object],
         default: undefined,
     },
-    autocomplete: {
-        type: String,
-        default: 'off',
-    },
-    automaticDropdown: Boolean,
-    size: {
-        type: String as PropType<ComponentSize>,
-        validator: isValidComponentSize,
-    },
-    effect: {
-        type: String as PropType<'light' | 'dark' | string>,
-        default: 'light',
-    },
-    disabled: Boolean,
-    clearable: Boolean,
-    filterable: Boolean,
-    allowCreate: Boolean,
-    loading: Boolean,
-    popperClass: {
-        type: String,
-        default: '',
-    },
-    remote: Boolean,
+    labelField: {},
+    valueField: {},
+    // autocomplete: {
+    //     type: String,
+    //     default: 'off',
+    // },
+    // automaticDropdown: Boolean,
+    // size: {
+    //     type: String as PropType<ComponentSize>,
+    // },
+    // effect: {
+    //     type: String as PropType<'light' | 'dark' | string>,
+    //     default: 'light',
+    // },
+    // disabled: Boolean,
+    // clearable: Boolean,
+    // filterable: Boolean,
+    // allowCreate: Boolean,
+    // // loading: Boolean,
+    // popperClass: {
+    //     type: String,
+    //     default: '',
+    // },
+    // remote: Boolean,
     loadingText: String,
-    noMatchText: String,
-    noDataText: String,
-    remoteMethod: Function,
-    filterMethod: Function,
+    // noMatchText: String,
+    // noDataText: String,
+    // remoteMethod: Function,
+    // filterMethod: Function,
     multiple: Boolean,
-    multipleLimit: {
-        type: Number,
-        default: 0,
-    },
-    placeholder: {
-        type: String,
-    },
-    defaultFirstOption: Boolean,
-    reserveKeyword: {
-        type: Boolean,
-        default: true,
-    },
+    // multipleLimit: {
+    //     type: Number,
+    //     default: 0,
+    // },
+    // placeholder: {
+    //     type: String,
+    // },
+    // defaultFirstOption: Boolean,
+    // reserveKeyword: {
+    //     type: Boolean,
+    //     default: true,
+    // },
     valueKey: {
         type: String,
         default: 'value',
     },
-    collapseTags: Boolean,
-    collapseTagsTooltip: {
-        type: Boolean,
-        default: false,
-    },
-    persistent: {
-        type: Boolean,
-        default: true,
-    },
-    clearIcon: {
-        type: iconPropType,
-    },
-    fitInputWidth: {
-        type: Boolean,
-        default: false,
-    },
-    suffixIcon: {
-        type: iconPropType,
-    },
-    validateEvent: {
-        type: Boolean,
-        default: true,
-    },
-    remoteShowSuffix: {
-        type: Boolean,
-        default: false,
-    },
-    suffixTransition: {
-        type: Boolean,
-        default: true,
-    },
-    placement: {
-        type: String,
-        default: 'bottom-start',
-    },
+    // collapseTags: Boolean,
+    // collapseTagsTooltip: {
+    //     type: Boolean,
+    //     default: false,
+    // },
+    // persistent: {
+    //     type: Boolean,
+    //     default: true,
+    // },
+    // clearIcon: {},
+    // fitInputWidth: {
+    //     type: Boolean,
+    //     default: false,
+    // },
+    // suffixIcon: {},
+    // validateEvent: {
+    //     type: Boolean,
+    //     default: true,
+    // },
+    // remoteShowSuffix: {
+    //     type: Boolean,
+    //     default: false,
+    // },
+    // suffixTransition: {
+    //     type: Boolean,
+    //     default: true,
+    // },
+    // placement: {
+    //     type: String,
+    //     default: 'bottom-start',
+    // },
     requestDataWhenMounted: {
         type: Boolean,
         default: true
     },
-    options: {
+    defaultOptions: {
         type: Array,
     },
     conditions: {
@@ -124,13 +121,16 @@ const props = defineProps({
 
 const {
     modelValue,
-    valueKey,
-    loading,
-    loadingText,
-    multiple,
-    size,
-    clearable,
-    options,
+    defaultOptions,
+    labelField,
+    valueField,
+
+    // valueKey,
+    // loadingText,
+    // multiple,
+    // size,
+    // clearable,
+    // options,
     conditions,
     api,
     apiResultProperty,
@@ -138,6 +138,11 @@ const {
 } = toRefs(props);
 
 const refZHTree = ref();
+const loading = ref(false);
+const options = ref(defaultOptions && defaultOptions.value);
+
+
+
 
 const getDeepValue = (obj: any, currProp: any, level: number): any => {
     let value = obj[currProp]; // 当前层级的属性值
@@ -157,7 +162,7 @@ const getList = async () => {
     if (api && api.value) {
         const params: TZHRequestParams = { url: api.value, conditions: conditions!.value };
         const result = await ZHRequest.post(params);
-        if (apiResultProperty!.value) {
+        if (apiResultProperty && apiResultProperty.value) {
             options!.value = getDeepValue(result, 'data.records', 0);
         } else {
             options!.value = result.data.records;
@@ -174,9 +179,13 @@ onMounted(() => {
 
 
 
+const value = ref(modelValue?.value || undefined);
 
+const emit = defineEmits(['update:modelValue']);
 
-
+const change = (newVal:any) => {
+    emit('update:modelValue', newVal);
+};
 defineExpose({
     getList,
 });
