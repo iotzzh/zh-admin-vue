@@ -57,6 +57,16 @@ const reload = async () => {
 
 
 <style lang="scss" scoped>
+@keyframes fold {
+    from {width: 220px;} 
+    to {width: 70px;}
+}
+
+@keyframes expand {
+    from {width: 70px;} 
+    to {width: 220px;}
+}
+
 .layout {
   width: 100%;
   height: 100%;
@@ -64,10 +74,12 @@ const reload = async () => {
 
   .left {
     min-width: 220px;
+    animation: expand .2s ease-in-out;
   }
 
   .left-fold {
     width: 70px;
+    animation: fold .2s ease-in-out;
   }
 
   .right {
@@ -95,6 +107,8 @@ const reload = async () => {
   //   color: #409eff;
   // } 
 }
+
+
 </style>
 
 <style lang="scss">
