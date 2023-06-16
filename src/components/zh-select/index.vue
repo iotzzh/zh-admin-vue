@@ -1,9 +1,9 @@
 <template>
     <div class="zh-select">
-        <el-select :model="modelValue" :loading="loading" :loading-text="loadingText" :multiple="multiple" 
+        <el-select v-model="value" :loading="loading" :loading-text="loadingText" :multiple="multiple" 
         :value-key="valueKey || undefined"  @change="change">
             <el-option v-for="(item, index) in (options as any)" :key="valueKey ? item[valueKey] : index"
-                :label="labelField ? item[labelField] : item.label" 
+                :label="useLabelField(item)" 
                 :value="valueKey ? item : (valueField ? item[valueField] : item.value)"></el-option>
         </el-select>
 
@@ -13,7 +13,6 @@
 <script setup lang="ts">
 import { toRefs, PropType, computed, ref, reactive, Ref, watch, onMounted } from 'vue';
 
-import { ComponentSize } from './type';
 import { TZHRequestParams } from '../zh-request/type';
 import ZHRequest from '../zh-request';
 
@@ -24,8 +23,12 @@ const props = defineProps({
         type: [Array, String, Number, Boolean, Object],
         default: undefined,
     },
-    labelField: {},
-    valueField: {},
+    labelField: {
+        type: String
+    },
+    valueField: {
+        type: String
+    },
     // autocomplete: {
     //     type: String,
     //     default: 'off',
@@ -138,6 +141,10 @@ const {
 
 const emit = defineEmits(['update:modelValue']);
 
+const useLabelField = (item:any) => {
+    return labelField?.value ? item[labelField.value] : item.label;
+};
+
 const refZHTree = ref();
 const loading = ref(false);
 const options = ref(defaultOptions && defaultOptions.value);
@@ -181,7 +188,7 @@ onMounted(() => {
 
 
 
-
+const value = ref(modelValue?.value);
 const change = (newVal:any) => { 
     emit('update:modelValue', newVal); 
 };

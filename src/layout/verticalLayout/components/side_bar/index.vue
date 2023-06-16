@@ -5,7 +5,7 @@
       <span v-if="collapse" class="logo-text">{{ t('layout.headerLeft.title') }}</span>
     </div>
     <el-scrollbar class="scrollbar" wrap-class="scrollbar-wrapper">
-      <el-menu class="menu el-menu-vertical" router :collapse="!collapse" :collapse-transition="false" @select="changeSelectMenu">
+      <el-menu class="menu el-menu-vertical" router :collapse="!collapse" :collapse-transition="true" @select="changeSelectMenu">
         <SidebarItem v-for="menu in menuList" :key="menu.id" :item="menu"></SidebarItem>
       </el-menu>
     </el-scrollbar>
@@ -13,7 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import SidebarLogo from './SidebarLogo.vue';
 import SidebarItem from './SidebarItem.vue';
 import { storeToRefs } from 'pinia';
 import { computed, reactive, ref, onMounted, nextTick } from 'vue';

@@ -246,7 +246,7 @@ const changeLayout = async () => {
 }
 
 .info {
-  width: 450px;
+        width: 250px;
         line-height: 59px;
         height: 59px;
         text-align: right;
