@@ -1,8 +1,9 @@
 import { Ref, ref } from 'vue';
+import { TZHModal } from './type';
 
 export class ZHModal {
-    emit: any;
-    modal: any;
+    emit: (event: 'close' | 'submit' | 'cancel' | 'opened', ...args: any[]) => void;
+    modal: Ref<TZHModal>;
     fullscreen: Ref<boolean>;
     constructor(params: any) {
         this.modal = params.modal;
@@ -14,21 +15,26 @@ export class ZHModal {
         this.emit('close');
     };
 
+    private executeOnBeforeSubmit = () => {
+        if (!this.modal.value.onBeforeSubmit) return;
+        if (typeof this.modal.value.onBeforeSubmit === 'string')
+            (new Function('params', this.modal.value.onBeforeSubmit))(this.modal.value);
+        else 
+            this.modal.value.onBeforeSubmit(this.modal.value);
+    };
+
+    private executeOnAfterSubmit = () => {
+        if (!this.modal.value.onAfterSubmit) return;
+        if (typeof this.modal.value.onAfterSubmit === 'string')
+            (new Function('params', this.modal.value.onAfterSubmit))(this.modal.value);
+        else 
+            this.modal.value.onAfterSubmit(this.modal.value);
+    };
+
     submit = async () => {
-        // if(this.modal.value.onBeforeSubmit) {
-        //     if (typeof this.modal.value.onBeforeSubmit === 'string') {
-                
-        //     } else {
-
-        //     }
-        // }
+        this.executeOnBeforeSubmit();
         this.emit('submit');
-
-        // if(this.modal.value.onAfterSubmit) {
-
-        // } else {
-            
-        // }
+        this.executeOnAfterSubmit();
     };
 
     cancel = () => {

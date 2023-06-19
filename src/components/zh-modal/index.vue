@@ -66,9 +66,7 @@ const classNames = computed(() => {
 defineExpose({});
 </script>
 
-<script lang="ts">
-export default { name: 'ZHModal' };
-</script>
+<script lang="ts"> export default { name: 'ZHModal' }; </script>
 
 <style lang="scss" scoped>
 

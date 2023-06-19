@@ -153,14 +153,11 @@ export default class Table {
   };
 
   rowClick = async (row: any, column: any, event: any) => {
-    if (this.tableSettings.value.rowClick) {
-      if (typeof this.tableSettings.value.rowClick === 'string') {
-        const func = new Function('params', this.tableSettings.value.rowClick);
-        return func({ row, column, event });
-      } else {
-        this.tableSettings.value.rowClick({ row, column, event });
-      }
-    }
+    if (!this.tableSettings.value.rowClick) return;
+
+    if (typeof this.tableSettings.value.rowClick === 'string') 
+      (new Function('params', this.tableSettings.value.rowClick))({ row, column, event });
+    else this.tableSettings.value.rowClick({ row, column, event });
   };
 
   tableColumnConvert = (convert: string | Function, row: any, index: number) => {
