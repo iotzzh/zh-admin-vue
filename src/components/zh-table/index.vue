@@ -87,9 +87,7 @@
           }" @mouseleave="(e: any) => table.cellContentLeave(scope)">
 
             <span class="cell-content" v-if="!table.cellCanShowSaveCancel(scope)">
-              <span v-if="item.convert">{{
-                item.convert(scope.row, scope.$index)
-              }}</span>
+              <span v-if="item.convert">{{ table.tableColumnConvert(item.convert, scope.row, scope.$index) }}</span>
 
               <span v-else-if="item.format">{{
                 scope.row[item.prop as string] &&

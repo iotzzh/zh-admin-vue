@@ -472,6 +472,40 @@ export default [
                 },
             ];
 
+            // 模板
+            const template = [
+                {
+                    'id': '0019',
+                    'parentId': '001',
+                    'permsionName': '页面模板',
+                    'url': '/template',
+                    'menuType': 1,
+                    'permsionCode': 'template',
+                    'sourceBy': null,
+                    'sortNo': 9,
+                    'icon': 'icon-donghua',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+                {
+                    'id': '00191',
+                    'parentId': '0019',
+                    'permsionName': '基础模板',
+                    'routeName': 'basic',
+                    'menuType': 2,
+                    'permsionCode': 'basic',
+                    'url': '/template/basic',
+                    'filePath': 'views/template/basic',
+                    'sourceBy': null,
+                    'sortNo': 1,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+            ];
+
             const result = {
                 success: true,
                 errorCode: '',
@@ -488,6 +522,7 @@ export default [
                     ...pwa,
                     ...animation,
                     ...component,
+                    ...template,
                 ],
             };
 

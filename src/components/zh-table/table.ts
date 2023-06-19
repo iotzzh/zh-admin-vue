@@ -157,6 +157,16 @@ export default class Table {
       this.tableSettings.value.rowClick({ row, column, event });
   };
 
+  tableColumnConvert =  (convert: string | Function, row:any, index: number) => {
+    if (typeof convert ===  'string') {
+      const func = new Function('row, index', convert);
+      return func(row, index);
+
+    } else {
+      return convert(row, index);
+    }
+  };
+
   //#region 相关功能行内编辑
   cellMouseOver = ref(); // 鼠标移入到的单元格
   cellEditList = ref([] as Array<any>);
