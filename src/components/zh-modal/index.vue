@@ -58,12 +58,12 @@ const zhModal = new ZHModal({ modal, emit });
 
 const opened = () => { emit('opened'); };
 
-defineExpose({});
-
 const classNames = computed(() => {
   return (modal.value.customClass || '') + ' zh-modal ' + (zhModal.fullscreen.value ? 'vh80' : 'vh60');
 });
 
+
+defineExpose({});
 </script>
 
 <script lang="ts">

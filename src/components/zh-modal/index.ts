@@ -14,8 +14,21 @@ export class ZHModal {
         this.emit('close');
     };
 
-    submit = () => {
+    submit = async () => {
+        // if(this.modal.value.onBeforeSubmit) {
+        //     if (typeof this.modal.value.onBeforeSubmit === 'string') {
+                
+        //     } else {
+
+        //     }
+        // }
         this.emit('submit');
+
+        // if(this.modal.value.onAfterSubmit) {
+
+        // } else {
+            
+        // }
     };
 
     cancel = () => {

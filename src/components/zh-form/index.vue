@@ -65,6 +65,15 @@
                 :value="item.valueKey ? subItem : subItem.value"></el-option>
             </el-select>
 
+            <!-- <ZHSelect 
+              v-else-if="item.type === 'api-select'" 
+              v-model="modelValue[item.prop]
+              :options="item.options"
+              :api="item.api"
+              value-key="id" 
+              label-field="permsionName"
+              value-field="id"></ZHSelect> -->
+
             <!-- 日期选择 -->
             <el-date-picker v-else-if="item.type === 'date-picker'" v-model="modelValue[item.prop]" :disabled="item.disabled === undefined ? false :
             typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)" :type="item.timeType"
@@ -123,6 +132,7 @@ import Form from './index';
 import { TZHFormSettings, TZHFromFieldSelectOption, TZHFromField } from './type';
 import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit, ArrowUp, ArrowDown } from '@element-plus/icons-vue';
 import { CascaderOption } from 'element-plus';
+import ZHSelect from '@/components/zh-select/index.vue';
 
 const props = defineProps({
   modelValue: {
