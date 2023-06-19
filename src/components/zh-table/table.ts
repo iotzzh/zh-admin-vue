@@ -73,7 +73,7 @@ export default class Table {
 
   getData = () => { return this.data.value; };
 
-  setData = (data:Array<any>) => { this.data.value = data; };
+  setData = (data: Array<any>) => { this.data.value = data; };
 
   getDataAsync = async (propParams?: Object) => {
     const params = propParams || this.form.getSearchParams();
@@ -143,7 +143,7 @@ export default class Table {
     };
     const result: TZHTableRequestResult = await ZHRequest.post(params);
     if (result.success) {
-      if (this.tableSettings.value.load && (this.tableSettings.value.validateLoad === undefined ? true : this.tableSettings.value.validateLoad(row)) ) {
+      if (this.tableSettings.value.load && (this.tableSettings.value.validateLoad === undefined ? true : this.tableSettings.value.validateLoad(row))) {
         this.reloadTableTreeChild(row.parentId);
       } else {
         this.debounceInitData();
@@ -153,7 +153,7 @@ export default class Table {
   };
 
   rowClick = async (row: any, column: any, event: any) => {
-    if(this.tableSettings.value.rowClick) {
+    if (this.tableSettings.value.rowClick) {
       if (typeof this.tableSettings.value.rowClick === 'string') {
         const func = new Function('params', this.tableSettings.value.rowClick);
         return func({ row, column, event });
@@ -163,19 +163,14 @@ export default class Table {
     }
   };
 
-  tableColumnConvert =  (convert: string | Function, row:any, index: number) => {
-    if (typeof convert ===  'string') {
-      const func = new Function('row, index', convert);
-      return func(row, index);
-
-    } else {
-      return convert(row, index);
-    }
+  tableColumnConvert = (convert: string | Function, row: any, index: number) => {
+    if (typeof convert === 'string') return (new Function('row, index', convert))(row, index);
+    else return convert(row, index);
   };
 
-  tableRowActionOnClick =  (method: string | Function | undefined, row:any, index: number) => {
+  tableRowActionOnClick = (method: string | Function | undefined, row: any, index: number) => {
     if (!method) return;
-    if (typeof method ===  'string') {
+    if (typeof method === 'string') {
       const func = new Function('row, index', method);
       return func(row, index);
 
