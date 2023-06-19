@@ -5,10 +5,10 @@ export class ZHModal {
     emit: (event: 'close' | 'submit' | 'cancel' | 'opened', ...args: any[]) => void;
     modal: Ref<TZHModal>;
     fullscreen: Ref<boolean>;
-    constructor(params: any) {
-        this.modal = params.modal;
-        this.emit = params.emit;
-        this.fullscreen = ref(!!params.modal.fullscreen);
+    constructor(modal: Ref<TZHModal>, emit: (event: 'close' | 'submit' | 'cancel' | 'opened', ...args: any[]) => void) {
+        this.modal = modal;
+        this.emit = emit;
+        this.fullscreen = ref(false);
     }
 
     close = () => {
@@ -19,7 +19,7 @@ export class ZHModal {
         if (!this.modal.value.onBeforeSubmit) return;
         if (typeof this.modal.value.onBeforeSubmit === 'string')
             (new Function('params', this.modal.value.onBeforeSubmit))(this.modal.value);
-        else 
+        else
             this.modal.value.onBeforeSubmit(this.modal.value);
     };
 
@@ -27,7 +27,7 @@ export class ZHModal {
         if (!this.modal.value.onAfterSubmit) return;
         if (typeof this.modal.value.onAfterSubmit === 'string')
             (new Function('params', this.modal.value.onAfterSubmit))(this.modal.value);
-        else 
+        else
             this.modal.value.onAfterSubmit(this.modal.value);
     };
 
@@ -44,4 +44,5 @@ export class ZHModal {
     toggleFullScreen = () => {
         this.fullscreen.value = !this.fullscreen.value;
     };
+
 }

@@ -54,7 +54,7 @@ const emit = defineEmits(['close', 'submit', 'cancel', 'opened']);
 
 const isMobile = ref(storage.getIsMobile());
 
-const zhModal = new ZHModal({ modal, emit });
+const zhModal = new ZHModal(modal, emit);
 
 const opened = () => { emit('opened'); };
 
@@ -66,12 +66,10 @@ const classNames = computed(() => {
 defineExpose({});
 </script>
 
-<script lang="ts"> export default { name: 'ZHModal' }; </script>
+<script lang="ts">
+export default { name: 'ZHModal' }; </script>
 
-<style lang="scss" scoped>
-
-</style>
-
+<!-- 注意：这里使用的全局样式！！！ -->
 <style lang="scss">
 .zh-modal {
   .el-dialog__body {
