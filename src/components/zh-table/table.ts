@@ -153,8 +153,14 @@ export default class Table {
   };
 
   rowClick = async (row: any, column: any, event: any) => {
-    this.tableSettings.value.rowClick &&
-      this.tableSettings.value.rowClick({ row, column, event });
+    if(this.tableSettings.value.rowClick) {
+      if (typeof this.tableSettings.value.rowClick === 'string') {
+        const func = new Function('params', this.tableSettings.value.rowClick);
+        return func({ row, column, event });
+      } else {
+        this.tableSettings.value.rowClick({ row, column, event });
+      }
+    }
   };
 
   tableColumnConvert =  (convert: string | Function, row:any, index: number) => {
@@ -164,6 +170,17 @@ export default class Table {
 
     } else {
       return convert(row, index);
+    }
+  };
+
+  tableRowActionOnClick =  (method: string | Function | undefined, row:any, index: number) => {
+    if (!method) return;
+    if (typeof method ===  'string') {
+      const func = new Function('row, index', method);
+      return func(row, index);
+
+    } else {
+      return method(row, index);
     }
   };
 

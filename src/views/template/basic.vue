@@ -56,12 +56,12 @@ new Promise((resolve, reject) => {
                     //     return true;
                     // },
                 },
-                onBeforeSubmit: async (params: any) => {
-                    console.log('onBeforeSubmit');
-                },
-                onAfterSubmit: async (params: any) => {
-                    console.log('onAfterSubmit');
-                },
+                // onBeforeSubmit: async (params: any) => {
+                //     console.log('onBeforeSubmit');
+                // },
+                // onAfterSubmit: async (params: any) => {
+                //     console.log('onAfterSubmit');
+                // },
             },
             columns: [
                 {
@@ -120,9 +120,9 @@ new Promise((resolve, reject) => {
                         lg: 8,
                         xl: 8,
                         required: true,
-                        convert: (model: any, convertModel: any, fields: any) => {
-                            return model && model.map((x: any) => x.id);
-                        },
+                        // convert: (model: any, convertModel: any, fields: any) => {
+                        //     return model && model.map((x: any) => x.id);
+                        // },
                     }
                 },
             ],
@@ -132,7 +132,8 @@ new Promise((resolve, reject) => {
                 hasRowDeleteAction: true,
                 hasRowEditAction: true,
                 buttons: [
-                    { label: '激活', hide: true, type: 'primary', icon: 'Refresh', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
+                    // { label: '激活', hide: true, type: 'primary', icon: 'Refresh', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
+                    { label: '激活', hide: false, type: 'primary', icon: 'Refresh', onClick: `console.log('row.phone: ' + row.phone, '/n index: ' + index)` },
                 ],
             },
         },

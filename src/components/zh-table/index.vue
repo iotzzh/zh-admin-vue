@@ -172,7 +172,7 @@
           <el-button v-for="(item, buttonIndex) in tableSettings.actionColumn.buttons" :key="buttonIndex" link
             v-show="(item?.hide === undefined ? true : !item?.hide) && (item?.displayMethod === undefined ? true : !!item?.displayMethod(scope.row))"
             :type="item?.type" :size="item?.size ? item.size : 'small'" :icon="item?.icon" :style="item?.style"
-            @click.stop="item?.onClick && item?.onClick(scope.row, scope.$index)">{{ item.label }}
+            @click.stop="table.tableRowActionOnClick(item?.onClick, scope.row, scope.$index)">{{ item.label }}
           </el-button>
         </template>
       </el-table-column>

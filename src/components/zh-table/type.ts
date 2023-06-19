@@ -162,7 +162,7 @@ export interface TZHTableActionColumnButton {
   size?: string
   icon?: string
   style?: any
-  onClick?: Function
+  onClick?: Function | string
   label?: string
 }
 

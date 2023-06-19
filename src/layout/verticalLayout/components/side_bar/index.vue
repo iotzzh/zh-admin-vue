@@ -5,7 +5,7 @@
       <span v-if="collapse" class="logo-text">{{ t('layout.headerLeft.title') }}</span>
     </div>
     <el-scrollbar class="scrollbar" wrap-class="scrollbar-wrapper">
-      <el-menu class="menu el-menu-vertical" router :collapse="!collapse" :collapse-transition="true"
+      <el-menu class="menu el-menu-vertical" router :collapse="!collapse" :collapse-transition="false"
         @select="changeSelectMenu">
         <SidebarItem v-for="menu in menuList" :key="menu.id" :item="menu"></SidebarItem>
       </el-menu>
