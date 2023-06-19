@@ -5,6 +5,7 @@ import { getBasicRoutes, basicRoutes, setLayout } from './routes';
 import { rangeRight } from 'lodash';
 import { useLayoutStore } from '@/layout/store';
 import storage from '@/utils/storage';
+import { close, start } from '@/utils/nporgress';
 
 const PUBLIC_PATH = import.meta.env.VITE_PUBLIC_PATH;
 
@@ -49,6 +50,15 @@ async function getRouter () {
     // routes: [...basicRoutes, ...routes ],
     routes: [ ...basicRoutes, ...routes ],
     scrollBehavior: () => ({ left: 0, top: 0 }),
+  });
+
+  router.beforeEach(async (to) => {
+    // return true;
+    start();
+  });
+  router.afterEach(async () => {
+    // return true;
+    close();
   });
 
   return router;

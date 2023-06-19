@@ -1,5 +1,6 @@
 import type { Router, RouteLocationNormalized } from 'vue-router';
 import { unref } from 'vue';
+import { close, start } from '@/utils/nporgress';
 
 // Don't change the order of creation
 export function setupRouterGuard(router: Router) {
@@ -37,10 +38,12 @@ function createPageGuard(router: Router) {
 // Used to handle page loading status
 function createPageLoadingGuard(router: Router) {
   router.beforeEach(async (to) => {
-    return true;
+    // return true;
+    start();
   });
   router.afterEach(async () => {
-    return true;
+    // return true;
+    close();
   });
 }
 
