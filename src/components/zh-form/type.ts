@@ -2,7 +2,7 @@ import { CascaderOption, CascaderProps } from 'element-plus';
 
 
 export interface TZHFormSettings {
-  rules?: Array<any>
+  rules?: { [x: string]: any }
   formLabelWidth?: string | number
   fields?: Array<TZHFromField>
   hideUnimportantFields?: boolean

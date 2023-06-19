@@ -127,24 +127,26 @@
 
 <script setup lang="ts">
 
-import { toRefs, PropType, ref, computed, onMounted, watch, nextTick } from 'vue';
+import { toRefs, PropType, ref, computed, onMounted, watch } from 'vue';
 import Form from './index';
 import { TZHFormSettings, TZHFromFieldSelectOption, TZHFromField } from './type';
-import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit, ArrowUp, ArrowDown } from '@element-plus/icons-vue';
+import { ArrowUp } from '@element-plus/icons-vue';
 import { CascaderOption } from 'element-plus';
 import ZHSelect from '@/components/zh-select/index.vue';
 
 const props = defineProps({
   modelValue: {
     type: Object as PropType<any>,
+    required: true,
+  },
+  
+  formSettings: {
+    type: Object as PropType<TZHFormSettings>,
+    required: true,
   },
 
   convertedModel: {
     type: Object as PropType<any>,
-  },
-
-  formSettings: {
-    type: Object as PropType<TZHFormSettings>,
   },
 });
 
@@ -155,38 +157,40 @@ const emit = defineEmits(['update:modelValue', 'update:convertedModel']);
 
 const formInstance = new Form({ emit, refForm, formSettings, modelValue, convertedModel });
 
+const hasFields = ():boolean => (formSettings && formSettings.value && !!formSettings.value.fields);
+const hasRules = ():boolean => (formSettings && formSettings.value && !!formSettings.value.rules);
+
 const fieldList = computed(() => {
+  if (!hasFields()) return [];
   if (formInstance.hideUnimportantFields.value) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return formSettings!.value!.fields!.filter((x: TZHFromField) => !x.unimportant);
+    return formSettings.value.fields.filter((x: TZHFromField) => !x.unimportant);
   } else {
-    return formSettings?.value?.fields;
+    return formSettings.value.fields;
   }
 });
 
 const rules = computed(() => {
   const newRules = {};
-  const fields: TZHFromField[] = formSettings!.value!.fields || [];
-  for (let i = 0; i < fields.length; i++) {
-    if (fields[i].required) {
-      const requireMsg = fields[i].type === 'input' ? '请输入' : '请选择';
-      const requireEvent = fields[i].type === 'input' ? 'blur' : 'change';
+  if (!hasFields()) return newRules;
+  const fields: TZHFromField[] = formSettings.value.fields || [];
+  for (const element of fields) {
+    if (!element.prop) continue;
+    if (element.required) {
+      const requireMsg = element.type === 'input' ? '请输入' : '请选择';
+      const requireEvent = element.type === 'input' ? 'blur' : 'change';
       // eslint-disable-next-line no-prototype-builtins
-      if (fields[i].hasOwnProperty(fields[i].prop)) {
-        newRules[fields[i].prop].push({ required: true, message: requireMsg + fields[i].label, trigger: requireEvent });
+      if (element.hasOwnProperty(element.prop)) {
+        newRules[element.prop].push({ required: true, message: requireMsg + element.label, trigger: requireEvent });
       } else {
-        newRules[fields[i].prop] = [];
-        newRules[fields[i].prop].push({ required: true, message: requireMsg + fields[i].label, trigger: requireEvent });
+        newRules[element.prop] = [];
+        newRules[element.prop].push({ required: true, message: requireMsg + element.label, trigger: requireEvent });
       }
     }
   }
-  if (formSettings?.value?.rules) {
-    const keys = Object.keys(formSettings?.value?.rules);
-    keys.forEach((key: any) => {
-      newRules[key] = formSettings?.value?.rules && formSettings.value.rules[key];
-    });
-  }
-
+  if (!hasRules()) return newRules;
+  const keys = Object.keys(formSettings.value.rules);
+  keys.forEach((key: any) => { newRules[key] = formSettings.value.rules && formSettings.value.rules[key]; });
   return newRules;
 });
 
