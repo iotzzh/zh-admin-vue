@@ -9,7 +9,7 @@
 import BasicTemplate from '@/templates/Basic.vue';
 import { ref } from 'vue';
 import isHelper from '@/utils/isHelper';
-import api from '@/api/authorityManagement';
+import api from '@/api/index';
 
 const isMobile = isHelper.isMobile();
 const pageSetting: any = ref({});
@@ -30,14 +30,10 @@ new Promise((resolve, reject) => {
             fields: [
                 { label: '手机号', type: 'input', prop: 'phone', width: '200px', },
                 { label: '姓名', type: 'input', prop: 'name', width: '200px', },
-                // { label: '登录账号', type: 'input', prop: 'name111', width: '200px', },
                 { label: '员工编号', type: 'input', prop: 'employeeNum', width: '200px', unimportant: isMobile, },
                 {
                     label: '状态', type: 'select', prop: 'status', width: '200px', defaultValue: 1, unimportant: isMobile,
-                    options: [
-                        { label: '在职', value: 1 },
-                        { label: '离职', value: 0 },
-                    ],
+                    options: [ { label: '在职', value: 1 }, { label: '离职', value: 0 },],
                 },
             ],
 
@@ -62,8 +58,6 @@ new Promise((resolve, reject) => {
                 },
                 onBeforeSubmit: async (params: any) => {
                     console.log('onBeforeSubmit');
-                    // updateUserRole(params);
-                    // updateUserCal(params);
                 },
                 onAfterSubmit: async (params: any) => {
                     console.log('onAfterSubmit');
@@ -93,7 +87,9 @@ new Promise((resolve, reject) => {
                     label: '性别', prop: 'sex', convert: `return row.sex === 0 ? '男' : '女'`,
                     minWidth: '80px',
                     addEditInfo: {
-                        type: 'select', defaultValue: null, addSort: 2, placeholder: '请选择', span: 12, xs: 24,
+                        type: 'select', defaultValue: null, addSort: 2, placeholder: '请选择', 
+                        span: 12, 
+                        xs: 24,
                         sm: 12,
                         md: 8,
                         lg: 8,
