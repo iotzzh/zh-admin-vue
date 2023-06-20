@@ -11,7 +11,7 @@
 </template>
   
 <script setup lang="ts">
-import { toRefs, PropType, computed, ref, reactive, Ref, watch, onMounted } from 'vue';
+import { toRefs, ref, onMounted } from 'vue';
 
 import { TZHRequestParams } from '../zh-request/type';
 import ZHRequest from '../zh-request';
@@ -145,7 +145,6 @@ const useLabelField = (item:any) => {
     return labelField?.value ? item[labelField.value] : item.label;
 };
 
-const refZHTree = ref();
 const loading = ref(false);
 const options = ref(defaultOptions && defaultOptions.value);
 

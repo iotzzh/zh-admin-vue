@@ -1,5 +1,6 @@
+<!-- 正方形 -->
 <template>
-    <div class="dot" style="display: inline-block;" :style="{width: sideLength, height: sideLength, backgroundColor: color }" ></div>
+    <div class="square" style="display: inline-block;" :style="{width: sideLength, height: sideLength, backgroundColor: color }" ></div>
 </template>
 <script lang="ts" setup>
 import { toRefs } from 'vue';
