@@ -5,13 +5,13 @@ import _ from 'lodash';
 
 export default class Form {
   page: Ref<TZHTablePage>;
-  request: Ref<TZHTableRequest | undefined> | undefined;
-  formSettings: Ref<TZHTableFormSettings | undefined> | undefined;
   refZHForm: any;
+  request: TZHTableRequest | undefined;
+  formSettings: TZHTableFormSettings | undefined;
   constructor(
     page: Ref<TZHTablePage>,
-    request: Ref<TZHTableRequest | undefined> | undefined,
-    formSettings: Ref<TZHTableFormSettings | undefined> | undefined,
+    request: TZHTableRequest | undefined,
+    formSettings: TZHTableFormSettings | undefined,
     refZHForm: any
   ) {
     this.page = page;
@@ -28,18 +28,18 @@ export default class Form {
       ? JSON.parse(JSON.stringify(this.convertedFormModel.value))
       : {};
 
-    const customModel = this.formSettings?.value?.customModel && JSON.parse(JSON.stringify(this.formSettings?.value?.customModel));
+    const customModel = this.formSettings?.customModel && JSON.parse(JSON.stringify(this.formSettings?.customModel));
 
     let params = {
       current: this.page.value.current,
       size: this.page.value.size,
-      ...this.request?.value?.list?.conditions,
+      ...this.request?.list?.conditions,
       ...model,
       ...customModel,
     };
 
-    if (this.formSettings?.value?.convertParams) {
-      params = this.formSettings.value?.convertParams(params);
+    if (this.formSettings?.convertParams) {
+      params = this.formSettings?.convertParams(params);
     }
 
     return params;
@@ -65,7 +65,7 @@ export default class Form {
   };
 
   _getNotChangeTriggerSearchFields = () => {
-    return this.formSettings?.value?.fields?.filter((x: TZHTableFromField) => x.notChangeTriggerSearch) || [];
+    return this.formSettings?.fields?.filter((x: TZHTableFromField) => x.notChangeTriggerSearch) || [];
   };
 
   _compareNeedTriggerSearchFieldsIsEqual = (newVal: { [x: string]: any }, oldVal: { [x: string]: any }) => {

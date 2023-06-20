@@ -1,17 +1,17 @@
 <template>
   <div class="zh-table">
     <ZHForm 
-      v-if="formSettings"
+      v-if="config.formSettings"
       ref="refZHForm"
       class="zh-form"
       :style="{ maxHeight: isMobile ? '50%' : '', height: isMobile ? '190px' : 'auto', overflow: isMobile ? 'auto' : '' }" 
       v-model="form.formModel" 
       v-model:converted-model="form.convertedFormModel" 
-      :form-settings="formSettings">
+      :form-settings="config.formSettings">
       <!-- 传递form默认插槽 -->
       <template #default>
         <slot name="zh-table-form-default-before"></slot>
-        <ZHFormButtons :form="form" :table="table" :formSettings="formSettings" :modalInstance="modalInstance">
+        <ZHFormButtons :form="form" :table="table" :formSettings="config.formSettings" :modalInstance="modalInstance">
         </ZHFormButtons>
         <slot name="zh-table-form-default-after"></slot>
       </template>
@@ -28,16 +28,16 @@
     </ZHForm>
 
     <!-- table设置行部分：配置文件对象 tableSettingPanel -->
-    <div class="zh-table-panel-setting" v-if="tableSettings.tablePanelSetting">
+    <div class="zh-table-panel-setting" v-if="config.tableSettings.tablePanelSetting">
       <el-row>
         <el-col :span="12">
           <div class="table-title">
-            <el-icon class="icon" v-if="tableSettings.tablePanelSetting.title">
+            <el-icon class="icon" v-if="config.tableSettings.tablePanelSetting.title">
               <Grid />
             </el-icon>
-            {{ tableSettings.tablePanelSetting.title }}
-            <span v-if="tableSettings.tablePanelSetting.secondaryTitle" style="color: blue">
-              ({{ tableSettings.tablePanelSetting.secondaryTitle }})
+            {{ config.tableSettings.tablePanelSetting.title }}
+            <span v-if="config.tableSettings.tablePanelSetting.secondaryTitle" style="color: blue">
+              ({{ config.tableSettings.tablePanelSetting.secondaryTitle }})
             </span>
           </div>
         </el-col>
@@ -72,15 +72,15 @@
 
     <!-- table部分：配置文件对象 tableSettings  -->
     <el-table ref="refTable" class="zh-el-table" :data="table.data.value" size="default"
-      :height="tableSettings.height || '100%'" :highlight-current-row="tableSettings.highlightCurrentRow"
-      v-loading="table.loading.value" :row-key="tableSettings.rowKey === undefined ? 'id' : tableSettings.rowKey"
-      @row-click="table.rowClick" :tree-props="tableSettings.treeProps" :lazy="tableSettings.lazy" :load="table.load"
-      :default-expand-all="tableSettings.defaultExpandAll" :border="tableSettings.border === undefined ? true : tableSettings.border">
+      :height="config.tableSettings.height || '100%'" :highlight-current-row="config.tableSettings.highlightCurrentRow"
+      v-loading="table.loading.value" :row-key="config.tableSettings.rowKey === undefined ? 'id' : config.tableSettings.rowKey"
+      @row-click="table.rowClick" :tree-props="config.tableSettings.treeProps" :lazy="config.tableSettings.lazy" :load="table.load"
+      :default-expand-all="config.tableSettings.defaultExpandAll" :border="config.tableSettings.border === undefined ? true : config.tableSettings.border">
 
-      <el-table-column v-if="tableSettings.hasSelection" type="selection" width="50" align="center" reserve-selection>
+      <el-table-column v-if="config.tableSettings.hasSelection" type="selection" width="50" align="center" reserve-selection>
       </el-table-column>
 
-      <el-table-column v-if="tableSettings.hasIndex" type="index" width="60" label="序号" align="center">
+      <el-table-column v-if="config.tableSettings.hasIndex" type="index" width="60" label="序号" align="center">
       </el-table-column>
 
       <el-table-column v-for="(item, index) in table.columns.value" :key="index" :width="item.width ? item.width : ''"
@@ -154,27 +154,27 @@
         </template>
       </el-table-column>
 
-      <el-table-column v-if="tableSettings.actionColumn"
-        :fixed="isMobile ? undefined : tableSettings.actionColumn?.fixed" :width="tableSettings.actionColumn?.width"
-        :min-width="tableSettings.actionColumn?.minWidth" :label="tableSettings.actionColumn?.label" :align="
-          tableSettings.actionColumn?.align
-            ? tableSettings.actionColumn.align
+      <el-table-column v-if="config.tableSettings.actionColumn"
+        :fixed="isMobile ? undefined : config.tableSettings.actionColumn?.fixed" :width="config.tableSettings.actionColumn?.width"
+        :min-width="config.tableSettings.actionColumn?.minWidth" :label="config.tableSettings.actionColumn?.label" :align="
+          config.tableSettings.actionColumn?.align
+            ? config.tableSettings.actionColumn.align
             : 'center'
         ">
         <template #default="scope">
           <el-button 
-            v-if="tableSettings.actionColumn?.hasRowEditAction" 
-            v-show="tableSettings.actionColumn?.displayRowEditActionMethod === undefined ? true : !!tableSettings.actionColumn?.displayRowEditActionMethod(scope.row)"
+            v-if="config.tableSettings.actionColumn?.hasRowEditAction" 
+            v-show="config.tableSettings.actionColumn?.displayRowEditActionMethod === undefined ? true : !!config.tableSettings.actionColumn?.displayRowEditActionMethod(scope.row)"
             link 
             type="primary" 
             size="small" 
             :icon="Edit"
             @click.stop="modalInstance.openEditModal(scope.row)">编辑</el-button>
-          <el-button v-if="tableSettings.actionColumn?.hasRowDeleteAction" link type="danger" size="small"
-          v-show="tableSettings.actionColumn?.displayRowDeleteActionMethod === undefined ? true : !!tableSettings.actionColumn?.displayRowDeleteActionMethod(scope.row)"
+          <el-button v-if="config.tableSettings.actionColumn?.hasRowDeleteAction" link type="danger" size="small"
+          v-show="config.tableSettings.actionColumn?.displayRowDeleteActionMethod === undefined ? true : !!config.tableSettings.actionColumn?.displayRowDeleteActionMethod(scope.row)"
             :icon="Delete" @click.stop="table.rowDelete(scope.row)">删除</el-button>
 
-          <el-button v-for="(item, buttonIndex) in tableSettings.actionColumn.buttons" :key="buttonIndex" link
+          <el-button v-for="(item, buttonIndex) in config.tableSettings.actionColumn.buttons" :key="buttonIndex" link
             v-show="(item?.hide === undefined ? true : !item?.hide) && (item?.displayMethod === undefined ? true : !!item?.displayMethod(scope.row))"
             :type="item?.type" :size="item?.size ? item.size : 'small'" :icon="item?.icon" :style="item?.style"
             @click.stop="table.tableRowActionOnClick(item?.onClick, scope.row, scope.$index)">{{ item.label }}
@@ -188,7 +188,7 @@
     </el-table>
 
     <!-- page部分： 配置文件对象 pageSettings -->
-    <el-pagination v-if="usePage" class="zh-table-pagination" :page-sizes="page?.sizes.value"
+    <el-pagination v-if="config.pageSettings" class="zh-table-pagination" :page-sizes="page?.sizes.value"
       :pager-count="page?.pagerCount.value" :layout="page?.layout.value" :total="pageData.total"
       v-model:currentPage="pageData.current" v-model:page-size="pageData.size"
       @current-change="page?.handleCurrentChange" @size-change="page?.handleCurrentChange" />
@@ -207,7 +207,7 @@ import ZHForm from '../zh-form/index.vue';
 import ZhModalForm from '../zh-modal-form/index.vue';
 import ZHFormButtons from './form-buttons.vue';
 import { ElTable } from 'element-plus';
-import { TZHTablePageSetting, TZHTableRequest, TZHTableSetting, TZHTablePage, TZHTableFormSettings } from './type';
+import { TZHTablePage, TZHTable } from './type';
 import Page from './page';
 import Table from './table';
 import Form from './form';
@@ -216,38 +216,14 @@ import { TZHFromField, TZHFromFieldSelectOption } from '../zh-form/type';
 import storage from '@/utils/storage';
 
 const props = defineProps({
-  formSettings: {
-    type: Object as PropType<TZHTableFormSettings>,
-    required: false, // 必传
-  },
-
-  tableSettings: {
-    type: Object as PropType<TZHTableSetting>,
+  config: {
+    type: Object as PropType<TZHTable>,
     required: true, // 必传
-  },
-
-  usePage: {
-    type: Boolean,
-    required: false,
-  },
-
-  pageSettings: {
-    type: Object as PropType<TZHTablePageSetting>,
-    required: false,
-  },
-
-  request: {
-    type: Object as PropType<TZHTableRequest>,
-    required: false,
   },
 });
 
 const {
-  formSettings,
-  tableSettings,
-  usePage,
-  pageSettings,
-  request,
+  config
 } = toRefs(props);
 
 const refZHForm = ref();
@@ -267,7 +243,7 @@ const pageData: Ref<TZHTablePage> = ref({
 //#endregion
 
 //#region search form
-const form = new Form(pageData, request, formSettings, refZHForm);
+const form = new Form(pageData, config.value.request, config.value.formSettings, refZHForm);
 const watchFormModel = computed(() => {
   return JSON.parse(JSON.stringify(form.formModel.value));
 });
@@ -282,14 +258,14 @@ watch(
   }, { immediate: false });
 
 // 自定义插槽
-const sloTFromFields = formSettings?.value?.fields?.filter((x: TZHFromField) => x.type === 'slot');
+const sloTFromFields = config.value.formSettings?.fields?.filter((x: TZHFromField) => x.type === 'slot');
 //#endregion
 
 //#region table
 const refTable = ref<InstanceType<typeof ElTable>>();
-const table = new Table(tableSettings, refTable, request, form, pageData, emit);
+const table = new Table(config.value.tableSettings, refTable, config.value.request, form, pageData, emit);
 onMounted(() => {
-  if (request?.value && request.value.list?.url && (request.value.initialData || request.value.initialData === undefined))
+  if (config.value.request?.list?.url && (config.value.request.initialData || config.value.request.initialData === undefined))
     table.debounceInitData();
 });
 //#endregion
@@ -297,12 +273,12 @@ onMounted(() => {
 //#region page
 let page: undefined | Page;
 // console.log('usePage', usePage.value);
-if (usePage.value) page = new Page(pageSettings?.value, pageData, table);
+if (config.value.pageSettings) page = new Page(config.value.pageSettings, pageData, table);
 //#endregion
 
 //#region add/edit modal
 const refZhModalForm = ref();
-const modalInstance = new Modal(request, table, refZhModalForm, tableSettings, emit);
+const modalInstance = new Modal(config.value.request, table, refZhModalForm, config.value.tableSettings, emit);
 //#endregion
 
 defineExpose({

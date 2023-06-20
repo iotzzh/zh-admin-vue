@@ -8,15 +8,17 @@ import { debounce, throttle } from 'lodash';
 
 export default class Table {
   refTable: any;
-  request: Ref<TZHTableRequest | undefined> | undefined;
+
   pageData: any;
   form: Form;
-  tableSettings: Ref<TZHTableSetting>;
+
   emit: any;
+  tableSettings: TZHTableSetting;
+  request: TZHTableRequest | undefined;
   constructor(
-    tableSettings: Ref<TZHTableSetting>,
+    tableSettings: TZHTableSetting,
     refTable: any,
-    request: Ref<TZHTableRequest | undefined> | undefined,
+    request: TZHTableRequest | undefined,
     form: Form,
     pageData: Ref<TZHTablePage>,
     emit: any
@@ -33,11 +35,11 @@ export default class Table {
   loading = ref(false);
 
   columns = computed(() => {
-    return this.tableSettings.value.columns?.filter((x: any) => !x.notDisplay);
+    return this.tableSettings.columns?.filter((x: any) => !x.notDisplay);
   });
 
   onBeforeInitData = async () => {
-    const method: Function = this.tableSettings.value.onBeforeInitData || new Function();
+    const method: Function = this.tableSettings.onBeforeInitData || new Function();
     await method();
   };
 
@@ -49,10 +51,10 @@ export default class Table {
     if (initPage) this.pageData.value.current = 1;
     const params = propParams || this.form.getSearchParams();
     const args: TZHRequestParams = {
-      url: this.request?.value?.list?.url || '',
+      url: this.request?.list?.url || '',
       conditions: params,
-      successMessage: this.request?.value?.list?.successMessage,
-      errorMessage: this.request?.value?.list?.errorMessage,
+      successMessage: this.request?.list?.successMessage,
+      errorMessage: this.request?.list?.errorMessage,
     };
     // console.log('params', params);
     // 获取数据
@@ -91,7 +93,7 @@ export default class Table {
     if (!msgResult) return;
     const selections = this.refTable.value.getSelectionRows();
     const params: TZHRequestParams = {
-      url: this.request?.value?.batchDelete?.url || '',
+      url: this.request?.batchDelete?.url || '',
       conditions: {
         ids: selections.map((x: any) => x.id),
       },
@@ -106,7 +108,7 @@ export default class Table {
   loadMap = ref(new Map());
 
   load = (row: any, treeNode: any, resolve: (data: any[]) => void) => {
-    this.tableSettings.value.load && this.tableSettings.value.load(row, treeNode, resolve);
+    this.tableSettings.load && this.tableSettings.load(row, treeNode, resolve);
 
     //将获取到的节点数据添加到loadMap变量中
     this.loadMap.value.set(row.id, { row, treeNode, resolve });
@@ -135,7 +137,7 @@ export default class Table {
     const msgResult = await isMessageConfirm('确认删除？', '提示');
     if (!msgResult) return;
     const params: TZHRequestParams = {
-      url: this.request?.value?.delete?.url || '',
+      url: this.request?.delete?.url || '',
       // conditions: { ...row },
       conditions: {
         ids: [row.id]
@@ -143,7 +145,7 @@ export default class Table {
     };
     const result: TZHTableRequestResult = await ZHRequest.post(params);
     if (result.success) {
-      if (this.tableSettings.value.load && (this.tableSettings.value.validateLoad === undefined ? true : this.tableSettings.value.validateLoad(row))) {
+      if (this.tableSettings.load && (this.tableSettings.validateLoad === undefined ? true : this.tableSettings.validateLoad(row))) {
         this.reloadTableTreeChild(row.parentId);
       } else {
         this.debounceInitData();
@@ -153,11 +155,11 @@ export default class Table {
   };
 
   rowClick = async (row: any, column: any, event: any) => {
-    if (!this.tableSettings.value.rowClick) return;
+    if (!this.tableSettings.rowClick) return;
 
-    if (typeof this.tableSettings.value.rowClick === 'string') 
-      (new Function('params', this.tableSettings.value.rowClick))({ row, column, event });
-    else this.tableSettings.value.rowClick({ row, column, event });
+    if (typeof this.tableSettings.rowClick === 'string') 
+      (new Function('params', this.tableSettings.rowClick))({ row, column, event });
+    else this.tableSettings.rowClick({ row, column, event });
   };
 
   tableColumnConvert = (convert: string | Function, row: any, index: number) => {
@@ -213,7 +215,7 @@ export default class Table {
   };
 
   clickInlineSave = (scope: any) => {
-    if (this.tableSettings.value.modal?.customValidate && !this.tableSettings.value.modal?.customValidate(scope.row)) return;
+    // if (this.tableSettings.modal?.customValidate && !this.tableSettings.modal?.customValidate(scope.row)) return;
     // 调用接口触发
     popSuccessMessage('修改成功');
     scope.row[scope.column.property] = scope.row[this._convertPropToEditingProp(scope.column.property)];

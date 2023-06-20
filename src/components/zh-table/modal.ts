@@ -9,16 +9,16 @@ import { TZHFormSettings } from '../zh-form/type';
 
 
 export default class Modal {
-  request: Ref<TZHTableRequest | undefined> | undefined;
   table: Table;
   refZHFormModal: Ref<any>;
-  tableSettings: Ref<TZHTableSetting>;
   emit: any;
+  request: TZHTableRequest | undefined;
+  tableSettings: TZHTableSetting;
   constructor(
-    request: Ref<TZHTableRequest | undefined> | undefined,
+    request: TZHTableRequest | undefined,
     table: Table,
     refZHFormModal: Ref<any>,
-    tableSettings: Ref<TZHTableSetting>,
+    tableSettings: TZHTableSetting,
     emit: any
   ) {
     this.table = table;
@@ -43,14 +43,14 @@ export default class Modal {
   formSettings = computed(() => {
     return {
       // eslint-disable-next-line no-prototype-builtins
-      fields: this.tableSettings.value.columns?.filter((x: any) => x.hasOwnProperty('addEditInfo')).map((y: any) => {
+      fields: this.tableSettings.columns?.filter((x: any) => x.hasOwnProperty('addEditInfo')).map((y: any) => {
         return {
           ...this._getObjctWithoutFunction(y),
           ...y.addEditInfo,
         };
       }).sort((m: any, n: any) => m.addSort - n.addSort > 0 ? 1 : -1),
-      customValidate: this.tableSettings.value.modal?.formSettings && this.tableSettings.value.modal?.formSettings.customValidate,
-      ... this.tableSettings.value.modal?.formSettings
+      customValidate: this.tableSettings.modal?.formSettings && this.tableSettings.modal?.formSettings.customValidate,
+      ... this.tableSettings.modal?.formSettings
     } as TZHFormSettings;
   });
 
@@ -64,7 +64,7 @@ export default class Modal {
     this.modal.value.type = 'add';
     this.modal.value.title = this.modal.value.mainTitle ? '新增' + this.modal.value.mainTitle : '新增';
     this.modal.value.show = true;
-    this.modal.value = { ...this.modal.value, ...this.tableSettings.value.modal };
+    this.modal.value = { ...this.modal.value, ...this.tableSettings.modal };
     // 在新增时，有些字段带有默认值
     this.refZHFormModal.value.initForm();
     this.openAddModalData.value = data;
@@ -73,12 +73,12 @@ export default class Modal {
   openEditModalData = ref({} as any);
   openEditModal = async (row: any) => {
     this.modal.value.type = 'edit';
-    this.modal.value.title = this.tableSettings.value.modal?.mainTitle ? '编辑' + this.tableSettings.value?.modal?.mainTitle : '编辑';
+    this.modal.value.title = this.tableSettings.modal?.mainTitle ? '编辑' + this.tableSettings?.modal?.mainTitle : '编辑';
     this.modal.value.show = true;
     await nextTick();
     this.formModel.value = { ...row };
     this.openEditModalData.value = { ...row };
-    this.modal.value = { ...this.modal.value, ...this.tableSettings.value.modal };
+    this.modal.value = { ...this.modal.value, ...this.tableSettings.modal };
   };
 
   opened = () => {
@@ -116,7 +116,7 @@ export default class Modal {
       ? JSON.parse(JSON.stringify(this.convertedModel.value))
       : {};
 
-    const customModel = this.tableSettings.value.modal?.formSettings?.customModel && JSON.parse(JSON.stringify(this.tableSettings.value.modal?.formSettings?.customModel));
+    const customModel = this.tableSettings.modal?.formSettings?.customModel && JSON.parse(JSON.stringify(this.tableSettings.modal?.formSettings?.customModel));
 
     const params = {
       ...convertedModel,
@@ -135,15 +135,15 @@ export default class Modal {
     this.modal.value.loadingSubmit = true;
     const conditions = this.getParams();
 
-    if (this.tableSettings?.value?.modal?.onBeforeSubmit) { await this.tableSettings.value.modal.onBeforeSubmit({ modal: this.modal.value, conditions, }); }
+    if (this.tableSettings?.modal?.onBeforeSubmit) { await this.tableSettings.modal.onBeforeSubmit({ modal: this.modal.value, conditions, }); }
 
     const params: TZHRequestParams = {
       url: this.modal.value.type === 'add' ?
-        this.request?.value?.add?.url || '' :
-        this.request?.value?.update?.url || '',
+        this.request?.add?.url || '' :
+        this.request?.update?.url || '',
       conditions,
-      successMessage: this.modal.value.type === 'add' ? this.request?.value?.add?.successMessage : this.request?.value?.update?.successMessage,
-      errorMessage: this.modal.value.type === 'add' ? this.request?.value?.add?.errorMessage : this.request?.value?.update?.errorMessage,
+      successMessage: this.modal.value.type === 'add' ? this.request?.add?.successMessage : this.request?.update?.successMessage,
+      errorMessage: this.modal.value.type === 'add' ? this.request?.add?.errorMessage : this.request?.update?.errorMessage,
     };
 
     // console.log('submit', params);
@@ -156,6 +156,6 @@ export default class Modal {
     await nextTick();
     this.modal.value.loadingSubmit = false;
 
-    if (this.tableSettings?.value?.modal?.onAfterSubmit) { await this.tableSettings.value.modal.onAfterSubmit({ modal: this.modal.value, conditions, result }); }
+    if (this.tableSettings?.modal?.onAfterSubmit) { await this.tableSettings.modal.onAfterSubmit({ modal: this.modal.value, conditions, result }); }
   };
 }

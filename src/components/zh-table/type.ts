@@ -1,6 +1,14 @@
 import { TZHModalForm } from '../zh-modal-form/type';
 import { TZHFromField, TZHFormSettings } from '../zh-form/type';
 import { TreeNode } from 'element-plus';
+
+export interface TZHTable {
+  formSettings?: TZHTableFormSettings
+  tableSettings: TZHTableSetting
+  pageSettings?: TZHTablePageSetting
+  request?: TZHTableRequest
+}
+
 //#region Request
 export interface TZHTableRequest {
   list?: TZHTableRequestDetail
