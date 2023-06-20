@@ -2,14 +2,22 @@ import dayjs from 'dayjs';
 import { ref, Ref } from 'vue';
 import { TZHFormSettings, TZHFromField, TZHFromFieldConvertDateTime } from './type';
 
+type TParams = {
+  emit: (event: 'update:modelValue' | 'update:convertedModel', ...args: any[]) => void
+  formSettings: Ref<TZHFormSettings>
+  modelValue: Ref<{ [x: string]: any }>
+  convertedModel: Ref<{ [x: string]: any } | undefined> | undefined
+  refForm: any
+}
+
 export default class Form {
-  emit: any;
+  emit: (event: 'update:modelValue' | 'update:convertedModel', ...args: any[]) => void;
   refForm: any;
   formSettings: Ref<TZHFormSettings>;
   hideUnimportantFields: Ref<boolean | undefined>;
-  modelValue: any;
-  convertedModel: any;
-  constructor(params: any) {
+  modelValue: Ref<{ [x: string]: any }>;
+  convertedModel: Ref<{ [x: string]: any } | undefined> | undefined;
+  constructor(params: TParams) {
     this.emit = params.emit;
     this.refForm = params.refForm;
     this.formSettings = params.formSettings;
@@ -17,6 +25,10 @@ export default class Form {
     this.modelValue = params.modelValue;
     this.convertedModel = params.convertedModel;
   }
+
+  hasConvertedModel = (): boolean => {
+    return !!this.convertedModel && !!this.convertedModel.value;
+  };
 
   init = () => {
     if (
@@ -35,7 +47,7 @@ export default class Form {
 
   clearFormData = () => {
     this.modelValue.value = {};
-    this.convertedModel.value = {};
+    if (this.convertedModel && this.convertedModel.value) this.convertedModel.value = {};
   };
 
   validate = async () => {
@@ -53,20 +65,20 @@ export default class Form {
     if (!convertedModel) return;
     const needConverTFromFields = fields.filter((x) => x.convert);
     for (let i = 0; i < needConverTFromFields.length; i++) {
-      const method: Function = needConverTFromFields[i].convert;
-      if (!needConverTFromFields[i] || needConverTFromFields[i].prop) continue;
-      convertedModel[needConverTFromFields[i].prop] = method(
-        model[needConverTFromFields[i].prop],
-        model
-      );
+      const method: Function | undefined = needConverTFromFields[i].convert;
+      const prop: any = needConverTFromFields[i]?.prop;
+      if (prop && method) {
+        convertedModel[prop] = method(model[prop], model);
+      }
     }
   };
 
   useConvertDateTime = (model: { [key: string]: any }, convertedModel: { [key: string]: any }, fields: TZHFromField[]) => {
     const needConvertDateTimeFields: TZHFromField[] = fields.filter((x) => x.convertDateTime);
     for (let i = 0; i < needConvertDateTimeFields.length; i++) {
-      const value = model[needConvertDateTimeFields[i].prop];
-      if (!convertedModel) continue;
+      const prop: any = needConvertDateTimeFields[i]?.prop;
+      if (!prop) continue;
+      const value = model[prop];
       if (value) {
         for (let j = 0; j < value.length; j++) {
           const convertDateTimeArr = needConvertDateTimeFields[i]
@@ -83,7 +95,6 @@ export default class Form {
           convertedModel[field] = undefined;
         }
       }
-      // delete convertedModel[needConvertDateTimeFields[i].prop];
     }
   };
 
@@ -94,8 +105,9 @@ export default class Form {
     );
     for (let i = 0; i < needExtendFields.length; i++) {
       const method: Function | undefined = needExtendFields[i].extendedFieldMethod;
-      if (!method || !convertedModel) return;
-      const result = method(model[needExtendFields[i].prop], model);
+      const prop: any = needExtendFields[i].prop;
+      if (!method || !prop) return;
+      const result = method(model[prop], model);
 
       result && Array.isArray(result) && result.forEach(
         (element: { property: string | number, value: any }) => {
@@ -109,31 +121,31 @@ export default class Form {
   useConvertCascader = (model: any, convertedModel: { [key: string]: any }, fields: TZHFromField[]) => {
     const needConvertCascaderFields: TZHFromField[] = fields.filter((x) => x.convertCascader);
     for (let i = 0; i < needConvertCascaderFields.length; i++) {
-      const method: Function | undefined =
-        needConvertCascaderFields[i].convertCascader;
-      if (!method || !convertedModel) return;
-      const result = method(model[needConvertCascaderFields[i].prop], model, needConvertCascaderFields[i]);
+      const method: Function | undefined = needConvertCascaderFields[i].convertCascader;
+      const prop: any = needConvertCascaderFields[i].prop;
+      if (!method || !prop) return;
+      const result = method(model[prop], model, needConvertCascaderFields[i]);
 
       result && Array.isArray(result) && result.forEach(
         (element: { property: string | number, value: any }) => {
           convertedModel[element.property] = element.value;
         }
       );
-      // delete convertedModel[needConvertCascaderFields[i].prop];
     }
   };
 
   setConvertModel = async (newVal: any) => {
-    if (!this.convertedModel.value) return;
+    if (!this.hasConvertedModel()) return;
+    const convertedModelValue: any = this.convertedModel!.value;
     const keys = Object.keys(newVal);
     for (let i = 0; i < keys.length; i++) {
-      this.convertedModel.value[keys[i]] = newVal[keys[i]];
+      convertedModelValue[keys[i]] = newVal[keys[i]];
     }
-    if (!this.convertedModel.value) return;
-    this.useConvert(newVal, this.convertedModel.value, this.formSettings.value.fields || []);
-    this.useConvertDateTime(newVal, this.convertedModel.value, this.formSettings.value.fields || []);
-    this.useExtendedFieldMethod(newVal, this.convertedModel.value, this.formSettings.value.fields || []);
-    this.useConvertCascader(newVal, this.convertedModel.value, this.formSettings.value.fields || []);
+
+    this.useConvert(newVal, convertedModelValue, this.formSettings.value.fields || []);
+    this.useConvertDateTime(newVal, convertedModelValue, this.formSettings.value.fields || []);
+    this.useExtendedFieldMethod(newVal, convertedModelValue, this.formSettings.value.fields || []);
+    this.useConvertCascader(newVal, convertedModelValue, this.formSettings.value.fields || []);
   };
   //#endregion
 

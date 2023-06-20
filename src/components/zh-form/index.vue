@@ -128,7 +128,7 @@ import ZHSelect from '@/components/zh-select/index.vue';
 
 const props = defineProps({
   modelValue: {
-    type: Object as PropType<any>,
+    type: Object as PropType<{[x:string]: any}>,
     required: true,
   },
 
@@ -138,7 +138,7 @@ const props = defineProps({
   },
 
   convertedModel: {
-    type: Object as PropType<any>,
+    type: Object as PropType<{[x:string]: any}>,
   },
 });
 
