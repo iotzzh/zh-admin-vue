@@ -513,7 +513,7 @@ export default [
                 exceptionMessage: '',
                 data: [
                     ...index,
-                    ...auth,
+                    // ...auth,
                     ...menuList,
                     ...outerPage,
                     ...functionPage,
