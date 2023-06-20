@@ -1,6 +1,6 @@
 import { computed, Ref, ref, nextTick } from 'vue';
 import { TZHModalForm } from '../zh-modal-form/type';
-import { TZHTableRequest, TZHTableRequestResult, TZHTableColumnAddEditInfo, TZHTableFromField, TZHFromFieldConvertDateTime, TZHTableSetting, TZHTableColumn, TObject } from './type';
+import { TZHTableRequest, TZHTableRequestResult, TZHTableSetting, TObject } from './type';
 import Table from './table';
 import ZHRequest from '../zh-request';
 import { TZHRequestParams } from '../zh-request/type';
@@ -19,8 +19,8 @@ export default class Modal {
     table: Table,
     refZHFormModal: Ref<any>,
     tableSettings: Ref<TZHTableSetting>,
-    emit:any
-    ) {
+    emit: any
+  ) {
     this.table = table;
     this.request = request;
     this.refZHFormModal = refZHFormModal;
@@ -47,7 +47,7 @@ export default class Modal {
           ...this._getObjctWithoutFunction(y),
           ...y.addEditInfo,
         };
-      }).sort((m:any, n: any) => m.addSort - n.addSort > 0 ? 1 : -1),
+      }).sort((m: any, n: any) => m.addSort - n.addSort > 0 ? 1 : -1),
       customValidate: this.tableSettings.value.modal?.formSettings && this.tableSettings.value.modal?.formSettings.customValidate,
       ... this.tableSettings.value.modal?.formSettings
     } as TZHFormSettings;
@@ -59,16 +59,16 @@ export default class Modal {
   convertedModel = ref({} as any);
 
   openAddModalData = ref({} as any);
-  openAddModal = (data:any = undefined) => {
+  openAddModal = (data: any = undefined) => {
     this.modal.value.type = 'add';
     this.modal.value.title = this.modal.value.mainTitle ? '新增' + this.modal.value.mainTitle : '新增';
     this.modal.value.show = true;
-    this.modal.value = { ...this.modal.value, ...this.tableSettings.value.modal};
+    this.modal.value = { ...this.modal.value, ...this.tableSettings.value.modal };
     // 在新增时，有些字段带有默认值
     this.refZHFormModal.value.initForm();
     this.openAddModalData.value = data;
   };
-  
+
   openEditModalData = ref({} as any);
   openEditModal = async (row: any) => {
     this.modal.value.type = 'edit';
@@ -77,19 +77,19 @@ export default class Modal {
     await nextTick();
     this.formModel.value = { ...row };
     this.openEditModalData.value = { ...row };
-    this.modal.value = { ...this.modal.value, ...this.tableSettings.value.modal};
+    this.modal.value = { ...this.modal.value, ...this.tableSettings.value.modal };
   };
 
   opened = () => {
-    this.emit('opened', { 
-      modal: this.modal.value, 
-      formModel: this.formModel.value, 
-      openAddModalData: this.openAddModalData.value, 
-      openEditModalData: this.openEditModalData.value  
+    this.emit('opened', {
+      modal: this.modal.value,
+      formModel: this.formModel.value,
+      openAddModalData: this.openAddModalData.value,
+      openEditModalData: this.openEditModalData.value
     });
   };
 
-  setModalFormModel = (data:{[x:string]: any}) => {
+  setModalFormModel = (data: { [x: string]: any }) => {
     const keys = Object.keys(data);
     for (const key of keys) {
       this.formModel.value[key] = data[key];
@@ -135,7 +135,7 @@ export default class Modal {
     const conditions = this.getParams();
 
     if (this.tableSettings?.value?.modal?.onBeforeSubmit) { await this.tableSettings.value.modal.onBeforeSubmit({ modal: this.modal.value, conditions, }); }
-    
+
     const params: TZHRequestParams = {
       url: this.modal.value.type === 'add' ?
         this.request?.value?.add?.url || '' :

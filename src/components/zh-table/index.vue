@@ -1,8 +1,13 @@
 <template>
   <div class="zh-table">
-    <ZHForm ref="refZHForm" class="zh-form"
-      :style="{ maxHeight: isMobile ? '50%' : '', height: isMobile ? '190px' : 'auto', overflow: isMobile ? 'auto' : '' }" v-if="formSettings"
-      v-model="form.formModel" v-model:converted-model="form.convertedFormModel" :form-settings="formSettings">
+    <ZHForm 
+      v-if="formSettings"
+      ref="refZHForm"
+      class="zh-form"
+      :style="{ maxHeight: isMobile ? '50%' : '', height: isMobile ? '190px' : 'auto', overflow: isMobile ? 'auto' : '' }" 
+      v-model="form.formModel" 
+      v-model:converted-model="form.convertedFormModel" 
+      :form-settings="formSettings">
       <!-- 传递form默认插槽 -->
       <template #default>
         <slot name="zh-table-form-default-before"></slot>
@@ -195,8 +200,8 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, PropType, computed, ref, reactive, Ref, watch, onMounted, nextTick } from 'vue';
-import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit, CloseBold, Select } from '@element-plus/icons-vue';
+import { toRefs, PropType, computed, ref, Ref, watch, onMounted } from 'vue';
+import { Delete, Edit, CloseBold, Select } from '@element-plus/icons-vue';
 import dayjs from 'dayjs';
 import ZHForm from '../zh-form/index.vue';
 import ZhModalForm from '../zh-modal-form/index.vue';
@@ -207,7 +212,7 @@ import Page from './page';
 import Table from './table';
 import Form from './form';
 import Modal from './modal';
-import { TZHFromField, TZHFormSettings, TZHFromFieldSelectOption } from '../zh-form/type';
+import { TZHFromField, TZHFromFieldSelectOption } from '../zh-form/type';
 import storage from '@/utils/storage';
 
 const props = defineProps({
@@ -321,9 +326,7 @@ defineExpose({
 
 </script>
 
-<script lang="ts">
-export default { name: 'ZHTable' };
-</script>
+<script lang="ts">export default { name: 'ZHTable' };</script>
 
 <style lang="scss" scope>
 @import './index.scss';

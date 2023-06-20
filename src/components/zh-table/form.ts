@@ -1,4 +1,3 @@
-import dayjs from 'dayjs';
 import { Ref, ref } from 'vue';
 import { TZHTablePage, TZHTableRequest, TZHTableFormSettings, TZHTableFromField } from './type';
 import _ from 'lodash';
@@ -74,8 +73,9 @@ export default class Form {
     const oldValNeedTriggerSearchFields = oldVal;
     const newValNeedTriggerSearchFields = newVal;
     for (let i = 0; i < notChangeTriggerSearchFields.length; i++) {
-      delete oldValNeedTriggerSearchFields[notChangeTriggerSearchFields[i].prop];
-      delete newValNeedTriggerSearchFields[notChangeTriggerSearchFields[i].prop];
+      const prop:any = notChangeTriggerSearchFields[i].prop;
+      delete oldValNeedTriggerSearchFields[prop];
+      delete newValNeedTriggerSearchFields[prop];
     }
 
     return _.isEqual(oldValNeedTriggerSearchFields, newValNeedTriggerSearchFields);

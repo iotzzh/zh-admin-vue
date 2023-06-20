@@ -29,7 +29,7 @@
 <script lang="ts" setup>
 import { PropType, toRefs } from 'vue';
 import { TZHTableFormSettings } from './type';
-import { RefreshLeft, Search, Delete, Download, Plus, DocumentChecked, Refresh, Upload, Edit } from '@element-plus/icons-vue';
+import { RefreshLeft, Search, Delete, Download, Plus, Upload } from '@element-plus/icons-vue';
 import Table from './table';
 import Modal from './modal';
 import Form from './form';
