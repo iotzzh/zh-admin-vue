@@ -17,11 +17,12 @@ import { TZHFormSettings } from '../zh-form/type';
 
 const props = defineProps({
   modelValue: {
-    type: Object as PropType<any>,
+    type: Object as PropType<{[x:string]: any}>,
+    required: true,
   },
 
   convertedModel: {
-    type: Object as PropType<any>,
+    type: Object as PropType<{[x:string]: any}>,
   },
 
   modal: {
@@ -31,6 +32,7 @@ const props = defineProps({
 
   formSettings: {
     type: Object as PropType<TZHFormSettings>,
+    required: true,
   },
 });
 
@@ -55,14 +57,9 @@ defineExpose({
 });
 </script>
 
-<script lang="ts">
-export default { name: 'ZHModalForm' };
-</script>
+<script lang="ts">export default { name: 'ZHModalForm' };</script>
 
-<style lang="scss" scoped>
-
-</style>
-
+<!-- 注意： 这里使用的是全局样式！！！ -->
 <style lang="scss">
 .el-dialog__header {
   text-align: center;

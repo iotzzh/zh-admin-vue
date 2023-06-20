@@ -3,6 +3,10 @@
 见type.ts
 
 ## 事件
+close
+cancel
+submit
+opened
 
 ## 方法：
 ### init(): void

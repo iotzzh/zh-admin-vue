@@ -23,6 +23,4 @@ const props = defineProps({
 const { useScrollContentBox } = toRefs(props);
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
