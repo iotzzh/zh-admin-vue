@@ -188,9 +188,7 @@ onMounted(async () => {
   formInstance.init();
 });
 
-const modelValueC = computed(() => modelValue?.value);
-
-watch(modelValueC, (newVal: any) => {
+watch(modelValue.value, (newVal: any) => {
   formInstance.setConvertModel(newVal);
 }, { deep: true });
 

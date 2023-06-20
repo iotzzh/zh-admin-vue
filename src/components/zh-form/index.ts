@@ -146,6 +146,8 @@ export default class Form {
     this.useConvertDateTime(newVal, convertedModelValue, this.formSettings.value.fields || []);
     this.useExtendedFieldMethod(newVal, convertedModelValue, this.formSettings.value.fields || []);
     this.useConvertCascader(newVal, convertedModelValue, this.formSettings.value.fields || []);
+
+    this.emit('update:convertedModel', this.convertedModel?.value);
   };
   //#endregion
 
