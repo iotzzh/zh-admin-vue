@@ -15,7 +15,6 @@ const isMobile = isHelper.isMobile();
 const pageSetting: any = ref({});
 new Promise((resolve, reject) => {
     const setting = {
-        useSearchForm: true,
         usePage: true,
         formSettings: {
             hasAddButton: true,

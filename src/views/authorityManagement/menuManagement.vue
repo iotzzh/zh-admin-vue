@@ -1,6 +1,6 @@
 <!-- 权限管理 - 菜单管理 -->
 <template>
-    <Table ref="refTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
+    <Table ref="refTable" :formSettings="formSettings" :tableSettings="tableSettings"
         :usePage="true" :request="request" @opened="opened">
         <template v-slot:zh-table-form-test>
             <el-input placeholder="请输入自定义搜索" v-model="formSettings.customModel!.test"></el-input>

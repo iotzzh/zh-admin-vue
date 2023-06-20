@@ -1,7 +1,7 @@
 <template>
   <div class="zh-table">
     <ZHForm ref="refZHForm" class="zh-form"
-      :style="{ maxHeight: isMobile ? '50%' : '', height: isMobile ? '190px' : 'auto', overflow: isMobile ? 'auto' : '' }" v-if="useSearchForm"
+      :style="{ maxHeight: isMobile ? '50%' : '', height: isMobile ? '190px' : 'auto', overflow: isMobile ? 'auto' : '' }" v-if="formSettings"
       v-model="form.formModel" v-model:converted-model="form.convertedFormModel" :form-settings="formSettings">
       <!-- 传递form默认插槽 -->
       <template #default>
@@ -211,11 +211,6 @@ import { TZHFromField, TZHFormSettings, TZHFromFieldSelectOption } from '../zh-f
 import storage from '@/utils/storage';
 
 const props = defineProps({
-  useSearchForm: {
-    type: Boolean,
-    required: false,
-  },
-
   formSettings: {
     type: Object as PropType<TZHTableFormSettings>,
     required: false, // 必传
@@ -243,7 +238,6 @@ const props = defineProps({
 });
 
 const {
-  useSearchForm,
   formSettings,
   tableSettings,
   usePage,

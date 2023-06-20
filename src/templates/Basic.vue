@@ -1,6 +1,6 @@
 <!-- 基础模板：表格，自带增删改查 -->
 <template>
-    <ZHTable ref="refZHTable" :useSearchForm="setting.useSearchForm" :usePage="setting.usePage"
+    <ZHTable ref="refZHTable" :usePage="setting.usePage"
         :formSettings="setting.formSettings" :tableSettings="setting.tableSettings" :request="setting.request">
     </ZHTable>
 </template>

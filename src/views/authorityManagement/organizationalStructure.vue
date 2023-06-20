@@ -5,7 +5,7 @@
     </ZHTree>
     </el-col>
     <el-col class="column" :span="18">
-      <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
+      <Table ref="refZHTable" :formSettings="formSettings" :tableSettings="tableSettings"
         :usePage="true" :requestTable="request">
         <template v-slot:zh-table-form-test>
             <el-input placeholder="请输入自定义搜索" v-model="formSettings.customModel!.test"></el-input>

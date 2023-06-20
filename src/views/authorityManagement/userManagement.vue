@@ -1,6 +1,6 @@
 <!-- 用户管理 -->
 <template>
-    <Table ref="refZHTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
+    <Table ref="refZHTable" :formSettings="formSettings" :tableSettings="tableSettings"
         :usePage="true" :request="request" @opened="opened">
     </Table>
 </template>

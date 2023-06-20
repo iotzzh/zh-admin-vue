@@ -1,7 +1,7 @@
 <template>
 
   <div class="zh-virtual-scroll-table">
-    <ZHForm ref="refZHForm" class="zh-form" v-if="useSearchForm" v-model="form.formModel"
+    <ZHForm ref="refZHForm" class="zh-form" v-if="formSettings" v-model="form.formModel"
       v-model:converted-model="form.convertedFormModel" :form-settings="formSettings">
       <!-- 传递form默认插槽 -->
       <template #default>

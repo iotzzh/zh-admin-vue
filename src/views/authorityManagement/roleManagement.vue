@@ -1,12 +1,12 @@
 <!-- 角色管理 -->
 <template>
     <div style="height: 100%; width: 100%;">
-        <Table ref="refTable" :useSearchForm="true" :formSettings="formSettings" :tableSettings="tableSettings"
+        <Table ref="refTable" :formSettings="formSettings" :tableSettings="tableSettings"
             :usePage="false" :request="request">
         </Table>
         <Modal ref="refModal" :modal="modal" @opened="openedMenuModal" @cancel="closeModal" @close="closeModal"
             @submit="submit">
-            <Table ref="refMenuTable" :useSearchForm="false" :tableSettings="menuTableSettings" :usePage="false">
+            <Table ref="refMenuTable" :tableSettings="menuTableSettings" :usePage="false">
                 <template v-slot:zh-table-module="scope">
                     <el-checkbox-group v-model="allCheckedList" style="display: inline">
                         <el-checkbox :label="scope.row.id" :disabled="!isMenuEnabled(scope.row)" size="small"
