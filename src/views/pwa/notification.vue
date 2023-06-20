@@ -4,34 +4,46 @@
         <span id="text"></span>
         <div class="button-box">
             <ZHLightButton text="普通提示" color="red" 
-            @click="(e:any) => { sendMessageToWorkerJS({ type: 'notification', message: { title: '普通提示', options: { body:'这是一个普通提示！' } }}) }">
+            @click="(e:any) => {
+ sendMessageToWorkerJS({ type: 'notification', message: { title: '普通提示', options: { body: '这是一个普通提示！' } }}) 
+}">
             </ZHLightButton>
 
             <ZHLightButton text="点击才能关闭的提示" color="blue" 
-            @click="(e:any) => { sendMessageToWorkerJS({ type: 'notification', message: { title: '点击才能关闭的提示', 
-                options: { body:'点击才能关闭的提示内容', requireInteraction: true, } }}) }">
+            @click="(e:any) => {
+ sendMessageToWorkerJS({ type: 'notification', message: { title: '点击才能关闭的提示', 
+                options: { body: '点击才能关闭的提示内容', requireInteraction: true } }}) 
+}">
             </ZHLightButton>
 
             <ZHLightButton text="带ICON的提示" color="pink" 
-            @click="(e:any) => { sendMessageToWorkerJS({ type: 'notification', message: { title: '带ICON的提示', 
-                options: { body:'带ICON的提示内容', icon: ICON } }}) }">
+            @click="(e:any) => {
+ sendMessageToWorkerJS({ type: 'notification', message: { title: '带ICON的提示', 
+                options: { body: '带ICON的提示内容', icon: ICON } }}) 
+}">
             </ZHLightButton>
 
             <ZHLightButton text="带IMG的提示" color="yellow" 
-            @click="(e:any) => { sendMessageToWorkerJS({ type: 'notification', message: { title: '带IMG的提示', 
-                options: { body:'带IMG的提示内容', icon: ICON, image: IMG } }}) }">
+            @click="(e:any) => {
+ sendMessageToWorkerJS({ type: 'notification', message: { title: '带IMG的提示', 
+                options: { body: '带IMG的提示内容', icon: ICON, image: IMG } }}) 
+}">
             </ZHLightButton>
 
             <ZHLightButton text="带按钮的提示" color="gold" 
-            @click="(e:any) => { sendMessageToWorkerJS({ type: 'notification', message: { title: '带按钮的提示', 
-                options: { body:'带按钮的提示内容', icon: ICON, image: IMG, 
-                actions: [{ action: 'cancel', title: '取消' }, { action: 'confirm', title: '确认'}], } }}) }">
+            @click="(e:any) => {
+ sendMessageToWorkerJS({ type: 'notification', message: { title: '带按钮的提示', 
+                options: { body: '带按钮的提示内容', icon: ICON, image: IMG, 
+                actions: [{ action: 'cancel', title: '取消' }, { action: 'confirm', title: '确认'}] } }}) 
+}">
             </ZHLightButton>
 
             <ZHLightButton text="带输入框的提示" color="green" 
-            @click="(e:any) => { sendMessageToWorkerJS({ type: 'notification', message: { title: '带输入框的提示', 
-                options: { body:'带输入框的提示内容', icon: ICON, image: IMG,
-                actions: [{ action: 'cancel', title: '取消', type: 'text' }, { action: 'confirm', title: '确认'}], } }}) }">
+            @click="(e:any) => {
+ sendMessageToWorkerJS({ type: 'notification', message: { title: '带输入框的提示', 
+                options: { body: '带输入框的提示内容', icon: ICON, image: IMG,
+                actions: [{ action: 'cancel', title: '取消', type: 'text' }, { action: 'confirm', title: '确认'}] } }}) 
+}">
             </ZHLightButton>
         </div>
     </Box>
@@ -61,9 +73,9 @@ const printDesc = () => {
         typeSpeed: 50,
         fadeOut: true,
         // loop: true, // 是否循环
-    }
+    };
 
-    const typed = new Typed("#text", options);
+    const typed = new Typed('#text', options);
     typed.start();
 };
 

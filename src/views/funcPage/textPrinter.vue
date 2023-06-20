@@ -18,9 +18,9 @@ onMounted(() => {
         typeSpeed: 50,
         fadeOut: true,
         // loop: true, // 是否循环
-    }
+    };
 
-    const typed = new Typed("#text", options);
+    const typed = new Typed('#text', options);
     typed.start();
 });
 

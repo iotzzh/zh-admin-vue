@@ -1,8 +1,9 @@
 import { CascaderOption, CascaderProps } from 'element-plus';
+import { EpPropMergeType } from 'element-plus/es/utils';
 
 
 export interface TZHFormSettings {
-  rules?: { [x: string]: any }
+  rules?: Object
   formLabelWidth?: string | number
   fields?: Array<TZHFromField>
   hideUnimportantFields?: boolean
@@ -33,6 +34,8 @@ export interface TZHFromField {
   clearable?: boolean // 是否可清除
   required?: boolean // 是否必填
 
+  size?: EpPropMergeType<StringConstructor, '' | 'default' | 'small' | 'large', never> | undefined
+
   // 下拉选择/级联选择
   // options?: Array<TZHFromFieldSelectOption> | Array<TZHFromFieldCascaderOption> | Array<{ [x: string]: any }>
   options?: Array<TZHFromFieldSelectOption> | Array<CascaderOption> | Array<{ [x: string]: any }>
@@ -54,8 +57,9 @@ export interface TZHFromField {
   multiple?: boolean
   remote?: boolean
   remoteMethod?: Function
+
   // 时间选择器
-  timeType?: string
+  timeType?: EpPropMergeType<(new (...args: any[]) => IDatePickerType & {}) | (() => IDatePickerType) | ((new (...args: any[]) => IDatePickerType & {}) | (() => IDatePickerType))[], unknown, unknown> | undefined
   timeShowFormat?: string
   timeValueFormat?: string
   // 级联选择器
@@ -63,7 +67,6 @@ export interface TZHFromField {
 
   // 多选框
   checkboxText?: string
-  checkboxSize?: Number
 
   //#region 方法
   // 转换方法, 一对一转换

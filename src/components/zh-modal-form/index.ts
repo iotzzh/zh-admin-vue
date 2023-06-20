@@ -1,6 +1,6 @@
-import { Ref } from "vue";
-import { TZHFormSettings, TZHFromField } from "../zh-form/type";
-import { TZHModalFromField } from "./type";
+import { Ref } from 'vue';
+import { TZHFormSettings, TZHFromField } from '../zh-form/type';
+import { TZHModalFromField } from './type';
 
 export default class ZHFormModal {
     emit: any;

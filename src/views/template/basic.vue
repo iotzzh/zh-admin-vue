@@ -107,7 +107,7 @@ new Promise((resolve, reject) => {
                 },
                 {
                     // label: '性别', prop: 'sex', convert: (row: any) => row.sex === 0 ? '女' : row.sex === 1 ? '男' : '未知',
-                    label: '性别', prop: 'sex', convert: `return row?.sex === 0 ? '男' : '女'`,
+                    label: '性别', prop: 'sex', convert: 'return row?.sex === 0 ? \'男\' : \'女\'',
                     minWidth: '80px',
                     addEditInfo: {
                         type: 'select', defaultValue: null, addSort: 2, placeholder: '请选择',
@@ -156,7 +156,7 @@ new Promise((resolve, reject) => {
                 hasRowEditAction: true,
                 buttons: [
                     // { label: '激活', hide: true, type: 'primary', icon: 'Refresh', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
-                    { label: '激活', hide: false, type: 'primary', icon: 'Refresh', onClick: `console.log('row.phone: ' + row.phone, '/n index: ' + index)` },
+                    { label: '激活', hide: false, type: 'primary', icon: 'Refresh', onClick: 'console.log(\'row.phone: \' + row.phone, \'/n index: \' + index)' },
                 ],
             },
         },

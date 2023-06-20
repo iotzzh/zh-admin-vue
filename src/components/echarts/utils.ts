@@ -1,7 +1,7 @@
 export const  getUUID = () => {
-    var uuid = '';
-    var i;
-    var random;
+    let uuid = '';
+    let i;
+    let random;
   
     for (i = 0; i < 32; i++) {
       random = (Math.random() * 16) | 0;

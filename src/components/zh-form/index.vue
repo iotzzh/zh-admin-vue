@@ -16,12 +16,12 @@
                 : ''
           }">
           <el-form-item :key="'form-item' + index" :label="item.label" :prop="item.prop" :label-width="item.labelWidth"
-            v-show="!item.hide">
+            v-show="!item.hide" v-if="item.prop">
             <!-- 输入框 -->
             <el-input v-if="item.type === 'input'" :style="{ width: item.width ? `${item.width}` : '100%' }"
-            :show-password="item.showPassword"
-              v-model="modelValue[item.prop]" :placeholder="item.placeholder" :disabled="item.disabled === undefined ? false :
-              typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)" :type="item.inputType"
+              :show-password="item.showPassword" v-model="modelValue[item.prop]" :placeholder="item.placeholder"
+              :disabled="item.disabled === undefined ? false :
+                typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)" :type="item.inputType"
               :clearable="item.clearable === undefined ? true : item.clearable"></el-input>
 
             <!-- 文本显示 -->
@@ -38,30 +38,23 @@
             <el-input-number v-else-if="item.type === 'input-number'"
               :style="{ width: item.width ? `${item.width}` : '100%' }" v-model="modelValue[item.prop]"
               :placeholder="item.placeholder" :disabled="item.disabled === undefined ? false :
-              typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)"
+                typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)"
               :clearable="item.clearable" />
 
             <!-- 下拉 -->
             <el-select v-else-if="item.type === 'select'" v-model="modelValue[item.prop]"
-              :style="{ width: item.width ? `${item.width}` : '100%' }" 
-              :value-key="item.valueKey" 
-              :disabled="item.disabled === undefined ? false : typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)" 
-              :multiple="item.multiple"
-              filterable 
-              clearable 
-              :remote="item.remote" 
-              :remote-method="item.remoteMethod" 
-              :placeholder="
-                item.placeholder
+              :style="{ width: item.width ? `${item.width}` : '100%' }" :value-key="item.valueKey"
+              :disabled="item.disabled === undefined ? false : typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)"
+              :multiple="item.multiple" filterable clearable :remote="item.remote" :remote-method="item.remoteMethod"
+              :placeholder="item.placeholder
                   ? item.placeholder
                   : item.remoteMethod
                     ? '请输入选择'
                     : '请选择'
-              ">
+                ">
               <el-option
                 v-for="(subItem, subIndex) in (item.options as Array<TZHFromFieldSelectOption> | Array<{ [x: string]: any }>)"
-                :key="item.valueKey ? subItem[item.valueKey] : subIndex" 
-                :label="subItem.label"
+                :key="item.valueKey ? subItem[item.valueKey] : subIndex" :label="subItem.label"
                 :value="item.valueKey ? subItem : subItem.value"></el-option>
             </el-select>
 
@@ -76,14 +69,13 @@
 
             <!-- 日期选择 -->
             <el-date-picker v-else-if="item.type === 'date-picker'" v-model="modelValue[item.prop]" :disabled="item.disabled === undefined ? false :
-            typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)" :type="item.timeType"
-              :format="item.timeShowFormat" :value-format="item.timeValueFormat"
-              :placeholder="item.placeholder || '请选择'" :style="{ width: item.width ? `${item.width}` : '100%' }"
-              :clearable="item.clearable"></el-date-picker>
+              typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)" :type="item.timeType"
+              :format="item.timeShowFormat" :value-format="item.timeValueFormat" :placeholder="item.placeholder || '请选择'"
+              :style="{ width: item.width ? `${item.width}` : '100%' }" :clearable="item.clearable"></el-date-picker>
 
             <!-- 级联选择器  -->
-            <el-cascader v-else-if="item.type === 'cascader'" :options="(item.options as CascaderOption[])" :props="item.props"
-              :style="{ width: item.width ? `${item.width}` : '100%' }"
+            <el-cascader v-else-if="item.type === 'cascader'" :options="(item.options as CascaderOption[])"
+              :props="item.props" :style="{ width: item.width ? `${item.width}` : '100%' }"
               @change="formInstance.changeCascader(itemRefs, item.refName, formSettings)" :ref="(el: any) => {
                 if (item.refName) itemRefs[item.refName] = el;
               }" v-model="modelValue[item.prop]" :clearable="item.clearable" />
@@ -97,7 +89,7 @@
 
             <!-- 多选框 -->
             <el-checkbox v-else-if="item.type === 'checkbox'" v-model="modelValue[item.prop]" :label="item.checkboxText"
-              :size="item.checkboxSize || 'default'" />
+              :size="item.size || 'default'" />
 
             <!-- 自定义筛选内容 -->
             <template v-else-if="item.type === 'slot'">
@@ -109,17 +101,17 @@
       <slot></slot>
       <span v-if="formSettings?.hideUnimportantFields" class="folder-box">
         <span class="unfolder" v-if="formInstance.hideUnimportantFields.value"
-         @click="() => formInstance.hideUnimportantFields.value = false">展开</span>
-         <span v-else type="primary" link :icon="ArrowUp" size="large" class="folder"
-        @click="() => formInstance.hideUnimportantFields.value = true">折叠</span>
+          @click="() => formInstance.hideUnimportantFields.value = false">展开</span>
+        <span v-else type="primary" link :icon="ArrowUp" size="large" class="folder"
+          @click="() => formInstance.hideUnimportantFields.value = true">折叠</span>
         <!-- <i class="iconfont icon-shangla1 unfolder" v-if="formInstance.hideUnimportantFields.value"
          @click="() => formInstance.hideUnimportantFields.value = false" ></i>
         <i v-else class="iconfont icon-shangla folder" @click="() => formInstance.hideUnimportantFields.value = true"></i> -->
-      <!-- <el-button v-if="formInstance.hideUnimportantFields.value" size="large" class="unfolder" type="primary" link
+        <!-- <el-button v-if="formInstance.hideUnimportantFields.value" size="large" class="unfolder" type="primary" link
         :icon="ArrowDown" @click="() => formInstance.hideUnimportantFields.value = false" />
       <el-button v-else type="primary" link :icon="ArrowUp" size="large" class="folder"
         @click="() => formInstance.hideUnimportantFields.value = true" /> -->
-    </span>
+      </span>
     </el-row>
     <slot name="zh-form-next-row"></slot>
   </el-form>
@@ -139,7 +131,7 @@ const props = defineProps({
     type: Object as PropType<any>,
     required: true,
   },
-  
+
   formSettings: {
     type: Object as PropType<TZHFormSettings>,
     required: true,
@@ -157,22 +149,19 @@ const emit = defineEmits(['update:modelValue', 'update:convertedModel']);
 
 const formInstance = new Form({ emit, refForm, formSettings, modelValue, convertedModel });
 
-const hasFields = ():boolean => (formSettings && formSettings.value && !!formSettings.value.fields);
-const hasRules = ():boolean => (formSettings && formSettings.value && !!formSettings.value.rules);
-
 const fieldList = computed(() => {
-  if (!hasFields()) return [];
-  if (formInstance.hideUnimportantFields.value) {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return formSettings.value.fields.filter((x: TZHFromField) => !x.unimportant);
-  } else {
-    return formSettings.value.fields;
-  }
+  if (formSettings && formSettings.value && !!formSettings.value.fields) {
+    if (formInstance.hideUnimportantFields.value) {
+      return formSettings.value.fields.filter((x: TZHFromField) => !x.unimportant);
+    } else {
+      return formSettings.value.fields;
+    }
+  } else { return []; }
 });
 
 const rules = computed(() => {
   const newRules = {};
-  if (!hasFields()) return newRules;
+  if (!(formSettings && formSettings.value && !!formSettings.value.fields)) return newRules;
   const fields: TZHFromField[] = formSettings.value.fields || [];
   for (const element of fields) {
     if (!element.prop) continue;
@@ -188,9 +177,10 @@ const rules = computed(() => {
       }
     }
   }
-  if (!hasRules()) return newRules;
-  const keys = Object.keys(formSettings.value.rules);
-  keys.forEach((key: any) => { newRules[key] = formSettings.value.rules && formSettings.value.rules[key]; });
+  if ((formSettings && formSettings.value && !!formSettings.value.rules)) {
+    const keys = Object.keys(formSettings.value.rules);
+    keys.forEach((key: any) => { newRules[key] = formSettings.value.rules && formSettings.value.rules[key]; });
+  }
   return newRules;
 });
 
@@ -264,6 +254,4 @@ export default { name: 'ZHForm' };
 }
 </style>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

@@ -2,28 +2,28 @@
  * service worker 安装激活
  */
 
-let dataCacheName = "new-data-v1";
-let cacheName = "first-pwa-app-1";
+let dataCacheName = 'new-data-v1';
+let cacheName = 'first-pwa-app-1';
 
 //#region service worker 事件监听与方法
-self.addEventListener("install", function (e) {
-  console.log("SW Install");
+self.addEventListener('install', function (e) {
+  console.log('SW Install');
   e.waitUntil(
     caches.open(cacheName).then(function (cache) {
-      console.log("SW precaching");
+      console.log('SW precaching');
     })
   );
   self.skipWaiting();
 });
 
-self.addEventListener("activate", function (e) {
-  console.log("SW Activate");
+self.addEventListener('activate', function (e) {
+  console.log('SW Activate');
   e.waitUntil(
     caches.keys().then(function (keyList) {
       return Promise.all(
         keyList.map(function (key) {
           if (key !== cacheName && key !== dataCacheName) {
-            console.log("SW Removing old cache", key);
+            console.log('SW Removing old cache', key);
             return caches.delete(key);
           }
         })
@@ -34,10 +34,10 @@ self.addEventListener("activate", function (e) {
 });
 
 // 目前使用需要FQ，故不使用
-self.addEventListener("push", function (e) {});
+self.addEventListener('push', function (e) {});
 
 // 注意：event.data.message.data传递只能是对象，且不能有currentSourceId字段
-self.addEventListener("message", (event) => {
+self.addEventListener('message', (event) => {
   const currentSourceId = event.source.id; // 传递到notification中
   // 扩展event.data.message.data
   if (event.data.message && event.data.message.options) {
@@ -61,14 +61,14 @@ const displayNotification = async (title, options) => {
 
 const processReceiveMessage = (event) => {
   switch (event.data.type) {
-    case "notification":
+    case 'notification':
       processReceiveMessageToNotification(event);
       break;
-    case "":
-      event.source.postMessage("Please send correct command!");
+    case '':
+      event.source.postMessage('Please send correct command!');
       break;
     default:
-      event.source.postMessage("Please send correct command!");
+      event.source.postMessage('Please send correct command!');
   }
 };
 
@@ -83,9 +83,9 @@ const processReceiveMessageToNotification = (event) => {
 //#endregion
 
 //#region notification 事件监听与方法
-self.addEventListener("notificationclick", function (event) {
+self.addEventListener('notificationclick', function (event) {
   const notification = event.notification;
-  console.log("测试 data 通知时间:" + notification.data.currentSourceId);
+  console.log('测试 data 通知时间:' + notification.data.currentSourceId);
 
   event.waitUntil(
     self.clients.matchAll().then(function (clients) {
@@ -108,15 +108,15 @@ self.addEventListener("notificationclick", function (event) {
   event.notification.close();
 });
 
-self.addEventListener("notificationclose", function (event) {
-  console.log("测试 data 通知时间:");
+self.addEventListener('notificationclose', function (event) {
+  console.log('测试 data 通知时间:');
 });
 
-self.addEventListener("notificationerror", function (event) {
-  console.log("测试 data 通知时间:");
+self.addEventListener('notificationerror', function (event) {
+  console.log('测试 data 通知时间:');
 });
 
-self.addEventListener("notificationshow", function (event) {
-  console.log("测试 data 通知时间:");
+self.addEventListener('notificationshow', function (event) {
+  console.log('测试 data 通知时间:');
 });
 //#endregion
