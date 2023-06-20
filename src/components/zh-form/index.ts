@@ -65,10 +65,15 @@ export default class Form {
     if (!convertedModel) return;
     const needConverTFromFields = fields.filter((x) => x.convert);
     for (let i = 0; i < needConverTFromFields.length; i++) {
-      const method: Function | undefined = needConverTFromFields[i].convert;
+      const method: Function | string | undefined = needConverTFromFields[i].convert;
       const prop: any = needConverTFromFields[i]?.prop;
       if (prop && method) {
-        convertedModel[prop] = method(model[prop], model);
+        if (typeof method === 'string') {
+          const func = new Function('fieldValue, modelValue', method);
+          return func(model[prop], model);
+        } else {
+          convertedModel[prop] = method(model[prop], model);
+        }
       }
     }
   };

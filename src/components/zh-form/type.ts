@@ -1,4 +1,5 @@
 import { CascaderOption, CascaderProps } from 'element-plus';
+import { IDatePickerType } from 'element-plus/es/components/date-picker/src/date-picker.type';
 import { EpPropMergeType } from 'element-plus/es/utils';
 
 
@@ -57,6 +58,10 @@ export interface TZHFromField {
   multiple?: boolean
   remote?: boolean
   remoteMethod?: Function
+  labelField?: string
+  valueField?: string
+  api?: string
+
 
   // 时间选择器
   timeType?: EpPropMergeType<(new (...args: any[]) => IDatePickerType & {}) | (() => IDatePickerType) | ((new (...args: any[]) => IDatePickerType & {}) | (() => IDatePickerType))[], unknown, unknown> | undefined

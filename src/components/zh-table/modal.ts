@@ -28,11 +28,12 @@ export default class Modal {
     this.emit = emit;
   }
 
+  columnFunctionFields = ['convert'];
   _getObjctWithoutFunction = (obj: TObject) => {
     const keys = Object.keys(obj);
     const newObj = {};
     keys.forEach((x: string) => {
-      if (typeof obj[x] !== 'function') {
+      if (typeof obj[x] !== 'function' && !this.columnFunctionFields.find((y:string) => y === x)) {
         newObj[x] = obj[x];
       }
     });

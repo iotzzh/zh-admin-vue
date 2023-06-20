@@ -133,8 +133,11 @@ new Promise((resolve, reject) => {
                 {
                     label: '角色', prop: 'role', notDisplay: true, addEditInfo: {
                         addSort: 3,
-                        type: 'select',
+                        type: 'select2',
+                        api: api.getRoleList,
                         valueKey: 'id',
+                        labelField: 'roleName',
+                        valueField: 'id',
                         span: 12,
                         xs: 24,
                         sm: 12,
@@ -142,6 +145,7 @@ new Promise((resolve, reject) => {
                         lg: 8,
                         xl: 8,
                         required: true,
+                        convert: 'return fieldValue && fieldValue.id',
                         // convert: (model: any, convertModel: any, fields: any) => {
                         //     return model && model.map((x: any) => x.id);
                         // },

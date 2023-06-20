@@ -58,14 +58,14 @@
                 :value="item.valueKey ? subItem : subItem.value"></el-option>
             </el-select>
 
-            <!-- <ZHSelect 
-              v-else-if="item.type === 'api-select'" 
-              v-model="modelValue[item.prop]
+            <ZHSelect 
+              v-else-if="item.type === 'select2'" 
+              v-model="modelValue[item.prop]"
               :options="item.options"
               :api="item.api"
-              value-key="id" 
-              label-field="permsionName"
-              value-field="id"></ZHSelect> -->
+              :value-key="item.valueKey" 
+              :label-field="item.labelField"
+              :value-field="item.valueField"></ZHSelect>
 
             <!-- 日期选择 -->
             <el-date-picker v-else-if="item.type === 'date-picker'" v-model="modelValue[item.prop]" :disabled="item.disabled === undefined ? false :
