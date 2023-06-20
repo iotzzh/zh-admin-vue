@@ -2,6 +2,7 @@
     <Suspense>
         <BasicTemplate v-if="pageSetting" :setting="pageSetting"></BasicTemplate>
         <div v-else>loading...</div>
+        <ZHModal2 v-for="(item, index) in pageSetting.modals" :key="index" :modal="item"></ZHModal2>
     </Suspense>
 </template>
 
@@ -10,6 +11,7 @@ import BasicTemplate from '@/templates/Basic.vue';
 import { ref } from 'vue';
 import isHelper from '@/utils/isHelper';
 import api from '@/api/index';
+import ZHModal2 from '@/components/zh-modal2/index.vue';
 
 const isMobile = isHelper.isMobile();
 const pageSetting: any = ref({});
@@ -170,6 +172,11 @@ new Promise((resolve, reject) => {
             delete: { url: api.deleteUser, successMessage: '删除成功', errorMessage: '删除失败' },
             batchDelete: { url: api.batchDeleteUser, successMessage: '批量删除成功', errorMessage: '批量删除失败' },
         },
+        modals: [
+            {
+
+            }
+        ],
     };
     pageSetting.value = setting;
 });

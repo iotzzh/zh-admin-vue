@@ -67,7 +67,7 @@ defineExpose({});
 </script>
 
 <script lang="ts">
-export default { name: 'ZHModal' }; </script>
+export default { name: 'ZHModal2' }; </script>
 
 <!-- 注意：这里使用的全局样式！！！ -->
 <style lang="scss">
