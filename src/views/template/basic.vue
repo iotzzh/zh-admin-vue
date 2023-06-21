@@ -1,18 +1,12 @@
 <template>
-    <BasicTemplate v-if="pageSetting" :config="pageSetting"></BasicTemplate>
+    <BasicTemplate :config="pageSetting"></BasicTemplate>
 </template>
 
 <script lang="ts" setup>
 import BasicTemplate from '@/templates/Basic.vue';
-import { ref, provide } from 'vue';
-import isHelper from '@/utils/isHelper';
+import { ref } from 'vue';
 import api from '@/api/index';
 
-import { onMounted, createApp } from 'vue';
-
-// const refModals = ref([] as any);
-
-const isMobile = isHelper.isMobile();
 const pageSetting: any = ref({});
 new Promise((resolve, reject) => {
     const pageConfig = {
@@ -24,7 +18,6 @@ new Promise((resolve, reject) => {
                 hasUploadButton: false,
                 hasExportButton: false,
                 hasResetButton: true,
-                hideUnimportantFields: isMobile,
                 customModel: {},
                 formLabelWidth: '70px',
                 fields: [
@@ -48,14 +41,15 @@ new Promise((resolve, reject) => {
                         sm: 12,
                         md: 8,
                         lg: 8,
-                        xl: 6, unimportant: isMobile,
+                        xl: 6,
                     },
                     {
                         label: '状态', type: 'select', prop: 'status', xs: 24,
                         sm: 12,
                         md: 8,
                         lg: 8,
-                        xl: 6, defaultValue: 1, unimportant: isMobile,
+                        xl: 6, 
+                        defaultValue: 1,
                         options: [{ label: '在职', value: 1 }, { label: '离职', value: 0 },],
                     },
                 ],
@@ -70,6 +64,7 @@ new Promise((resolve, reject) => {
                     footer: {},
                     formSettings: {
                         formLabelWidth: '90px',
+                        // customValidate: 'return true',
                         // customValidate: (modelValue: any) => {
                         //     const isPhoneNum = isHelper.isPhoneNum(modelValue.phone);
                         //     if (!isPhoneNum) {
@@ -79,6 +74,8 @@ new Promise((resolve, reject) => {
                         //     return true;
                         // },
                     },
+                    onBeforeSubmit: 'console.log("onbeforeSubmit");',
+                    onAfterSubmit: 'console.log("onaftersubmit");'
                     // onBeforeSubmit: async (params: any) => {
                     //     console.log('onBeforeSubmit');
                     // },
@@ -181,7 +178,7 @@ new Promise((resolve, reject) => {
                 modal: {
                     show: false,
                     stringSlotName: 'my-c',
-                    stringSlotT: '<h1>Hello </h1>'
+                    stringSlotT: `<el-button type="primary">Hello </el-button>`
                 },
             }
         ],
