@@ -1,4 +1,4 @@
-.box { height: 100%; width: 100%;
+.box { height: 100%; width: 100%; overflow-y: hidden; overflow-x: hidden;
     .row { margin-bottom: 20px; }
     .column { background-color: white; padding: 7px; }
     .row.list {
@@ -18,3 +18,14 @@
         height: calc((100vh - 260px) / 2);
       }
   }
+
+  @media screen and (max-width: 992px) {
+      .box {
+        overflow-y: auto;
+      }
+      .row { margin-bottom: 0px !important; }
+      .column {
+        padding: 0px;
+        margin: 7px;
+      }
+   }
