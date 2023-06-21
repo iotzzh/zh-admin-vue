@@ -64,24 +64,9 @@ new Promise((resolve, reject) => {
                     footer: {},
                     formSettings: {
                         formLabelWidth: '90px',
-                        // customValidate: 'return true',
-                        // customValidate: (modelValue: any) => {
-                        //     const isPhoneNum = isHelper.isPhoneNum(modelValue.phone);
-                        //     if (!isPhoneNum) {
-                        //         popErrorMessage('请输入正确的手机号');
-                        //         return false;
-                        //     }
-                        //     return true;
-                        // },
                     },
                     onBeforeSubmit: 'console.log("onbeforeSubmit");',
                     onAfterSubmit: 'console.log("onaftersubmit");'
-                    // onBeforeSubmit: async (params: any) => {
-                    //     console.log('onBeforeSubmit');
-                    // },
-                    // onAfterSubmit: async (params: any) => {
-                    //     console.log('onAfterSubmit');
-                    // },
                 },
                 columns: [
                     {
@@ -103,7 +88,6 @@ new Promise((resolve, reject) => {
                         }
                     },
                     {
-                        // label: '性别', prop: 'sex', convert: (row: any) => row.sex === 0 ? '女' : row.sex === 1 ? '男' : '未知',
                         label: '性别', prop: 'sex', convert: 'return row?.sex === 0 ? \'男\' : \'女\'',
                         minWidth: '80px',
                         addEditInfo: {
@@ -144,9 +128,6 @@ new Promise((resolve, reject) => {
                             xl: 8,
                             required: true,
                             convert: 'return fieldValue && fieldValue.id',
-                            // convert: (model: any, convertModel: any, fields: any) => {
-                            //     return model && model.map((x: any) => x.id);
-                            // },
                         }
                     },
                 ],
