@@ -1,13 +1,16 @@
 <template>
-    <BasicTemplate v-if="pageSetting" :config="pageSetting.tableConfig"></BasicTemplate>
+    <BasicTemplate v-if="pageSetting" :config="pageSetting"></BasicTemplate>
 </template>
 
 <script lang="ts" setup>
 import BasicTemplate from '@/templates/Basic.vue';
-import { ref } from 'vue';
+import { ref, provide } from 'vue';
 import isHelper from '@/utils/isHelper';
 import api from '@/api/index';
-import ZHModal2 from '@/components/zh-modal2/index.vue';
+
+import { onMounted, createApp } from 'vue';
+
+// const refModals = ref([] as any);
 
 const isMobile = isHelper.isMobile();
 const pageSetting: any = ref({});
@@ -157,7 +160,8 @@ new Promise((resolve, reject) => {
                     hasRowEditAction: true,
                     buttons: [
                         // { label: '激活', hide: true, type: 'primary', icon: 'Refresh', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
-                        { label: '激活', hide: false, type: 'primary', icon: 'Refresh', onClick: 'console.log(\'row.phone: \' + row.phone, \'/n index: \' + index)' },
+                        // { label: '激活', hide: false, type: 'primary', icon: 'Refresh', onClick: 'console.log(\'row.phone: \' + row.phone, \'/n index: \' + index)' },
+                        { label: '激活', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'modal1\'] && refModals[\'modal1\'].open();' },
                     ],
                 },
             },
@@ -171,9 +175,14 @@ new Promise((resolve, reject) => {
             pageSettings: {},
         },
 
-        modals: [
+        modalConfig: [
             {
-
+                refName: 'modal1',
+                modal: {
+                    show: false,
+                    stringSlotName: 'my-c',
+                    stringSlotT: '<h1>Hello </h1>'
+                },
             }
         ],
     };

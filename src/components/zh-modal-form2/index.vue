@@ -1,0 +1,71 @@
+<template>
+  <ZHModal ref="refZHModal" :modal="modal" @close="zhFormModal.close" @submit="zhFormModal.submit"
+    @cancel="zhFormModal.cancel" @opened="opened">
+    <ZHForm ref="refZHForm" :formSettings="formSettings" v-model="modelValue" v-bind:convertedModel="convertedModel">
+      <slot v-for="(item, index) in slotFields" :name="'zh-form-' + item.prop" :key="index" />
+    </ZHForm>
+  </ZHModal>
+</template>
+
+<script setup lang="ts">
+import { toRefs, PropType, ref, computed } from 'vue';
+import ZHModal from '../zh-modal/index.vue';
+import { TZHModal } from '../zh-modal/type';
+import ZHForm from '../zh-form/index.vue';
+import ZHFormModal from './index';
+import { TZHFormSettings } from '../zh-form/type';
+
+const props = defineProps({
+  modelValue: {
+    type: Object as PropType<{[x:string]: any}>,
+    required: true,
+  },
+
+  convertedModel: {
+    type: Object as PropType<{[x:string]: any}>,
+  },
+
+  modal: {
+    type: Object as PropType<TZHModal>,
+    required: true, // 必传
+  },
+
+  formSettings: {
+    type: Object as PropType<TZHFormSettings>,
+    required: true,
+  },
+});
+
+const { modal, modelValue, formSettings } = toRefs(props);
+const refZHModal = ref();
+const refZHForm = ref();
+const emit = defineEmits(['close', 'submit', 'cancel', 'update:modelValue', 'update:convertedModel', 'opened']);
+
+const zhFormModal = new ZHFormModal({ emit, refZHModal, refZHForm, modelValue, formSettings });
+
+const opened = () => { emit('opened'); };
+
+const slotFields = computed(() => {
+  return formSettings?.value?.fields?.filter((x:any) => x.type === 'slot');
+});
+
+
+defineExpose({
+  open: zhFormModal.open,
+  initForm: zhFormModal.initForm,
+  clearFormData: zhFormModal.clearFormData,
+  setModalFormModel: zhFormModal.setModalFormModel,
+});
+</script>
+
+<script lang="ts">export default { name: 'ZHModalForm2' };</script>
+
+<!-- 注意： 这里使用的是全局样式！！！ -->
+<style lang="scss">
+.el-dialog__header {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bolder;
+  border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+}
+</style>

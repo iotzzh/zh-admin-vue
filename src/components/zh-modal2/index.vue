@@ -63,7 +63,9 @@ const classNames = computed(() => {
 });
 
 
-defineExpose({});
+defineExpose({
+  open: zhModal.open,
+});
 </script>
 
 <script lang="ts">
