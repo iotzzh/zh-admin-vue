@@ -4,6 +4,7 @@ import 'element-plus/dist/index.css';
 import './styles/global.css';
 import './assets/iconfont/iconfont.css';
 import 'aos/dist/aos.css';
+import 'splitpanes/dist/splitpanes.css';
 
 import { createApp } from 'vue';
 import { setupStore } from '@/stores/index';

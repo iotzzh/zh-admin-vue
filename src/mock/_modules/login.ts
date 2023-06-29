@@ -506,6 +506,40 @@ export default [
                 },
             ];
 
+             // 布局插件
+             const layoutPlugins = [
+                {
+                    'id': '0020',
+                    'parentId': '001',
+                    'permsionName': '布局插件',
+                    'url': '/layoutPlugins',
+                    'menuType': 1,
+                    'permsionCode': 'layoutPlugins',
+                    'sourceBy': null,
+                    'sortNo': 10,
+                    'icon': 'icon-donghua',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+                {
+                    'id': '00201',
+                    'parentId': '0020',
+                    'permsionName': 'splitpanes',
+                    'routeName': 'splitpanes',
+                    'menuType': 2,
+                    'permsionCode': 'splitpanes',
+                    'url': '/layoutPlugins/splitpanes',
+                    'filePath': 'views/layoutPlugins/splitpanes',
+                    'sourceBy': null,
+                    'sortNo': 1,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+            ];
+
             const result = {
                 success: true,
                 errorCode: '',
@@ -523,6 +557,7 @@ export default [
                     ...animation,
                     ...component,
                     ...template,
+                    ...layoutPlugins,
                 ],
             };
 
