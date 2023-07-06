@@ -58,7 +58,7 @@ defineExpose({
 });
 </script>
 
-<script lang="ts">export default { name: 'ZHModalForm2' };</script>
+<script lang="ts">export default { name: 'ZHModalForm' };</script>
 
 <!-- 注意： 这里使用的是全局样式！！！ -->
 <style lang="scss">

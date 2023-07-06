@@ -1,4 +1,4 @@
-import { TZHModalForm } from '../zh-modal-form/type';
+import { TZHFormModal } from '../zh-form-modal/type';
 import { TZHFromField, TZHFormSettings } from '../zh-form/type';
 import { TreeNode } from 'element-plus';
 
@@ -111,7 +111,7 @@ export interface TZHTableSetting {
   onBeforeInitData?: Function // 在初始化数据之前执行
 }
 
-export interface TZHTableModal extends TZHModalForm {
+export interface TZHTableModal extends TZHFormModal {
   customModel?: {[x:string]: any}
 }
 

@@ -193,9 +193,9 @@
       v-model:currentPage="pageData.current" v-model:page-size="pageData.size"
       @current-change="page?.handleCurrentChange" @size-change="page?.handleCurrentChange" />
 
-    <ZhModalForm ref="refZhModalForm" :modal="modalInstance.modal.value" v-model="modalInstance.formModel.value"
+    <ZhFormModal ref="refZhModalForm" :modal="modalInstance.modal.value" v-model="modalInstance.formModel.value"
       v-model:converted-model="modalInstance.convertedModel.value" :formSettings="modalInstance.formSettings.value"
-      @cancel="modalInstance.cancel" @close="modalInstance.close" @submit="modalInstance.submit" @opened="modalInstance.opened"></ZhModalForm>
+      @cancel="modalInstance.cancel" @close="modalInstance.close" @submit="modalInstance.submit" @opened="modalInstance.opened"></ZhFormModal>
   </div>
 </template>
 
@@ -204,7 +204,7 @@ import { toRefs, PropType, computed, ref, Ref, watch, onMounted } from 'vue';
 import { Delete, Edit, CloseBold, Select } from '@element-plus/icons-vue';
 import dayjs from 'dayjs';
 import ZHForm from '../zh-form/index.vue';
-import ZhModalForm from '../zh-modal-form/index.vue';
+import ZhFormModal from '../zh-form-modal/index.vue';
 import ZHFormButtons from './form-buttons.vue';
 import { ElTable } from 'element-plus';
 import { TZHTablePage, TZHTable } from './type';

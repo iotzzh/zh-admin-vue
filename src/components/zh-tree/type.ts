@@ -1,5 +1,5 @@
 import { TZHFormSettings } from '../zh-form/type';
-import { TZHModalForm } from '../zh-modal-form/type';
+import { TZHFormModal } from '../zh-form-modal/type';
 import { TZHTableModal } from '../zh-table/type';
 
 export interface TZHTreeSetting {
@@ -18,7 +18,7 @@ export interface TZHTreeSetting {
   modal?: TZHTreeModal // 弹窗配置
 }
 
-export interface TZHTreeModal extends TZHModalForm {
+export interface TZHTreeModal extends TZHFormModal {
   customModel?: {[x:string]: any}
 }
 

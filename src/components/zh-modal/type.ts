@@ -1,4 +1,5 @@
 export interface TZHModal {
+  refName?: string // 便于调用modal内方法
   show?: boolean // 是否展示
   width?: string // 弹窗宽度
   loadingSubmit?: boolean // 提交按钮是否处于loading状态
@@ -15,6 +16,17 @@ export interface TZHModal {
 
   onBeforeSubmit?: Function
   onAfterSubmit?: Function
+
+  // 通过字符串创建slot内容
+  conmponentName?: string
+  template?: string
+  methods?: Array<TZHModalMethod>
+}
+
+export interface TZHModalMethod {
+  name: string
+  prop?: string
+  body: string
 }
 
 export interface TZHModalFooter {

@@ -1,7 +1,7 @@
 <template>
   <el-dialog v-model="modal.show" v-if="modal.show" :title="modal.title" :closeOnClickModal="false"
     :width="isMobile ? '90%' : modal.width || ''" @close="zhModal.close" :top="modal.top"
-    :fullscreen="zhModal.fullscreen.value" :class="classNames" @opened="opened" :append-to-body="true"
+    :fullscreen="zhModal.fullscreen.value" :class="classNames" @opened="zhModal.opened" :append-to-body="true"
     :show-close="false">
     <div class="body-box" v-loading="modal.loadingPage">
       <slot></slot>
@@ -50,24 +50,24 @@ const props = defineProps({
 
 const { modal } = toRefs(props);
 
-const emit = defineEmits(['close', 'submit', 'cancel', 'opened']);
+const emit = defineEmits(['closed', 'submited', 'canceled', 'opened']);
 
 const isMobile = ref(storage.getIsMobile());
 
 const zhModal = new ZHModal(modal, emit);
-
-const opened = () => { emit('opened'); };
 
 const classNames = computed(() => {
   return (modal.value.customClass || '') + ' zh-modal ' + (zhModal.fullscreen.value ? 'vh80' : 'vh60');
 });
 
 
-defineExpose({});
+defineExpose({
+  open: zhModal.open,
+});
 </script>
 
 <script lang="ts">
-export default { name: 'ZHModal' }; </script>
+export default { name: 'ZHModal2' }; </script>
 
 <!-- 注意：这里使用的全局样式！！！ -->
 <style lang="scss">

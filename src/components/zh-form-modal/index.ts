@@ -40,13 +40,13 @@ export default class ZHFormModal {
     };
 
     cancel = () => {
-        this.emit('canceled');
+        this.emit('cancel');
         // this.refZHForm.value && this.refZHForm.value.clearFormData();
     };
 
     submit = async () => {
         if (await this.refZHForm.value.validate()) {
-            this.emit('submited');
+            this.emit('submit');
         }
     };
 }

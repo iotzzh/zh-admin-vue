@@ -4,26 +4,34 @@
         <ZHTable ref="refZHTable" v-if="config.tableConfig" :config="config.tableConfig"></ZHTable>
         <div v-else>loading...</div>
 
-        <div v-for="(item, index) in config.modalConfig" :key="index">
-        <ZHModal2 :ref="(el: any) => setRefMap(el, item.refName)" :modal="item.modal">
-            <component v-for="(item, index) in modalComponents" :key="index" :is="item"></component>
-        </ZHModal2>
+        <div v-for="(modalConfig, index) in config.modalsConfig" :key="index">
+        <ZHModal :ref="(el: any) => setRefMap(el, modalConfig.refName)" :modal="modalConfig" >
+            <component v-if="modalConfig.conmponentName" :is="modalComponents[modalConfig.conmponentName]"></component>
+        </ZHModal>
+        </div>
+
+        <div v-for="(modalConfig, index) in config.modalsConfig" :key="index">
+        <!-- <ZHFormModal :ref="(el: any) => setRefMap(el, modalConfig.refName)" :modal="modalInstance.modal.value" v-model="modalInstance.formModel.value"
+      v-model:converted-model="modalInstance.convertedModel.value" :formSettings="modalInstance.formSettings.value"
+      @cancel="modalInstance.cancel" @close="modalInstance.close" @submit="modalInstance.submit" @opened="modalInstance.opened">
+        </ZHFormModal> -->
         </div>
     </ZHLayout>    
 </template>
 
 <script lang="ts" setup>
-import { ref, PropType, toRefs, createApp, provide } from 'vue';
+import { ref, PropType, toRefs, createApp, provide, onMounted } from 'vue';
 import ZHLayout from '@/components/zh-layout/index.vue';
 import ZHTable from '@/components/zh-table/index.vue';
 import { TZHTable } from '@/components/zh-table/type';
-import ZHModal2 from '@/components/zh-modal2/index.vue';
+import ZHModal from '@/components/zh-modal/index.vue';
 import { TZHModal } from '@/components/zh-modal/type';
-import { onMounted } from 'vue';
+import ZHFormModal from '@/components/zh-form-modal/index.vue';
 
 type TPageConfig = {
     tableConfig: TZHTable
-    modalConfig: Array<TZHModal>
+    modalsConfig: Array<TZHModal>
+    formModalsConfig: Array<TZHFormModal>
 };
 
 const props = defineProps({
@@ -37,8 +45,8 @@ const { config } = toRefs(props);
 const refZHTable = ref();
 const refModals: Record<string, any> = {};
 provide('refModals', refModals);
-const setRefMap = (el: any, name: string) => {
-    if (el) {
+const setRefMap = (el: any, name: string | undefined) => {
+    if (el && name) {
         refModals[`${name}`] = el;
     }
 };
@@ -46,13 +54,24 @@ const setRefMap = (el: any, name: string) => {
 
 const modalComponents = ref({} as any);
 const createComponent = () => {
+    if (!config.value?.modalsConfig || config.value?.modalsConfig.length === 0) return;
     const app = createApp({});
-    for (let modalConfig of config.value?.modalConfig) {
-        const settings = modalConfig.modal;
-        app.component(settings.stringSlotName, {
-            template: settings.stringSlotT
+    for (let modalConfig of config.value.modalsConfig) {
+        const settings = modalConfig;
+        if (!settings.conmponentName) continue;
+        let methods:any = {};
+        modalConfig.methods && modalConfig.methods.forEach((x:any) => {
+            methods[x.name] = new Function(x.prop, x.body);
         });
-        modalComponents.value[settings.stringSlotName] = app.component(settings.stringSlotName);
+
+        app.component(settings.conmponentName || 'temp', {
+            template: settings.template,
+            props: {
+                name,
+            },
+            methods,
+        });
+        modalComponents.value[settings.conmponentName] = app.component(settings.conmponentName);
     }
 };
 

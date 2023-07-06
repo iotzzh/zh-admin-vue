@@ -48,7 +48,7 @@ new Promise((resolve, reject) => {
                         sm: 12,
                         md: 8,
                         lg: 8,
-                        xl: 6, 
+                        xl: 6,
                         defaultValue: 1,
                         options: [{ label: '在职', value: 1 }, { label: '离职', value: 0 },],
                     },
@@ -133,13 +133,12 @@ new Promise((resolve, reject) => {
                 ],
                 actionColumn: {
                     label: '操作',
-                    width: '215px',
+                    width: '240px',
                     hasRowDeleteAction: true,
                     hasRowEditAction: true,
                     buttons: [
-                        // { label: '激活', hide: true, type: 'primary', icon: 'Refresh', onClick: (row: any, index: any) => { console.log('row: ' + row, '/n index: ' + index); } },
-                        // { label: '激活', hide: false, type: 'primary', icon: 'Refresh', onClick: 'console.log(\'row.phone: \' + row.phone, \'/n index: \' + index)' },
-                        { label: '激活', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'modal1\'] && refModals[\'modal1\'].open();' },
+                        { label: '弹窗1', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'modal1\'] && refModals[\'modal1\'].open();' },
+                        { label: '弹窗2', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'modal2\'] && refModals[\'modal2\'].open();' },
                     ],
                 },
             },
@@ -153,18 +152,60 @@ new Promise((resolve, reject) => {
             pageSettings: {},
         },
 
-        modalConfig: [
+        modalsConfig: [
             {
                 refName: 'modal1',
-                modal: {
-                    show: false,
-                    stringSlotName: 'my-c',
-                    stringSlotT: `<el-button type="primary">Hello </el-button>`
-                },
+                width: '300px',
+                title: '测试自定义modal内容',
+                show: false,
+                conmponentName: 'my-c1',
+                methods: [
+                    { name: 'clickMethod', props: '', body: `console.log('hello world')` }
+                ],
+                template: `<div style="width: 100%; text-align: center; height: 300px;
+                display: flex; align-items:center;justify-content: center;"><el-button type="primary" @click="clickMethod">弹窗1 </el-button></div>`,
+            },
+            {
+                refName: 'modal2',
+                width: '300px',
+                title: '测试自定义modal内容',
+                show: false,
+                conmponentName: 'my-c2',
+                methods: [
+                    { name: 'clickMethod', props: '', body: `console.log('hello world')` }
+                ],
+                template: `<div style="width: 100%; text-align: center; height: 300px;
+                display: flex; align-items:center;justify-content: center;"><el-button type="primary" @click="clickMethod">弹窗2 </el-button></div>`,
+            }
+        ],
+        formModalsConfig: [
+            {
+                refName: 'formModal1',
+                width: '300px',
+                title: '测试自定义modal内容',
+                show: false,
+                conmponentName: 'my-c11',
+                methods: [
+                    { name: 'clickMethod', props: '', body: `console.log('hello world')` }
+                ],
+                template: `<div style="width: 100%; text-align: center; height: 300px;
+                display: flex; align-items:center;justify-content: center;"><el-button type="primary" @click="clickMethod">弹窗1 </el-button></div>`,
+            },
+            {
+                refName: 'formModal2',
+                width: '300px',
+                title: '测试自定义modal内容',
+                show: false,
+                conmponentName: 'my-c22',
+                methods: [
+                    { name: 'clickMethod', props: '', body: `console.log('hello world')` }
+                ],
+                template: `<div style="width: 100%; text-align: center; height: 300px;
+                display: flex; align-items:center;justify-content: center;"><el-button type="primary" @click="clickMethod">弹窗2 </el-button></div>`,
             }
         ],
     };
-    pageSetting.value = pageConfig;
+    pageSetting.value = JSON.parse(JSON.stringify(pageConfig));
 });
 </script>
 

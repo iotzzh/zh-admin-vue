@@ -1,7 +1,7 @@
 import { TZHFormSettings, TZHFromField } from '../zh-form/type';
 import { TZHModal } from '../zh-modal/type';
 
-export interface TZHModalForm extends TZHModal {
+export interface TZHFormModal extends TZHModal {
   // show: boolean
   width?: string
   title?: string
