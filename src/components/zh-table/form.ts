@@ -1,5 +1,5 @@
 import { Ref, ref } from 'vue';
-import { TZHTablePage, TZHTableRequest, TZHTableFormSettings, TZHTableFromField } from './type';
+import { TZHTablePage, TZHTableRequest, TZHTableForm, TZHTableFromField } from './type';
 import _ from 'lodash';
 
 
@@ -7,11 +7,11 @@ export default class Form {
   page: Ref<TZHTablePage>;
   refZHForm: any;
   request: TZHTableRequest | undefined;
-  formSettings: TZHTableFormSettings | undefined;
+  formSettings: TZHTableForm | undefined;
   constructor(
     page: Ref<TZHTablePage>,
     request: TZHTableRequest | undefined,
-    formSettings: TZHTableFormSettings | undefined,
+    formSettings: TZHTableForm | undefined,
     refZHForm: any
   ) {
     this.page = page;

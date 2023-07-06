@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import { TZHFromField } from '@/components/zh-form/type';
 import Table from '@/components/zh-table/index.vue';
-import { TObject, TZHTableRequest, TZHTableFormSettings, TZHTableSetting, TZHTableColumn } from '@/components/zh-table/type';
+import { TObject, TZHTableRequest, TZHTableForm, TZHTableSetting, TZHTableColumn } from '@/components/zh-table/type';
 import { onMounted, reactive, ref } from 'vue';
 import api from '../api/table/index';
 import { RefreshLeft, Search, Delete, Download, Plus, DocumentChecked, Refresh, Upload, Edit } from '@element-plus/icons-vue';
@@ -115,7 +115,7 @@ const formSettings = ref({
         },
         { label: '测试复选框', type: 'checkbox', prop: 'testCheckbox', checkboxText: '复选框后面的文字', span: 8, options: [], },
     ],
-} as TZHTableFormSettings);
+} as TZHTableForm);
 
 onMounted(() => {
     const sexItem = formSettings.value.fields?.find((x: TZHFromField) => x.prop === 'sex') as TZHFromField;

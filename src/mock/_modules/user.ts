@@ -87,7 +87,7 @@ export default [
     },
   },
   {
-    url: '/apiMock/user/delete',
+    url: '/apiMock/user/remove',
     type: 'post',
     response: () => {
       return {

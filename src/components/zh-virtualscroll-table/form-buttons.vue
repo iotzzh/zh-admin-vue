@@ -28,7 +28,7 @@
 
 <script lang="ts" setup>
 import { PropType, toRefs } from 'vue';
-import { TZHTableFormSettings } from './type';
+import { TZHTableForm } from './type';
 import { RefreshLeft, Search, Delete, Download, Plus, DocumentChecked, Refresh, Upload, Edit } from '@element-plus/icons-vue';
 import Table from './table';
 import Modal from './modal';
@@ -36,7 +36,7 @@ import Form from './form';
 
 const props = defineProps({
     formSettings: {
-        type: Object as PropType<TZHTableFormSettings>,
+        type: Object as PropType<TZHTableForm>,
         required: false, // 必传
     },
     table: {

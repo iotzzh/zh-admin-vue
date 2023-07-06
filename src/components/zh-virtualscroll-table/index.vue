@@ -174,7 +174,7 @@ import ZHForm from '../zh-form/index.vue';
 import ZhModalForm from '../zh-modal-form/index.vue';
 import ZHFormButtons from './form-buttons.vue';
 import { ElTable } from 'element-plus';
-import { TZHTablePageSetting, TZHTableRequest, TZHTableSetting, TZHTablePage, TZHTableFormSettings } from './type';
+import { TZHTablePageSetting, TZHTableRequest, TZHTableSetting, TZHTablePage, TZHTableForm } from './type';
 import Page from './page';
 import Table from './table';
 import Form from './form';
@@ -188,7 +188,7 @@ const props = defineProps({
   },
 
   formSettings: {
-    type: Object as PropType<TZHTableFormSettings>,
+    type: Object as PropType<TZHTableForm>,
     required: false, // 必传
   },
 

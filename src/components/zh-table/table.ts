@@ -1,10 +1,11 @@
 import { computed, Ref, ref } from 'vue';
-import { TZHTablePage, TZHTableRequest, TZHTableRequestResult, TZHTableSetting } from './type';
+import { TZHTableConfig, TZHTablePageConfig,TZHTableRequestConfig, TZHTableRequestConfigResult  } from './type';
 import Form from './form';
 import { isMessageConfirm, popErrorMessage, popSuccessMessage } from '../zh-message';
 import { TZHRequestParams } from '../zh-request/type';
 import ZHRequest from '../zh-request';
 import { debounce, throttle } from 'lodash';
+import { TZHformConfig } from '../zh-form/type';
 
 export default class Table {
   refTable: any;
@@ -13,14 +14,14 @@ export default class Table {
   form: Form;
 
   emit: any;
-  tableSettings: TZHTableSetting;
-  request: TZHTableRequest | undefined;
+  tableSettings: TZHTableConfig;
+  request: TZHTableRequestConfig | undefined;
   constructor(
-    tableSettings: TZHTableSetting,
+    tableSettings: TZHTableConfig,
     refTable: any,
-    request: TZHTableRequest | undefined,
+    request: TZHTableRequestConfig | undefined,
     form: Form,
-    pageData: Ref<TZHTablePage>,
+    pageData: Ref<TZHTablePageConfig>,
     emit: any
   ) {
     this.tableSettings = tableSettings;
@@ -58,7 +59,7 @@ export default class Table {
     };
     // console.log('params', params);
     // 获取数据
-    const result: TZHTableRequestResult = await ZHRequest.post(args);
+    const result: TZHTableRequestConfigResult = await ZHRequest.post(args);
     // 处理数据
     if (result.success) {
       this.data.value = result.data.records || result.data;
@@ -79,7 +80,7 @@ export default class Table {
 
   getDataAsync = async (propParams?: Object) => {
     const params = propParams || this.form.getSearchParams();
-    const result: TZHTableRequestResult = await ZHRequest.post(params);
+    const result: TZHTableRequestConfigResult = await ZHRequest.post(params);
     return result;
   };
 
@@ -98,7 +99,7 @@ export default class Table {
         ids: selections.map((x: any) => x.id),
       },
     };
-    const result: TZHTableRequestResult = await ZHRequest.post(params);
+    const result: TZHTableRequestConfigResult = await ZHRequest.post(params);
     if (result.success) {
       this.debounceInitData();
       this.refTable.value && this.refTable.value.clearSelection();
@@ -143,7 +144,7 @@ export default class Table {
         ids: [row.id]
       },
     };
-    const result: TZHTableRequestResult = await ZHRequest.post(params);
+    const result: TZHTableRequestConfigResult = await ZHRequest.post(params);
     if (result.success) {
       if (this.tableSettings.load && (this.tableSettings.validateLoad === undefined ? true : this.tableSettings.validateLoad(row))) {
         this.reloadTableTreeChild(row.parentId);

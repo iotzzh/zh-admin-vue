@@ -39,7 +39,7 @@ export interface TZHFromFieldConvertDateTime {
   format: string
 }
 
-export interface TZHTableFormSettings extends TZHFormSettings {
+export interface TZHTableForm extends TZHFormSettings {
   hasSearchButton?: boolean // 显示搜索按钮
   hasDeleteButton?: boolean // 显示批量删除按钮
   hasExportButton?: boolean // 显示导出按钮

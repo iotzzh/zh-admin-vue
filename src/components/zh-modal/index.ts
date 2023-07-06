@@ -8,7 +8,7 @@ export class ZHModal {
     constructor(modal: Ref<TZHModal>, emit: (event: 'closed' | 'submited' | 'canceled' | 'opened', ...args: any[]) => void) {
         this.modal = modal;
         this.emit = emit;
-        this.fullscreen = ref(modal.value.fullscreen || false);
+        this.fullscreen = ref(!!modal?.value?.fullscreen || false);
     }
 
     open = () => {

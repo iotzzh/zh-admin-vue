@@ -1,18 +1,18 @@
 import dayjs from 'dayjs';
 import { Ref, ref } from 'vue';
-import { TZHTablePage, TZHTableRequest, TZHTableFormSettings, TZHTableFromField, TZHFromFieldConvertDateTime } from './type';
+import { TZHTablePage, TZHTableRequest, TZHTableForm, TZHTableFromField, TZHFromFieldConvertDateTime } from './type';
 import _ from 'lodash';
 
 
 export default class Form {
   page: Ref<TZHTablePage>;
   request: Ref<TZHTableRequest | undefined> | undefined;
-  formSettings: Ref<TZHTableFormSettings | undefined> | undefined;
+  formSettings: Ref<TZHTableForm | undefined> | undefined;
   refZHForm: any;
   constructor(
     page: Ref<TZHTablePage>,
     request: Ref<TZHTableRequest | undefined> | undefined,
-    formSettings: Ref<TZHTableFormSettings | undefined> | undefined,
+    formSettings: Ref<TZHTableForm | undefined> | undefined,
     refZHForm: any
   ) {
     this.page = page;

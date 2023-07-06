@@ -10,8 +10,8 @@ import api from '@/api/index';
 const pageSetting: any = ref({});
 new Promise((resolve, reject) => {
     const pageConfig = {
-        tableConfig: {
-            formSettings: {
+        table: {
+            formConfig: {
                 hasAddButton: true,
                 hasSearchButton: true,
                 hasDeleteButton: true,
@@ -55,7 +55,7 @@ new Promise((resolve, reject) => {
                 ],
 
             },
-            tableSettings: {
+            tableConfig: {
                 hasIndex: true,
                 hasSelection: true,
                 rowKey: 'id',
@@ -142,14 +142,14 @@ new Promise((resolve, reject) => {
                     ],
                 },
             },
-            request: {
+            requestConfig: {
                 list: { url: api.getUserList, successMessage: '查询成功', errorMessage: '查询失败' },
                 add: { url: api.addUser, successMessage: '新增成功', errorMessage: '新增失败' },
                 update: { url: api.updateUser, successMessage: '更新成功', errorMessage: '更新失败' },
                 delete: { url: api.deleteUser, successMessage: '删除成功', errorMessage: '删除失败' },
                 batchDelete: { url: api.batchDeleteUser, successMessage: '批量删除成功', errorMessage: '批量删除失败' },
             },
-            pageSettings: {},
+            pageConfig: {},
         },
 
         modalsConfig: [

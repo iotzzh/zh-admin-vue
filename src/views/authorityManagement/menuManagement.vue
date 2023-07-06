@@ -10,7 +10,7 @@
 
 <script lang="ts" setup>
 import Table from '@/components/zh-table/index.vue';
-import { TZHTableRequest, TZHTableFormSettings, TZHTableSetting } from '@/components/zh-table/type';
+import { TZHTableRequest, TZHTableForm, TZHTableSetting } from '@/components/zh-table/type';
 import { onMounted, reactive, ref } from 'vue';
 import api from '@/api/authorityManagement';
 import { TZHRequestParams } from '@/components/zh-request/type';
@@ -46,7 +46,7 @@ const formSettings = ref({
     fields: [
         { label: '菜单名称', type: 'input', prop: 'permsionName', width: '200px', },
     ],
-} as TZHTableFormSettings);
+} as TZHTableForm);
 
 const tableSettings = reactive({
     hasIndex: false,

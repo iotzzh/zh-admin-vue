@@ -1,17 +1,17 @@
 <template>
   <div class="zh-table">
     <ZHForm 
-      v-if="config.formSettings"
+      v-if="config.formConfig"
       ref="refZHForm"
       class="zh-form"
       :style="{ maxHeight: isMobile ? '50%' : '', height: isMobile ? '190px' : 'auto', overflow: isMobile ? 'auto' : '' }" 
       v-model="form.formModel" 
       v-model:converted-model="form.convertedFormModel" 
-      :form-settings="config.formSettings">
+      :formConfig="config.formConfig">
       <!-- 传递form默认插槽 -->
       <template #default>
         <slot name="zh-table-form-default-before"></slot>
-        <ZHFormButtons :form="form" :table="table" :formSettings="config.formSettings" :modalInstance="modalInstance">
+        <ZHFormButtons :form="form" :table="table" :formSettings="config.formConfig" :modalInstance="modalInstance">
         </ZHFormButtons>
         <slot name="zh-table-form-default-after"></slot>
       </template>
@@ -28,59 +28,33 @@
     </ZHForm>
 
     <!-- table设置行部分：配置文件对象 tableSettingPanel -->
-    <div class="zh-table-panel-setting" v-if="config.tableSettings.tablePanelSetting">
+    <!-- <div class="zh-table-panel-setting" v-if="config.tableConfig.tablePanelSetting">
       <el-row>
         <el-col :span="12">
           <div class="table-title">
-            <el-icon class="icon" v-if="config.tableSettings.tablePanelSetting.title">
+            <el-icon class="icon" v-if="config.tableConfig.tablePanelSetting.title">
               <Grid />
             </el-icon>
-            {{ config.tableSettings.tablePanelSetting.title }}
-            <span v-if="config.tableSettings.tablePanelSetting.secondaryTitle" style="color: blue">
-              ({{ config.tableSettings.tablePanelSetting.secondaryTitle }})
+            {{ config.tableConfig.tablePanelSetting.title }}
+            <span v-if="config.tableConfig.tablePanelSetting.secondaryTitle" style="color: blue">
+              ({{ config.tableConfig.tablePanelSetting.secondaryTitle }})
             </span>
           </div>
         </el-col>
       </el-row>
-      <!-- <el-row>
-        <el-col :span="12">
-          <div class="table-title">
-            <el-icon v-if="tableSettingPanel.tableTitle">
-              <help />
-            </el-icon>
-            {{ tableSettingPanel.tableTitle }}
-            <span v-if="tableSettingPanel.secondaryTitle" style="color: blue">({{ tableSettingPanel.secondaryTitle
-            }})</span>
-          </div>
-        </el-col>
-        <el-col :span="12" class="setting-panel right">
-          <span class="export-setting" v-if="tableSettingPanel.showExportSettingButton" @click="clickExportSetting">
-            <el-icon>
-              <Setting />
-            </el-icon>导出设置
-          </span>
-          <span class="display-setting" v-if="tableSettingPanel.showDisplaySettingButton" @click="clickDisplaySetting">
-            <el-icon>
-              <Setting />
-            </el-icon>显示设置
-          </span>
-        </el-col>
-      </el-row> -->
+    </div> -->
 
-      <!-- <i class="el-icon-s-tools setting-define-columns" @click="openDefineColumnsModal">定制列</i> -->
-    </div>
-
-    <!-- table部分：配置文件对象 tableSettings  -->
+    <!-- table部分：配置文件对象 tableConfig  -->
     <el-table ref="refTable" class="zh-el-table" :data="table.data.value" size="default"
-      :height="config.tableSettings.height || '100%'" :highlight-current-row="config.tableSettings.highlightCurrentRow"
-      v-loading="table.loading.value" :row-key="config.tableSettings.rowKey === undefined ? 'id' : config.tableSettings.rowKey"
-      @row-click="table.rowClick" :tree-props="config.tableSettings.treeProps" :lazy="config.tableSettings.lazy" :load="table.load"
-      :default-expand-all="config.tableSettings.defaultExpandAll" :border="config.tableSettings.border === undefined ? true : config.tableSettings.border">
+      :height="config.tableConfig.height || '100%'" :highlight-current-row="config.tableConfig.highlightCurrentRow"
+      v-loading="table.loading.value" :row-key="config.tableConfig.rowKey === undefined ? 'id' : config.tableConfig.rowKey"
+      @row-click="table.rowClick" :tree-props="config.tableConfig.treeProps" :lazy="config.tableConfig.lazy" :load="table.load"
+      :default-expand-all="config.tableConfig.defaultExpandAll" :border="config.tableConfig.border === undefined ? true : config.tableConfig.border">
 
-      <el-table-column v-if="config.tableSettings.hasSelection" type="selection" width="50" align="center" reserve-selection>
+      <el-table-column v-if="config.tableConfig.hasSelection" type="selection" width="50" align="center" reserve-selection>
       </el-table-column>
 
-      <el-table-column v-if="config.tableSettings.hasIndex" type="index" width="60" label="序号" align="center">
+      <el-table-column v-if="config.tableConfig.hasIndex" type="index" width="60" label="序号" align="center">
       </el-table-column>
 
       <el-table-column v-for="(item, index) in table.columns.value" :key="index" :width="item.width ? item.width : ''"
@@ -154,27 +128,27 @@
         </template>
       </el-table-column>
 
-      <el-table-column v-if="config.tableSettings.actionColumn"
-        :fixed="isMobile ? undefined : config.tableSettings.actionColumn?.fixed" :width="config.tableSettings.actionColumn?.width"
-        :min-width="config.tableSettings.actionColumn?.minWidth" :label="config.tableSettings.actionColumn?.label" :align="
-          config.tableSettings.actionColumn?.align
-            ? config.tableSettings.actionColumn.align
+      <el-table-column v-if="config.tableConfig.actionColumn"
+        :fixed="isMobile ? undefined : config.tableConfig.actionColumn?.fixed" :width="config.tableConfig.actionColumn?.width"
+        :min-width="config.tableConfig.actionColumn?.minWidth" :label="config.tableConfig.actionColumn?.label" :align="
+          config.tableConfig.actionColumn?.align
+            ? config.tableConfig.actionColumn.align
             : 'center'
         ">
         <template #default="scope">
           <el-button 
-            v-if="config.tableSettings.actionColumn?.hasRowEditAction" 
-            v-show="config.tableSettings.actionColumn?.displayRowEditActionMethod === undefined ? true : !!config.tableSettings.actionColumn?.displayRowEditActionMethod(scope.row)"
+            v-if="config.tableConfig.actionColumn?.hasRowEditAction" 
+            v-show="config.tableConfig.actionColumn?.displayRowEditActionMethod === undefined ? true : !!config.tableConfig.actionColumn?.displayRowEditActionMethod(scope.row)"
             link 
             type="primary" 
             size="small" 
             :icon="Edit"
             @click.stop="modalInstance.openEditModal(scope.row)">编辑</el-button>
-          <el-button v-if="config.tableSettings.actionColumn?.hasRowDeleteAction" link type="danger" size="small"
-          v-show="config.tableSettings.actionColumn?.displayRowDeleteActionMethod === undefined ? true : !!config.tableSettings.actionColumn?.displayRowDeleteActionMethod(scope.row)"
+          <el-button v-if="config.tableConfig.actionColumn?.hasRowDeleteAction" link type="danger" size="small"
+          v-show="config.tableConfig.actionColumn?.displayRowDeleteActionMethod === undefined ? true : !!config.tableConfig.actionColumn?.displayRowDeleteActionMethod(scope.row)"
             :icon="Delete" @click.stop="table.rowDelete(scope.row)">删除</el-button>
 
-          <el-button v-for="(item, buttonIndex) in config.tableSettings.actionColumn.buttons" :key="buttonIndex" link
+          <el-button v-for="(item, buttonIndex) in config.tableConfig.actionColumn.buttons" :key="buttonIndex" link
             v-show="(item?.hide === undefined ? true : !item?.hide) && (item?.displayMethod === undefined ? true : !!item?.displayMethod(scope.row))"
             :type="item?.type" :size="item?.size ? item.size : 'small'" :icon="item?.icon" :style="item?.style"
             @click.stop="table.tableRowActionOnClick(item?.onClick, scope.row, scope.$index)">{{ item.label }}
@@ -187,14 +161,14 @@
       </template>
     </el-table>
 
-    <!-- page部分： 配置文件对象 pageSettings -->
-    <el-pagination v-if="config.pageSettings" class="zh-table-pagination" :page-sizes="page?.sizes.value"
+    <!-- page部分： 配置文件对象 pageConfig -->
+    <el-pagination v-if="config.pageConfig" class="zh-table-pagination" :page-sizes="page?.sizes.value"
       :pager-count="page?.pagerCount.value" :layout="page?.layout.value" :total="pageData.total"
       v-model:currentPage="pageData.current" v-model:page-size="pageData.size"
       @current-change="page?.handleCurrentChange" @size-change="page?.handleCurrentChange" />
 
-    <ZhFormModal ref="refZhModalForm" :modal="modalInstance.modal.value" v-model="modalInstance.formModel.value"
-      v-model:converted-model="modalInstance.convertedModel.value" :formSettings="modalInstance.formSettings.value"
+    <ZhFormModal ref="refZhModalForm" :modalConfig="modalInstance.modal.value" v-model="modalInstance.formModel.value"
+      v-model:converted-model="modalInstance.convertedModel.value" :formConfig="modalInstance.formSettings.value"
       @cancel="modalInstance.cancel" @close="modalInstance.close" @submit="modalInstance.submit" @opened="modalInstance.opened"></ZhFormModal>
   </div>
 </template>
@@ -207,7 +181,7 @@ import ZHForm from '../zh-form/index.vue';
 import ZhFormModal from '../zh-form-modal/index.vue';
 import ZHFormButtons from './form-buttons.vue';
 import { ElTable } from 'element-plus';
-import { TZHTablePage, TZHTable } from './type';
+import { TZHTablePageConfig, TZHTableConfig, TZHTable } from './type';
 import Page from './page';
 import Table from './table';
 import Form from './form';
@@ -235,7 +209,7 @@ const isMobile = ref(storage.getIsMobile());
 
 //#region common
 // 分页的组件内部数据
-const pageData: Ref<TZHTablePage> = ref({
+const pageData: Ref<TZHTablePageConfig> = ref({
   total: 0,
   current: 1,
   size: 20,
@@ -243,7 +217,7 @@ const pageData: Ref<TZHTablePage> = ref({
 //#endregion
 
 //#region search form
-const form = new Form(pageData, config.value.request, config.value.formSettings, refZHForm);
+const form = new Form(pageData, config.value.requestConfig, config.value.formConfig, refZHForm);
 const watchFormModel = computed(() => {
   return JSON.parse(JSON.stringify(form.formModel.value));
 });
@@ -258,14 +232,14 @@ watch(
   }, { immediate: false });
 
 // 自定义插槽
-const sloTFromFields = config.value.formSettings?.fields?.filter((x: TZHFromField) => x.type === 'slot');
+const sloTFromFields = config.value.formConfig?.fields?.filter((x: TZHFromField) => x.type === 'slot');
 //#endregion
 
 //#region table
 const refTable = ref<InstanceType<typeof ElTable>>();
-const table = new Table(config.value.tableSettings, refTable, config.value.request, form, pageData, emit);
+const table = new Table(config.value.tableConfig, refTable, config.value.requestConfig, form, pageData, emit);
 onMounted(() => {
-  if (config.value.request?.list?.url && (config.value.request.initialData || config.value.request.initialData === undefined))
+  if (config.value.requestConfig?.list?.url && (config.value.requestConfig.initialData || config.value.requestConfig.initialData === undefined))
     table.debounceInitData();
 });
 //#endregion
@@ -273,12 +247,12 @@ onMounted(() => {
 //#region page
 let page: undefined | Page;
 // console.log('usePage', usePage.value);
-if (config.value.pageSettings) page = new Page(config.value.pageSettings, pageData, table);
+if (config.value.pageConfig) page = new Page(config.value.pageConfig, pageData, table);
 //#endregion
 
 //#region add/edit modal
 const refZhModalForm = ref();
-const modalInstance = new Modal(config.value.request, table, refZhModalForm, config.value.tableSettings, emit);
+const modalInstance = new Modal(config.value.requestConfig, table, refZhModalForm, config.value.tableConfig, emit);
 //#endregion
 
 defineExpose({

@@ -1,26 +1,26 @@
 import { TZHFormModal } from '../zh-form-modal/type';
-import { TZHFromField, TZHFormSettings } from '../zh-form/type';
+import { TZHFromField, TZHformConfig } from '../zh-form/type';
 import { TreeNode } from 'element-plus';
 
 export interface TZHTable {
-  formSettings?: TZHTableFormSettings
-  tableSettings: TZHTableSetting
-  pageSettings?: TZHTablePageSetting
-  request?: TZHTableRequest
+  formConfig?: TZHTableFormConfig
+  tableConfig: TZHTableConfig
+  pageConfig?: TZHTablePageConfig
+  requestConfig?: TZHTableRequestConfig
 }
 
 //#region Request
-export interface TZHTableRequest {
-  list?: TZHTableRequestDetail
-  add?: TZHTableRequestDetail
-  delete?: TZHTableRequestDetail
-  batchDelete?: TZHTableRequestDetail
-  update?: TZHTableRequestDetail
+export interface TZHTableRequestConfig {
+  list?: TZHTableRequestConfigDetail
+  add?: TZHTableRequestConfigDetail
+  delete?: TZHTableRequestConfigDetail
+  batchDelete?: TZHTableRequestConfigDetail
+  update?: TZHTableRequestConfigDetail
 
   initialData?: boolean // 是否需要初始化数据，默认为true
 }
 
-export interface  TZHTableRequestDetail {
+export interface  TZHTableRequestConfigDetail {
   url?: string
   conditions?: TObject
   successMessage?: string
@@ -49,7 +49,7 @@ export interface TZHFromFieldConvertDateTime {
   format: string
 }
 
-export interface TZHTableFormSettings extends TZHFormSettings {
+export interface TZHTableFormConfig extends TZHformConfig {
   hasSearchButton?: boolean // 显示搜索按钮
   hasDeleteButton?: boolean // 显示批量删除按钮
   hasExportButton?: boolean // 显示导出按钮
@@ -70,7 +70,7 @@ export interface TZHTableFormButtons {
 }
 
 
-export interface TZHTablePageSetting {
+export interface TZHTablePageConfig {
   sizes?: Array<number> // [10, 20, 50, 100]
   current?: number
   size?: number
@@ -85,7 +85,7 @@ export interface TZHTablePanelSetting {
   secondaryTitle?: string
 }
 
-export interface TZHTableSetting {
+export interface TZHTableConfig {
   tablePanelSetting?: TZHTablePanelSetting
   height?: string | number // 表格高度，示例：'100%', '100px', 100
   highlightCurrentRow?: boolean // 高亮选中行
@@ -173,16 +173,10 @@ export interface TZHTableActionColumnButton {
   label?: string
 }
 
-export interface TZHTableRequestResult {
+export interface TZHTableRequestConfigResult {
   success: boolean
   resCode: string
   data: any
-}
-
-export interface TZHTablePage {
-  total: number
-  size: number
-  current: number
 }
 
 export interface TObject {

@@ -1,11 +1,11 @@
 <!-- 基础模板：表格，自带增删改查 -->
 <template>
     <ZHLayout>
-        <ZHTable ref="refZHTable" v-if="config.tableConfig" :config="config.tableConfig"></ZHTable>
+        <ZHTable ref="refZHTable" v-if="config.table" :config="config.table"></ZHTable>
         <div v-else>loading...</div>
 
         <div v-for="(modalConfig, index) in config.modalsConfig" :key="index">
-        <ZHModal :ref="(el: any) => setRefMap(el, modalConfig.refName)" :modal="modalConfig" >
+        <ZHModal :ref="(el: any) => setRefMap(el, modalConfig.refName)" :modalConfig="modalConfig" >
             <component v-if="modalConfig.conmponentName" :is="modalComponents[modalConfig.conmponentName]"></component>
         </ZHModal>
         </div>
@@ -30,7 +30,7 @@ import ZHFormModal from '@/components/zh-form-modal/index.vue';
 import { TZHFormModal } from '@/components/zh-form-modal/type';
 
 type TPageConfig = {
-    tableConfig: TZHTable
+    table: TZHTable
     modalsConfig: Array<TZHModal>
     formModalsConfig: Array<TZHFormModal>
 };
