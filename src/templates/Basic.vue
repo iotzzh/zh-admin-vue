@@ -10,7 +10,13 @@
         </ZHModal>
         </div>
 
-        <div v-for="(formModalConfig, index) in config.formModalsConfig" :key="index">
+        <div v-for="(formModalConfig, index) in (config.formModalsConfig as any)" :key="index">
+    <ZHFormModal :ref="(el: any) => setRefMap(el, formModalConfig.refName)" 
+        v-model="formModalConfig.model"
+        v-bind:convertedModel="formModalConfig.convertedModel"
+        :modalConfig="formModalConfig.modalConfig" 
+        :formConfig="formModalConfig.formConfig">
+        </ZHFormModal>
         <!-- <ZHFormModal :ref="(el: any) => setRefMap(el, formModalConfig.refName)" :modal="formModalConfig" v-model="modalInstance.formModel.value"
       v-model:converted-model="modalInstance.convertedModel.value" :formSettings="modalInstance.formSettings.value"
       @cancel="modalInstance.cancel" @close="modalInstance.close" @submit="modalInstance.submit" @opened="modalInstance.opened">

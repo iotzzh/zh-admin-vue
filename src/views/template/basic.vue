@@ -133,12 +133,13 @@ new Promise((resolve, reject) => {
                 ],
                 actionColumn: {
                     label: '操作',
-                    width: '240px',
+                    width: '350px',
                     hasRowDeleteAction: true,
                     hasRowEditAction: true,
                     buttons: [
                         { label: '弹窗1', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'modal1\'] && refModals[\'modal1\'].open();' },
                         { label: '弹窗2', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'modal2\'] && refModals[\'modal2\'].open();' },
+                        { label: '表单弹窗', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'refFormModal1\'] && refModals[\'refFormModal1\'].open();' },
                     ],
                 },
             },
@@ -180,28 +181,18 @@ new Promise((resolve, reject) => {
         ],
         formModalsConfig: [
             {
-                refName: 'formModal1',
-                width: '300px',
-                title: '测试自定义modal内容',
-                show: false,
-                conmponentName: 'my-c11',
-                methods: [
-                    { name: 'clickMethod', props: '', body: `console.log('hello world')` }
-                ],
-                template: `<div style="width: 100%; text-align: center; height: 300px;
-                display: flex; align-items:center;justify-content: center;"><el-button type="primary" @click="clickMethod">弹窗1 </el-button></div>`,
-            },
-            {
-                refName: 'formModal2',
-                width: '300px',
-                title: '测试自定义modal内容',
-                show: false,
-                conmponentName: 'my-c22',
-                methods: [
-                    { name: 'clickMethod', props: '', body: `console.log('hello world')` }
-                ],
-                template: `<div style="width: 100%; text-align: center; height: 300px;
-                display: flex; align-items:center;justify-content: center;"><el-button type="primary" @click="clickMethod">弹窗2 </el-button></div>`,
+                refName: 'refFormModal1',
+                modalConfig: {
+                    show: false,
+                },
+                formConfig: {
+                    fields: [
+                        { prop: 'test', label: '测试', type: 'input', span: 12, },
+                        { prop: 'test1', label: '测试1', type: 'select', span: 12, convert: 'return 111' }
+                    ]
+                },
+                model: {},
+                convertedModel: {},
             }
         ],
     };

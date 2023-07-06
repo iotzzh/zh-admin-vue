@@ -3,12 +3,12 @@ import { TZHformConfig } from '../zh-form/type';
 
 export default class ZHFormModal {
     emit: any;
-    modal: any;
+    refZHModal: any;
     refZHForm: any;
     formSettings: Ref<TZHformConfig | undefined>;
     modelValue: any;
     constructor(params: any) {
-        this.modal = params.modal;
+        this.refZHModal = params.refZHModal;
         this.emit = params.emit;
         this.refZHForm = params.refZHForm;
         this.formSettings = params.formSettings;
@@ -31,7 +31,7 @@ export default class ZHFormModal {
     };
 
     open = () => {
-        this.modal.value.show = true;
+        this.refZHModal.value.open();
     };
 
     close = () => {
