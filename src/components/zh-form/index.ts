@@ -1,10 +1,10 @@
 import dayjs from 'dayjs';
 import { ref, Ref } from 'vue';
-import { TZHFormSettings, TZHFromField, TZHFromFieldConvertDateTime } from './type';
+import { TZHformConfig, TZHFromField, TZHFromFieldConvertDateTime } from './type';
 
 type TParams = {
   emit: (event: 'update:modelValue' | 'update:convertedModel', ...args: any[]) => void
-  formSettings: Ref<TZHFormSettings>
+  formConfig: Ref<TZHformConfig>
   modelValue: Ref<{ [x: string]: any }>
   convertedModel: Ref<{ [x: string]: any } | undefined> | undefined
   refForm: any
@@ -13,15 +13,15 @@ type TParams = {
 export default class Form {
   emit: (event: 'update:modelValue' | 'update:convertedModel', ...args: any[]) => void;
   refForm: any;
-  formSettings: Ref<TZHFormSettings>;
+  formConfig: Ref<TZHformConfig>;
   hideUnimportantFields: Ref<boolean | undefined>;
   modelValue: Ref<{ [x: string]: any }>;
   convertedModel: Ref<{ [x: string]: any } | undefined> | undefined;
   constructor(params: TParams) {
     this.emit = params.emit;
     this.refForm = params.refForm;
-    this.formSettings = params.formSettings;
-    this.hideUnimportantFields = ref(params.formSettings.value.hideUnimportantFields);
+    this.formConfig = params.formConfig;
+    this.hideUnimportantFields = ref(params.formConfig.value.hideUnimportantFields);
     this.modelValue = params.modelValue;
     this.convertedModel = params.convertedModel;
   }
@@ -32,13 +32,13 @@ export default class Form {
 
   init = () => {
     if (
-      !this.formSettings?.value?.fields ||
-      this.formSettings.value?.fields.length === 0 ||
+      !this.formConfig?.value?.fields ||
+      this.formConfig.value?.fields.length === 0 ||
       !this.modelValue ||
       !this.modelValue.value
     )
       return;
-    for (const field of this.formSettings.value.fields) {
+    for (const field of this.formConfig.value.fields) {
       // if (this.modelValue && this.modelValue.value && !this.modelValue.value[field.prop]) this.modelValue.value[field.prop] = field.defaultValue;
       this.modelValue.value[field.prop || ''] = field.defaultValue;
     }
@@ -52,7 +52,7 @@ export default class Form {
 
   validate = async () => {
     if (!this.refForm.value) return;
-    if (this.formSettings?.value?.customValidate && !this.formSettings?.value?.customValidate(this.modelValue?.value)) return false;
+    if (this.formConfig?.value?.customValidate && !this.formConfig?.value?.customValidate(this.modelValue?.value)) return false;
     const result = await this.refForm.value.validate((valid: any) => {
       return valid;
     });
@@ -147,21 +147,21 @@ export default class Form {
       convertedModelValue[keys[i]] = newVal[keys[i]];
     }
 
-    this.useConvert(newVal, convertedModelValue, this.formSettings.value.fields || []);
-    this.useConvertDateTime(newVal, convertedModelValue, this.formSettings.value.fields || []);
-    this.useExtendedFieldMethod(newVal, convertedModelValue, this.formSettings.value.fields || []);
-    this.useConvertCascader(newVal, convertedModelValue, this.formSettings.value.fields || []);
+    this.useConvert(newVal, convertedModelValue, this.formConfig.value.fields || []);
+    this.useConvertDateTime(newVal, convertedModelValue, this.formConfig.value.fields || []);
+    this.useExtendedFieldMethod(newVal, convertedModelValue, this.formConfig.value.fields || []);
+    this.useConvertCascader(newVal, convertedModelValue, this.formConfig.value.fields || []);
 
     this.emit('update:convertedModel', this.convertedModel?.value);
   };
   //#endregion
 
   //#region 事件
-  changeCascader = (itemRefs: any, refName: any, formSettings: any) => {
+  changeCascader = (itemRefs: any, refName: any, formConfig: any) => {
     // 将级联选择器选中的节点存储起来
     const refValue = itemRefs && refName && itemRefs[refName];
     if (!refValue) return;
-    const filed: any = formSettings.fields && formSettings.fields.find((x: any) => x.refName === refName);
+    const filed: any = formConfig.fields && formConfig.fields.find((x: any) => x.refName === refName);
     if (!filed) return;
     filed.checkedNodes = refValue.getCheckedNodes();
   };

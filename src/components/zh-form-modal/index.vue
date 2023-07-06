@@ -1,7 +1,8 @@
 <template>
-  <ZHModal ref="refZHModal" :modal="modal" @close="zhFormModal.close" @submit="zhFormModal.submit"
+  <ZHModal ref="refZHModal" :modalConfig="modalConfig" @close="zhFormModal.close" @submit="zhFormModal.submit"
     @cancel="zhFormModal.cancel" @opened="opened">
-    <ZHForm ref="refZHForm" :formSettings="formSettings" v-model="modelValue" v-bind:convertedModel="convertedModel">
+    <ZHForm ref="refZHForm" v-model="modelValue" v-bind:convertedModel="convertedModel" :formConfig="formConfig"
+      @update:convertedModel="(value: any) => emit('update:convertedModel', value)">
       <slot v-for="(item, index) in slotFields" :name="'zh-form-' + item.prop" :key="index" />
     </ZHForm>
   </ZHModal>
@@ -9,44 +10,44 @@
 
 <script setup lang="ts">
 import { toRefs, PropType, ref, computed } from 'vue';
-import ZHModal from '../zh-modal/index.vue';
 import { TZHModal } from '../zh-modal/type';
-import ZHForm from '../zh-form/index.vue';
 import ZHFormModal from './index';
-import { TZHFormSettings } from '../zh-form/type';
+import { TZHformConfig } from '../zh-form/type';
+import ZHModal from '../zh-modal/index.vue';
+import ZHForm from '../zh-form/index.vue';
 
 const props = defineProps({
   modelValue: {
-    type: Object as PropType<{[x:string]: any}>,
+    type: Object as PropType<{ [x: string]: any }>,
     required: true,
   },
 
   convertedModel: {
-    type: Object as PropType<{[x:string]: any}>,
+    type: Object as PropType<{ [x: string]: any }>,
   },
 
-  modal: {
+  modalConfig: {
     type: Object as PropType<TZHModal>,
     required: true, // 必传
   },
 
-  formSettings: {
-    type: Object as PropType<TZHFormSettings>,
+  formConfig: {
+    type: Object as PropType<TZHformConfig>,
     required: true,
   },
 });
 
-const { modal, modelValue, formSettings } = toRefs(props);
+const { modalConfig, modelValue, formConfig } = toRefs(props);
 const refZHModal = ref();
 const refZHForm = ref();
 const emit = defineEmits(['close', 'submit', 'cancel', 'update:modelValue', 'update:convertedModel', 'opened']);
 
-const zhFormModal = new ZHFormModal({ emit, refZHModal, refZHForm, modelValue, formSettings });
+const zhFormModal = new ZHFormModal({ emit, refZHModal, refZHForm, modelValue, formConfig });
 
 const opened = () => { emit('opened'); };
 
 const slotFields = computed(() => {
-  return formSettings?.value?.fields?.filter((x:any) => x.type === 'slot');
+  return formConfig?.value?.fields?.filter((x: any) => x.type === 'slot');
 });
 
 
@@ -58,7 +59,9 @@ defineExpose({
 });
 </script>
 
-<script lang="ts">export default { name: 'ZHModalForm' };</script>
+<script lang="ts">
+export default { name: 'ZHFormModal' };
+</script>
 
 <!-- 注意： 这里使用的是全局样式！！！ -->
 <style lang="scss">

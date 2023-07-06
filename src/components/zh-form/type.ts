@@ -3,7 +3,7 @@ import { IDatePickerType } from 'element-plus/es/components/date-picker/src/date
 import { EpPropMergeType } from 'element-plus/es/utils';
 
 
-export interface TZHFormSettings {
+export interface TZHformConfig {
   rules?: Object
   formLabelWidth?: string | number
   fields?: Array<TZHFromField>

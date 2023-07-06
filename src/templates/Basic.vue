@@ -10,8 +10,8 @@
         </ZHModal>
         </div>
 
-        <div v-for="(modalConfig, index) in config.modalsConfig" :key="index">
-        <!-- <ZHFormModal :ref="(el: any) => setRefMap(el, modalConfig.refName)" :modal="modalInstance.modal.value" v-model="modalInstance.formModel.value"
+        <div v-for="(formModalConfig, index) in config.formModalsConfig" :key="index">
+        <!-- <ZHFormModal :ref="(el: any) => setRefMap(el, formModalConfig.refName)" :modal="formModalConfig" v-model="modalInstance.formModel.value"
       v-model:converted-model="modalInstance.convertedModel.value" :formSettings="modalInstance.formSettings.value"
       @cancel="modalInstance.cancel" @close="modalInstance.close" @submit="modalInstance.submit" @opened="modalInstance.opened">
         </ZHFormModal> -->
@@ -27,6 +27,7 @@ import { TZHTable } from '@/components/zh-table/type';
 import ZHModal from '@/components/zh-modal/index.vue';
 import { TZHModal } from '@/components/zh-modal/type';
 import ZHFormModal from '@/components/zh-form-modal/index.vue';
+import { TZHFormModal } from '@/components/zh-form-modal/type';
 
 type TPageConfig = {
     tableConfig: TZHTable

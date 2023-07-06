@@ -1,11 +1,11 @@
 import { Ref } from 'vue';
-import { TZHFormSettings } from '../zh-form/type';
+import { TZHformConfig } from '../zh-form/type';
 
 export default class ZHFormModal {
     emit: any;
     modal: any;
     refZHForm: any;
-    formSettings: Ref<TZHFormSettings | undefined>;
+    formSettings: Ref<TZHformConfig | undefined>;
     modelValue: any;
     constructor(params: any) {
         this.modal = params.modal;

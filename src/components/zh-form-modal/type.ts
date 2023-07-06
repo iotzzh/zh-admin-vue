@@ -2,17 +2,9 @@ import { TZHFormSettings, TZHFromField } from '../zh-form/type';
 import { TZHModal } from '../zh-modal/type';
 
 export interface TZHFormModal extends TZHModal {
-  // show: boolean
-  width?: string
-  title?: string
+  modalConfig: TZHModal
   mainTitle?: string
-  type?: any // add/edit/other
-  // 暂存数据
-  data?: any 
-  top?: string
-  fullscreen?: boolean
-  customClass?: string
-  formSettings?: TZHFormSettings
+  formConfig?: TZHFormSettings
 }
 
 export interface TZHModalFromField extends TZHFromField {

@@ -1,16 +1,16 @@
 <template>
-  <el-dialog v-model="modal.show" v-if="modal.show" :title="modal.title" :closeOnClickModal="false"
-    :width="isMobile ? '90%' : modal.width || ''" @close="zhModal.close" :top="modal.top"
+  <el-dialog v-model="modalConfig.show" v-if="modalConfig.show" :title="modalConfig.title" :closeOnClickModal="false"
+    :width="isMobile ? '90%' : modalConfig.width || ''" @close="zhModal.close" :top="modalConfig.top"
     :fullscreen="zhModal.fullscreen.value" :class="classNames" @opened="zhModal.opened" :append-to-body="true"
     :show-close="false">
-    <div class="body-box" v-loading="modal.loadingPage">
+    <div class="body-box" v-loading="modalConfig.loadingPage">
       <slot></slot>
     </div>
 
     <template #header>
       <div class="header">
         <div class="left"></div>
-        <div class="center">{{ modal.title }}</div>
+        <div class="center">{{ modalConfig.title }}</div>
         <div class="right">
           <el-button link @click="zhModal.toggleFullScreen" type="primary">
             <i v-if="zhModal.fullscreen.value" class="iconfont icon-fullscreen-shrink"></i>
@@ -22,12 +22,12 @@
       </div>
     </template>
 
-    <template #footer v-if="modal.footer">
+    <template #footer v-if="modalConfig.footer">
       <span class="dialog-footer">
         <el-button @click="zhModal.cancel"
-          v-if="modal.footer?.hasCancelButton || modal.footer?.hasCancelButton === undefined">取消</el-button>
-        <el-button type="primary" :loading="modal.loadingSubmit" @click="zhModal.submit"
-          v-if="modal.footer?.hasSubmitButton || modal.footer?.hasSubmitButton === undefined">确定</el-button>
+          v-if="modalConfig.footer?.hasCancelButton || modalConfig.footer?.hasCancelButton === undefined">取消</el-button>
+        <el-button type="primary" :loading="modalConfig.loadingSubmit" @click="zhModal.submit"
+          v-if="modalConfig.footer?.hasSubmitButton || modalConfig.footer?.hasSubmitButton === undefined">确定</el-button>
       </span>
       <slot name="footer" />
     </template>
@@ -42,22 +42,22 @@ import { ZHModal } from './index';
 import { TZHModal } from './type';
 
 const props = defineProps({
-  modal: {
+  modalConfig: {
     type: Object as PropType<TZHModal>,
     required: true, // 必传
   },
 });
 
-const { modal } = toRefs(props);
+const { modalConfig } = toRefs(props);
 
 const emit = defineEmits(['closed', 'submited', 'canceled', 'opened']);
 
 const isMobile = ref(storage.getIsMobile());
 
-const zhModal = new ZHModal(modal, emit);
+const zhModal = new ZHModal(modalConfig, emit);
 
 const classNames = computed(() => {
-  return (modal.value.customClass || '') + ' zh-modal ' + (zhModal.fullscreen.value ? 'vh80' : 'vh60');
+  return (modalConfig.value.customClass || '') + ' zh-modal ' + (zhModal.fullscreen.value ? 'vh80' : 'vh60');
 });
 
 
@@ -67,7 +67,7 @@ defineExpose({
 </script>
 
 <script lang="ts">
-export default { name: 'ZHModal2' }; </script>
+export default { name: 'ZHModal' }; </script>
 
 <!-- 注意：这里使用的全局样式！！！ -->
 <style lang="scss">

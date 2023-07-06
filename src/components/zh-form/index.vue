@@ -1,6 +1,6 @@
 <template>
   <el-form class="zh-form" v-bind="$attrs" ref="refForm" :model="modelValue" :rules="rules"
-    :label-width="formSettings?.formLabelWidth || 'auto'" type="flex" inline justify="end"
+    :label-width="formConfig?.formLabelWidth || 'auto'" type="flex" inline justify="end"
     style="flex-wrap: wrap; flex-direction: row">
     <el-row style="display: flex; flex-wrap: wrap">
       <TransitionGroup name="list">
@@ -47,10 +47,10 @@
               :disabled="item.disabled === undefined ? false : typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)"
               :multiple="item.multiple" filterable clearable :remote="item.remote" :remote-method="item.remoteMethod"
               :placeholder="item.placeholder
-                  ? item.placeholder
-                  : item.remoteMethod
-                    ? '请输入选择'
-                    : '请选择'
+                ? item.placeholder
+                : item.remoteMethod
+                  ? '请输入选择'
+                  : '请选择'
                 ">
               <el-option
                 v-for="(subItem, subIndex) in (item.options as Array<TZHFromFieldSelectOption> | Array<{ [x: string]: any }>)"
@@ -58,14 +58,9 @@
                 :value="item.valueKey ? subItem : subItem.value"></el-option>
             </el-select>
 
-            <ZHSelect 
-              v-else-if="item.type === 'select2'" 
-              v-model="modelValue[item.prop]"
-              :options="item.options"
-              :api="item.api"
-              :value-key="item.valueKey" 
-              :label-field="item.labelField"
-              :value-field="item.valueField"></ZHSelect>
+            <ZHSelect v-else-if="item.type === 'select2'" v-model="modelValue[item.prop]" :options="item.options"
+              :api="item.api" :value-key="item.valueKey" :label-field="item.labelField" :value-field="item.valueField">
+            </ZHSelect>
 
             <!-- 日期选择 -->
             <el-date-picker v-else-if="item.type === 'date-picker'" v-model="modelValue[item.prop]" :disabled="item.disabled === undefined ? false :
@@ -76,7 +71,7 @@
             <!-- 级联选择器  -->
             <el-cascader v-else-if="item.type === 'cascader'" :options="(item.options as CascaderOption[])"
               :props="item.props" :style="{ width: item.width ? `${item.width}` : '100%' }"
-              @change="formInstance.changeCascader(itemRefs, item.refName, formSettings)" :ref="(el: any) => {
+              @change="formInstance.changeCascader(itemRefs, item.refName, formConfig)" :ref="(el: any) => {
                 if (item.refName) itemRefs[item.refName] = el;
               }" v-model="modelValue[item.prop]" :clearable="item.clearable" />
 
@@ -99,18 +94,11 @@
         </el-col>
       </TransitionGroup>
       <slot></slot>
-      <span v-if="formSettings?.hideUnimportantFields" class="folder-box">
+      <span v-if="formConfig?.hideUnimportantFields" class="folder-box">
         <span class="unfolder" v-if="formInstance.hideUnimportantFields.value"
           @click="() => formInstance.hideUnimportantFields.value = false">展开</span>
         <span v-else type="primary" link :icon="ArrowUp" size="large" class="folder"
           @click="() => formInstance.hideUnimportantFields.value = true">折叠</span>
-        <!-- <i class="iconfont icon-shangla1 unfolder" v-if="formInstance.hideUnimportantFields.value"
-         @click="() => formInstance.hideUnimportantFields.value = false" ></i>
-        <i v-else class="iconfont icon-shangla folder" @click="() => formInstance.hideUnimportantFields.value = true"></i> -->
-        <!-- <el-button v-if="formInstance.hideUnimportantFields.value" size="large" class="unfolder" type="primary" link
-        :icon="ArrowDown" @click="() => formInstance.hideUnimportantFields.value = false" />
-      <el-button v-else type="primary" link :icon="ArrowUp" size="large" class="folder"
-        @click="() => formInstance.hideUnimportantFields.value = true" /> -->
       </span>
     </el-row>
     <slot name="zh-form-next-row"></slot>
@@ -121,48 +109,50 @@
 
 import { toRefs, PropType, ref, computed, onMounted, watch } from 'vue';
 import Form from './index';
-import { TZHFormSettings, TZHFromFieldSelectOption, TZHFromField } from './type';
+import { TZHformConfig, TZHFromFieldSelectOption, TZHFromField } from './type';
 import { ArrowUp } from '@element-plus/icons-vue';
 import { CascaderOption } from 'element-plus';
 import ZHSelect from '@/components/zh-select/index.vue';
 
 const props = defineProps({
   modelValue: {
-    type: Object as PropType<{[x:string]: any}>,
-    required: true,
-  },
-
-  formSettings: {
-    type: Object as PropType<TZHFormSettings>,
+    type: Object as PropType<{ [x: string]: any }>,
     required: true,
   },
 
   convertedModel: {
-    type: Object as PropType<{[x:string]: any}>,
+    type: Object as PropType<{ [x: string]: any }>,
   },
+
+  formConfig: {
+    type: Object as PropType<TZHformConfig>,
+    required: true,
+  },
+
+
 });
 
-const { modelValue, formSettings, convertedModel } = toRefs(props);
+const { modelValue, formConfig, convertedModel } = toRefs(props);
 const refForm = ref();
 const itemRefs = ref([] as any);
 const emit = defineEmits(['update:modelValue', 'update:convertedModel']);
 
-const formInstance = new Form({ emit, refForm, formSettings, modelValue, convertedModel });
+const formInstance = new Form({ emit, refForm, formConfig, modelValue, convertedModel });
 
 const fieldList = computed(() => {
-  if (formSettings && formSettings.value && !!formSettings.value.fields) {
+  if (formConfig && !!formConfig.value && !!formConfig.value.fields) {
     if (formInstance.hideUnimportantFields.value) {
-      return formSettings.value.fields.filter((x: TZHFromField) => !x.unimportant);
+      return formConfig.value.fields.filter((x: TZHFromField) => !x.unimportant);
     } else {
-      return formSettings.value.fields;
+      return formConfig.value.fields;
     }
   } else { return []; }
 });
 
 const rules = computed(() => {
   const newRules = {};
-  if (!(formSettings && formSettings.value && !!formSettings.value.fields)) return newRules;
-  const fields: TZHFromField[] = formSettings.value.fields || [];
+  if (!formConfig?.value?.fields) return newRules;
+  const fields: TZHFromField[] = formConfig.value.fields || [];
   for (const element of fields) {
     if (!element.prop) continue;
     if (element.required) {
@@ -177,9 +167,9 @@ const rules = computed(() => {
       }
     }
   }
-  if ((formSettings && formSettings.value && !!formSettings.value.rules)) {
-    const keys = Object.keys(formSettings.value.rules);
-    keys.forEach((key: any) => { newRules[key] = formSettings.value.rules && formSettings.value.rules[key]; });
+  if ((formConfig && formConfig.value && !!formConfig.value.rules)) {
+    const keys = Object.keys(formConfig.value.rules);
+    keys.forEach((key: any) => { newRules[key] = formConfig.value.rules && formConfig.value.rules[key]; });
   }
   return newRules;
 });
