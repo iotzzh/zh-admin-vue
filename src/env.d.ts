@@ -6,3 +6,5 @@ declare module '*.vue' {
   const componentEnv: DefineComponent<{}, {}, any>;
   export default componentEnv;
 }
+
+declare module 'splitpanes';

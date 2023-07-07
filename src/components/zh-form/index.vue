@@ -14,9 +14,11 @@
                 item.sm === undefined && item.xs === undefined
                 ? Number(item.width) + Number(item.labelWidth) + 'px'
                 : ''
-          }">
+          }"
+          v-show="!item.hide"
+          >
           <el-form-item :key="'form-item' + index" :label="item.label" :prop="item.prop" :label-width="item.labelWidth"
-            v-show="!item.hide" v-if="item.prop">
+             v-if="item.prop">
             <!-- 输入框 -->
             <el-input v-if="item.type === 'input'" :style="{ width: item.width ? `${item.width}` : '100%' }"
               :show-password="item.showPassword" v-model="modelValue[item.prop]" :placeholder="item.placeholder"

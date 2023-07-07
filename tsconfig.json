@@ -27,7 +27,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
-    "suppressImplicitAnyIndexErrors": true,
+    // "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": false, // 变量未使用不报错
     // "avoidEscape": true, // allows strings to use single-quotes or double-quotes 
     // "allowTemplateLiterals": true, // allows strings to use backticks

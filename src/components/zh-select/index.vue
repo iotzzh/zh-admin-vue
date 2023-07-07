@@ -12,7 +12,7 @@
                 : remoteMethod
                   ? '请输入选择'
                   : '请选择'
-                ">>
+                ">
             <el-option v-for="(item, index) in (options as any)" :key="valueKey ? item[valueKey] : index"
                 :label="useLabelField(item)" 
                 :value="valueKey ? item : (valueField ? item[valueField] : item.value)"></el-option>
@@ -22,12 +22,11 @@
 </template>
   
 <script setup lang="ts">
-import { toRefs, ref, onMounted, PropType } from 'vue';
+import { toRefs, ref, onMounted } from 'vue';
 
 import { TZHRequestParams } from '../zh-request/type';
 import ZHRequest from '../zh-request';
 import { computed } from 'vue';
-import { number } from 'echarts';
 
 type disabledFun = (modelValue:any) => boolean
 
@@ -159,7 +158,8 @@ const {
     remote,
     remoteMethod,
     remoteRequestSize,
-    remoteRequestParams
+    remoteRequestParams,
+    valueKey
 } = toRefs(props);
 
 const emit = defineEmits(['update:modelValue']);
@@ -225,8 +225,6 @@ const getList = async (value: {[x:string]:any} | string = '') => {
 const onRemoteMethod = (value:string | {[x:string]:any} ) => {
     if (!remote.value) return;
     getList(value);
-
-
 };
 
 
@@ -234,7 +232,30 @@ onMounted(() => {
     if (requestDataWhenMounted && requestDataWhenMounted.value) {
         getList();
     }
+    if (valueKey?.value && modelValue?.value && typeof modelValue.value !== 'object') {
+        const key = valueKey.value;
+        const item = options.value?.find((x:any) => x[key] === modelValue.value);
+        if (item) {
+            value.value = item;
+        }
+    }
 });
+
+const setValue = (newValue:any) => {
+    if(!valueKey?.value) {
+        value.value = newValue;
+        emit('update:modelValue', newValue); 
+    }else {
+        if (typeof newValue !== 'object') {
+        const key = valueKey.value;
+        const item = options.value?.find((x:any) => x[key] === newValue);
+        if (item) {
+            value.value = item;
+            emit('update:modelValue', item); 
+        }
+    }
+    }
+};
 
 
 
@@ -243,8 +264,14 @@ const change = (newVal:any) => {
     emit('update:modelValue', newVal); 
 };
 
+const setOptions = (newOptions:any) => {
+    options!.value = newOptions;
+};
+
 defineExpose({
     getList,
+    setOptions,
+    setValue,
 });
 </script>
   

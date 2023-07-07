@@ -470,7 +470,7 @@ export default [
                     'isEbl': 1,
                     'isDel': 0,
                 },
-            ];
+            ];                      
 
             // 模板
             const template = [
