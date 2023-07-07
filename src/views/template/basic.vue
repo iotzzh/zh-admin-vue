@@ -133,13 +133,14 @@ new Promise((resolve, reject) => {
                 ],
                 actionColumn: {
                     label: '操作',
-                    width: '350px',
+                    width: '400px',
                     hasRowDeleteAction: true,
                     hasRowEditAction: true,
                     buttons: [
                         { label: '弹窗1', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'modal1\'] && refModals[\'modal1\'].open();' },
                         { label: '弹窗2', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'modal2\'] && refModals[\'modal2\'].open();' },
-                        { label: '表单弹窗', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'refFormModal1\'] && refModals[\'refFormModal1\'].open();' },
+                        { label: '表单弹窗1', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'refFormModal1\'] && refModals[\'refFormModal1\'].open();' },
+                        { label: '表单弹窗2', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'refFormModal2\'] && refModals[\'refFormModal2\'].open();' },
                     ],
                 },
             },
@@ -184,6 +185,11 @@ new Promise((resolve, reject) => {
                 refName: 'refFormModal1',
                 modalConfig: {
                     show: false,
+                    width: '300px',
+                    footer: {
+                        hasCancelButton: true,
+                        hasSubmitButton: true,
+                    },
                 },
                 formConfig: {
                     fields: [
@@ -193,7 +199,21 @@ new Promise((resolve, reject) => {
                 },
                 model: {},
                 convertedModel: {},
-            }
+            },
+            {
+                refName: 'refFormModal2',
+                modalConfig: {
+                    show: false,
+                },
+                formConfig: {
+                    fields: [
+                        { prop: 'test', label: '测试', type: 'input', span: 12, },
+                        { prop: 'test1', label: '测试1', type: 'select', span: 12, convert: 'return 111' }
+                    ]
+                },
+                model: {},
+                convertedModel: {},
+            },
         ],
     };
     pageSetting.value = JSON.parse(JSON.stringify(pageConfig));

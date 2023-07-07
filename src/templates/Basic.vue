@@ -5,24 +5,18 @@
         <div v-else>loading...</div>
 
         <div v-for="(modalConfig, index) in config.modalsConfig" :key="index">
-        <ZHModal :ref="(el: any) => setRefMap(el, modalConfig.refName)" :modalConfig="modalConfig" >
-            <component v-if="modalConfig.conmponentName" :is="modalComponents[modalConfig.conmponentName]"></component>
-        </ZHModal>
+            <ZHModal :ref="(el: any) => setRefMap(el, modalConfig.refName)" :modalConfig="modalConfig">
+                <component v-if="modalConfig.conmponentName" :is="modalComponents[modalConfig.conmponentName]"></component>
+            </ZHModal>
         </div>
 
         <div v-for="(formModalConfig, index) in (config.formModalsConfig as any)" :key="index">
-    <ZHFormModal :ref="(el: any) => setRefMap(el, formModalConfig.refName)" 
-        v-model="formModalConfig.model"
-        v-bind:convertedModel="formModalConfig.convertedModel"
-        :modalConfig="formModalConfig.modalConfig" 
-        :formConfig="formModalConfig.formConfig">
-        </ZHFormModal>
-        <!-- <ZHFormModal :ref="(el: any) => setRefMap(el, formModalConfig.refName)" :modal="formModalConfig" v-model="modalInstance.formModel.value"
-      v-model:converted-model="modalInstance.convertedModel.value" :formSettings="modalInstance.formSettings.value"
-      @cancel="modalInstance.cancel" @close="modalInstance.close" @submit="modalInstance.submit" @opened="modalInstance.opened">
-        </ZHFormModal> -->
+            <ZHFormModal :ref="(el: any) => setRefMap(el, formModalConfig.refName)" v-model="formModalConfig.model"
+                v-bind:convertedModel="formModalConfig.convertedModel" :modalConfig="formModalConfig.modalConfig"
+                :formConfig="formModalConfig.formConfig">
+            </ZHFormModal>
         </div>
-    </ZHLayout>    
+    </ZHLayout>
 </template>
 
 <script lang="ts" setup>
@@ -66,8 +60,8 @@ const createComponent = () => {
     for (let modalConfig of config.value.modalsConfig) {
         const settings = modalConfig;
         if (!settings.conmponentName) continue;
-        let methods:any = {};
-        modalConfig.methods && modalConfig.methods.forEach((x:any) => {
+        let methods: any = {};
+        modalConfig.methods && modalConfig.methods.forEach((x: any) => {
             methods[x.name] = new Function(x.prop, x.body);
         });
 

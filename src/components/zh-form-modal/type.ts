@@ -1,10 +1,10 @@
-import { TZHFormSettings, TZHFromField } from '../zh-form/type';
+import { TZHformConfig, TZHFromField } from '../zh-form/type';
 import { TZHModal } from '../zh-modal/type';
 
 export interface TZHFormModal extends TZHModal {
   modalConfig: TZHModal
   mainTitle?: string
-  formConfig?: TZHFormSettings
+  formConfig?: TZHformConfig
 }
 
 export interface TZHModalFromField extends TZHFromField {
