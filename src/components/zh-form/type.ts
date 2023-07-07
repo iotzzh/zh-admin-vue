@@ -40,6 +40,7 @@ export interface TZHFromField {
   // 下拉选择/级联选择
   // options?: Array<TZHFromFieldSelectOption> | Array<TZHFromFieldCascaderOption> | Array<{ [x: string]: any }>
   options?: Array<TZHFromFieldSelectOption> | Array<CascaderOption> | Array<{ [x: string]: any }>
+  defaultOptions?: Array<TZHFromFieldSelectOption> | Array<CascaderOption> | Array<{ [x: string]: any }>
 
   // 级联选择器的参数
   props?: CascaderProps

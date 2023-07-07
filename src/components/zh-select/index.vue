@@ -237,6 +237,8 @@ onMounted(() => {
         const item = options.value?.find((x:any) => x[key] === modelValue.value);
         if (item) {
             value.value = item;
+            emit('update:modelValue', item); 
+            
         }
     }
 });
