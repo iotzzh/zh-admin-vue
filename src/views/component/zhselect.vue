@@ -5,6 +5,9 @@
                 <div class="title">配置项</div>
                 <p>1. 这里有两种设置数据选项方式，一种是通过API请求数据列表，一种是直接设置列表</p>
                 <p>2. 值的数据类型有两种，可以是值类型，也可以设置成一个对象</p>
+                <p style="font-weight: bolder;">优点：</p>
+                <p>1. 传入API即可，不再需要写代码去做数据请求，支持自定义显示字段和value字段</p>
+                <p>2. 当item是object时，支持使用key value进行回显，毕竟在后端有时只会存一个值。</p>
                 <ZHForm v-model="model" v-bind:converted-model="convertedModel" :form-config="formConfig"></ZHForm>
             </div>
         </pane>
