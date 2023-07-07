@@ -1,7 +1,7 @@
 export interface TZHRequestParams {
   url: string
-  conditions?: Object
-  config?: Object
+  conditions?: { [x:string]: any }
+  config?: { [x:string]: any }
   timeout?: number
   notNeedBackEndErrorMessage?: boolean
   errorMessage?: string

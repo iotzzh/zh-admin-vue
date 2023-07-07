@@ -1,7 +1,18 @@
 <template>
     <div class="zh-select">
-        <el-select v-model="value" :loading="loading" :loading-text="loadingText" :multiple="multiple" 
-        :value-key="valueKey || undefined"  @change="change">
+        <el-select v-model="value" 
+        :loading="loading" :loading-text="loadingText" :multiple="multiple"
+        :disabled="isDisabled" 
+        :style="{ width: width ? `${width}` : '100%' }"
+        :value-key="valueKey || undefined"  @change="change"
+        clearable
+        :remote="remote" :remote-method="onRemoteMethod"
+        :placeholder="placeholder
+                ? placeholder
+                : remoteMethod
+                  ? '请输入选择'
+                  : '请选择'
+                ">>
             <el-option v-for="(item, index) in (options as any)" :key="valueKey ? item[valueKey] : index"
                 :label="useLabelField(item)" 
                 :value="valueKey ? item : (valueField ? item[valueField] : item.value)"></el-option>
@@ -11,10 +22,14 @@
 </template>
   
 <script setup lang="ts">
-import { toRefs, ref, onMounted } from 'vue';
+import { toRefs, ref, onMounted, PropType } from 'vue';
 
 import { TZHRequestParams } from '../zh-request/type';
 import ZHRequest from '../zh-request';
+import { computed } from 'vue';
+import { number } from 'echarts';
+
+type disabledFun = (modelValue:any) => boolean
 
 const props = defineProps({
     name: String,
@@ -29,6 +44,13 @@ const props = defineProps({
     valueField: {
         type: String
     },
+    width: {
+
+    },
+    disabled: {
+        type: Boolean || Function,
+    },
+    multiple: Boolean,
     // autocomplete: {
     //     type: String,
     //     default: 'off',
@@ -50,20 +72,22 @@ const props = defineProps({
     //     type: String,
     //     default: '',
     // },
-    // remote: Boolean,
+    remote: Boolean,
     loadingText: String,
     // noMatchText: String,
     // noDataText: String,
-    // remoteMethod: Function,
+    remoteMethod: Function,
+    remoteRequestSize: Number,
+    remoteRequestParams: Object || String, // 示例：当item是对象时：{ userId: id }， 当item是一个值时 userId
     // filterMethod: Function,
-    multiple: Boolean,
+
     // multipleLimit: {
     //     type: Number,
     //     default: 0,
     // },
-    // placeholder: {
-    //     type: String,
-    // },
+    placeholder: {
+        type: String,
+    },
     // defaultFirstOption: Boolean,
     // reserveKeyword: {
     //     type: Boolean,
@@ -126,20 +150,27 @@ const {
     defaultOptions,
     labelField,
     valueField,
-
-    // valueKey,
-    // loadingText,
-    // multiple,
-    // size,
-    // clearable,
-    // options,
     conditions,
     api,
     apiResultProperty,
-    requestDataWhenMounted
+    requestDataWhenMounted,
+    disabled,
+    placeholder,
+    remote,
+    remoteMethod,
+    remoteRequestSize,
+    remoteRequestParams
 } = toRefs(props);
 
 const emit = defineEmits(['update:modelValue']);
+
+const isDisabled = computed(() => {
+    let result = false;
+    if (!disabled.value) return result;
+    if (typeof disabled.value === 'boolean') return disabled.value;
+    if (typeof disabled.value === 'function') return (disabled.value as disabledFun)(modelValue?.value);
+    return result;
+});
 
 const useLabelField = (item:any) => {
     return labelField?.value ? item[labelField.value] : item.label;
@@ -147,9 +178,6 @@ const useLabelField = (item:any) => {
 
 const loading = ref(false);
 const options = ref(defaultOptions && defaultOptions.value);
-
-
-
 
 const getDeepValue = (obj: any, currProp: any, level: number): any => {
     let value = obj[currProp]; // 当前层级的属性值
@@ -164,10 +192,24 @@ const getDeepValue = (obj: any, currProp: any, level: number): any => {
     return getDeepValue(obj, currProp, level); // 返回下一层级的属性值
 };
 
-const getList = async () => {
+const getList = async (value: {[x:string]:any} | string = '') => {
     loading.value = true;
     if (api && api.value) {
-        const params: TZHRequestParams = { url: api.value, conditions: conditions!.value };
+        const params: TZHRequestParams = { url: api.value };
+        params.conditions = conditions?.value || {}; 
+        // 追加参数
+        if (remote.value && remoteRequestParams?.value) {
+            params.conditions.size = remoteRequestSize?.value || 20;
+            if (typeof remoteRequestParams.value === 'string') {
+                params.conditions[remoteRequestParams.value] = value;
+            } else {
+                const keys = Object.keys(remoteRequestParams.value);
+                for(let key of keys) {
+                    params.conditions[key] = value[remoteRequestParams.value[key]];
+                }
+            }
+        }
+
         const result = await ZHRequest.post(params);
         if (apiResultProperty && apiResultProperty.value) {
             options!.value = getDeepValue(result, 'data.records', 0);
@@ -178,6 +220,15 @@ const getList = async () => {
 
     loading.value = false;
 };
+
+
+const onRemoteMethod = (value:string | {[x:string]:any} ) => {
+    if (!remote.value) return;
+    getList(value);
+
+
+};
+
 
 onMounted(() => {
     if (requestDataWhenMounted && requestDataWhenMounted.value) {
