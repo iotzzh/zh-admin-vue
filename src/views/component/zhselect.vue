@@ -55,7 +55,8 @@ const model = ref({
 const convertedModel = ref({} as any);
 const formConfig = ref({
     fields: [
-        { label: '设置数据源', prop: 'dataSource', span: 12, type: 'select', options: [ { label: 'api', value: 'api' }, { label: 'options', value: 'options' } ],
+        { label: '设置数据源', prop: 'dataSource', span: 12, type: 'select', 
+        defaultOptions: [ { label: 'api', value: 'api' }, { label: 'options', value: 'options' } ],
     defaultValue: 'api' },
         { label: 'api', prop: 'api', type: 'input', span: 12, defaultValue: api.getMenuList, disabled: true, hide: false },
         { label: 'valueKey', prop: 'valueKey', type: 'input', span: 12, defaultValue: 'id', disabled: true, hide: false },

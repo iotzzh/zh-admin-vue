@@ -60,7 +60,9 @@
                 :value="item.valueKey ? subItem : subItem.value"></el-option>
             </el-select> -->
 
-            <ZHSelect v-else-if="item.type === 'select'" v-model="modelValue[item.prop]" :options="item.options"
+            <ZHSelect v-else-if="item.type === 'select'"
+            :style="{ width: item.width ? `${item.width}` : '100%' }"
+            v-model="modelValue[item.prop]" :defaultOptions="item.defaultOptions"
               :api="item.api" :value-key="item.valueKey" :label-field="item.labelField" :value-field="item.valueField">
             </ZHSelect>
 
