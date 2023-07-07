@@ -1,6 +1,6 @@
 <template>
   <ZHModal ref="refZHModal" :modalConfig="modalConfig" @close="zhFormModal.close" @submit="zhFormModal.submit"
-    @cancel="zhFormModal.cancel" @opened="opened">
+    @cancel="zhFormModal.cancel" @opened="zhFormModal.opened">
     <ZHForm ref="refZHForm" v-model="modelValue" v-bind:convertedModel="convertedModel" :formConfig="formConfig"
       @update:convertedModel="(value: any) => emit('update:convertedModel', value)">
       <slot v-for="(item, index) in slotFields" :name="'zh-form-' + item.prop" :key="index" />
@@ -43,8 +43,6 @@ const refZHForm = ref();
 const emit = defineEmits(['close', 'submit', 'cancel', 'update:modelValue', 'update:convertedModel', 'opened']);
 
 const zhFormModal = new ZHFormModal({ emit, refZHModal, refZHForm, modelValue, formConfig });
-
-const opened = () => { emit('opened'); };
 
 const slotFields = computed(() => {
   return formConfig?.value?.fields?.filter((x: any) => x.type === 'slot');

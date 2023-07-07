@@ -21,6 +21,10 @@ export interface TZHModal {
   conmponentName?: string
   template?: string
   methods?: Array<TZHModalMethod>
+
+  onSubmit?: Function | string
+  onCancel?: Function | string
+  onClose?: Function | string
 }
 
 export interface TZHModalMethod {

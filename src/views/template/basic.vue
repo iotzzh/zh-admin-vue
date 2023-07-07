@@ -180,6 +180,7 @@ new Promise((resolve, reject) => {
                 display: flex; align-items:center;justify-content: center;"><el-button type="primary" @click="clickMethod">弹窗2 </el-button></div>`,
             }
         ],
+        
         formModalsConfig: [
             {
                 refName: 'refFormModal1',

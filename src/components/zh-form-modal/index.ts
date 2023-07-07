@@ -34,14 +34,16 @@ export default class ZHFormModal {
         this.refZHModal.value.open();
     };
 
+    opened = () => { 
+        this.emit('opened'); 
+    };
+
     close = () => {
         this.emit('close');
-        // this.refZHForm.value && this.refZHForm.value.clearFormData();
     };
 
     cancel = () => {
         this.emit('cancel');
-        // this.refZHForm.value && this.refZHForm.value.clearFormData();
     };
 
     submit = async () => {
