@@ -44,7 +44,7 @@
               :clearable="item.clearable" />
 
             <!-- 下拉 -->
-            <el-select v-else-if="item.type === 'select'" v-model="modelValue[item.prop]"
+            <!-- <el-select v-else-if="item.type === 'select'" v-model="modelValue[item.prop]"
               :style="{ width: item.width ? `${item.width}` : '100%' }" :value-key="item.valueKey"
               :disabled="item.disabled === undefined ? false : typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)"
               :multiple="item.multiple" filterable clearable :remote="item.remote" :remote-method="item.remoteMethod"
@@ -58,9 +58,9 @@
                 v-for="(subItem, subIndex) in (item.options as Array<TZHFromFieldSelectOption> | Array<{ [x: string]: any }>)"
                 :key="item.valueKey ? subItem[item.valueKey] : subIndex" :label="subItem.label"
                 :value="item.valueKey ? subItem : subItem.value"></el-option>
-            </el-select>
+            </el-select> -->
 
-            <ZHSelect v-else-if="item.type === 'select2'" v-model="modelValue[item.prop]" :options="item.options"
+            <ZHSelect v-else-if="item.type === 'select'" v-model="modelValue[item.prop]" :options="item.options"
               :api="item.api" :value-key="item.valueKey" :label-field="item.labelField" :value-field="item.valueField">
             </ZHSelect>
 
