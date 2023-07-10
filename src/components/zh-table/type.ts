@@ -109,6 +109,7 @@ export interface TZHTableConfig {
 
   // 函数注入
   onBeforeInitData?: Function // 在初始化数据之前执行
+  convertTableData?: Function // 转换表格数据
 }
 
 export interface TZHTableModal extends TZHFormModal {

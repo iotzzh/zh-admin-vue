@@ -16,6 +16,10 @@
             <el-option v-for="(item, index) in (options as any)" :key="valueKey ? item[valueKey] : index"
                 :label="useLabelField(item)" 
                 :value="valueKey ? item : (valueField ? item[valueField] : item.value)"></el-option>
+
+        <!-- <template #prefix>
+            <div>前缀</div>
+        </template> -->
         </el-select>
 
     </div>

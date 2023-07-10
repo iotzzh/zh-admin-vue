@@ -470,7 +470,7 @@ export default [
                     'isEbl': 1,
                     'isDel': 0,
                 },
-            ];                      
+            ];
 
             // 模板
             const template = [
@@ -506,8 +506,8 @@ export default [
                 },
             ];
 
-             // 布局插件
-             const layoutPlugins = [
+            // 布局插件
+            const layoutPlugins = [
                 {
                     'id': '0020',
                     'parentId': '001',
@@ -540,6 +540,39 @@ export default [
                 },
             ];
 
+            // 系统管理
+            const sysmanagement = [
+                {
+                    'id': '0021',
+                    'parentId': '001',
+                    'permsionName': '系统管理',
+                    'url': '/sysmanagement',
+                    'menuType': 1,
+                    'permsionCode': 'sysmanagement',
+                    'sourceBy': null,
+                    'sortNo': 11,
+                    'icon': 'icon-donghua',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+                {
+                    'id': '00211',
+                    'parentId': '0021',
+                    'permsionName': '部门管理',
+                    'routeName': '部门管理',
+                    'menuType': 2,
+                    'permsionCode': 'department',
+                    'url': '/sysmanagement/department',
+                    'filePath': 'views/sysmanagement/department',
+                    'sourceBy': null,
+                    'sortNo': 1,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
+            ];
             const result = {
                 success: true,
                 errorCode: '',
@@ -558,6 +591,7 @@ export default [
                     ...component,
                     ...template,
                     ...layoutPlugins,
+                    ...sysmanagement,
                 ],
             };
 

@@ -1,6 +1,13 @@
 import { apiMock } from '@/api/config';
 
 export default {
+    // 部门管理
+    getDepartmentList: apiMock + '/department/list',
+    addDepartment: apiMock + '/department/add',
+    updateDepartment: apiMock + '/department/modify',
+    deleteDepartment: apiMock + '/department/remove',
+    batchDepartment: apiMock + '/department/remove',
+
     // 用户管理
     getUserList: apiMock + '/user/list',
     addUser: apiMock + '/user/add',
@@ -29,15 +36,4 @@ export default {
     getPermisionByRoleId: apiMock + '/rolePermission/getPermisionByRoleId', // 获取角色下的菜单ids
     getUserCreatePermision: apiMock + '/rolePermission/userHaveAndCreatePermision', // 获取当前用户创建所有菜单列表
     authorizeByRole: apiMock + '/rolePermission/authorizeByRole', // 修改角色的授权
-
-    // 用户机构
-    updateUserCal: apiMock + '/userCal/modify',  // 更新用户机构
-
-
-
-    // 组织管理
-    // getOrgList: api + '/org/list',
-    // addOrg: api + '/org/add',
-    // updateOrg: api + '/org/update',
-    // deleteOrg: api + '/org/delete',
 };

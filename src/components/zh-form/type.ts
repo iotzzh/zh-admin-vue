@@ -21,6 +21,8 @@ export interface TZHFromField {
   md?: number
   sm?: number
   xs?: number
+  maxWidth?: string
+  minWidth?: string
   type: string
   unimportant?: boolean
   label?: string

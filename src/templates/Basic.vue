@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, PropType, toRefs, createApp, provide, onMounted } from 'vue';
+import { ref, PropType, toRefs, createApp, provide, onMounted, shallowRef } from 'vue';
 import ZHLayout from '@/components/zh-layout/index.vue';
 import ZHTable from '@/components/zh-table/index.vue';
 import { TZHTable } from '@/components/zh-table/type';
@@ -53,7 +53,7 @@ const setRefMap = (el: any, name: string | undefined) => {
 };
 
 
-const modalComponents = ref({} as any);
+const modalComponents = shallowRef({} as any);
 const createComponent = () => {
     if (!config.value?.modalsConfig || config.value?.modalsConfig.length === 0) return;
     const app = createApp({});

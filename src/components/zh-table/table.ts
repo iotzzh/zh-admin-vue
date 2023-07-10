@@ -40,8 +40,23 @@ export default class Table {
   });
 
   onBeforeInitData = async () => {
-    const method: Function = this.tableSettings.onBeforeInitData || new Function();
-    await method();
+    if(!this.tableSettings.onBeforeInitData) return;
+    if (typeof this.tableSettings.onBeforeInitData === 'string') {
+      (new Function('params', this.tableSettings.onBeforeInitData))({ });
+    } else {
+      const method: Function = this.tableSettings.onBeforeInitData;
+      await method();  
+    }
+  };
+
+  convertTableData = (data:Array<any>) => {
+    if(!this.tableSettings.convertTableData) return;
+    if (typeof this.tableSettings.convertTableData === 'string') {
+      (new Function('data', this.tableSettings.convertTableData))(data);
+    } else {
+      const method: Function = this.tableSettings.convertTableData;
+      return method(data);  
+    }
   };
 
   initData = async (propParams: Object | null = null, initPage = true,) => {

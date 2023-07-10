@@ -13,11 +13,11 @@ export default [
         errorMessage: '',
         exceptionMessage: '',
         data: {
-          total: 1000,
+          total: 20,
         },
       };
 
-      result.data[`records|${(conditions.body && JSON.parse(conditions.body).size) || 1100}`] = [
+      result.data[`records|${(conditions.body && JSON.parse(conditions.body).size) || 20}`] = [
         // result.data[`records|${1000}`] = [
         {
           'id|+1': Math.round(new Date() as any), // 加一

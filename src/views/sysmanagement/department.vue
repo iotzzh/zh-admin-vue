@@ -6,7 +6,10 @@
 import BasicTemplate from '@/templates/Basic.vue';
 import { ref } from 'vue';
 import api from '@/api/index';
+import utils from '@/utils/index';
 
+
+window.utilss = utils;
 const pageSetting: any = ref({});
 new Promise((resolve, reject) => {
     const pageConfig = {
@@ -22,27 +25,14 @@ new Promise((resolve, reject) => {
                 formLabelWidth: '70px',
                 fields: [
                     {
-                        label: '手机号', type: 'input', prop: 'phone',
+                        label: '部门名称', type: 'input', prop: 'phone',
+                        maxWidth: '200px',
                         xs: 24,
                         sm: 12,
                         md: 8,
                         lg: 8,
                         xl: 6,
-                    },
-                    {
-                        label: '姓名', type: 'input', prop: 'name', xs: 24,
-                        sm: 12,
-                        md: 8,
-                        lg: 8,
-                        xl: 6,
-                    },
-                    {
-                        label: '员工编号', type: 'input', prop: 'employeeNum', xs: 24,
-                        sm: 12,
-                        md: 8,
-                        lg: 8,
-                        xl: 6,
-                    },
+                    }, 
                     {
                         label: '状态', type: 'select', prop: 'status', xs: 24,
                         sm: 12,
@@ -50,7 +40,7 @@ new Promise((resolve, reject) => {
                         lg: 8,
                         xl: 6,
                         defaultValue: 1,
-                        options: [{ label: '在职', value: 1 }, { label: '离职', value: 0 },],
+                        defaultOptions: [{ label: '在职', value: 1 }, { label: '离职', value: 0 },],
                     },
                 ],
 
@@ -59,8 +49,11 @@ new Promise((resolve, reject) => {
                 hasIndex: true,
                 hasSelection: true,
                 rowKey: 'id',
+                convertTableData: 'return data;',
                 modal: {
+                    width: '500px',
                     title: '',
+                    mainTitle: '部门',
                     footer: {},
                     formSettings: {
                         formLabelWidth: '90px',
@@ -68,8 +61,6 @@ new Promise((resolve, reject) => {
                     onBeforeSubmit: 'console.log("onbeforeSubmit");',
                     onAfterSubmit: 'console.log("onaftersubmit");'
                 },
-                onBeforeInitData: `console.log('onBeforeInitData：在初始化数据前执行');`,
-                convertTableData: 'return data;',
                 columns: [
                     {
                         label: '姓名',
@@ -82,10 +73,10 @@ new Promise((resolve, reject) => {
                             defaultValue: '',
                             placeholder: '请输入',
                             xs: 24,
-                            sm: 12,
-                            md: 8,
-                            lg: 8,
-                            xl: 8,
+                            sm: 24,
+                            md: 24,
+                            lg: 24,
+                            xl: 24,
                             required: true,
                         }
                     },
@@ -94,12 +85,12 @@ new Promise((resolve, reject) => {
                         minWidth: '80px',
                         addEditInfo: {
                             type: 'select', defaultValue: null, addSort: 2, placeholder: '请选择',
-                            span: 12,
+                            span: 24,
                             xs: 24,
-                            sm: 12,
-                            md: 8,
-                            lg: 8,
-                            xl: 8,
+                            sm: 24,
+                            md: 24,
+                            lg: 24,
+                            xl: 24,
                             options: [{ label: '男', value: 1 }, { label: '女', value: 2 }], required: false,
                         }
                     },
@@ -108,30 +99,30 @@ new Promise((resolve, reject) => {
                             addSort: 2.5,
                             label: '手机号', prop: 'phone',
                             type: 'input', defaultValue: null, placeholder: '请输入', span: 8, xs: 24,
-                            sm: 12,
-                            md: 8,
-                            lg: 8,
-                            xl: 8, required: true,
+                            sm: 24,
+                            md: 24,
+                            lg: 24,
+                            xl: 24, required: true,
                         }
                     },
                     {
                         label: '角色', prop: 'role', notDisplay: true, addEditInfo: {
                             addSort: 3,
-                            type: 'select2',
+                            type: 'select',
                             api: api.getRoleList,
                             valueKey: 'id',
                             labelField: 'roleName',
                             valueField: 'id',
-                            span: 12,
+                            span: 24,
                             xs: 24,
-                            sm: 12,
-                            md: 8,
-                            lg: 8,
-                            xl: 8,
+                            sm: 24,
+                            md: 24,
+                            lg: 24,
+                            xl: 24,
                             required: true,
                             convert: 'return fieldValue && fieldValue.id',
                         }
-                    },
+                    }
                 ],
                 actionColumn: {
                     label: '操作',
@@ -147,7 +138,7 @@ new Promise((resolve, reject) => {
                 },
             },
             requestConfig: {
-                list: { url: api.getUserList, successMessage: '查询成功', errorMessage: '查询失败' },
+                list: { url: api.getDepartmentList, successMessage: '查询成功', errorMessage: '查询失败' },
                 add: { url: api.addUser, successMessage: '新增成功', errorMessage: '新增失败' },
                 update: { url: api.updateUser, successMessage: '更新成功', errorMessage: '更新失败' },
                 delete: { url: api.deleteUser, successMessage: '删除成功', errorMessage: '删除失败' },
@@ -225,5 +216,10 @@ new Promise((resolve, reject) => {
     };
     pageSetting.value = JSON.parse(JSON.stringify(pageConfig));
 });
+</script>
+
+
+<script lang="ts">
+export default { name: 'department' };
 </script>
 

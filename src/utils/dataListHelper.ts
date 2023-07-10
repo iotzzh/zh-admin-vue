@@ -134,7 +134,7 @@ export default class dataListHelper {
         const params: TZHRequestParams = {
             url: api.getRoleList,
             conditions: {
-                size: 1000,
+                size: 20,
                 current: 1,
             },
         };

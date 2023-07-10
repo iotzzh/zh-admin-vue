@@ -5,17 +5,9 @@
     <el-row style="display: flex; flex-wrap: wrap">
       <TransitionGroup name="list">
         <!-- xs: <768, sm: >=768, md: >= 992, lg: >= 1200, xl: >= 1920 -->
-        <el-col v-for="(item, index) in fieldList" :key="index" :span="item.span || 0" :xl="item.xl || item.span || 0"
-          :lg="item.lg || item.span || 0" :md="item.md || item.span || 0" :sm="item.sm || item.span || 0"
-          :xs="item.xs || item.span || 0" :style="{
-            maxWidth:
-              item.span === undefined && item.xl === undefined &&
-                item.lg === undefined && item.md === undefined &&
-                item.sm === undefined && item.xs === undefined
-                ? Number(item.width) + Number(item.labelWidth) + 'px'
-                : ''
-          }"
-          v-show="!item.hide"
+        <el-col v-for="(item, index) in fieldList" :key="index" :span="item.span" :xl="item.xl" :lg="item.lg" :md="item.md" :sm="item.sm" :xs="item.xs" 
+        :style="{ maxWidth: item.maxWidth, minWidth: item.minWidth }"
+        v-show="!item.hide"
           >
           <el-form-item :key="'form-item' + index" :label="item.label" :prop="item.prop" :label-width="item.labelWidth"
              v-if="item.prop">
