@@ -1,6 +1,6 @@
 // DOM操作
 export default class UIHelper {
-    static toggleFullScreen = (element: HTMLElement | Element, isFullScreen: boolean) => {
+    static toggleFullScreen = (element: HTMLElement | Element | any, isFullScreen: boolean) => {
         if (!element) return;
         if (isFullScreen) {
             if (element.requestFullscreen) element.requestFullscreen();

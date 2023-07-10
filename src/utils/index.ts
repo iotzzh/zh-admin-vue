@@ -1,11 +1,13 @@
-import * as isHelper from './isHelper';
-import * as storageHelper from './storage';
+const modules = import.meta.glob('./*.ts');
 
-const modules = import.meta.glob('./**');
+const utils:any = {};
 
-const utils = {
-    isHelper: isHelper.default,
-    storageHelper: storageHelper.default
-};
+for (const path in modules) {
+    if (Object.prototype.hasOwnProperty.call(modules, path)) {
+        if (path.indexOf('Helper') === -1) continue;
+        const module:any = await modules[path]();
+        utils[module.default.name] = module.default;
+    }
+}
 
 export default utils;
