@@ -1,6 +1,6 @@
 const modules = import.meta.glob('./*.ts');
 
-const utils:any = {};
+const utils:{ [x:string]:any } = {};
 
 for (const path in modules) {
     if (Object.prototype.hasOwnProperty.call(modules, path)) {
