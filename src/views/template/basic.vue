@@ -137,7 +137,7 @@ new Promise((resolve, reject) => {
                     hasRowDeleteAction: true,
                     hasRowEditAction: true,
                     buttons: [
-                        { label: '弹窗1', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'modal1\'] && refModals[\'modal1\'].open();' },
+                        { label: '弹窗1', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'modal1\'] && refModals[\'modal1\'].open(params.row);' },
                         { label: '弹窗2', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'modal2\'] && refModals[\'modal2\'].open();' },
                         { label: '表单弹窗1', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'refFormModal1\'] && refModals[\'refFormModal1\'].open();' },
                         { label: '表单弹窗2', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'refFormModal2\'] && refModals[\'refFormModal2\'].open();' },
@@ -162,10 +162,14 @@ new Promise((resolve, reject) => {
                 show: false,
                 conmponentName: 'my-c1',
                 methods: [
-                    { name: 'clickMethod', props: '', body: `console.log('hello world')` }
+                    { name: 'clickMethod', props: '', body: `console.log(this.data)` }
                 ],
                 template: `<div style="width: 100%; text-align: center; height: 300px;
-                display: flex; align-items:center;justify-content: center;"><el-button type="primary" @click="clickMethod">弹窗1 </el-button></div>`,
+                display: flex; align-items:center;justify-content: center;">
+                <el-button type="primary" @click="clickMethod">弹窗1 </el-button>
+                <div>name: {{this.data.name}}</div>
+                
+            </div>`,
             },
             {
                 refName: 'modal2',

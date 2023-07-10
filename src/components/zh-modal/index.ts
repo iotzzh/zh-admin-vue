@@ -11,8 +11,9 @@ export class ZHModal {
         this.fullscreen = ref(!!modal?.value?.fullscreen || false);
     }
 
-    open = () => {
+    open = (data:{}) => {
         this.modal.value.show = true;
+        this.modal.value.data = data;
     };
 
     opened = () => { 

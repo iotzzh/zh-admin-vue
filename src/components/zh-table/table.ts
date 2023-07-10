@@ -171,8 +171,8 @@ export default class Table {
   tableRowActionOnClick = (method: string | Function | undefined, row: any, index: number) => {
     if (!method) return;
     if (typeof method === 'string') {
-      const func = new Function('row, index', method);
-      return func(row, index);
+      const func = new Function('params', method);
+      return func({row, index});
 
     } else {
       return method(row, index);

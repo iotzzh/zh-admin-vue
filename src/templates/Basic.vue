@@ -6,7 +6,7 @@
 
         <div v-for="(modalConfig, index) in config.modalsConfig" :key="index">
             <ZHModal :ref="(el: any) => setRefMap(el, modalConfig.refName)" :modalConfig="modalConfig">
-                <component v-if="modalConfig.conmponentName" :is="modalComponents[modalConfig.conmponentName]"></component>
+                <component v-if="modalConfig.conmponentName" :is="modalComponents[modalConfig.conmponentName]" :data="modalConfig.data"></component>
             </ZHModal>
         </div>
 
@@ -68,7 +68,7 @@ const createComponent = () => {
         app.component(settings.conmponentName || 'temp', {
             template: settings.template,
             props: {
-                name,
+                data: {},
             },
             methods,
         });
