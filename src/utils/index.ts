@@ -10,4 +10,5 @@ for (const path in modules) {
     }
 }
 
+window.utils = utils;
 export default utils;

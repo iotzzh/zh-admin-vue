@@ -6,10 +6,7 @@
 import BasicTemplate from '@/templates/Basic.vue';
 import { ref } from 'vue';
 import api from '@/api/index';
-import utils from '@/utils/index';
 
-
-window.utilss = utils;
 const pageSetting: any = ref({});
 new Promise((resolve, reject) => {
     const pageConfig = {
@@ -49,7 +46,7 @@ new Promise((resolve, reject) => {
                 hasIndex: true,
                 hasSelection: true,
                 rowKey: 'id',
-                convertTableData: 'return data;',
+                convertTableData: 'return $utils.dataHelper.convertArrayToTree(data)',
                 modal: {
                     width: '500px',
                     title: '',

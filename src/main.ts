@@ -24,6 +24,7 @@ import 'xe-utils';
 import VXETable from 'vxe-table';
 import 'vxe-table/lib/style.css';
 import App from './App.vue';
+import utils from '@/utils/index';
 
 async function boostrap() {
   const app = createApp(App);
@@ -56,6 +57,8 @@ async function boostrap() {
   // AOS.init();
   
   // app.use(AOS);
+  app.config.globalProperties.$utils = utils;
+  globalThis.$utils = utils;
   app.mount('#app');
 }
 

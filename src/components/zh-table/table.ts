@@ -52,10 +52,12 @@ export default class Table {
   convertTableData = (data:Array<any>) => {
     if(!this.tableSettings.convertTableData) return;
     if (typeof this.tableSettings.convertTableData === 'string') {
-      (new Function('data', this.tableSettings.convertTableData))(data);
+      const convertedData = (new Function('data', this.tableSettings.convertTableData))(data);
+      return convertedData;
     } else {
       const method: Function = this.tableSettings.convertTableData;
-      return method(data);  
+      const convertedData = method(data);
+      return convertedData;  
     }
   };
 
@@ -77,7 +79,7 @@ export default class Table {
     const result: TZHTableRequestConfigResult = await ZHRequest.post(args);
     // 处理数据
     if (result.success) {
-      this.data.value = result.data.records || result.data;
+      this.data.value = this.convertTableData(result.data.records || result.data);
       this.pageData.value.total = isNaN(Number(result.data.total)) ? 0 : Number(result.data.total);
     } else {
       this.data.value = [];
