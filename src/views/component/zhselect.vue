@@ -8,6 +8,7 @@
                 <p style="font-weight: bolder;">优点：</p>
                 <p>1. 传入API即可，不再需要写代码去做数据请求，支持自定义显示字段和value字段</p>
                 <p>2. 当item是object时，支持使用key value进行回显，毕竟在后端有时只会存一个值。</p>
+                <p>3. 支持远程搜索，默认每次20条</p>
                 <ZHForm v-model="model" v-bind:converted-model="convertedModel" :form-config="formConfig"></ZHForm>
             </div>
         </pane>
