@@ -1,10 +1,9 @@
 import { computed, Ref, ref, nextTick } from 'vue';
 import { TZHFormModal } from '../zh-form-modal/type';
-import { TZHTableRequest, TZHTableRequestResult, TZHTableSetting, TObject } from './type';
+import { TObject, TZHTableConfig, TZHTableRequestConfig } from './type';
 import Table from './table';
 import ZHRequest from '../zh-request';
 import { TZHRequestParams } from '../zh-request/type';
-import { TZHFormSettings } from '../zh-form/type';
 
 
 
@@ -12,13 +11,13 @@ export default class Modal {
   table: Table;
   refZHFormModal: Ref<any>;
   emit: any;
-  request: TZHTableRequest | undefined;
-  tableSettings: TZHTableSetting;
+  request: TZHTableRequestConfig | undefined;
+  tableSettings: TZHTableConfig;
   constructor(
-    request: TZHTableRequest | undefined,
+    request: TZHTableRequestConfig | undefined,
     table: Table,
     refZHFormModal: Ref<any>,
-    tableSettings: TZHTableSetting,
+    tableSettings: TZHTableConfig,
     emit: any
   ) {
     this.table = table;
@@ -31,7 +30,7 @@ export default class Modal {
   columnFunctionFields = ['convert'];
   _getObjctWithoutFunction = (obj: TObject) => {
     const keys = Object.keys(obj);
-    const newObj = {};
+    const newObj:{ [x:string]:any } = {};
     keys.forEach((x: string) => {
       if (typeof obj[x] !== 'function' && !this.columnFunctionFields.find((y:string) => y === x)) {
         newObj[x] = obj[x];

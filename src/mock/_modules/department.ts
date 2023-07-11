@@ -29,7 +29,7 @@ export default [
             id: '1.1',
             departmentName: '研发部',
             sort: 1, 
-            status: 1,
+            status: 0,
             createTime: '2023-01-02 18:33:33',
             comment: '测试备注',
             parentId: '1'

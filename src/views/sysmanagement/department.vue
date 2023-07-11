@@ -52,7 +52,6 @@ new Promise((resolve, reject) => {
                 // convertTableData: (data:any) =>  { return $utils.DataHelper.convertArrayToTree(data); },
                 modal: {
                     width: '500px',
-                    title: '',
                     mainTitle: '部门',
                     footer: {},
                     formSettings: {
@@ -62,6 +61,26 @@ new Promise((resolve, reject) => {
                     onAfterSubmit: 'console.log("onaftersubmit");'
                 },
                 columns: [
+                    {
+                        label: '上一级部门',
+                        prop: 'departmentParent',
+                        notDisplay: true,
+                        align: 'left',
+                        minWidth: '130px',
+                        addEditInfo: {
+                            type: 'input',
+                            labelWidth: '100px',
+                            addSort: 0.5,
+                            defaultValue: '',
+                            placeholder: '请输入',
+                            xs: 24,
+                            sm: 24,
+                            md: 24,
+                            lg: 24,
+                            xl: 24,
+                            required: true,
+                        }
+                    },
                     {
                         label: '部门名称',
                         prop: 'departmentName',
@@ -85,7 +104,11 @@ new Promise((resolve, reject) => {
                         label: '排序', prop: 'sort', 
                         minWidth: '80px',
                         addEditInfo: {
-                            type: 'select', defaultValue: null, addSort: 2, placeholder: '请选择',
+                            type: 'input', 
+                            inputType: 'number',
+                            defaultValue: null, 
+                            addSort: 2, 
+                            placeholder: '请输入',
                             span: 24,
                             xs: 24,
                             sm: 24,
@@ -97,46 +120,45 @@ new Promise((resolve, reject) => {
                     },
                     {
                         label: '状态', prop: 'status', 
-                        // convert: 'return row?.sex === 0 ? \'男\' : \'女\'',
+                        // convert: `return row?.status === 0 ? \'启用\' : \'禁用\'`,
+                        useSlot: {
+                            conmponentName: 'zh-table-status',
+                            props: { row:{}, index:{}, label:{}, },
+                            template: `
+                            <el-tag type="error" v-if="row.status === 0">禁用</el-tag>
+                            <el-tag type="success" v-else>启用</el-tag>
+                            `,
+                        },
                         minWidth: '80px',
                         addEditInfo: {
-                            type: 'select', defaultValue: null, addSort: 2, placeholder: '请选择',
+                            type: 'select', 
+                            defaultValue: null, 
+                            addSort: 2, placeholder: '请选择',
                             span: 24,
                             xs: 24,
                             sm: 24,
                             md: 24,
                             lg: 24,
                             xl: 24,
-                            // options: [{ label: '男', value: 1 }, { label: '女', value: 2 }], required: false,
-                        }
-                    },
-                    {
-                        label: '创建时间', prop: 'createTime', minWidth: '150px', addEditInfo: {
-                            addSort: 2.5,
-                            label: '手机号', prop: 'phone',
-                            type: 'input', defaultValue: null, placeholder: '请输入', span: 8, xs: 24,
-                            sm: 24,
-                            md: 24,
-                            lg: 24,
-                            xl: 24, required: true,
+                            defaultOptions: [
+                                { label: '启用', value: '启用' },
+                                { label: '禁用', value: '禁用' },
+                            ],
+                            required: true,
                         }
                     },
                     {
                         label: '备注', prop: 'comment', addEditInfo: {
                             addSort: 3,
-                            type: 'select',
-                            api: api.getRoleList,
-                            valueKey: 'id',
-                            labelField: 'roleName',
-                            valueField: 'id',
+                            type: 'input',
+                            inputType: 'textarea',
                             span: 24,
                             xs: 24,
                             sm: 24,
                             md: 24,
                             lg: 24,
                             xl: 24,
-                            required: true,
-                            convert: 'return fieldValue && fieldValue.id',
+                            required: false,
                         }
                     }
                 ],
@@ -146,10 +168,7 @@ new Promise((resolve, reject) => {
                     hasRowDeleteAction: true,
                     hasRowEditAction: true,
                     buttons: [
-                        { label: '弹窗1', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'modal1\'] && refModals[\'modal1\'].open(params.row);' },
-                        { label: '弹窗2', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'modal2\'] && refModals[\'modal2\'].open();' },
-                        { label: '表单弹窗1', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'refFormModal1\'] && refModals[\'refFormModal1\'].open();' },
-                        { label: '表单弹窗2', hide: false, type: 'primary', icon: 'Refresh', onClick: 'refModals && refModals[\'refFormModal2\'] && refModals[\'refFormModal2\'].open();' },
+                        { label: '新增子节点', hide: false, type: 'success', icon: 'Plus', onClick: 'refModals && refModals[\'modal1\'] && refModals[\'modal1\'].open(params.row);' },
                     ],
                 },
             },
@@ -162,73 +181,6 @@ new Promise((resolve, reject) => {
             },
             pageConfig: {},
         },
-
-        modalsConfig: [
-            {
-                refName: 'modal1',
-                width: '300px',
-                title: '测试自定义modal内容',
-                show: false,
-                conmponentName: 'my-c1',
-                methods: [
-                    { name: 'clickMethod', props: '', body: `console.log(this.data)` }
-                ],
-                template: `<div style="width: 100%; text-align: center; height: 300px;
-                display: flex; align-items:center;justify-content: center;">
-                <el-button type="primary" @click="clickMethod">弹窗1 </el-button>
-                <div>name: {{this.data.name}}</div>
-                
-            </div>`,
-            },
-            {
-                refName: 'modal2',
-                width: '300px',
-                title: '测试自定义modal内容',
-                show: false,
-                conmponentName: 'my-c2',
-                methods: [
-                    { name: 'clickMethod', props: '', body: `console.log('hello world')` }
-                ],
-                template: `<div style="width: 100%; text-align: center; height: 300px;
-                display: flex; align-items:center;justify-content: center;"><el-button type="primary" @click="clickMethod">弹窗2 </el-button></div>`,
-            }
-        ],
-        
-        formModalsConfig: [
-            {
-                refName: 'refFormModal1',
-                modalConfig: {
-                    show: false,
-                    width: '300px',
-                    footer: {
-                        hasCancelButton: true,
-                        hasSubmitButton: true,
-                    },
-                },
-                formConfig: {
-                    fields: [
-                        { prop: 'test', label: '测试', type: 'input', span: 12, },
-                        { prop: 'test1', label: '测试1', type: 'select', span: 12, convert: 'return 111' }
-                    ]
-                },
-                model: {},
-                convertedModel: {},
-            },
-            {
-                refName: 'refFormModal2',
-                modalConfig: {
-                    show: false,
-                },
-                formConfig: {
-                    fields: [
-                        { prop: 'test', label: '测试', type: 'input', span: 12, },
-                        { prop: 'test1', label: '测试1', type: 'select', span: 12, convert: 'return 111' }
-                    ]
-                },
-                model: {},
-                convertedModel: {},
-            },
-        ],
     };
     pageSetting.value = JSON.parse(JSON.stringify(pageConfig));
     // pageSetting.value = pageConfig;

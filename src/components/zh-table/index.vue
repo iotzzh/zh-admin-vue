@@ -75,7 +75,12 @@
 
               <!-- 自定义内容 -->
               <template v-else-if="item.useSlot">
-                <slot :name="'zh-table-' + item.prop" :row="scope.row" :index="scope.$index" :label="item.label" />
+                <!-- 低代码：利用字符串创建新的组件 -->
+                <component v-if="(typeof item.useSlot === 'object')" 
+                  :is="createVueComponent(item.useSlot.conmponentName, item.useSlot.template,item.useSlot.props)" 
+                  :row="scope.row" :index="scope.$index" :label="item.label" ></component>
+                <!-- 当组件使用 -->
+                <slot v-else :name="'zh-table-' + item.prop" :row="scope.row" :index="scope.$index" :label="item.label" />
               </template>
 
               <span v-else>
@@ -188,6 +193,7 @@ import Form from './form';
 import Modal from './modal';
 import { TZHFromField, TZHFromFieldSelectOption } from '../zh-form/type';
 import storage from '@/utils/storage';
+import { createVueComponent } from '../hooks';
 
 const props = defineProps({
   config: {
