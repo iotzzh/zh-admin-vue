@@ -57,7 +57,7 @@ async function boostrap() {
   // AOS.init();
   
   // app.use(AOS);
-  app.config.globalProperties.$utils = utils;
+  // app.config.globalProperties.$utils = utils;
   globalThis.$utils = utils;
   app.mount('#app');
 }

@@ -6,9 +6,9 @@ for (const path in modules) {
     if (Object.prototype.hasOwnProperty.call(modules, path)) {
         if (path.indexOf('Helper') === -1) continue;
         const module:any = await modules[path]();
-        utils[module.default.name] = module.default;
+        if (module.default.classname) {
+            utils[module.default.classname] = module.default;
+        }
     }
 }
-
-window.utils = utils;
 export default utils;

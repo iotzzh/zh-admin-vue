@@ -7,6 +7,8 @@ import BasicTemplate from '@/templates/Basic.vue';
 import { ref } from 'vue';
 import api from '@/api/index';
 
+
+
 const pageSetting: any = ref({});
 new Promise((resolve, reject) => {
     const pageConfig = {
@@ -46,7 +48,8 @@ new Promise((resolve, reject) => {
                 hasIndex: true,
                 hasSelection: true,
                 rowKey: 'id',
-                convertTableData: 'return $utils.dataHelper.convertArrayToTree(data)',
+                convertTableData: 'return $utils.DataHelper.convertArrayToTree(data)',
+                // convertTableData: (data:any) =>  { return $utils.DataHelper.convertArrayToTree(data); },
                 modal: {
                     width: '500px',
                     title: '',
@@ -211,7 +214,8 @@ new Promise((resolve, reject) => {
             },
         ],
     };
-    pageSetting.value = JSON.parse(JSON.stringify(pageConfig));
+    // pageSetting.value = JSON.parse(JSON.stringify(pageConfig));
+    pageSetting.value = pageConfig;
 });
 </script>
 
