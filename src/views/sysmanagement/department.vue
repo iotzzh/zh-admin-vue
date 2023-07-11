@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import BasicTemplate from '@/templates/Basic.vue';
+import BasicTemplate from '@/templates/basic/index.vue';
 import { ref } from 'vue';
 import api from '@/api/index';
 
@@ -45,8 +45,8 @@ new Promise((resolve, reject) => {
 
             },
             tableConfig: {
-                hasIndex: true,
-                hasSelection: true,
+                hasIndex: false,
+                hasSelection: false,
                 rowKey: 'id',
                 convertTableData: 'return $utils.DataHelper.convertArrayToTree(data)',
                 // convertTableData: (data:any) =>  { return $utils.DataHelper.convertArrayToTree(data); },
@@ -63,9 +63,10 @@ new Promise((resolve, reject) => {
                 },
                 columns: [
                     {
-                        label: '姓名',
-                        prop: 'name',
+                        label: '部门名称',
+                        prop: 'departmentName',
                         allowCellEdit: false,
+                        align: 'left',
                         minWidth: '100px',
                         addEditInfo: {
                             type: 'input',
@@ -81,7 +82,7 @@ new Promise((resolve, reject) => {
                         }
                     },
                     {
-                        label: '性别', prop: 'sex', convert: 'return row?.sex === 0 ? \'男\' : \'女\'',
+                        label: '排序', prop: 'sort', 
                         minWidth: '80px',
                         addEditInfo: {
                             type: 'select', defaultValue: null, addSort: 2, placeholder: '请选择',
@@ -91,11 +92,26 @@ new Promise((resolve, reject) => {
                             md: 24,
                             lg: 24,
                             xl: 24,
-                            options: [{ label: '男', value: 1 }, { label: '女', value: 2 }], required: false,
+                            // options: [{ label: '男', value: 1 }, { label: '女', value: 2 }], required: false,
                         }
                     },
                     {
-                        label: '账号', prop: 'phone', minWidth: '150px', addEditInfo: {
+                        label: '状态', prop: 'status', 
+                        // convert: 'return row?.sex === 0 ? \'男\' : \'女\'',
+                        minWidth: '80px',
+                        addEditInfo: {
+                            type: 'select', defaultValue: null, addSort: 2, placeholder: '请选择',
+                            span: 24,
+                            xs: 24,
+                            sm: 24,
+                            md: 24,
+                            lg: 24,
+                            xl: 24,
+                            // options: [{ label: '男', value: 1 }, { label: '女', value: 2 }], required: false,
+                        }
+                    },
+                    {
+                        label: '创建时间', prop: 'createTime', minWidth: '150px', addEditInfo: {
                             addSort: 2.5,
                             label: '手机号', prop: 'phone',
                             type: 'input', defaultValue: null, placeholder: '请输入', span: 8, xs: 24,
@@ -106,7 +122,7 @@ new Promise((resolve, reject) => {
                         }
                     },
                     {
-                        label: '角色', prop: 'role', notDisplay: true, addEditInfo: {
+                        label: '备注', prop: 'comment', addEditInfo: {
                             addSort: 3,
                             type: 'select',
                             api: api.getRoleList,
@@ -214,8 +230,8 @@ new Promise((resolve, reject) => {
             },
         ],
     };
-    // pageSetting.value = JSON.parse(JSON.stringify(pageConfig));
-    pageSetting.value = pageConfig;
+    pageSetting.value = JSON.parse(JSON.stringify(pageConfig));
+    // pageSetting.value = pageConfig;
 });
 </script>
 
