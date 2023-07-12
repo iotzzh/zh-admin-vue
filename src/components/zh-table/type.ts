@@ -1,3 +1,4 @@
+import { TComponent } from '../type';
 import { TZHFormModal } from '../zh-form-modal/type';
 import { TZHFromField, TZHformConfig } from '../zh-form/type';
 import { TreeNode } from 'element-plus';
@@ -128,7 +129,7 @@ export interface TZHTableColumn {
   className?: string
   convert?: Function
   format?: string
-  useSlot?: boolean
+  slot?: boolean | TComponent
   nullValue?: any
 
   addEditInfo?: TZHTableColumnAddEditInfo // 字段在新增/编辑/显示中的配置

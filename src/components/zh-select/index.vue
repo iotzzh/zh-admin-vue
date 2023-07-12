@@ -43,9 +43,9 @@
                 :label="useLabelField(item)"
                 :value="valueKey ? item : (valueField ? item[valueField] : item.value)"></el-option>
 
-            <!-- <template #prefix>
-            <div>前缀</div>
-        </template> -->
+            <template #prefix v-if="prefix">
+                <span v-if="(typeof prefix === 'string')">{{ prefix }}</span>
+            </template>
         </el-select>
 
     </div>
@@ -169,6 +169,9 @@ const props = defineProps({
     },
     apiResultProperty: {
         type: Array
+    },
+    prefix: {
+        type: String || Object as PropType<{[x:string]:any}>,
     }
 });
 
@@ -210,7 +213,8 @@ const {
     remoteShowSuffix,
     suffixTransition,
     placement,
-    popperClass
+    popperClass,
+    prefix
 } = toRefs(props);
 
 const emit = defineEmits(['update:modelValue']);
@@ -258,7 +262,7 @@ const getList = async (value: { [x: string]: any } | string = '') => {
             for (let key of keys) {
                 if (remoteRequestParams?.value && remoteRequestParams.value[key]) {
                     const valuekey = remoteRequestParams.value[key] as string || '';
-                    params.conditions[key] = value[valuekey];
+                    if(typeof value === 'object')  params.conditions[key] = value[valuekey];
                 }
             }
         }

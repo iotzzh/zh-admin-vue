@@ -121,8 +121,8 @@ new Promise((resolve, reject) => {
                     {
                         label: '状态', prop: 'status', 
                         // convert: `return row?.status === 0 ? \'启用\' : \'禁用\'`,
-                        useSlot: {
-                            conmponentName: 'zh-table-status',
+                        slot: {
+                            name: 'zh-table-status',
                             props: { row:{}, index:{}, label:{}, },
                             template: `
                             <el-tag type="error" v-if="row.status === 0">禁用</el-tag>

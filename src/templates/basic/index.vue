@@ -29,6 +29,7 @@ import { TZHModal } from '@/components/zh-modal/type';
 import ZHFormModal from '@/components/zh-form-modal/index.vue';
 import { TZHFormModal } from '@/components/zh-form-modal/type';
 import { createVueComponent } from '@/components/hooks';
+import { TComponent } from '@/components/type';
 
 type TPageConfig = {
     table: TZHTable
@@ -65,8 +66,8 @@ const createComponent = () => {
         modalConfig.methods && modalConfig.methods.forEach((x: any) => {
             methods[x.name] = new Function(x.prop, x.body);
         });
-
-        const vueComponent = createVueComponent(settings.conmponentName, settings.template || '', { data: {} }, {}, methods);
+        const component:TComponent = {name: settings.conmponentName, template: settings.template || '', methods };
+        const vueComponent = createVueComponent(component);
         modalComponents.value[settings.conmponentName] = vueComponent;
     }
 };

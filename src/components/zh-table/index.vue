@@ -74,10 +74,10 @@
               }}</span>
 
               <!-- 自定义内容 -->
-              <template v-else-if="item.useSlot">
+              <template v-else-if="item.slot">
                 <!-- 低代码：利用字符串创建新的组件 -->
-                <component v-if="(typeof item.useSlot === 'object')" 
-                  :is="createVueComponent(item.useSlot.conmponentName, item.useSlot.template,item.useSlot.props)" 
+                <component v-if="(typeof item.slot === 'object')" 
+                  :is="createVueComponent({ name: item?.slot?.name || '', template: item.slot.template, props: item.slot.props  })" 
                   :row="scope.row" :index="scope.$index" :label="item.label" ></component>
                 <!-- 当组件使用 -->
                 <slot v-else :name="'zh-table-' + item.prop" :row="scope.row" :index="scope.$index" :label="item.label" />
