@@ -62,8 +62,8 @@ import { ComponentSize } from 'element-plus/es/constants/size';
 type disabledFun = (modelValue: any) => boolean
 
 const props = defineProps({
-    name: String,
-    id: String,
+    // name: String,
+    // id: String,
     modelValue: {
         type: [Array, String, Number, Boolean, Object],
         default: undefined,
@@ -248,8 +248,8 @@ const getDeepValue = (obj: any, currProp: any, level: number): any => {
 };
 
 const getList = async (value: { [x: string]: any } | string = '') => {
-    loading.value = true;
     if (!api || !api.value) return;
+    loading.value = true;
     const params: TZHRequestParams = { url: api.value };
     params.conditions = conditions?.value || {};
     // 设置远程搜索参数

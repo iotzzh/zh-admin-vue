@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import BasicTemplate from '@/templates/Basic.vue';
+import BasicTemplate from '@/templates/basic/index.vue';
 import { ref } from 'vue';
 import api from '@/api/index';
 
