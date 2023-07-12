@@ -1,23 +1,49 @@
 <template>
     <div class="zh-select">
-        <el-select v-model="value" 
-        :loading="loading" :loading-text="loadingText" :multiple="multiple"
-        :disabled="isDisabled" 
-        :style="{ width: width ? `${width}` : '100%' }"
-        :value-key="valueKey || undefined"  @change="change"
-        clearable
-        :remote="remote" :remote-method="onRemoteMethod"
-        :placeholder="placeholder
+        <el-select 
+            v-model="value" 
+            :loading="loading" 
+            :loading-text="loadingText" 
+            :multiple="multiple"
+            :disabled="isDisabled" 
+            :style="{ width: width ? `${width}` : '100%' }" 
+            :value-key="valueKey || undefined"
+            @change="change" 
+            :clearable="clearable === undefined ? true : clearable"
+            :filterable="filterable === undefined ? true : filterable"  
+            :remote="remote" 
+            :remote-method="onRemoteMethod"
+            :automaticDropdown="automaticDropdown"
+            :size="size" 
+            :autocomplete="autocomplete"
+            :effect="effect"
+            :allowCreate="allowCreate"
+            :filterMethod="filterMethod"
+            :multipleLimit="multipleLimit"
+            :defaultFirstOption="defaultFirstOption"
+            :reserveKeyword="reserveKeyword"
+            :collapseTags="collapseTags"
+            :collapseTagsTooltip="collapseTagsTooltip"
+            :persistent="persistent"
+            :clearIcon="clearIcon"
+            :fitInputWidth="fitInputWidth"
+            :suffixIcon="suffixIcon"
+            :validateEvent="validateEvent"
+            :remoteShowSuffix="remoteShowSuffix"
+            :suffixTransition="suffixTransition"
+            :placement="placement"
+            :popperClass="popperClass"
+            :placeholder="placeholder
                 ? placeholder
                 : remoteMethod
-                  ? '请输入选择'
-                  : '请选择'
+                    ? '请输入选择'
+                    : '请选择'
                 ">
             <el-option v-for="(item, index) in (options as any)" :key="valueKey ? item[valueKey] : index"
-                :label="useLabelField(item)" 
+                :label="useLabelField(item)"
                 :value="valueKey ? item : (valueField ? item[valueField] : item.value)"></el-option>
 
-        <!-- <template #prefix>
+            <!-- <template #prefix>
             <div>前缀</div>
         </template> -->
         </el-select>
@@ -26,13 +52,14 @@
 </template>
   
 <script setup lang="ts">
-import { toRefs, ref, onMounted } from 'vue';
+import { toRefs, ref, onMounted, PropType } from 'vue';
 
 import { TZHRequestParams } from '../zh-request/type';
 import ZHRequest from '../zh-request';
 import { computed } from 'vue';
+import { ComponentSize } from 'element-plus/es/constants/size';
 
-type disabledFun = (modelValue:any) => boolean
+type disabledFun = (modelValue: any) => boolean
 
 const props = defineProps({
     name: String,
@@ -47,89 +74,86 @@ const props = defineProps({
     valueField: {
         type: String
     },
-    width: {
-
-    },
+    width: {},
     disabled: {
         type: Boolean || Function,
     },
     multiple: Boolean,
-    // autocomplete: {
-    //     type: String,
-    //     default: 'off',
-    // },
-    // automaticDropdown: Boolean,
-    // size: {
-    //     type: String as PropType<ComponentSize>,
-    // },
-    // effect: {
-    //     type: String as PropType<'light' | 'dark' | string>,
-    //     default: 'light',
-    // },
-    // disabled: Boolean,
-    // clearable: Boolean,
-    // filterable: Boolean,
-    // allowCreate: Boolean,
-    // // loading: Boolean,
-    // popperClass: {
-    //     type: String,
-    //     default: '',
-    // },
+    autocomplete: {
+        type: String,
+        default: 'off',
+    },
+    automaticDropdown: Boolean,
+    size: {
+        type: String as PropType<ComponentSize>,
+    },
+    effect: {
+        type: String as PropType<'light' | 'dark' | string>,
+        default: 'light',
+    },
+    clearable: Boolean,
+    filterable: Boolean,
+    allowCreate: Boolean,
+    // loading: Boolean,
+    popperClass: {
+        type: String,
+        default: '',
+    },
     remote: Boolean,
     loadingText: String,
-    // noMatchText: String,
-    // noDataText: String,
+    noMatchText: String,
+    noDataText: String,
     remoteMethod: Function,
     remoteRequestSize: Number,
     remoteRequestParams: Object || String, // 示例：当item是对象时：{ userId: id }， 当item是一个值时 userId
-    // filterMethod: Function,
+    filterMethod: Function,
 
-    // multipleLimit: {
-    //     type: Number,
-    //     default: 0,
-    // },
+    multipleLimit: {
+        type: Number,
+        default: 0,
+    },
     placeholder: {
         type: String,
     },
-    // defaultFirstOption: Boolean,
-    // reserveKeyword: {
-    //     type: Boolean,
-    //     default: true,
-    // },
+    defaultFirstOption: Boolean,
+    reserveKeyword: {
+        type: Boolean,
+        default: true,
+    },
     valueKey: {
         type: String,
     },
-    // collapseTags: Boolean,
-    // collapseTagsTooltip: {
-    //     type: Boolean,
-    //     default: false,
-    // },
-    // persistent: {
-    //     type: Boolean,
-    //     default: true,
-    // },
-    // clearIcon: {},
-    // fitInputWidth: {
-    //     type: Boolean,
-    //     default: false,
-    // },
-    // suffixIcon: {},
-    // validateEvent: {
-    //     type: Boolean,
-    //     default: true,
-    // },
-    // remoteShowSuffix: {
-    //     type: Boolean,
-    //     default: false,
-    // },
-    // suffixTransition: {
-    //     type: Boolean,
-    //     default: true,
-    // },
-    // placement: {
-    //     type: String,
-    //     default: 'bottom-start',
-    // },
+    collapseTags: Boolean,
+    collapseTagsTooltip: {
+        type: Boolean,
+        default: false,
+    },
+    persistent: {
+        type: Boolean,
+        default: true,
+    },
+    clearIcon: {},
+    fitInputWidth: {
+        type: Boolean,
+        default: false,
+    },
+    suffixIcon: {},
+    validateEvent: {
+        type: Boolean,
+        default: true,
+    },
+    remoteShowSuffix: {
+        type: Boolean,
+        default: false,
+    },
+    suffixTransition: {
+        type: Boolean,
+        default: true,
+    },
+    placement: {
+        type: String,
+        default: 'bottom-start',
+    },
     requestDataWhenMounted: {
         type: Boolean,
         default: true
@@ -163,7 +187,30 @@ const {
     remoteMethod,
     remoteRequestSize,
     remoteRequestParams,
-    valueKey
+    valueKey,
+    clearable,
+    filterable,
+    multiple,
+    automaticDropdown,
+    size,
+    autocomplete,
+    effect,
+    allowCreate,
+    filterMethod,
+    multipleLimit,
+    defaultFirstOption,
+    reserveKeyword,
+    collapseTags,
+    collapseTagsTooltip,
+    persistent,
+    clearIcon,
+    fitInputWidth,
+    suffixIcon,
+    validateEvent,
+    remoteShowSuffix,
+    suffixTransition,
+    placement,
+    popperClass
 } = toRefs(props);
 
 const emit = defineEmits(['update:modelValue']);
@@ -176,7 +223,7 @@ const isDisabled = computed(() => {
     return result;
 });
 
-const useLabelField = (item:any) => {
+const useLabelField = (item: any) => {
     return labelField?.value ? item[labelField.value] : item.label;
 };
 
@@ -196,37 +243,39 @@ const getDeepValue = (obj: any, currProp: any, level: number): any => {
     return getDeepValue(obj, currProp, level); // 返回下一层级的属性值
 };
 
-const getList = async (value: {[x:string]:any} | string = '') => {
+const getList = async (value: { [x: string]: any } | string = '') => {
     loading.value = true;
-    if (api && api.value) {
-        const params: TZHRequestParams = { url: api.value };
-        params.conditions = conditions?.value || {}; 
-        // 追加参数
-        if (remote.value && remoteRequestParams?.value) {
-            params.conditions.size = remoteRequestSize?.value || 20;
-            if (typeof remoteRequestParams.value === 'string') {
-                params.conditions[remoteRequestParams.value] = value;
-            } else {
-                const keys = Object.keys(remoteRequestParams.value);
-                for(let key of keys) {
-                    params.conditions[key] = value[remoteRequestParams.value[key]];
+    if (!api || !api.value) return;
+    const params: TZHRequestParams = { url: api.value };
+    params.conditions = conditions?.value || {};
+    // 设置远程搜索参数
+    if (remote.value && remoteRequestParams?.value) {
+        params.conditions.size = remoteRequestSize?.value || 20;
+        if (typeof remoteRequestParams.value === 'string') {
+            params.conditions[remoteRequestParams.value] = value;
+        } else {
+            const keys = Object.keys(remoteRequestParams.value);
+            for (let key of keys) {
+                if (remoteRequestParams?.value && remoteRequestParams.value[key]) {
+                    const valuekey = remoteRequestParams.value[key] as string || '';
+                    params.conditions[key] = value[valuekey];
                 }
             }
         }
+    }
 
-        const result = await ZHRequest.post(params);
-        if (apiResultProperty && apiResultProperty.value) {
-            options!.value = getDeepValue(result, 'data.records', 0);
-        } else {
-            options!.value = result.data.records;
-        }
+    const result = await ZHRequest.post(params);
+    if (apiResultProperty && apiResultProperty.value && options) {
+        options.value = getDeepValue(result, 'data.records', 0);
+    } else {
+        options.value = result.data.records;
     }
 
     loading.value = false;
 };
 
 
-const onRemoteMethod = (value:string | {[x:string]:any} ) => {
+const onRemoteMethod = (value: string | { [x: string]: any }) => {
     if (!remote.value) return;
     getList(value);
 };
@@ -238,46 +287,51 @@ onMounted(() => {
     }
     if (valueKey?.value && modelValue?.value && typeof modelValue.value !== 'object') {
         const key = valueKey.value;
-        const item = options.value?.find((x:any) => x[key] === modelValue.value);
+        const item = options.value?.find((x: any) => x[key] === modelValue.value);
         if (item) {
             value.value = item;
-            emit('update:modelValue', item); 
-            
+            emit('update:modelValue', item);
+
         }
     }
 });
 
-const setValue = (newValue:any) => {
-    if(!valueKey?.value) {
+const setValue = (newValue: any) => {
+    if (!valueKey?.value) {
         value.value = newValue;
-        emit('update:modelValue', newValue); 
-    }else {
+        emit('update:modelValue', newValue);
+    } else {
         if (typeof newValue !== 'object') {
-        const key = valueKey.value;
-        const item = options.value?.find((x:any) => x[key] === newValue);
-        if (item) {
-            value.value = item;
-            emit('update:modelValue', item); 
+            const key = valueKey.value;
+            const item = options.value?.find((x: any) => x[key] === newValue);
+            if (item) {
+                value.value = item;
+                emit('update:modelValue', item);
+            }
         }
-    }
     }
 };
 
 
 
 const value = ref(modelValue?.value);
-const change = (newVal:any) => { 
-    emit('update:modelValue', newVal); 
+const change = (newVal: any) => {
+    emit('update:modelValue', newVal);
 };
 
-const setOptions = (newOptions:any) => {
-    options!.value = newOptions;
+const setOptions = (newOptions: any) => {
+    options.value = newOptions;
+};
+
+const setLoading = (isLoading:boolean) => {
+    loading.value = isLoading;
 };
 
 defineExpose({
     getList,
     setOptions,
     setValue,
+    setLoading,
 });
 </script>
   
