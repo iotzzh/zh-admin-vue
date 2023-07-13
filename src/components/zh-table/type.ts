@@ -1,3 +1,4 @@
+import { EpPropMergeType } from 'element-plus/es/utils';
 import { TComponent } from '../type';
 import { TZHFormModal } from '../zh-form-modal/type';
 import { TZHFromField, TZHformConfig } from '../zh-form/type';
@@ -167,8 +168,8 @@ export interface TZHTableActionColumn {
 export interface TZHTableActionColumnButton {
   displayMethod?: Function
   hide?: boolean
-  type?: string
-  size?: string
+  type?: EpPropMergeType<StringConstructor, '' | 'default' | 'text' | 'success' | 'warning' | 'info' | 'primary' | 'danger', unknown>
+  size?: EpPropMergeType<StringConstructor, '' | 'default' | 'small' | 'large', never> | undefined
   icon?: string
   style?: any
   onClick?: Function | string

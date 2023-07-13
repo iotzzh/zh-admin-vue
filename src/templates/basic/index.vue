@@ -21,7 +21,7 @@
 
 <script lang="ts" setup>
 import { ref, PropType, toRefs, createApp, provide, onMounted, shallowRef } from 'vue';
-import ZHLayout from '@/components/zh-layout/index.vue';
+import ZHLayout from '@/components/zh-box/index.vue';
 import ZHTable from '@/components/zh-table/index.vue';
 import { TZHTable } from '@/components/zh-table/type';
 import ZHModal from '@/components/zh-modal/index.vue';

@@ -16,10 +16,10 @@ new Promise((resolve, reject) => {
             formConfig: {
                 hasAddButton: true,
                 hasSearchButton: true,
-                hasDeleteButton: true,
+                hasDeleteButton: false,
                 hasUploadButton: false,
                 hasExportButton: false,
-                hasResetButton: true,
+                hasResetButton: false,
                 customModel: {},
                 formLabelWidth: '70px',
                 fields: [
@@ -78,7 +78,7 @@ new Promise((resolve, reject) => {
                             md: 24,
                             lg: 24,
                             xl: 24,
-                            required: true,
+                            // required: true,
                         }
                     },
                     {
@@ -133,7 +133,8 @@ new Promise((resolve, reject) => {
                         addEditInfo: {
                             type: 'select', 
                             defaultValue: null, 
-                            addSort: 2, placeholder: '请选择',
+                            addSort: 2, 
+                            placeholder: '请选择',
                             span: 24,
                             xs: 24,
                             sm: 24,

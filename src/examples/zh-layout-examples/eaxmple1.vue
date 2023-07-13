@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import ZHLayout from '@/components/zh-layout/index.vue';
+import ZHLayout from '@/components/zh-box/index.vue';
 
 </script>
 

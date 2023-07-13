@@ -100,10 +100,10 @@
                 :type="item.addEditInfo?.inputType" :clearable="item.addEditInfo?.clearable"></el-input>
 
               <!-- 下拉 -->
-              <el-select v-else-if="item.addEditInfo?.type === 'select'"
+              <!-- <el-select v-else-if="item.addEditInfo?.type === 'select'"
                 v-model="scope.row[table._convertPropToEditingProp(item.prop as string)]"
                 :style="{ width: item.addEditInfo?.width ? `${item.addEditInfo?.width}` : '100%' }"
-                :value-key="item.addEditInfo?.valueKey" :disabled="item.addEditInfo?.disabled"
+                :value-key="item.addEditInfo?.valueKey" :disabled="item.addEditInfo?.disabled || true"
                 :multiple="item.addEditInfo?.multiple" filterable clearable :remote="item.addEditInfo?.remote"
                 :remote-method="item.addEditInfo?.remoteMethod" :placeholder="
                   item.addEditInfo?.placeholder
@@ -116,7 +116,7 @@
                   v-for="(subItem, subIndex) in (item.addEditInfo?.options as Array<TZHFromFieldSelectOption> | Array<{ [x: string]: any }>)"
                   :key="item.addEditInfo?.valueKey ? subItem[item.addEditInfo?.valueKey] : subIndex"
                   :label="subItem.label" :value="item.addEditInfo?.valueKey ? subItem : subItem.value"></el-option>
-              </el-select>
+              </el-select> -->
             </span>
 
             <span>

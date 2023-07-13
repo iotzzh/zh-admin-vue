@@ -233,7 +233,7 @@
     
 <script lang="ts" setup>
 import { onMounted } from 'vue';
-import Box from '@/components/zh-layout/index.vue';
+import Box from '@/components/zh-box/index.vue';
 import AOSImg from '@/assets/img/aos-bg.jpg';
 
 import AOS from 'aos';

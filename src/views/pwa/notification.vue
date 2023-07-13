@@ -58,7 +58,7 @@ import ZHLightButton from '@/components/zh-light-button/index.vue';
 import ICON from '@/assets/img/zhihu.png';
 import IMG from '@/assets/img/notification1.jpg';
 import { popSuccessMessage } from '@/components/zh-message';
-import Box from '@/components/zh-layout/index.vue';
+import Box from '@/components/zh-box/index.vue';
 
 
 // 注册当前页面的全局的registration
