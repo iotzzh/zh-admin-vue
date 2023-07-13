@@ -34,24 +34,7 @@
               :placeholder="item.placeholder" :disabled="item.disabled === undefined ? false :
                 typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)"
               :clearable="item.clearable" />
-
-            <!-- 下拉 -->
-            <!-- <el-select v-else-if="item.type === 'select'" v-model="modelValue[item.prop]"
-              :style="{ width: item.width ? `${item.width}` : '100%' }" :value-key="item.valueKey"
-              :disabled="item.disabled === undefined ? false : typeof item.disabled === 'boolean' ? item.disabled : item.disabled(modelValue)"
-              :multiple="item.multiple" filterable clearable :remote="item.remote" :remote-method="item.remoteMethod"
-              :placeholder="item.placeholder
-                ? item.placeholder
-                : item.remoteMethod
-                  ? '请输入选择'
-                  : '请选择'
-                ">
-              <el-option
-                v-for="(subItem, subIndex) in (item.options as Array<TZHFromFieldSelectOption> | Array<{ [x: string]: any }>)"
-                :key="item.valueKey ? subItem[item.valueKey] : subIndex" :label="subItem.label"
-                :value="item.valueKey ? subItem : subItem.value"></el-option>
-            </el-select> -->
-
+              
             <ZHSelect v-else-if="item.type === 'select'"
             :style="{ width: item.width ? `${item.width}` : '100%' }"
             v-model="modelValue[item.prop]" :defaultOptions="item.defaultOptions"

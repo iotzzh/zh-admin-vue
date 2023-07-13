@@ -8,7 +8,7 @@
             :disabled="isDisabled" 
             :style="{ width: width ? `${width}` : '100%' }" 
             :value-key="valueKey || undefined"
-            @change="change" 
+            @change="change"
             :clearable="clearable === undefined ? true : clearable"
             :filterable="filterable === undefined ? true : filterable"  
             :remote="remote" 
