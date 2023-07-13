@@ -52,7 +52,7 @@
 </template>
   
 <script setup lang="ts">
-import { toRefs, ref, onMounted, PropType } from 'vue';
+import { toRefs, ref, onMounted, PropType, watch } from 'vue';
 
 import { TZHRequestParams } from '../zh-request/type';
 import ZHRequest from '../zh-request';
@@ -66,7 +66,6 @@ const props = defineProps({
     // id: String,
     modelValue: {
         type: [Array, String, Number, Boolean, Object],
-        default: undefined,
     },
     labelField: {
         type: String
@@ -267,14 +266,12 @@ const getList = async (value: { [x: string]: any } | string = '') => {
             }
         }
     }
-
     const result = await ZHRequest.post(params);
     if (apiResultProperty && apiResultProperty.value && options) {
         options.value = getDeepValue(result, 'data.records', 0);
     } else {
         options.value = result.data.records;
     }
-
     loading.value = false;
 };
 
@@ -283,7 +280,6 @@ const onRemoteMethod = (value: string | { [x: string]: any }) => {
     if (!remote.value) return;
     getList(value);
 };
-
 
 onMounted(() => {
     if (requestDataWhenMounted && requestDataWhenMounted.value) {
@@ -295,7 +291,6 @@ onMounted(() => {
         if (item) {
             value.value = item;
             emit('update:modelValue', item);
-
         }
     }
 });
@@ -322,6 +317,12 @@ const value = ref(modelValue?.value);
 const change = (newVal: any) => {
     emit('update:modelValue', newVal);
 };
+
+watch(() => modelValue!.value, (newVal:any) => {
+    if (newVal !== value.value) {
+        value.value = newVal;
+    }
+},  { deep: true });
 
 const setOptions = (newOptions: any) => {
     options.value = newOptions;

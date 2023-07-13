@@ -2,7 +2,7 @@
   <el-dialog v-model="modalConfig.show" v-if="modalConfig.show" :title="modalConfig.title" :closeOnClickModal="false"
     :width="isMobile ? '90%' : modalConfig.width || ''" @close="zhModal.close" :top="modalConfig.top"
     :fullscreen="zhModal.fullscreen.value" :class="classNames" @opened="zhModal.opened" :append-to-body="true"
-    :show-close="false">
+    @closed="zhModal.closed" :destroy-on-close="modalConfig.destroyOnClose" :show-close="false">
     <div class="body-box" v-loading="modalConfig.loadingPage">
       <slot></slot>
     </div>
@@ -50,7 +50,7 @@ const props = defineProps({
 
 const { modalConfig } = toRefs(props);
 
-const emit = defineEmits(['closed', 'submited', 'canceled', 'opened']);
+const emit = defineEmits(['close', 'closed', 'submited', 'cancel', 'open', 'opened']);
 
 const isMobile = ref(storage.getIsMobile());
 

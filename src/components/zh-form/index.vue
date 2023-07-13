@@ -1,7 +1,7 @@
 <template>
   <el-form class="zh-form" v-bind="$attrs" ref="refForm" :model="modelValue" :rules="rules"
     :label-width="formConfig?.formLabelWidth || 'auto'" type="flex" inline justify="end"
-    style="flex-wrap: wrap; flex-direction: row">
+    style="flex-wrap: wrap; flex-direction: row" :validate-on-rule-change="false">
     <el-row style="display: flex; flex-wrap: wrap">
       <TransitionGroup name="list">
         <!-- xs: <768, sm: >=768, md: >= 992, lg: >= 1200, xl: >= 1920 -->

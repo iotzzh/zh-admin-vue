@@ -53,6 +53,7 @@ new Promise((resolve, reject) => {
                 modal: {
                     width: '500px',
                     mainTitle: '部门',
+                    destroyOnClose: true,
                     footer: {},
                     formSettings: {
                         formLabelWidth: '90px',
@@ -68,17 +69,20 @@ new Promise((resolve, reject) => {
                         align: 'left',
                         minWidth: '130px',
                         addEditInfo: {
-                            type: 'input',
+                            type: 'select',
                             labelWidth: '100px',
                             addSort: 0.5,
-                            defaultValue: '',
-                            placeholder: '请输入',
+                            placeholder: '请选择',
+                            defaultOptions: [
+                                { label: '部门1', value: '部门1' },
+                                { label: '部门2', value: '部门2' },
+                            ],
                             xs: 24,
                             sm: 24,
                             md: 24,
                             lg: 24,
                             xl: 24,
-                            // required: true,
+                            required: true,
                         }
                     },
                     {
@@ -125,14 +129,13 @@ new Promise((resolve, reject) => {
                             name: 'zh-table-status',
                             props: { row:{}, index:{}, label:{}, },
                             template: `
-                            <el-tag type="error" v-if="row.status === 0">禁用</el-tag>
+                            <el-tag type="danger" v-if="row.status === 0">禁用</el-tag>
                             <el-tag type="success" v-else>启用</el-tag>
                             `,
                         },
                         minWidth: '80px',
                         addEditInfo: {
                             type: 'select', 
-                            defaultValue: null, 
                             addSort: 2, 
                             placeholder: '请选择',
                             span: 24,

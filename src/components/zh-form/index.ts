@@ -34,13 +34,13 @@ export default class Form {
     if (
       !this.formConfig?.value?.fields ||
       this.formConfig.value?.fields.length === 0 ||
-      !this.modelValue ||
-      !this.modelValue.value
+      !this.modelValue?.value
     )
       return;
     for (const field of this.formConfig.value.fields) {
-      // if (this.modelValue && this.modelValue.value && !this.modelValue.value[field.prop]) this.modelValue.value[field.prop] = field.defaultValue;
-      this.modelValue.value[field.prop || ''] = field.defaultValue;
+      if (typeof field === 'object' && Object.prototype.hasOwnProperty.call(field, 'defaultValue')) {
+        this.modelValue.value[field.prop || ''] = field.defaultValue;
+      }
     }
     this.setConvertModel(this.modelValue.value);
   };

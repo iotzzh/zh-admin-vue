@@ -2,10 +2,10 @@ import { Ref, ref } from 'vue';
 import { TZHModal } from './type';
 
 export class ZHModal {
-    emit: (event: 'closed' | 'submited' | 'canceled' | 'opened', ...args: any[]) => void;
+    emit: (event: 'close' | 'closed' | 'submited' | 'cancel' | 'open' | 'opened', ...args: any[]) => void;
     modal: Ref<TZHModal>;
     fullscreen: Ref<boolean>;
-    constructor(modal: Ref<TZHModal>, emit: (event: 'closed' | 'submited' | 'canceled' | 'opened', ...args: any[]) => void) {
+    constructor(modal: Ref<TZHModal>, emit: (event: 'close' | 'closed' | 'submited' | 'cancel' | 'open' | 'opened', ...args: any[]) => void) {
         this.modal = modal;
         this.emit = emit;
         this.fullscreen = ref(!!modal?.value?.fullscreen || false);
@@ -14,6 +14,7 @@ export class ZHModal {
     open = (data:{}) => {
         this.modal.value.show = true;
         this.modal.value.data = data;
+        this.emit('open'); 
     };
 
     opened = () => { 
@@ -22,6 +23,10 @@ export class ZHModal {
 
     close = () => {
         this.modal.value.show = false;
+        this.emit('close');
+    };
+
+    closed = () => {
         this.emit('closed');
     };
 
@@ -41,7 +46,7 @@ export class ZHModal {
 
     cancel = () => {
         this.modal.value.show = false;
-        this.emit('canceled');
+        this.emit('cancel');
     };
 
     toggleFullScreen = () => {

@@ -1,6 +1,6 @@
 <template>
   <ZHModal ref="refZHModal" :modalConfig="modalConfig" @close="zhFormModal.close" @submit="zhFormModal.submit"
-    @cancel="zhFormModal.cancel" @opened="zhFormModal.opened">
+    @cancel="zhFormModal.cancel" @opened="zhFormModal.opened" @closed="zhFormModal.closed">
     <ZHForm ref="refZHForm" v-model="modelValue" v-bind:convertedModel="convertedModel" :formConfig="formConfig"
       @update:convertedModel="(value: any) => emit('update:convertedModel', value)">
       <slot v-for="(item, index) in slotFields" :name="'zh-form-' + item.prop" :key="index" />

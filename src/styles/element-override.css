@@ -26,6 +26,11 @@
     line-height: 1px!important;
 }
 
+/* 2.3.7 bug, 已经fix，等新版本 */
+.el-form--inline .el-input {
+    --el-input-width: 100% !important;
+}
+
 
 /* 重定义弹窗后body加padding的bug */
 /* .el-popup-parent--hidden {

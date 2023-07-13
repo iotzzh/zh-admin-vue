@@ -11,6 +11,7 @@ export interface TZHModal {
   top?: string
   fullscreen?: boolean
   customClass?: string
+  destroyOnClose?: boolean
 
   footer?: TZHModalFooter
 

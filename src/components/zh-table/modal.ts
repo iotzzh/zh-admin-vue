@@ -1,9 +1,10 @@
 import { computed, Ref, ref, nextTick } from 'vue';
 import { TZHFormModal } from '../zh-form-modal/type';
-import { TObject, TZHTableConfig, TZHTableRequestConfig } from './type';
+import { TObject, TZHTableConfig, TZHTableRequestConfig, TZHTableRequestConfigResult } from './type';
 import Table from './table';
 import ZHRequest from '../zh-request';
 import { TZHRequestParams } from '../zh-request/type';
+import { TZHformConfig } from '../zh-form/type';
 
 
 
@@ -48,9 +49,9 @@ export default class Modal {
           ...y.addEditInfo,
         };
       }).sort((m: any, n: any) => m.addSort - n.addSort > 0 ? 1 : -1),
-      customValidate: this.tableSettings.modal?.formSettings && this.tableSettings.modal?.formSettings.customValidate,
-      ... this.tableSettings.modal?.formSettings
-    } as TZHFormSettings;
+      customValidate: this.tableSettings.modal?.formConfig && this.tableSettings.modal?.formConfig.customValidate,
+      ... this.tableSettings.modal?.formConfig
+    } as TZHformConfig;
   });
 
   modal = ref({ show: false, title: '新增', loadingSubmit: false, } as TZHFormModal);
@@ -100,12 +101,15 @@ export default class Modal {
     this.formModel.value = {};
     this.convertedModel.value = {};
     this.modal.value.show = false;
+
+    this.refZHFormModal.value.clearFormData();
   };
 
   cancel = () => {
     this.formModel.value = {};
     this.convertedModel.value = {};
     this.modal.value.show = false;
+    this.refZHFormModal.value.clearFormData();
   };
 
 
@@ -115,7 +119,7 @@ export default class Modal {
       ? JSON.parse(JSON.stringify(this.convertedModel.value))
       : {};
 
-    const customModel = this.tableSettings.modal?.formSettings?.customModel && JSON.parse(JSON.stringify(this.tableSettings.modal?.formSettings?.customModel));
+    const customModel = this.tableSettings.modal?.formConfig?.customModel && JSON.parse(JSON.stringify(this.tableSettings.modal?.formConfig?.customModel));
 
     const params = {
       ...convertedModel,
@@ -147,13 +151,14 @@ export default class Modal {
 
     // console.log('submit', params);
 
-    const result: TZHTableRequestResult = await ZHRequest.post(params);
+    const result: TZHTableRequestConfigResult = await ZHRequest.post(params);
     if (result.success) {
       this.close();
       this.table.initData();
     }
     await nextTick();
     this.modal.value.loadingSubmit = false;
+    this.refZHFormModal.value.clearFormData();
 
     if (this.tableSettings?.modal?.onAfterSubmit) { await this.tableSettings.modal.onAfterSubmit({ modal: this.modal.value, conditions, result }); }
   };
