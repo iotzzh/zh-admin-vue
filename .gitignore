@@ -10,6 +10,7 @@ lerna-debug.log*
 node_modules
 .DS_Store
 dist
+storybook-static
 zh-admin-vue-dist
 dist-ssr
 coverage
