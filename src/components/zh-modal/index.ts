@@ -12,9 +12,9 @@ export class ZHModal {
     }
 
     open = (data:{}) => {
+        this.emit('open'); 
         this.modal.value.show = true;
         this.modal.value.data = data;
-        this.emit('open'); 
     };
 
     opened = () => { 
@@ -22,8 +22,8 @@ export class ZHModal {
     };
 
     close = () => {
-        this.modal.value.show = false;
         this.emit('close');
+        this.modal.value.show = false;
     };
 
     closed = () => {

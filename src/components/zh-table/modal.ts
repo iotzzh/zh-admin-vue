@@ -61,9 +61,9 @@ export default class Modal {
 
   openAddModalData = ref({} as any);
   openAddModal = (data: any = undefined) => {
+    this.modal.value.show = true;
     this.modal.value.type = 'add';
     this.modal.value.title = this.modal.value.mainTitle ? '新增' + this.modal.value.mainTitle : '新增';
-    this.modal.value.show = true;
     this.modal.value = { ...this.modal.value, ...this.tableSettings.modal };
     // 在新增时，有些字段带有默认值
     this.refZHFormModal.value.initForm();

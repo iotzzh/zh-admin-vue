@@ -43,8 +43,8 @@ export default class ZHFormModal {
     };
 
     closed = () => {
-        this.initForm();
         this.emit('closed');
+        this.initForm();
     };
 
     cancel = () => {
