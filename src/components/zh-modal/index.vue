@@ -50,7 +50,7 @@ const props = defineProps({
 
 const { modalConfig } = toRefs(props);
 
-const emit = defineEmits(['close', 'closed', 'submited', 'cancel', 'open', 'opened']);
+const emit = defineEmits(['close', 'closed', 'submit', 'cancel', 'open', 'opened']);
 
 const isMobile = ref(storage.getIsMobile());
 

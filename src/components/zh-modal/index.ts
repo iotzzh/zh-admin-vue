@@ -2,10 +2,10 @@ import { Ref, ref } from 'vue';
 import { TZHModal } from './type';
 
 export class ZHModal {
-    emit: (event: 'close' | 'closed' | 'submited' | 'cancel' | 'open' | 'opened', ...args: any[]) => void;
+    emit: (event: 'close' | 'closed' | 'submit' | 'cancel' | 'open' | 'opened', ...args: any[]) => void;
     modal: Ref<TZHModal>;
     fullscreen: Ref<boolean>;
-    constructor(modal: Ref<TZHModal>, emit: (event: 'close' | 'closed' | 'submited' | 'cancel' | 'open' | 'opened', ...args: any[]) => void) {
+    constructor(modal: Ref<TZHModal>, emit: (event: 'close' | 'closed' | 'submit' | 'cancel' | 'open' | 'opened', ...args: any[]) => void) {
         this.modal = modal;
         this.emit = emit;
         this.fullscreen = ref(!!modal?.value?.fullscreen || false);
@@ -23,7 +23,6 @@ export class ZHModal {
 
     close = () => {
         this.emit('close');
-        this.modal.value.show = false;
     };
 
     closed = () => {
@@ -40,12 +39,10 @@ export class ZHModal {
 
     submit = async () => {
         this.executeOnBeforeSubmit();
-        this.modal.value.show = false;
-        this.emit('submited');
+        this.emit('submit');
     };
 
     cancel = () => {
-        this.modal.value.show = false;
         this.emit('cancel');
     };
 

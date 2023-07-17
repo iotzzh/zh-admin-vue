@@ -56,7 +56,7 @@ new Promise((resolve, reject) => {
                     destroyOnClose: true,
                     footer: {},
                     formSettings: {
-                        formLabelWidth: '90px',
+                        formLabelWidth: '130px',
                     },
                     onBeforeSubmit: 'console.log("onbeforeSubmit");',
                     onAfterSubmit: 'console.log("onaftersubmit");'
@@ -70,7 +70,6 @@ new Promise((resolve, reject) => {
                         minWidth: '130px',
                         addEditInfo: {
                             type: 'select',
-                            labelWidth: '100px',
                             addSort: 0.5,
                             placeholder: '请选择',
                             defaultOptions: [

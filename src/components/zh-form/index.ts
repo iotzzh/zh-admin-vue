@@ -51,7 +51,7 @@ export default class Form {
   };
 
   validate = async () => {
-    if (!this.refForm.value) return;
+    if (!this.refForm.value) return false;
     if (this.formConfig?.value?.customValidate && !this.formConfig?.value?.customValidate(this.modelValue?.value)) return false;
     const result = await this.refForm.value.validate((valid: any) => {
       return valid;

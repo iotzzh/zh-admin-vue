@@ -138,7 +138,14 @@ export default class Modal {
     this.modal.value.loadingSubmit = true;
     const conditions = this.getParams();
 
-    if (this.tableSettings?.modal?.onBeforeSubmit) { await this.tableSettings.modal.onBeforeSubmit({ modal: this.modal.value, conditions, }); }
+    if (this.tableSettings?.modal?.onBeforeSubmit) { 
+      if (typeof this.tableSettings.modal.onBeforeSubmit === 'string') {
+        const AsyncFunction = Object.getPrototypeOf(async function(){ /* */}).constructor;
+        await new AsyncFunction('data', this.tableSettings.modal.onBeforeSubmit)({ modal: this.modal.value, conditions, });
+      } else {
+        await this.tableSettings.modal.onBeforeSubmit({ modal: this.modal.value, conditions, }); 
+      }
+    }
 
     const params: TZHRequestParams = {
       url: this.modal.value.type === 'add' ?
