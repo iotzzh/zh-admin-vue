@@ -1,7 +1,6 @@
 import { computed, Ref, ref, nextTick } from 'vue';
 import { TZHFormModal } from '../zh-form-modal/type';
 import { TObject, TZHTableConfig, TZHTableRequestConfig, TZHTableRequestConfigResult } from './type';
-import Table from './table';
 import ZHRequest from '../zh-request';
 import { TZHRequestParams } from '../zh-request/type';
 import { TZHformConfig } from '../zh-form/type';
@@ -9,23 +8,23 @@ import { TZHformConfig } from '../zh-form/type';
 
 
 export default class Modal {
-  table: Table;
   refZHFormModal: Ref<any>;
   emit: any;
   request: TZHTableRequestConfig | undefined;
   tableSettings: TZHTableConfig;
+  globalTable: any;
   constructor(
     request: TZHTableRequestConfig | undefined,
-    table: Table,
     refZHFormModal: Ref<any>,
     tableSettings: TZHTableConfig,
-    emit: any
+    emit: any,
+    globalTable:any,
   ) {
-    this.table = table;
     this.request = request;
     this.refZHFormModal = refZHFormModal;
     this.tableSettings = tableSettings;
     this.emit = emit;
+    this.globalTable = globalTable;
   }
 
   columnFunctionFields = ['convert'];
@@ -67,6 +66,15 @@ export default class Modal {
     this.modal.value = { ...this.modal.value, ...this.tableSettings.modal };
     // 在新增时，有些字段带有默认值
     this.refZHFormModal.value.initForm();
+    this.openAddModalData.value = data;
+  };
+
+  executeOpenAddModal = (modal:any, data:any) => {
+    this.modal.value.show = true;
+    this.modal.value.type = 'add';
+    this.modal.value = {  ...this.modal.value, ...this.tableSettings.modal };
+    this.modal.value.title = modal.title;
+    this.formModel.value = { ...modal };
     this.openAddModalData.value = data;
   };
 
@@ -161,7 +169,7 @@ export default class Modal {
     const result: TZHTableRequestConfigResult = await ZHRequest.post(params);
     if (result.success) {
       this.close();
-      this.table.initData();
+      this.globalTable.table.debounceInitData();
     }
     await nextTick();
     this.modal.value.loadingSubmit = false;

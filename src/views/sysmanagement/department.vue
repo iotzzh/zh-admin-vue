@@ -171,7 +171,8 @@ new Promise((resolve, reject) => {
                     hasRowDeleteAction: true,
                     hasRowEditAction: true,
                     buttons: [
-                        { label: '新增子节点', hide: false, type: 'success', icon: 'Plus', onClick: 'refModals && refModals[\'modal1\'] && refModals[\'modal1\'].open(params.row);' },
+                        { label: '新增子节点', hide: false, type: 'success', icon: 'Plus', onClick: `params.modal.executeOpenAddModal({ title: '新增子节点', departmentParent: '部门1', comment: params.row.comment }, params.row);
+                        ` },
                     ],
                 },
             },

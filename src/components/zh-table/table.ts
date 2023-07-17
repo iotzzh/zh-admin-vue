@@ -16,13 +16,15 @@ export default class Table {
   emit: any;
   tableSettings: TZHTableConfig;
   request: TZHTableRequestConfig | undefined;
+  globalTable: any;
   constructor(
     tableSettings: TZHTableConfig,
     refTable: any,
     request: TZHTableRequestConfig | undefined,
     form: Form,
     pageData: Ref<TZHTablePageConfig>,
-    emit: any
+    emit: any,
+    globalTable:any
   ) {
     this.tableSettings = tableSettings;
     this.refTable = refTable;
@@ -30,6 +32,7 @@ export default class Table {
     this.pageData = pageData;
     this.form = form;
     this.emit = emit;
+    this.globalTable = globalTable;
   }
 
   data = ref([] as any);
@@ -176,7 +179,7 @@ export default class Table {
     if (!this.tableSettings.rowClick) return;
 
     if (typeof this.tableSettings.rowClick === 'string') 
-      (new Function('params', this.tableSettings.rowClick))({ row, column, event });
+      (new Function('params', this.tableSettings.rowClick))({ row, column, event, refTable: this.refTable.value });
     else this.tableSettings.rowClick({ row, column, event });
   };
 
@@ -189,7 +192,7 @@ export default class Table {
     if (!method) return;
     if (typeof method === 'string') {
       const func = new Function('params', method);
-      return func({row, index});
+      return func({row, index,  modal: this.globalTable.value.modal });
 
     } else {
       return method(row, index);

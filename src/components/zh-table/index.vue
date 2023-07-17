@@ -213,6 +213,8 @@ const emit = defineEmits(['changeModel', 'opened']);
 
 const isMobile = ref(storage.getIsMobile());
 
+const globalTable = ref({} as any);
+
 //#region common
 // 分页的组件内部数据
 const pageData: Ref<TZHTablePageConfig> = ref({
@@ -224,6 +226,7 @@ const pageData: Ref<TZHTablePageConfig> = ref({
 
 //#region search form
 const form = new Form(pageData, config.value.requestConfig, config.value.formConfig, refZHForm);
+globalTable.value.form = form;
 const watchFormModel = computed(() => {
   return JSON.parse(JSON.stringify(form.formModel.value));
 });
@@ -243,11 +246,13 @@ const sloTFromFields = config.value.formConfig?.fields?.filter((x: TZHFromField)
 
 //#region table
 const refTable = ref<InstanceType<typeof ElTable>>();
-const table = new Table(config.value.tableConfig, refTable, config.value.requestConfig, form, pageData, emit);
+const table = new Table(config.value.tableConfig, refTable, config.value.requestConfig, form, pageData, emit, globalTable);
 onMounted(() => {
   if (config.value.requestConfig?.list?.url && (config.value.requestConfig.initialData || config.value.requestConfig.initialData === undefined))
     table.debounceInitData();
 });
+
+globalTable.value.table = table;
 //#endregion
 
 //#region page
@@ -258,7 +263,8 @@ if (config.value.pageConfig) page = new Page(config.value.pageConfig, pageData, 
 
 //#region add/edit modal
 const refZhModalForm = ref();
-const modalInstance = new Modal(config.value.requestConfig, table, refZhModalForm, config.value.tableConfig, emit);
+const modalInstance = new Modal(config.value.requestConfig, refZhModalForm, config.value.tableConfig, emit, globalTable);
+globalTable.value.modal = modalInstance;
 //#endregion
 
 defineExpose({
@@ -268,6 +274,7 @@ defineExpose({
   getSearchFormParams: form.getSearchFormParams,
   // 弹窗
   openAddModal: modalInstance.openAddModal,
+  executeOpenAddModal: modalInstance.executeOpenAddModal,
   setModalFormModel: modalInstance.setModalFormModel,
   // 表格
   debounceInitData: table.debounceInitData, // 防抖查询

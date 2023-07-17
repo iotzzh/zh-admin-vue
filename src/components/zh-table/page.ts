@@ -1,10 +1,9 @@
 import { Ref, ref } from 'vue';
-import { TZHTablePage, TZHTablePageSetting } from './type';
 import Table from './table';
 import storage from '@/utils/storage';
 
 export default class {
-  pageSettings: TZHTablePageSetting | undefined;
+  pageSettings: any;
   sizes: any;
   pagerCount: any;
   total: any;
@@ -12,8 +11,8 @@ export default class {
   pageData: any;
   table: Table;
   constructor(
-    pageSettings: TZHTablePageSetting | undefined,
-    pageData: Ref<TZHTablePage>,
+    pageSettings: any,
+    pageData: Ref<any>,
     table: Table) {
     const isMobile = storage.getIsMobile();
     this.sizes = ref(pageSettings?.sizes || [10, 20, 50, 100]);
