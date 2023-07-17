@@ -90,7 +90,10 @@ const props = defineProps({
         type: String as PropType<'light' | 'dark' | string>,
         default: 'light',
     },
-    clearable: Boolean,
+    clearable: {
+        type: Boolean || undefined,
+        default: undefined,
+    },
     filterable: Boolean,
     allowCreate: Boolean,
     // loading: Boolean,

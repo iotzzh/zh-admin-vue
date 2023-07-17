@@ -81,7 +81,7 @@ new Promise((resolve, reject) => {
                             md: 24,
                             lg: 24,
                             xl: 24,
-                            required: true,
+                            required: false,
                         }
                     },
                     {
