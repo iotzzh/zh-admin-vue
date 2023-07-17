@@ -141,7 +141,7 @@ export default class Modal {
     if (this.tableSettings?.modal?.onBeforeSubmit) { 
       if (typeof this.tableSettings.modal.onBeforeSubmit === 'string') {
         const AsyncFunction = Object.getPrototypeOf(async function(){ /* */}).constructor;
-        await new AsyncFunction('data', this.tableSettings.modal.onBeforeSubmit)({ modal: this.modal.value, conditions, });
+        await new AsyncFunction('params', this.tableSettings.modal.onBeforeSubmit)({ modal: this.modal.value, conditions, });
       } else {
         await this.tableSettings.modal.onBeforeSubmit({ modal: this.modal.value, conditions, }); 
       }
@@ -167,6 +167,12 @@ export default class Modal {
     this.modal.value.loadingSubmit = false;
     this.refZHFormModal.value.clearFormData();
 
-    if (this.tableSettings?.modal?.onAfterSubmit) { await this.tableSettings.modal.onAfterSubmit({ modal: this.modal.value, conditions, result }); }
+    if (this.tableSettings?.modal?.onAfterSubmit) { 
+      if (typeof this.tableSettings.modal.onAfterSubmit === 'string') {
+        (new Function('params', this.tableSettings.modal.onAfterSubmit))({ modal: this.modal.value, conditions, result });
+      } else {
+        this.tableSettings.modal.onAfterSubmit({ modal: this.modal.value, conditions, result }); }
+      }
+
   };
 }
