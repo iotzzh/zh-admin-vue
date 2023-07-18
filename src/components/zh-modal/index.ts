@@ -23,6 +23,7 @@ export class ZHModal {
 
     close = () => {
         this.emit('close');
+        if (this.modal.value.closeInModal)  this.modal.value.show = false;
     };
 
     closed = () => {

@@ -162,6 +162,7 @@ new Promise((resolve, reject) => {
                 width: '300px',
                 title: '测试自定义modal内容',
                 show: false,
+                closeInModal: true,
                 conmponentName: 'my-c1',
                 methods: [
                     { name: 'clickMethod', props: '', body: `console.log(this.data)` }
@@ -178,6 +179,7 @@ new Promise((resolve, reject) => {
                 width: '300px',
                 title: '测试自定义modal内容',
                 show: false,
+                closeInModal: true,
                 conmponentName: 'my-c2',
                 methods: [
                     { name: 'clickMethod', props: '', body: `console.log('hello world')` }
