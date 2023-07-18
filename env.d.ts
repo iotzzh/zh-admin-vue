@@ -13,3 +13,5 @@ declare module 'js-pinyin';
 declare module 'aos';
 
 declare module 'electron';
+
+declare module 'element-plus/dist/locale/zh-cn.mjs';

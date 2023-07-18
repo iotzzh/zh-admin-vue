@@ -12,12 +12,10 @@ import { setupStore } from '@/stores/index';
 import { setupRouter } from '@/router';
 import ElementPlus from 'element-plus';
 import * as Icons from '@element-plus/icons-vue';
-import locale from 'element-plus/lib/locale/lang/zh-cn';
+import locale from 'element-plus/dist/locale/zh-cn.mjs';
 import { setupMock } from '@/mock/index';
 import { setupI18n } from './locales/setupI18n';
 import 'default-passive-events';
-
-import AOS from 'aos';
 
 // vex-table
 import 'xe-utils';
