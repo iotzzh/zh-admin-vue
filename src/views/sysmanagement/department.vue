@@ -7,8 +7,6 @@ import BasicTemplate from '@/templates/basic/index.vue';
 import { ref } from 'vue';
 import api from '@/api/index';
 
-
-
 const pageSetting: any = ref({});
 new Promise((resolve, reject) => {
     const pageConfig = {
@@ -25,15 +23,17 @@ new Promise((resolve, reject) => {
                 fields: [
                     {
                         label: '部门名称', type: 'input', prop: 'phone',
-                        maxWidth: '200px',
+                        maxWidth: '220px',
                         xs: 24,
                         sm: 12,
                         md: 8,
                         lg: 8,
                         xl: 6,
-                    }, 
+                    },
                     {
-                        label: '状态', type: 'select', prop: 'status', xs: 24,
+                        label: '状态', type: 'select', prop: 'status',
+                        maxWidth: '220px',
+                        xs: 24,
                         sm: 12,
                         md: 8,
                         lg: 8,
@@ -105,13 +105,13 @@ new Promise((resolve, reject) => {
                         }
                     },
                     {
-                        label: '排序', prop: 'sort', 
+                        label: '排序', prop: 'sort',
                         minWidth: '80px',
                         addEditInfo: {
-                            type: 'input', 
+                            type: 'input',
                             inputType: 'number',
-                            defaultValue: null, 
-                            addSort: 2, 
+                            defaultValue: null,
+                            addSort: 2,
                             placeholder: '请输入',
                             span: 24,
                             xs: 24,
@@ -123,11 +123,11 @@ new Promise((resolve, reject) => {
                         }
                     },
                     {
-                        label: '状态', prop: 'status', 
+                        label: '状态', prop: 'status',
                         // convert: `return row?.status === 0 ? \'启用\' : \'禁用\'`,
                         slot: {
                             name: 'zh-table-status',
-                            props: { row:{}, index:{}, label:{}, },
+                            props: { row: {}, index: {}, label: {}, },
                             template: `
                             <el-tag type="danger" v-if="row.status === 0">禁用</el-tag>
                             <el-tag type="success" v-else>启用</el-tag>
@@ -135,8 +135,8 @@ new Promise((resolve, reject) => {
                         },
                         minWidth: '80px',
                         addEditInfo: {
-                            type: 'select', 
-                            addSort: 2, 
+                            type: 'select',
+                            addSort: 2,
                             placeholder: '请选择',
                             span: 24,
                             xs: 24,
@@ -172,7 +172,8 @@ new Promise((resolve, reject) => {
                     hasRowDeleteAction: true,
                     hasRowEditAction: true,
                     buttons: [
-                        { label: '新增子节点', hide: false, type: 'success', icon: 'Plus', onClick: `params.modal.executeOpenAddModal({ title: '新增子节点', departmentParent: params.row.parentId, comment: params.row.comment }, params.row);
+                        {
+                            label: '新增子节点', hide: false, type: 'success', icon: 'Plus', onClick: `params.modal.executeOpenAddModal({ title: '新增子节点', departmentParent: params.row.id, comment: params.row.comment }, params.row);
                         ` },
                     ],
                 },
