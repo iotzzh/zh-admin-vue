@@ -129,7 +129,7 @@ const fieldList = computed(() => {
 });
 
 const rules = computed(() => {
-  const newRules = {};
+  const newRules:any = {};
   if (!formConfig?.value?.fields) return newRules;
   const fields: TZHFromField[] = formConfig.value.fields || [];
   for (const element of fields) {

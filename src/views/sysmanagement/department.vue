@@ -59,7 +59,8 @@ new Promise((resolve, reject) => {
                         formLabelWidth: '130px',
                     },
                     onBeforeSubmit: 'console.log("onbeforeSubmit");',
-                    onAfterSubmit: 'console.log("onaftersubmit");'
+                    onAfterSubmit: 'console.log("onaftersubmit");',
+                    onOpened: 'console.log("窗口已打开");',
                 },
                 columns: [
                     {
@@ -73,8 +74,8 @@ new Promise((resolve, reject) => {
                             addSort: 0.5,
                             placeholder: '请选择',
                             defaultOptions: [
-                                { label: '部门1', value: '部门1' },
-                                { label: '部门2', value: '部门2' },
+                                { label: '部门1', value: '1' },
+                                { label: '部门2', value: '2' },
                             ],
                             xs: 24,
                             sm: 24,
@@ -171,7 +172,7 @@ new Promise((resolve, reject) => {
                     hasRowDeleteAction: true,
                     hasRowEditAction: true,
                     buttons: [
-                        { label: '新增子节点', hide: false, type: 'success', icon: 'Plus', onClick: `params.modal.executeOpenAddModal({ title: '新增子节点', departmentParent: '部门1', comment: params.row.comment }, params.row);
+                        { label: '新增子节点', hide: false, type: 'success', icon: 'Plus', onClick: `params.modal.executeOpenAddModal({ title: '新增子节点', departmentParent: params.row.parentId, comment: params.row.comment }, params.row);
                         ` },
                     ],
                 },

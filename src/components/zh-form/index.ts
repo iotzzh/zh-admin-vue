@@ -46,8 +46,18 @@ export default class Form {
   };
 
   clearFormData = () => {
-    this.modelValue.value = {};
-    if (this.convertedModel && this.convertedModel.value) this.convertedModel.value = {};
+    if (!this.modelValue.value) return;
+
+    for (const key of Object.keys(this.modelValue.value)) {
+      delete this.modelValue.value[key];
+    }
+
+    if (this.convertedModel && this.convertedModel.value) {
+
+      for (const key of Object.keys(this.convertedModel.value)) {
+        delete this.convertedModel.value[key];
+      }
+    }
   };
 
   validate = async () => {

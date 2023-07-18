@@ -26,6 +26,7 @@ export interface TZHModal {
   onSubmit?: Function | string
   onCancel?: Function | string
   onClose?: Function | string
+  onOpened?: Function | string
 }
 
 export interface TZHModalMethod {

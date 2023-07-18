@@ -9,7 +9,7 @@ const meta: Meta<typeof ZHSelect> = {
   title: 'Example/ZHSelect',
   component: ZHSelect,
   parameters: {
-    componentSubtitle: '基于element plus二次封装，支持值为简单类型和复杂类型，支持api自动请求，支持自动远程搜索',
+    componentSubtitle: '基于element plus二次封装，支持值为简单类型和复杂类型，支持api自动请求，支持自动远程搜索, 支持通过id或者其他唯一值回显选中对象',
   },
   render: (args: any) => ({
     components: { ZHSelect },

@@ -89,13 +89,23 @@ export default class Modal {
     this.modal.value = { ...this.modal.value, ...this.tableSettings.modal };
   };
 
+  // 使用两种方式调用opened方法，一种是向外抛，一种是往里传递执行，可能是函数，可能是字符串
   opened = () => {
-    this.emit('opened', {
+    const result = {
       modal: this.modal.value,
       formModel: this.formModel.value,
       openAddModalData: this.openAddModalData.value,
       openEditModalData: this.openEditModalData.value
-    });
+    };
+    if (this.tableSettings.modal?.onOpened) {
+      if (typeof this.tableSettings.modal?.onOpened === 'string') {
+        (new Function('params', this.tableSettings.modal?.onOpened))(result);
+      } else {
+        this.tableSettings.modal?.onOpened(result); 
+      }
+    } else {
+      this.emit('opened', result);
+    }
   };
 
   setModalFormModel = (data: { [x: string]: any }) => {
@@ -169,7 +179,7 @@ export default class Modal {
     const result: TZHTableRequestConfigResult = await ZHRequest.post(params);
     if (result.success) {
       this.close();
-      this.globalTable.table.debounceInitData();
+      this.globalTable.value.table.debounceInitData();
     }
     await nextTick();
     this.modal.value.loadingSubmit = false;

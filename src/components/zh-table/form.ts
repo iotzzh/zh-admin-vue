@@ -1,17 +1,17 @@
 import { Ref, ref } from 'vue';
-import { TZHTablePage, TZHTableRequest, TZHTableForm, TZHTableFromField } from './type';
+import {  TZHTableFromField } from './type';
 import _ from 'lodash';
 
 
 export default class Form {
-  page: Ref<TZHTablePage>;
+  page: Ref<any>;
   refZHForm: any;
-  request: TZHTableRequest | undefined;
-  formSettings: TZHTableForm | undefined;
+  request: any | undefined;
+  formSettings: any | undefined;
   constructor(
-    page: Ref<TZHTablePage>,
-    request: TZHTableRequest | undefined,
-    formSettings: TZHTableForm | undefined,
+    page: Ref<any>,
+    request: any | undefined,
+    formSettings: any | undefined,
     refZHForm: any
   ) {
     this.page = page;
