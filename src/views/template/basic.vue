@@ -117,7 +117,7 @@ new Promise((resolve, reject) => {
                     {
                         label: '角色', prop: 'role', notDisplay: true, addEditInfo: {
                             addSort: 3,
-                            type: 'select2',
+                            type: 'select',
                             api: api.getRoleList,
                             valueKey: 'id',
                             labelField: 'roleName',

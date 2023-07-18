@@ -12,7 +12,13 @@
         <el-button type="success" :icon="Plus" @click="() => modalInstance.openAddModal()">新增</el-button>
     </el-form-item>
     <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasUploadButton">
-        <el-button type="warning" :icon="Upload">导入</el-button>
+        <el-upload v-model:file-list="form.fileList.value" class="upload-demo"
+            action="https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15" multiple :on-preview="form.handlePreview"
+            :on-remove="form.handleRemove" :limit="3" :on-exceed="form.handleExceed">
+            <el-button type="warning" :icon="Upload">导入</el-button>
+
+        </el-upload>
+
     </el-form-item>
     <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasExportButton">
         <el-button type="warning" :icon="Download">导出</el-button>
@@ -59,3 +65,11 @@ const {
     form,
 } = toRefs(props);
 </script>
+
+<style lang="scss" scoped>
+.zh-table-inline-button {
+    &:deep(.el-upload-list.el-upload-list--text) {
+        display: none;
+    }
+}
+</style>

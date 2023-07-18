@@ -80,4 +80,12 @@ export default class Form {
 
     return _.isEqual(oldValNeedTriggerSearchFields, newValNeedTriggerSearchFields);
   };
+
+    //#region 上传功能
+    fileList = ref([] as any);
+    handlePreview = () => {};
+    handleRemove = () => {};
+    beforeRemove = () => {};
+    handleExceed = () => {};
+    //#endregion
 }
