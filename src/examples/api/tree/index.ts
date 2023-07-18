@@ -1,8 +1,8 @@
-import { api } from '@/api/config';
+import { apiMock } from '@/api/config';
 
 export default {
-    getOrgList: api + '/org/list',
-    addOrg: api + '/org/add',
-    updateOrg: api + '/org/update',
-    deleteOrg: api + '/org/delete',
+    getOrgList: apiMock + '/org/list',
+    addOrg: apiMock + '/org/add',
+    updateOrg: apiMock + '/org/update',
+    deleteOrg: apiMock + '/org/delete',
 };

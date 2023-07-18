@@ -8,6 +8,13 @@ export default {
     deleteDepartment: apiMock + '/department/remove',
     batchDepartment: apiMock + '/department/remove',
 
+    // 组织管理
+    getOrgList: apiMock + '/org/list',
+    addOrg: apiMock + '/org/add',
+    updateOrg: apiMock + '/org/modify',
+    deleteOrg: apiMock + '/org/remove',
+    batchOrg: apiMock + '/org/remove',
+
     // 用户管理
     getUserList: apiMock + '/user/list',
     addUser: apiMock + '/user/add',

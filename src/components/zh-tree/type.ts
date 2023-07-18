@@ -1,7 +1,12 @@
-import { TZHFormModal } from '../zh-form-modal/type';
-import { TZHTableModal } from '../zh-table/type';
+import { TZHFormModal } from '../zh-form-modal/type'; 
 
 export interface TZHTree {
+  treeConfig: TZHTreeConfig
+  requestConfig?: TZHTreeRequestConfig
+  formModalConfig?: TZHTreeFormModal // 弹窗配置
+}
+
+export interface TZHTreeConfig {
   hasAdd?: boolean
   hasEdit?: boolean
   hasDelete?: boolean
@@ -11,17 +16,15 @@ export interface TZHTree {
   initialData?: boolean
   checkStrictly?: boolean
   showCheckbox?: boolean
+  defaultProps?: any
 
   nodeClick?: Function
 
-  modal?: TZHTreeModal // 弹窗配置
 }
 
-export interface TZHTreeModal extends TZHFormModal {
-  customModel?: {[x:string]: any}
-}
+export type TZHTreeFormModal = TZHFormModal
 
-export interface TZHTreeRequest {
+export interface TZHTreeRequestConfig {
   urlGet?: string
   conditionsGet?: TObject
   urlAdd?: string

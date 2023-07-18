@@ -4,6 +4,7 @@
         <splitpanes class="default-theme">
             <pane v-for="(component, index) in config.components" :key="index" :min-size="component.minSize" :size="component.size" >
                 <ZHTable v-if="component.type === 'table'" ref="refZHTable" :config="component.config"></ZHTable>
+                <ZHTree v-else-if="component.type === 'tree'" ref="refZHTree" :config="component.config"></ZHTree>
             </pane>
         </splitpanes>
 
@@ -27,13 +28,14 @@ import { ref, PropType, toRefs, createApp, provide, onMounted, shallowRef } from
 import { Splitpanes, Pane } from 'splitpanes';
 import ZHLayout from '@/components/zh-box/index.vue';
 import ZHTable from '@/components/zh-table/index.vue';
-import { TZHTable } from '@/components/zh-table/type';
+import { TZHTable } from '@/components/zh-tree/type';
+import ZHTree  from '@/components/zh-tree/index.vue';
 import { TZHTree } from '@/components/zh-tree/type';
 import ZHModal from '@/components/zh-modal/index.vue';
 import { TZHModal } from '@/components/zh-modal/type';
 import ZHFormModal from '@/components/zh-form-modal/index.vue';
-import { TZHFormModal } from '@/components/zh-form-modal/type';
 import { createVueComponent } from '@/components/hooks';
+
 
 type TComponent = {
     type: string
@@ -45,7 +47,7 @@ type TPageConfig = {
     components: Array<TComponent>
     // components: Array<TZHTable | TZHTree>
     modalsConfig: Array<TZHModal>
-    formModalsConfig: Array<TZHFormModal>
+    formModalsConfig: Array<any>
 };
 
 const props = defineProps({
