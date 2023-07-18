@@ -3,6 +3,11 @@
     <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasSearchButton">
         <el-button type="primary" :icon="Search" @click="() => table.throttleInitData()">查询</el-button>
     </el-form-item>
+    <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasResetButton">
+        <el-button type="info" :icon="RefreshLeft" @click="() => {
+            form.refZHForm.value && form.refZHForm.value.init();
+        }">重置</el-button>
+    </el-form-item>
     <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasAddButton">
         <el-button type="success" :icon="Plus" @click="() => modalInstance.openAddModal()">新增</el-button>
     </el-form-item>
@@ -11,11 +16,6 @@
     </el-form-item>
     <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasExportButton">
         <el-button type="warning" :icon="Download">导出</el-button>
-    </el-form-item>
-    <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasResetButton">
-        <el-button type="info" :icon="RefreshLeft" @click="() => {
-            form.refZHForm.value && form.refZHForm.value.init();
-        }">重置</el-button>
     </el-form-item>
     <el-form-item class="zh-table-inline-button" label-width="0px" v-if="formSettings?.hasDeleteButton">
         <el-button type="danger" :icon="Delete" @click="table.batchDelete">批量删除</el-button>
@@ -28,7 +28,6 @@
 
 <script lang="ts" setup>
 import { PropType, toRefs } from 'vue';
-import { TZHTableForm } from './type';
 import { RefreshLeft, Search, Delete, Download, Plus, Upload } from '@element-plus/icons-vue';
 import Table from './table';
 import Modal from './modal';
@@ -36,7 +35,7 @@ import Form from './form';
 
 const props = defineProps({
     formSettings: {
-        type: Object as PropType<TZHTableForm>,
+        type: Object as PropType<any>,
         required: false, // 必传
     },
     table: {
