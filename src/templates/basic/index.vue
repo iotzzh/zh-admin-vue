@@ -66,7 +66,7 @@ const createComponent = () => {
         modalConfig.methods && modalConfig.methods.forEach((x: any) => {
             methods[x.name] = new Function(x.prop, x.body);
         });
-        const component:TComponent = {name: settings.conmponentName, template: settings.template || '', methods };
+        const component:TComponent = {name: settings.conmponentName, template: settings.template || '', methods, props: { data: {}, } };
         const vueComponent = createVueComponent(component);
         modalComponents.value[settings.conmponentName] = vueComponent;
     }

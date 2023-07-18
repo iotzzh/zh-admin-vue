@@ -170,7 +170,7 @@ new Promise((resolve, reject) => {
                 template: `<div style="width: 100%; text-align: center; height: 300px;
                 display: flex; align-items:center;justify-content: center;">
                 <el-button type="primary" @click="clickMethod">弹窗1 </el-button>
-                <div>name: {{this.data.name}}</div>
+                <div>name: {{this.data?.name}}</div>
                 
             </div>`,
             },
@@ -195,6 +195,7 @@ new Promise((resolve, reject) => {
                 modalConfig: {
                     show: false,
                     width: '300px',
+                    closeInModal: true,
                     footer: {
                         hasCancelButton: true,
                         hasSubmitButton: true,
@@ -203,7 +204,7 @@ new Promise((resolve, reject) => {
                 formConfig: {
                     fields: [
                         { prop: 'test', label: '测试', type: 'input', span: 12, },
-                        { prop: 'test1', label: '测试1', type: 'select', span: 12, convert: 'return 111' }
+                        { prop: 'test1', label: '测试1', type: 'select', span: 12, convert: 'return 111',  defaultOptions: [ { label: '测试1', value: '测试1' }, { label: '测试2', value: '测试2' }] }
                     ]
                 },
                 model: {},
@@ -213,11 +214,12 @@ new Promise((resolve, reject) => {
                 refName: 'refFormModal2',
                 modalConfig: {
                     show: false,
+                    closeInModal: true,
                 },
                 formConfig: {
                     fields: [
                         { prop: 'test', label: '测试', type: 'input', span: 12, },
-                        { prop: 'test1', label: '测试1', type: 'select', span: 12, convert: 'return 111' }
+                        { prop: 'test1', label: '测试1', type: 'select', span: 12, convert: 'return 111', defaultOptions: [ { label: '测试1', value: '测试1' }, { label: '测试2', value: '测试2' } ] }
                     ]
                 },
                 model: {},
