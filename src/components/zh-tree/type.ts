@@ -1,8 +1,7 @@
-import { TZHFormSettings } from '../zh-form/type';
 import { TZHFormModal } from '../zh-form-modal/type';
 import { TZHTableModal } from '../zh-table/type';
 
-export interface TZHTreeSetting {
+export interface TZHTree {
   hasAdd?: boolean
   hasEdit?: boolean
   hasDelete?: boolean

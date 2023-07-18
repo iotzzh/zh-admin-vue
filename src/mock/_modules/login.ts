@@ -504,6 +504,22 @@ export default [
                     'isEbl': 1,
                     'isDel': 0,
                 },
+                {
+                    'id': '00192',
+                    'parentId': '0019',
+                    'permsionName': '横向多栏',
+                    'routeName': 'horizontalGrid',
+                    'menuType': 2,
+                    'permsionCode': 'horizontalGrid',
+                    'url': '/template/horizontalGrid',
+                    'filePath': 'views/template/horizontalGrid',
+                    'sourceBy': null,
+                    'sortNo': 1,
+                    'icon': 'icon-menu',
+                    'description': null,
+                    'isEbl': 1,
+                    'isDel': 0,
+                },
             ];
 
             // 布局插件
