@@ -14,14 +14,14 @@ export default [
                 data: {
                     total: 110,
                     records: [
-                        { id: 1, label: '南京实验室江北', age: 18, parent: 0 },
-                        { id: 1.1, label: '南京实验室江北分实验室', age: 2, parent: 1 },
-                        { id: 1.2, label: '目录1.2', age: 12, parent: 1 },
-                        { id: 1.21, label: '目录1.2.1', age: 121, parent: 1.2 },
-                        { id: 2, label: '目录2', age: 28, parent: 0 },
-                        { id: 2.1, label: '目录2.1', age: 22, parent: 2 },
-                        { id: 2.2, label: '目录2.2', age: 22, parent: 2 },
-                        { id: 2.21, label: '目录2.2.1', age: 221, parent: 2.2 }
+                        { id: 1, label: '南京', age: 18, parent: 0 },
+                        { id: 1.1, label: '江宁', age: 2, parent: 1 },
+                        { id: 1.2, label: '江北', age: 12, parent: 1 },
+                        { id: 1.21, label: '高新区', age: 121, parent: 1.2 },
+                        { id: 2, label: '蚌埠', age: 28, parent: 0 },
+                        { id: 2.1, label: '蚌山区', age: 22, parent: 2 },
+                        { id: 2.2, label: '桥北', age: 22, parent: 2 },
+                        { id: 2.21, label: '淮上区', age: 221, parent: 2.2 }
                     ],
                 },
             };

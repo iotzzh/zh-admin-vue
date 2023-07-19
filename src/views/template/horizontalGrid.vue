@@ -13,6 +13,7 @@ new Promise((resolve, reject) => {
         components: [
             {
                 type: 'tree',
+                ref: 'refTree',
                 size: '20%',
                 minSize: '10%',
                 config: {
@@ -38,28 +39,29 @@ new Promise((resolve, reject) => {
                     },
                     formModalConfig: {
                         modalConfig: {
-                    show: false,
-                    width: '300px',
-                    closeInModal: true,
-                    footer: {
-                        hasCancelButton: true,
-                        hasSubmitButton: true,
+                            show: false,
+                            width: '300px',
+                            closeInModal: true,
+                            footer: {
+                                hasCancelButton: true,
+                                hasSubmitButton: true,
+                            },
+                        },
+                        formConfig: {
+                            fields: [
+                                { prop: 'test', label: '测试', type: 'input', span: 12, },
+                                { prop: 'test1', label: '测试1', type: 'select', span: 12, convert: 'return 111', defaultOptions: [{ label: '测试1', value: '测试1' }, { label: '测试2', value: '测试2' }] }
+                        ]
                     },
-                },
-                formConfig: {
-                    fields: [
-                        { prop: 'test', label: '测试', type: 'input', span: 12, },
-                        { prop: 'test1', label: '测试1', type: 'select', span: 12, convert: 'return 111', defaultOptions: [{ label: '测试1', value: '测试1' }, { label: '测试2', value: '测试2' }] }
-                    ]
-                },
-                model: {},
-                convertedModel: {},
+                    model: {},
+                    convertedModel: {},
                     },
                 },
 
             },
             {
                 type: 'table',
+                ref: 'refTable',
                 size: '50%',
                 minSize: '10%',
                 config: {
@@ -209,8 +211,12 @@ new Promise((resolve, reject) => {
                 },
             }
         ],
-
-
+        events: {
+            treeNodeClick: `params.refs['refTable'].initData()`, 
+            // treeNodeClick: (params:any) => {
+            //     params.refs['refTable'].initData();
+            // }, 
+        },
         modalsConfig: [
             {
                 refName: 'modal1',
@@ -282,6 +288,7 @@ new Promise((resolve, reject) => {
             },
         ],
     };
+    // pageSetting.value = pageConfig;
     pageSetting.value = JSON.parse(JSON.stringify(pageConfig));
 });
 </script>

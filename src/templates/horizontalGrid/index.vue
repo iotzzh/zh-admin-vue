@@ -3,8 +3,14 @@
     <ZHLayout>
         <splitpanes class="default-theme">
             <pane v-for="(component, index) in config.components" :key="index" :min-size="component.minSize" :size="component.size" >
-                <ZHTable v-if="component.type === 'table'" ref="refZHTable" :config="component.config"></ZHTable>
-                <ZHTree v-else-if="component.type === 'tree'" ref="refZHTree" :config="component.config"></ZHTree>
+                <ZHTable v-if="component.type === 'table'" :ref="(el: any) => setRefMap(el, component.ref)" :config="(component.config as TZHTable)"></ZHTable>
+                <ZHTree 
+                    v-else-if="component.type === 'tree'" 
+                    :ref="(el: any) => setRefMap(el, component.ref)"
+                    :config="(component.config as TZHTree)"
+                    @nodeclick="treeNodeClick"
+                    >
+                </ZHTree>
             </pane>
         </splitpanes>
 
@@ -28,23 +34,26 @@ import { ref, PropType, toRefs, createApp, provide, onMounted, shallowRef } from
 import { Splitpanes, Pane } from 'splitpanes';
 import ZHLayout from '@/components/zh-box/index.vue';
 import ZHTable from '@/components/zh-table/index.vue';
-import { TZHTable } from '@/components/zh-tree/type';
 import ZHTree  from '@/components/zh-tree/index.vue';
 import { TZHTree } from '@/components/zh-tree/type';
 import ZHModal from '@/components/zh-modal/index.vue';
 import { TZHModal } from '@/components/zh-modal/type';
 import ZHFormModal from '@/components/zh-form-modal/index.vue';
 import { createVueComponent } from '@/components/hooks';
+import { TZHTable } from '@/components/zh-table/type';
+import { TComponent } from '@/components/type';
 
 
-type TComponent = {
+type TPageComponent = {
     type: string
+    ref: string
     size: number
     minSize: number
     config: TZHTable | TZHTree
 }
 type TPageConfig = {
-    components: Array<TComponent>
+    components: Array<TPageComponent>
+    events: Array<string | Function>
     // components: Array<TZHTable | TZHTree>
     modalsConfig: Array<TZHModal>
     formModalsConfig: Array<any>
@@ -58,12 +67,11 @@ const props = defineProps({
 });
 
 const { config } = toRefs(props);
-const refZHTable = ref();
-const refModals: Record<string, any> = {};
-provide('refModals', refModals);
+const refs: Record<string, any> = {};
+
 const setRefMap = (el: any, name: string | undefined) => {
     if (el && name) {
-        refModals[`${name}`] = el;
+        refs[`${name}`] = el;
     }
 };
 
@@ -90,12 +98,23 @@ onMounted(() => {
 });
 
 onMounted(() => {
-    window.refModals = refModals;
+    const cWindow:any = window;
+    cWindow.refs = refs;
 });
+
+// 执行监听事件
+const treeNodeClick = (params:any) => {
+    if (!('treeNodeClick' in config.value.events)) return;
+    if (typeof config.value.events['treeNodeClick'] === 'string') {
+        (new Function('params', config.value.events['treeNodeClick']))({ ...params, refs });
+    } else {
+        config.value.events['treeNodeClick']({ ...params, refs });
+    }
+};
 </script>
 
 <script lang="ts">
-export default { name: 'basicTemplate' }; </script>
+export default { name: 'horizontalGridTemplate' }; </script>
 
 <style lang="scss" scoped>
 .default-theme {

@@ -4,7 +4,7 @@ import { TZHModal } from '../zh-modal/type';
 export interface TZHFormModal extends TZHModal {
   modalConfig: TZHModal
   mainTitle?: string
-  formConfig?: TZHformConfig
+  formConfig: TZHformConfig
 }
 
 export interface TZHModalFromField extends TZHFromField {

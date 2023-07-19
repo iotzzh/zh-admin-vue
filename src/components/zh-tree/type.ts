@@ -18,7 +18,7 @@ export interface TZHTreeConfig {
   showCheckbox?: boolean
   defaultProps?: any
 
-  nodeClick?: Function
+  nodeClick?: Function | string
 
 }
 

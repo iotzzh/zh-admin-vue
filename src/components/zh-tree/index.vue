@@ -1,7 +1,7 @@
 <template>
   <div class="zh-tree" v-loading="loadingTree">
     <div class="top-box">
-      <el-input class="search-box" v-model="filterText" placeholder="过滤搜索" />
+      <el-input class="search-box" v-model="filterText" placeholder="搜索过滤" />
       <el-button class="add-button" v-if="config.treeConfig.hasRootAdd" type="success" @click="openModal(0)">新增</el-button>
     </div>
 
@@ -16,7 +16,7 @@
         :indent="0" 
         default-expand-all 
         :filter-node-method="filterNode" 
-        @node-click="config.treeConfig.nodeClick">
+        @node-click="onNodeClick">
       <template #default="{ node, data }">
         <span class="custom-tree-node">
           <el-tooltip popper-class="custom-tree-node-tooltip" effect="light"
@@ -36,7 +36,7 @@
               <edit-pen />
             </el-icon>
 
-            <el-icon v-if="config.treeConfig.hasDelete" class="icon" color="#FF0000" @click="remove(node, data)">
+            <el-icon v-if="config.treeConfig.hasDelete" class="icon" color="#FF0000" @click="(e:any) => remove(node, data, e)">
               <delete />
             </el-icon>
           </span>
@@ -51,13 +51,21 @@
     </div>
     </el-scrollbar>
 
-    <!-- <ZhModalForm v-if="treeSettings.modal?.formSettings" :modal="modal" v-model="formModel"
-      :formSettings="treeSettings.modal?.formSettings" @cancel="() => modal.show = false"
-      @close="() => modal.show = false" @submit="submit"></ZhModalForm> -->
+    <ZHFormModal 
+      v-if="config.formModalConfig"
+      :model-value="formModel"
+      :converted-model="convertedFormModel"
+      :form-config="config.formModalConfig.formConfig" 
+      :modal-config="modal" 
+      @cancel="() => modal.show = false"
+      @close="() => modal.show = false" @submit="submit"></ZHFormModal>
   </div>
 </template>
 
 <script setup lang="ts">
+// 组件思想
+// input: config
+// output: event(data)
 import { toRefs, PropType, computed, ref, reactive, Ref, watch, onMounted } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
 import ZHFormModal from '../zh-form-modal/index.vue';
@@ -74,6 +82,8 @@ const props = defineProps({
       required: true,
   },
 });
+
+const emit = defineEmits(['nodeclick']);
 
 const { config } = toRefs(props);
 const refZHTree = ref();
@@ -123,7 +133,8 @@ const getTooltipOriginContent = (content: string) => {
   } else return content;
 };
 
-const remove = async (node: any, data: any) => {
+const remove = async (node: any, data: any, e:any) => {
+  e && e.stopPropagation();
   const msgResult = await isMessageConfirm('确认删除？', '提示');
   if (!msgResult) return;
   const params: TZHRequestParams = {
@@ -139,7 +150,9 @@ const remove = async (node: any, data: any) => {
 //#endregion
 
 //#region Form
+
 const formModel = ref({} as any);
+const convertedFormModel = ref({} as any);
 //#endregion
 
 //#region Modal
@@ -147,21 +160,21 @@ const modal = ref({ show: false, title: '新增', loadingSubmit: false } as TZHM
 
 // 0: 总， 1：新增， 2：编辑
 const openModal = (type: number, e?: any, node?: any, data?: any) => {
-  // e && e.stopPropagation();
-  // const fields = config.value.treeConfig!.modal?.formSettings!.fields as TZHFromField[];
-  // if (type === 0) {
-  //   modal.value.type = 'add';
-  // } else if (type === 1) {
-  //   modal.value.type = 'add';
-  // } else if (type === 2) {
-  //   modal.value.type = 'edit';
-  //   modal.value.title = '编辑';
-  //   formModel.value = data;
-  // } else { }
+  e && e.stopPropagation();
+  const fields = config.value.formModalConfig?.formConfig?.fields as TZHFromField[];
+  if (type === 0) {
+    modal.value.type = 'add';
+  } else if (type === 1) {
+    modal.value.type = 'add';
+  } else if (type === 2) {
+    modal.value.type = 'edit';
+    modal.value.title = '编辑';
+    formModel.value = data;
+  } else { }
 
-  // modal.value.show = true;
+  modal.value.show = true;
 
-  // modal.value = { ...modal.value, ...treeSettings.value.modal };
+  modal.value = { ...config.value.formModalConfig?.modalConfig, ...modal.value};
 };
 
 const closeModal = () => {
@@ -170,19 +183,30 @@ const closeModal = () => {
 };
 
 const submit = async () => {
-  // modal.value.loadingSubmit = true;
-  // const url = (modal.value.type === 'add' ? request?.value?.urlAdd : request?.value?.urlEdit) || '';
-  // const params: TZHRequestParams = {
-  //   url,
-  //   conditions: formModel.value,
-  // };
-  // const result: TZHTableRequestResult = await ZHRequest.post(params);
-  // if (result.success) {
-  //   closeModal();
-  //   getTreeData();
-  // }
+  modal.value.loadingSubmit = true;
+  const url = (modal.value.type === 'add' ? config.value.requestConfig?.urlAdd : config.value.requestConfig?.urlEdit) || '';
+  const params: TZHRequestParams = {
+    url,
+    conditions: formModel.value,
+  };
+  const result: any = await ZHRequest.post(params);
+  if (result.success) {
+    closeModal();
+    getTreeData();
+  }
 
-  // modal.value.loadingSubmit = false;
+  modal.value.loadingSubmit = false;
+};
+
+const onNodeClick = (data:any, node:any, item:any, param:any) => {
+  emit('nodeclick', {data, node, item, param});
+  if (!config.value.treeConfig.nodeClick) return;
+  if (typeof config.value.treeConfig.nodeClick === 'string') {
+    (new Function('params', config.value.treeConfig.nodeClick))({data, node, item, param});
+  } else {
+    config.value.treeConfig.nodeClick({data, node, item, param});
+  }
+
 };
 //#endregion
 
