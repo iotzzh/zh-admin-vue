@@ -85,7 +85,6 @@
 </template>
 
 <script setup lang="ts">
-
 import { toRefs, PropType, ref, computed, onMounted, watch } from 'vue';
 import Form from './index';
 import { TZHformConfig, TZHFromFieldSelectOption, TZHFromField } from './type';

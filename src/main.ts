@@ -33,7 +33,7 @@ async function boostrap() {
   // if (process.env.NODE_ENV === 'dev') { setupMock(); }
 
   // 注册Icons 全局组件，element plus icon
-  Object.keys(Icons).forEach(key => {
+  Object.keys(Icons).forEach((key:string) => {
     app.component(key, Icons[key]);
   });
 

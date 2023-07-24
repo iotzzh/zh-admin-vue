@@ -1,6 +1,7 @@
 import path from 'path';
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const fs = require('fs');
+import fs from 'fs';
+import config from './vite.config.json';
+// const fs = require('fs');
 const resolve = dir => {
     return path.join(__dirname, dir);
 };
@@ -13,6 +14,7 @@ const Timestamp = `${currentTime.getFullYear()}-${currentTime.getMonth() + 1}-${
  
 // https://vitejs.dev/config/
 export default ({ mode }) => {
+  // const config = JSON.parse(viteConfig);
   const env = loadEnv(mode, process.cwd());
   const environment = env.VITE_ENVIRONMENT;
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -118,7 +120,7 @@ export default ({ mode }) => {
       https: false, // 是否启用 http 2
       cors: true, // 默认启用并允许任何源
       open: true, // 在服务器启动时自动在浏览器中打开应用程序
-      port: 8888,
+      port: config.server.port,
       strictPort: false, // 设为true时端口被占用则直接退出，不会尝试下一个可用端口
       force: true, // 是否强制依赖预构建
       hmr: true, // 禁用或配置 HMR 连接
