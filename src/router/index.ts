@@ -59,15 +59,16 @@ router.beforeEach(async () => { start(); });
 
 router.afterEach(async () => { close(); });
 
-const appendRouter = () => {
+const appendRouter = (jsonArray:any = []) => {
   const layoutRouter: RouteRecordNormalized | undefined = router.getRoutes().find((x:any) => x.path === '/root');
   const routes = [];
-  convertJsonArrayToRoute(routerData, routes);
+  convertJsonArrayToRoute(ROUTE_DATA_SOURCE === 'api' ? jsonArray : routerData, routes);
   for (let i = 0; i< routes.length; i++) {
     layoutRouter?.name && router.addRoute(layoutRouter.name, routes[i]);
   }
 };
 
+// TODO: directory的方式暂时不想写
 if (ROUTE_DATA_SOURCE === 'file' || ROUTE_DATA_SOURCE === 'directory') {
   appendRouter();
 }
@@ -79,6 +80,7 @@ export async function setupRouter(app: App<Element>) {
 export {
   router,
   setLayout,
+  appendRouter
 };
 
 

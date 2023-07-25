@@ -23,6 +23,9 @@ import ZHRequest from '@/components/zh-request';
 import Logo from '@/assets/img/logo.png';
 import { useI18n } from 'vue-i18n';
 import api from '@/api';
+const ROUTE_DATA_SOURCE = import.meta.env.VITE_ROUTE_DATA_SOURCE || 'file';
+
+import { appendRouter } from '@/router';
 
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);
@@ -38,6 +41,8 @@ onMounted(async () => {
   };
   const result = await ZHRequest.post(params);
   menuList.value = result.data.records;
+
+  if (ROUTE_DATA_SOURCE === 'api') appendRouter(result.data.records);
   
   await nextTick();
   loading.value = false;
