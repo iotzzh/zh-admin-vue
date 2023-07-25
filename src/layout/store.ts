@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { MenuNode, RouteType } from './type';
+import LocalStorageHelper from '@/utils/localStorageHelper';
 
 export const useLayoutStore = defineStore({
   id: 'layout',
@@ -11,6 +12,7 @@ export const useLayoutStore = defineStore({
     allMenuList: [] as any, // 所有系统的菜单
     isOpenDrawerMenu: false,
     routes: [] as any,
+    layout: LocalStorageHelper?.getLayout() || import.meta.env.VITE_LAYOUT || 'vertical',
   }),
 
   persist: true,
@@ -69,5 +71,9 @@ export const useLayoutStore = defineStore({
       this.routes = routes;
     },
     //#endregion
+
+    setLayout(value: string) {
+      this.layout = value;
+    }, 
   }
 });

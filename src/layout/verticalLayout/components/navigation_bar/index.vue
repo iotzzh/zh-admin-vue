@@ -26,7 +26,7 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-      <span class="setting-icon" @click="changeLayout">
+      <span class="setting-icon" @click="clickChangeLayout">
         <i class="iconfont icon-layout-2-fill"></i>        
       </span>
       <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
@@ -43,25 +43,24 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, inject  } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useLayoutStore } from '@/layout/store';
 import UIHelper from '@/utils/uiHelper';
 
-import VerticalLayout from '@/layout/verticalLayout/index.vue';
-import HorizontalLayout from '@/layout/horizontalLayout/index.vue';
+
+
+// import VerticalLayout from '@/layout/verticalLayout/index.vue';
+// import HorizontalLayout from '@/layout/horizontalLayout/index.vue';
 import { RouteRecordRaw, useRouter } from 'vue-router';
-import { router } from '@/router/index';
-import ZHRequest from '@/components/zh-request';
-import { updateMenuToRouter, convertMenuArrToTree } from '@/utils/dataConvert';
+// import { router } from '@/router/index';
 import storage from '@/utils/storage';
-import { store as summaryStore } from '@/stores/index';
 import { useLocale } from '@/locales/useLocale';
 import { LocaleType } from '@/locales/type';
-import api from '@/api';
+import LocalStorageHelper from '@/utils/localStorageHelper';
 
 const store = useLayoutStore();
-const { collapse } = storeToRefs(store);
+const { collapse, } = storeToRefs(store);
 
 const isMobile = storage.getIsMobile();
 
@@ -104,41 +103,14 @@ const toggleFullScreen = () => {
   fullscreen.value = !fullscreen.value;
 };
 
-// const router = useRouter();
-const  changeLayout = async () => {
-  const roots = router!.getRoutes();
-  // const rootName = roots[roots.length - 1].name || '';
-  // router!.removeRoute(rootName);
+const router = useRouter();
+function clickChangeLayout() {
+  store.setLayout('he');
+}
+// const  clickChangeLayout = () => {
+//   inject('setLayout', '111');
 
-  const params = {
-    url: api.getMenus,
-    conditions: {},
-  };
-  const result = await ZHRequest.get(params);
-  // console.log(result);
-  // RouteRecordRaw[]
-  const routes:RouteRecordRaw[] = result.data;
-  const list:RouteRecordRaw[] = convertMenuArrToTree(routes);
-  updateMenuToRouter(list);
-  const rou: RouteRecordRaw =  {
-    path: '/',
-    component: () => import('@/layout/horizontalLayout/index.vue'),
-    name: 'root',
-    children: [
-    {
-      path: '/dashboard',
-      component: () => import('@/views/dashboard/index.vue'),
-      name: '首页',
-      meta: {
-        title: '首页',
-      }
-    },
-      ...list,
-    ],
-  };
-  router!.addRoute(rou);
-  router!.push('/dashboard');
-};
+// };
 </script>
 
 <style lang="scss" scoped>

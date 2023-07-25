@@ -2,6 +2,7 @@ import type { RouteRecordNormalized } from 'vue-router';
 import type { App } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { close, start } from '@/utils/nporgress';
+import Layout from '@/layout/index.vue';
 import VLayout from '@/layout/verticalLayout/index.vue';
 import HLayout from '@/layout/horizontalLayout/index.vue';
 import LocalStorageHelper from '@/utils/localStorageHelper';
@@ -9,7 +10,6 @@ import routerData from './router.json';
 import { convertJsonArrayToRoute } from './utils';
 
 const PUBLIC_PATH = import.meta.env.VITE_PUBLIC_PATH;
-const LAYOUT = LocalStorageHelper?.getLayout() || import.meta.env.VITE_LAYOUT || 'vertical';
 const ROUTE_DATA_SOURCE = import.meta.env.VITE_ROUTE_DATA_SOURCE || 'file';
 
 const router = createRouter({
@@ -44,8 +44,8 @@ const router = createRouter({
     },
     {
     path: '/root',
-    component: LAYOUT === 'vertical' ? VLayout : HLayout,
-    name: LAYOUT === 'vertical' ? 'rootV' : 'rootH',
+    component: Layout,
+    name: 'root',
     children: [],
     }
 ],
@@ -76,7 +76,7 @@ export async function setupRouter(app: App<Element>) {
 
 export {
   router,
-  appendRouter
+  appendRouter,
 };
 
 
