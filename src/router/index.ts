@@ -1,9 +1,6 @@
-import type { RouteRecordNormalized, Router } from 'vue-router';
+import type { RouteRecordNormalized } from 'vue-router';
 import type { App } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import { basicRoutes, setLayout } from './routes';
-import { useLayoutStore } from '@/layout/store';
-import storage from '@/utils/storage';
 import { close, start } from '@/utils/nporgress';
 import VLayout from '@/layout/verticalLayout/index.vue';
 import HLayout from '@/layout/horizontalLayout/index.vue';
@@ -79,7 +76,6 @@ export async function setupRouter(app: App<Element>) {
 
 export {
   router,
-  setLayout,
   appendRouter
 };
 
