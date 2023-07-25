@@ -1,5 +1,18 @@
 {
     "server": {
-        "port": 8000
+        "port": 8000,
+        "strictPort": false,
+        "force": true,
+        "host": "0.0.0.0",
+        "https": false,
+        "cors": true,
+        "open": true,
+        "hmr": true,
+        "proxy": {
+        "/apiUser1": {
+          "target": "http://localhost:8000/apiMock/",
+          "changeOrigin": true
+        }
+      }
     }
 }

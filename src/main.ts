@@ -9,7 +9,7 @@ import 'splitpanes/dist/splitpanes.css';
 import { createApp } from 'vue';
 import { setupStore } from '@/stores/index';
 
-import { setupRouter } from '@/router';
+import { setupRouter } from '@/router/index';
 import ElementPlus from 'element-plus';
 import * as Icons from '@element-plus/icons-vue';
 import locale from 'element-plus/dist/locale/zh-cn.mjs';

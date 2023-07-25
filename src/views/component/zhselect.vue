@@ -64,7 +64,7 @@ const formConfig = ref({
     defaultValue: 'api' },
         { label: 'api', prop: 'api', type: 'input', span: 12, defaultValue: api.getMenuList, disabled: true, hide: false },
         { label: 'valueKey', prop: 'valueKey', type: 'input', span: 12, defaultValue: 'id', disabled: true, hide: false },
-        { label: 'labelField', prop: 'labelField', type: 'input', span: 12, defaultValue: 'permsionName', disabled: true, hide: false },
+        { label: 'labelField', prop: 'labelField', type: 'input', span: 12, defaultValue: 'routeName', disabled: true, hide: false },
         { label: 'valueField', prop: 'valueField', type: 'input', span: 12, defaultValue: 'id', disabled: true, hide: false },
         { label: 'options', prop: 'options', type: 'input', span: 12, disabled: true, hide: true },
         { label: '宽度', prop: 'width', type: 'input', span: 12, defaultValue: '200px' },
@@ -86,7 +86,7 @@ watch(model.value, async (newVal:any) => {
         formConfig.value.fields!.find((x:any) => x.label === 'api')!.hide = false;
         formConfig.value.fields!.find((x:any) => x.label === 'options')!.hide = true;
         model.value.valueKey = 'id';
-        model.value.labelField = 'permsionName';
+        model.value.labelField = 'routeName';
         model.value.valueField = 'id';
         await refSelect.value.getList();
         refSelect.value.setValue('001');

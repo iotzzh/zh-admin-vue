@@ -1,0 +1,394 @@
+[
+  {
+    "id": "0011",
+    "parentId": "001",
+    "routeName": "首页",
+    "url": "/dashboard",
+    "filePath": "views/dashboard/index",
+    "menuType": 1,
+    "routeCode": "dashboard",
+    "sourceBy": null,
+    "sortNo": 1,
+    "icon": "icon-shouye-copy-copy",
+    "description": null,
+    "isEbl": 1,
+    "isDel": 0
+  },
+
+  {
+    "id": "0012",
+    "parentId": "001",
+    "routeName": "多级菜单",
+    "url": "/menuList",
+    "menuType": 1,
+    "routeCode": "menuList",
+    "sourceBy": null,
+    "sortNo": 3,
+    "icon": "icon-a-huaban2fuben6",
+    "description": null,
+    "isEbl": 1,
+    "isDel": 0,
+    "children": [
+      {
+        "id": "00121",
+        "parentId": "0012",
+        "routeName": "菜单1.1",
+        "menuType": 2,
+        "routeCode": "menuList",
+        "url": "/menuList",
+        "filePath": "views/menuList/menu1",
+        "sourceBy": null,
+        "sortNo": 1,
+        "icon": "icon-menu",
+        "description": null,
+        "isEbl": 1,
+        "isDel": 0
+      },
+      {
+        "id": "00122",
+        "parentId": "0012",
+        "routeName": "目录",
+        "menuType": 1,
+        "routeCode": "menuList1",
+        "sourceBy": null,
+        "sortNo": 2,
+        "icon": "icon-menu",
+        "description": null,
+        "isEbl": 1,
+        "isDel": 0,
+        "children": [
+          {
+            "id": "001221",
+            "parentId": "00122",
+            "routeName": "菜单1.1.1",
+            "menuType": 2,
+            "url": "/menuList1",
+            "filePath": "views/menuList/menu2",
+            "routeCode": "menuList2",
+            "sourceBy": null,
+            "sortNo": 2,
+            "icon": "icon-menu",
+            "description": null,
+            "isEbl": 1,
+            "isDel": 0
+          }
+        ]
+      }
+    ]
+  },
+
+  {
+    "id": "0013",
+    "parentId": "001",
+    "routeName": "外部界面",
+    "url": "/outerPage",
+    "menuType": 1,
+    "routeCode": "outerPage",
+    "sourceBy": null,
+    "sortNo": 4,
+    "icon": "icon-waibulianjie",
+    "description": null,
+    "isEbl": 1,
+    "isDel": 0,
+    "children": [
+      {
+        "id": "00131",
+        "parentId": "0013",
+        "routeName": "页面一",
+        "menuType": 2,
+        "routeCode": "menuList",
+        "url": "/page1",
+        "filePath": "views/outerPage/page1",
+        "sourceBy": null,
+        "sortNo": 1,
+        "icon": "icon-menu",
+        "description": null,
+        "isEbl": 1,
+        "isDel": 0
+      }
+    ]
+  },
+
+  {
+    "id": "0014",
+    "parentId": "001",
+    "routeName": "功能",
+    "url": "/funcPage",
+    "menuType": 1,
+    "routeCode": "funcPage",
+    "sourceBy": null,
+    "sortNo": 5,
+    "icon": "icon-gongneng",
+    "description": null,
+    "isEbl": 1,
+    "isDel": 0,
+    "children": [
+      {
+        "id": "00141",
+        "parentId": "0014",
+        "routeName": "打字机",
+        "menuType": 2,
+        "routeCode": "funcPage",
+        "url": "/textPrinter",
+        "filePath": "views/funcPage/textPrinter",
+        "sourceBy": null,
+        "sortNo": 1,
+        "icon": "icon-menu",
+        "description": null,
+        "isEbl": 1,
+        "isDel": 0
+      }
+    ]
+  },
+
+  {
+    "id": "0015",
+    "parentId": "001",
+    "routeName": "图表",
+    "url": "/graph",
+    "menuType": 1,
+    "routeCode": "graph",
+    "sourceBy": null,
+    "sortNo": 5,
+    "icon": "icon-24gl-chartBarUpward",
+    "description": null,
+    "isEbl": 1,
+    "isDel": 0,
+    "children": [
+      {
+        "id": "00151",
+        "parentId": "0015",
+        "routeName": "echarts",
+        "menuType": 1,
+        "routeCode": "0015",
+        "sourceBy": null,
+        "sortNo": 1,
+        "icon": "icon-menu",
+        "description": null,
+        "isEbl": 1,
+        "isDel": 0
+      },
+      {
+        "id": "001510",
+        "parentId": "00151",
+        "routeName": "折线图",
+        "menuType": 2,
+        "url": "/lineChart",
+        "filePath": "views/graph/echarts/lineChart",
+        "routeCode": "lineChart",
+        "sourceBy": null,
+        "sortNo": 1,
+        "icon": "icon-menu",
+        "description": null,
+        "isEbl": 1,
+        "isDel": 0
+      }
+    ]
+  },
+
+  {
+    "id": "0016",
+    "parentId": "001",
+    "routeName": "web渐进式应用(pwa)",
+    "url": "/pwa",
+    "menuType": 1,
+    "routeCode": "pwa",
+    "sourceBy": null,
+    "sortNo": 6,
+    "icon": "icon-web",
+    "description": null,
+    "isEbl": 1,
+    "isDel": 0,
+    "children": [
+      {
+        "id": "00161",
+        "parentId": "0016",
+        "routeName": "桌面提示",
+        "menuType": 2,
+        "routeCode": "notification",
+        "url": "/notification",
+        "filePath": "views/pwa/notification",
+        "sourceBy": null,
+        "sortNo": 1,
+        "icon": "icon-menu",
+        "description": null,
+        "isEbl": 1,
+        "isDel": 0
+      }
+    ]
+  },
+
+  {
+    "id": "0017",
+    "parentId": "001",
+    "routeName": "动画",
+    "url": "/animation",
+    "menuType": 1,
+    "routeCode": "animation",
+    "sourceBy": null,
+    "sortNo": 7,
+    "icon": "icon-donghua",
+    "description": null,
+    "isEbl": 1,
+    "isDel": 0,
+    "children": [
+      {
+        "id": "00171",
+        "parentId": "0017",
+        "routeName": "AOS",
+        "menuType": 2,
+        "routeCode": "aos",
+        "url": "/aos",
+        "filePath": "views/animation/aos",
+        "sourceBy": null,
+        "sortNo": 1,
+        "icon": "icon-menu",
+        "description": null,
+        "isEbl": 1,
+        "isDel": 0
+      }
+    ]
+  },
+
+  {
+    "id": "0018",
+    "parentId": "001",
+    "routeName": "组件",
+    "url": "/component",
+    "menuType": 1,
+    "routeCode": "component",
+    "sourceBy": null,
+    "sortNo": 8,
+    "icon": "icon-donghua",
+    "description": null,
+    "isEbl": 1,
+    "isDel": 0,
+    "children": [
+      {
+        "id": "00181",
+        "parentId": "0018",
+        "routeName": "zhselect",
+        "menuType": 2,
+        "routeCode": "zhselect",
+        "url": "/component/zhselect",
+        "filePath": "views/component/zhselect",
+        "sourceBy": null,
+        "sortNo": 1,
+        "icon": "icon-menu",
+        "description": null,
+        "isEbl": 1,
+        "isDel": 0
+      }
+    ]
+  },
+
+  {
+    "id": "0019",
+    "parentId": "001",
+    "routeName": "页面模板",
+    "url": "/template",
+    "menuType": 1,
+    "routeCode": "template",
+    "sourceBy": null,
+    "sortNo": 9,
+    "icon": "icon-donghua",
+    "description": null,
+    "isEbl": 1,
+    "isDel": 0,
+    "children": [
+      {
+        "id": "00191",
+        "parentId": "0019",
+        "routeName": "基础模板",
+        "menuType": 2,
+        "routeCode": "basic",
+        "url": "/template/basic",
+        "filePath": "views/template/basic",
+        "sourceBy": null,
+        "sortNo": 1,
+        "icon": "icon-menu",
+        "description": null,
+        "isEbl": 1,
+        "isDel": 0
+      },
+      {
+        "id": "00192",
+        "parentId": "0019",
+        "routeName": "横向多栏",
+        "menuType": 2,
+        "routeCode": "horizontalGrid",
+        "url": "/template/horizontalGrid",
+        "filePath": "views/template/horizontalGrid",
+        "sourceBy": null,
+        "sortNo": 1,
+        "icon": "icon-menu",
+        "description": null,
+        "isEbl": 1,
+        "isDel": 0
+      }
+    ]
+  },
+
+  {
+    "id": "0020",
+    "parentId": "001",
+    "routeName": "布局插件",
+    "url": "/layoutPlugins",
+    "menuType": 1,
+    "routeCode": "layoutPlugins",
+    "sourceBy": null,
+    "sortNo": 10,
+    "icon": "icon-donghua",
+    "description": null,
+    "isEbl": 1,
+    "isDel": 0,
+    "children": [
+      {
+        "id": "00201",
+        "parentId": "0020",
+        "routeName": "splitpanes",
+        "menuType": 2,
+        "routeCode": "splitpanes",
+        "url": "/layoutPlugins/splitpanes",
+        "filePath": "views/layoutPlugins/splitpanes",
+        "sourceBy": null,
+        "sortNo": 1,
+        "icon": "icon-menu",
+        "description": null,
+        "isEbl": 1,
+        "isDel": 0
+      }
+    ]
+  },
+  {
+    "id": "0021",
+    "parentId": "001",
+    "routeName": "系统管理",
+    "url": "/sysmanagement",
+    "menuType": 1,
+    "routeCode": "sysmanagement",
+    "sourceBy": null,
+    "sortNo": 11,
+    "icon": "icon-donghua",
+    "description": null,
+    "isEbl": 1,
+    "isDel": 0,
+    "children": [
+      {
+        "id": "00211",
+        "parentId": "0021",
+        "routeName": "部门管理",
+        "menuType": 2,
+        "routeCode": "department",
+        "url": "/sysmanagement/department",
+        "filePath": "views/sysmanagement/department",
+        "sourceBy": null,
+        "sortNo": 1,
+        "icon": "icon-menu",
+        "description": null,
+        "isEbl": 1,
+        "isDel": 0
+      }
+    ]
+  }
+]

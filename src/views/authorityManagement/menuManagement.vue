@@ -44,7 +44,7 @@ const formSettings = ref({
     ],
     formLabelWidth: '70px',
     fields: [
-        { label: '菜单名称', type: 'input', prop: 'permsionName', width: '200px', },
+        { label: '菜单名称', type: 'input', prop: 'routeName', width: '200px', },
     ],
 } as TZHTableForm);
 
@@ -90,7 +90,7 @@ const tableSettings = reactive({
     columns: [
         {
             label: '菜单名称',
-            prop: 'permsionName',
+            prop: 'routeName',
             allowCellEdit: false,
             width: '200px',
             align: 'left',

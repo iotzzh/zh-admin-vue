@@ -2,14 +2,22 @@
   "name": "zh-admin-vue",
   "version": "0.0.0",
   "scripts": {
+    "start": "vite",
     "dev": "vite --mode dev",
+    "qa": "vite --mode dev",
+    "pro": "vite --mode dev",
     "build": "vite build",
+    "build:dev": "node --max_old_space_size=1024000 ./node_modules/vite/bin/vite.js build --mode dev",
     "build:qa": "node --max_old_space_size=1024000 ./node_modules/vite/bin/vite.js build --mode qa",
+    "build:pro": "node --max_old_space_size=1024000 ./node_modules/vite/bin/vite.js build --mode pro",
     "preview": "vite preview --port 5050",
     "typecheck": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "clean:lib": "rimraf node_modules",
+    "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
+    "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\""
   },
   "dependencies": {
     "@element-plus/icons-vue": "^1.0.0",

@@ -35,9 +35,9 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown> -->
-      <span class="setting-icon" @click="changeLayout">
+      <!-- <span class="setting-icon" @click="changeLayout">
         <i class="iconfont icon-ai216"></i> 
-      </span>
+      </span> -->
       <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
         <span>{{ userInfo?.realName }}</span>
         <template #dropdown>
@@ -61,15 +61,16 @@ import { RouteRecordRaw } from 'vue-router';
 import ZHRequest from '@/components/zh-request';
 import { updateMenuToRouter, convertMenuArrToTree } from '@/utils/dataConvert';
 import storage from '@/utils/storage';
-import api from '@/api/login';
+// import api from '@/api/login';
 const store = useLayoutStore();
+import api from '@/api';
 
 // const userInfo = storage.getUserInfo();
 
 const menuList = ref([] as any);
 const userInfo = ref({} as any);
 onMounted(() => {
-  userInfo.value = storage.getUserInfo();
+  // userInfo.value = storage?.getUserInfo();
 });
 
 onMounted(async () => {
@@ -100,35 +101,7 @@ const toggleFullScreen = () => {
   fullscreen.value = !fullscreen.value;
 };
 
-// const router = useRouter();
-const changeLayout = async () => {
-  const params = {
-    url: api.getMenus,
-    conditions: {},
-  };
-  const result = await ZHRequest.get(params);
-  const routes:RouteRecordRaw[] = result.data;
-  const list:RouteRecordRaw[] = convertMenuArrToTree(routes);
-  updateMenuToRouter(list);
-  const rou: RouteRecordRaw =  {
-    path: '/',
-    component: () => import('@/layout/verticalLayout/index.vue'),
-    name: 'root',
-    children: [
-    {
-      path: '/dashboard',
-      component: () => import('@/views/dashboard/index.vue'),
-      name: '首页',
-      meta: {
-        title: '首页',
-      }
-    },
-      ...list,
-    ],
-  };
-  router!.addRoute(rou);
-  router!.push('/dashboard');
-};
+
 </script>
 
 

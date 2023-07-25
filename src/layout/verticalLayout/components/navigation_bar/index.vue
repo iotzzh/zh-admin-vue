@@ -55,10 +55,10 @@ import { router } from '@/router/index';
 import ZHRequest from '@/components/zh-request';
 import { updateMenuToRouter, convertMenuArrToTree } from '@/utils/dataConvert';
 import storage from '@/utils/storage';
-import api from '@/api/login';
 import { store as summaryStore } from '@/stores/index';
 import { useLocale } from '@/locales/useLocale';
 import { LocaleType } from '@/locales/type';
+import api from '@/api';
 
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);
@@ -76,7 +76,7 @@ const toggleSideBar = () => {
 const userInfo = ref({} as any);
 
 onMounted(() => {
-  userInfo.value = storage.getUserInfo();
+  // userInfo.value = storage?.getUserInfo();
 });
 
 // 退出登录事件

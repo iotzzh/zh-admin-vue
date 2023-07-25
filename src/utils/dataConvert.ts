@@ -4,14 +4,14 @@ import storage from './storage';
 
 // 由于菜单数据并非一颗树，而是多棵树组成的数据，顾当成由树组成的数组的处理
 const convertMenuArrToTree = (array: Array<any>) => {
-    const rootId = storage.getRootId();
+    // const rootId = storage.getRootId();
     const rootMenus = array.filter(x => x.parentId === rootId);
     const childrenMenus = array.filter(x => x.parentId !== '');
     // for (let i = 0; i < rootMenus.length; i++) {
     //     // rootMenus[i].component = () => import(/* @vite-ignore */'/src/' + rootMenus[i].filePath);
 
     //     rootMenus[i].meta = { ...rootMenus[i].meta };
-    //     rootMenus[i].meta.title = rootMenus[i].permsionName;
+    //     rootMenus[i].meta.title = rootMenus[i].routeName;
     //     // array[i].meta.fatherPath = array[i].fatherPath;
 
     //     rootMenus[i].name = rootMenus[i].routeName;
@@ -49,7 +49,7 @@ const modules = import.meta.glob('../views/**');
 const updateMenuToRouter = (array: Array<any>) => {
     for (const element of array) {
         element.meta = { ...element.meta };
-        element.meta.title = element.permsionName;
+        element.meta.title = element.routeName;
         // array[i].meta.fatherPath = array[i].fatherPath;
 
         element.name = element.routeName;

@@ -18,7 +18,7 @@ interface RouteType {
 interface MenuNode {
     id: string
     name: string
-    permsionName: string
+    routeName: string
     parentId: string
     children: Array<MenuNode> | undefined
     systemId: string

@@ -23,7 +23,7 @@
 import { Sidebar, Navbar, AppMain, TagsView } from './components';
 import { storeToRefs } from 'pinia';
 import { useLayoutStore } from '../store';
-import { onMounted, ref, provide, nextTick } from 'vue';
+import { onMounted, ref, nextTick } from 'vue';
 import storage from '@/utils/storage';
 
 const store = useLayoutStore();
@@ -41,12 +41,6 @@ onMounted(() => {
   }
 });
 
-// const drawer = ref(false);
-let activeIndex = ref('');
-
-// const openMenu = () => {
-//   drawer.value = true;
-// };
 const isRouterAlive = ref(true);
 const reload = async () => {
   isRouterAlive.value = false;
@@ -102,10 +96,6 @@ const reload = async () => {
       background-color: rgba(90, 90, 90, 0.1);
     }
   }
-
-  // &:deep(.el-menu-item.is-active) {
-  //   color: #409eff;
-  // } 
 }
 
 

@@ -1,71 +1,79 @@
-import type { Router, RouteRecordRaw } from 'vue-router';
+import type { RouteRecordNormalized, Router } from 'vue-router';
 import type { App } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
-import { getBasicRoutes, basicRoutes, setLayout } from './routes';
-import { rangeRight } from 'lodash';
+import { basicRoutes, setLayout } from './routes';
 import { useLayoutStore } from '@/layout/store';
 import storage from '@/utils/storage';
 import { close, start } from '@/utils/nporgress';
+import VLayout from '@/layout/verticalLayout/index.vue';
+import HLayout from '@/layout/horizontalLayout/index.vue';
+import LocalStorageHelper from '@/utils/localStorageHelper';
+import routerData from './router.json';
+import { convertJsonArrayToRoute } from './utils';
 
 const PUBLIC_PATH = import.meta.env.VITE_PUBLIC_PATH;
+const LAYOUT = LocalStorageHelper?.getLayout() || import.meta.env.VITE_LAYOUT || 'vertical';
+const ROUTE_DATA_SOURCE = import.meta.env.VITE_ROUTE_DATA_SOURCE || 'file';
 
-// 白名单应该包含基本静态路由
-const WHITE_NAME_LIST: string[] = [];
-// const getRouteNames = (array: any[]) =>
-//   array.forEach((item) => {
-//     WHITE_NAME_LIST.push(item.name);
-//     getRouteNames(item.children || []);
-//   });
-// getRouteNames(basicRoutes);
+const router = createRouter({
+  history: createWebHistory(PUBLIC_PATH),
+  routes: [
+    {
+      path: '/',
+      redirect: '/login',
+    },
+    {
+      path: '/login',
+      component: () => import('@/views/login/index.vue'),
+      name: '登录',
+      meta: {
+        title: 'login',
+        affix: true
+      }
+    },
+    {
+      path: '/404',
+      component: () =>
+        import('@/views/404.vue'),
+      meta: {
+        title: '404',
+      },
+    },
+    {
+      // 匹配所有路径  vue2使用*   vue3使用/:pathMatch(.*)*或/:pathMatch(.*)或/:catchAll(.*)
+      path: '/:pathMatch(.*)',
+      redirect: '/login',
+      meta: { hidden: true },
+    },
+    {
+    path: '/root',
+    component: LAYOUT === 'vertical' ? VLayout : HLayout,
+    name: LAYOUT === 'vertical' ? 'rootV' : 'rootH',
+    children: [],
+    }
+],
+  scrollBehavior: () => ({ left: 0, top: 0 }),
+});
 
-// app router
-// 创建一个可以被 Vue 应用程序使用的路由实例
-console.log(PUBLIC_PATH);
-// export const router = createRouter({
-//   history: createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
-//   routes: basicRoutes,
-//   // 是否应该禁止尾部斜杠。默认为假
-//   // strict: true,
-//   scrollBehavior: () => ({ left: 0, top: 0 }),
-// });
+router.beforeEach(async () => { start(); });
 
-// reset router
-// export function resetRouter() {
-//   router.getRoutes().forEach((route) => {
-//     const { name } = route;
-//     // if (name && !WHITE_NAME_LIST.includes(name as string)) {
-//     //   router.hasRoute(name) && router.removeRoute(name);
-//     // }
-//   });
-// }
+router.afterEach(async () => { close(); });
 
-let router: Router | null = null;
+const appendRouter = () => {
+  const layoutRouter: RouteRecordNormalized | undefined = router.getRoutes().find((x:any) => x.path === '/root');
+  const routes = [];
+  convertJsonArrayToRoute(routerData, routes);
+  for (let i = 0; i< routes.length; i++) {
+    layoutRouter?.name && router.addRoute(layoutRouter.name, routes[i]);
+  }
+};
 
-async function getRouter () {
-  const store = useLayoutStore();
-  const routes:any = storage.getToken() ? await getBasicRoutes() : [];
-  router = createRouter({
-    history: createWebHistory(import.meta.env.VITE_PUBLIC_PATH),
-    // history: createWebHistory(),
-    // routes: [...basicRoutes, ...routes ],
-    routes: [ ...basicRoutes, ...routes ],
-    scrollBehavior: () => ({ left: 0, top: 0 }),
-  });
-
-  router.beforeEach(async (to) => {
-    // return true;
-    start();
-  });
-  router.afterEach(async () => {
-    // return true;
-    close();
-  });
-
-  return router;
+if (ROUTE_DATA_SOURCE === 'file' || ROUTE_DATA_SOURCE === 'directory') {
+  appendRouter();
 }
 
-export function getCurrentRouter () {
-  return router;
+export async function setupRouter(app: App<Element>) {
+  app.use(router);
 }
 
 export {
@@ -73,8 +81,4 @@ export {
   setLayout,
 };
 
-// config router
-export async function setupRouter(app: App<Element>) {
-  const router = await getRouter();
-  app.use(router);
-}
+

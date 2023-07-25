@@ -33,7 +33,7 @@ import { useLayoutStore } from '@/layout/store';
 import { RouteType } from '@/layout/type';
 import UIHelper from '@/utils/uiHelper';
 import { storeToRefs } from 'pinia';
-import { toRef, ref, reactive, inject } from 'vue';
+import { ref } from 'vue';
 import { onBeforeRouteUpdate, useRouter } from 'vue-router';
 const store = useLayoutStore();
 const { cachedViews } = storeToRefs(store);

@@ -12,12 +12,6 @@
         </form>
       </div>
     </div>
-
-    <div class="login-select-org" v-else>
-      <el-button type="primary" class="button" v-for="(item, index) in orgList" :key="index" @click="goTo(item)">{{
-        item.calName
-      }}</el-button>
-    </div>
   </div>
 </template>
 
@@ -25,7 +19,7 @@
 import { ref } from 'vue';
 import { Avatar, Lock } from '@element-plus/icons-vue';
 import { RouteRecordRaw, useRouter } from 'vue-router';
-import api from '@/api/login';
+// import api from '@/api/login';
 import storage from '@/utils/storage';
 import { popErrorMessage } from '@/components/zh-message';
 import { useLayoutStore } from '@/layout/store';
@@ -33,36 +27,24 @@ import { TZHRequestParams } from '@/components/zh-request/type';
 import ZHRequest from '@/components/zh-request';
 import { convertMenuArrToTree, updateMenuToRouter } from '@/utils/dataConvert';
 import { setLayout } from '@/router/routes';
+import api from '@/api';
 
 const router = useRouter();
 const store = useLayoutStore();
-const orgList = ref([]) as any; // 机构列表
 
 const sysName = ref('后台管理系统');
 const inputAccount = ref('') as any;
 const inputPassword = ref('') as any;
 const showLoginForm = ref(true);
-const rememberPassword = ref(false);
 
-const setFormInfo = () => {
-  storage.setLoginFormInfo({
-    accout: inputAccount.value,
-    pass: inputPassword.value,
-    rememberPass: rememberPassword.value,
-  });
-};
 const setToken = (token: string) => storage.setToken(token);
-const setUserInfo = (params: any) => storage.setUserInfo(params);
-const setCommoParams = (params: any) => storage.setCommonParams(params);
-const setRootId = (id: string) => storage.setRootId(id);
+
 
 // 登录
 const login = async () => {
   const params: TZHRequestParams = {
     url: api.login,
     conditions: {
-      loginType: 'account',
-      loginChannel: 'admin',
       loginId: inputAccount.value,
       loginPass: inputPassword.value,
     },
@@ -72,107 +54,89 @@ const login = async () => {
 
   const result = await ZHRequest.get(params);
   if (!result.success) return;
-
-  setFormInfo();
-  setUserInfo(result.data);
   setToken(result.data.token);
 
-  if (result.data.userCalList.length > 1) {
-    showLoginForm.value = false;
-    orgList.value = result.data.userCalList;
-  } else if (result.data.userCalList.length === 1) {
-    showLoginForm.value = false;
-    orgList.value = result.data.userCalList;
-  } else {
-    popErrorMessage(result.errorMsg);
-  }
+  // 获取路由
+
+  // 跳转路由
+  router.push({ path: '/dashboard' });
+  // goTo('/root/dashboard');
+
 };
 
-// 查询用户菜单接口
-const getMenus = async () => {
-  const allMenuList: any = await getMenusList();
-  store.setSystemMenuList(allMenuList);
-  setLayout(allMenuList);
-};
+// // 查询用户菜单接口
+// const getMenus = async () => {
+//   const allMenuList: any = await getMenusList();
+//   store.setSystemMenuList(allMenuList);
+//   setLayout(allMenuList);
+// };
 
-// 查询用户菜单接口
-const getMenusList = async () => {
-  const params: TZHRequestParams = {
-    url: api.getMenus,
-    conditions: {},
-  };
+// // 查询用户菜单接口
+// const getMenusList = async () => {
+//   const params: TZHRequestParams = {
+//     url: api.getMenus,
+//     conditions: {},
+//   };
 
-  const result = await ZHRequest.get(params);
-  if (!result.success) return;
-  const sortedData = result.data.sort((x: any, y: any) => (Number(x.sortNo) - Number(y.sortNo) > 0) ? 0 : -1);
-  const list = convertMenuArrToTree(sortedData);
-  return list;
-};
+//   const result = await ZHRequest.get(params);
+//   if (!result.success) return;
+//   const sortedData = result.data.sort((x: any, y: any) => (Number(x.sortNo) - Number(y.sortNo) > 0) ? 0 : -1);
+//   const list = convertMenuArrToTree(sortedData);
+//   return list;
+// };
 
-// 设置路由
-const setRoutes = async () => {
-  const roots = router!.getRoutes();
-  // const rootName = roots[roots.length - 1].name || '';
-  // router!.removeRoute(rootName);
+// // 设置路由
+// const setRoutes = async () => {
+//   const roots = router!.getRoutes();
+//   // const rootName = roots[roots.length - 1].name || '';
+//   // router!.removeRoute(rootName);
 
-  const params = {
-    url: api.getMenus,
-    conditions: {},
-  };
-  const result = await ZHRequest.get(params);
-  // console.log(result);
-  // RouteRecordRaw[]
-  const routes:RouteRecordRaw[] = result.data;
-  const list:RouteRecordRaw[] = convertMenuArrToTree(routes);
-  updateMenuToRouter(list);
-  const rou: RouteRecordRaw =  {
-    path: '/',
-    component: () => import('@/layout/verticalLayout/index.vue'),
-    name: 'root',
-    children: [
-    {
-      path: '/dashboard',
-      component: () => import('@/views/dashboard/index.vue'),
-      name: '首页',
-      meta: {
-        title: 'dashboard',
-      }
-    },
-      ...list,
-    ],
-  };
-  router!.addRoute(rou);
-};
+//   const params = {
+//     url: api.getMenus,
+//     conditions: {},
+//   };
+//   const result = await ZHRequest.get(params);
+//   // console.log(result);
+//   // RouteRecordRaw[]
+//   const routes:RouteRecordRaw[] = result.data;
+//   const list:RouteRecordRaw[] = convertMenuArrToTree(routes);
+//   updateMenuToRouter(list);
+//   const rou: RouteRecordRaw =  {
+//     path: '/',
+//     component: () => import('@/layout/verticalLayout/index.vue'),
+//     name: 'root',
+//     children: [
+//     {
+//       path: '/dashboard',
+//       component: () => import('@/views/dashboard/index.vue'),
+//       name: '首页',
+//       meta: {
+//         title: 'dashboard',
+//       }
+//     },
+//       ...list,
+//     ],
+//   };
+//   router!.addRoute(rou);
+// };
 
-const goTo = async (value: any) => {
-  const params: TZHRequestParams = {
-    url: api.changeCal,
-    conditions: {
-      calCode: value.calCode,
-      calName: value.calName,
-    },
-  };
+// const goTo = async (value: any) => {
+//   const params: TZHRequestParams = {
+//     url: api.changeCal,
+//     conditions: {
+//       calCode: value.calCode,
+//       calName: value.calName,
+//     },
+//   };
 
-  const result = await ZHRequest.post(params);
-  if (result.success) {
-    setCommoParams({ defaultCalCode: result.data.defaultCalCode, defaultCalName: result.data.defaultCalName });
-    await getCalRootPermissionId();
-    await getMenus();
-    await setRoutes();
-    router.push('/dashboard');
-    // router.push('/userManagement');
-  }
-};
-
-const getCalRootPermissionId = async () => {
-  const apiParams: TZHRequestParams = {
-    url: api.getCalRootPermissionId,
-    conditions: {},
-    errorMessage: '获取根目录数据失败',
-  };
-  const result = await ZHRequest.post(apiParams);
-  if (result.success) setRootId(result.data.id);
-};
+//   const result = await ZHRequest.post(params);
+//   if (result.success) {
+//     await getMenus();
+//     await setRoutes();
+//     router.push('/dashboard');
+//     // router.push('/userManagement');
+//   }
+// };
 
 </script>
 

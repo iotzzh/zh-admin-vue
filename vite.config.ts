@@ -11,7 +11,7 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 const currentTime = new Date();
 const Timestamp = `${currentTime.getFullYear()}-${currentTime.getMonth() + 1}-${currentTime.getDate()}-${currentTime.getHours()}-${currentTime.getMinutes()}-${currentTime.getSeconds()}`;
- 
+
 // https://vitejs.dev/config/
 export default ({ mode }) => {
   // const config = JSON.parse(viteConfig);
@@ -19,6 +19,17 @@ export default ({ mode }) => {
   const environment = env.VITE_ENVIRONMENT;
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   fs.writeFile(resolve('public/.env'), `environment: ${environment}`, err => {});
+  const updatedServer = () => {
+    const newServer = config.server;
+    // 更新proxy
+    const keys = Object.keys(newServer.proxy);
+    keys.forEach((x:any) => {
+      newServer.proxy[x].rewrite =  (path) => path.replace(x, '');
+    });
+
+    return newServer;
+  };
+
   return defineConfig({
     // 配置需要使用的插件列表
     plugins: [
@@ -115,39 +126,26 @@ export default ({ mode }) => {
     },
   
     // 本地运行配置，及反向代理配置
-    server: {
-      host: '0.0.0.0',
-      https: false, // 是否启用 http 2
-      cors: true, // 默认启用并允许任何源
-      open: true, // 在服务器启动时自动在浏览器中打开应用程序
-      port: config.server.port,
-      strictPort: false, // 设为true时端口被占用则直接退出，不会尝试下一个可用端口
-      force: true, // 是否强制依赖预构建
-      hmr: true, // 禁用或配置 HMR 连接
-      // 反向代理配置，注意rewrite写法
-      proxy: {
-        '/apiUser1': {
-          target: 'http://0.0.0.0:8082/admin/', // 后端1
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/apiUser1/, ''),
-        },
-        '/apiUser2': {
-          target: 'http://0.0.0.0:8082/admin/', // 后端2
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/apiUser2/, ''),
-        },
-        '/apiSSODev': {
-          target: 'http://www.iotzzh.com/sso/', // 单点登录：开发环境
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/apiSSODev/, ''),
-        },
-        '/apiSSOLocal': {
-          target: 'http://www.iotzzh.com/sso/', // 单点登录：本地接口
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/apiSSOLocal/, ''),
-        },
-      },
-    },
+    server: updatedServer(),
+    // server: {
+    //   host: '0.0.0.0',
+    //   https: false, // 是否启用 http 2
+    //   cors: true, // 默认启用并允许任何源
+    //   open: true, // 在服务器启动时自动在浏览器中打开应用程序
+    //   port: 8000,
+    //   strictPort: false, // 设为true时端口被占用则直接退出，不会尝试下一个可用端口
+    //   force: true, // 是否强制依赖预构建
+    //   hmr: true, // 禁用或配置 HMR 连接
+    //   // 反向代理配置，注意rewrite写法
+    //   // proxy: config.server.proxy.,
+    //   proxy: {
+    //     '/apiUser1': {
+    //       target: 'http://localhost:9000/', // 后端1
+    //       changeOrigin: true,
+    //       rewrite: (path) => path.replace(/^\/apiUser1/, ''),
+    //     },
+    //   },
+    // },
   
   });
 };
