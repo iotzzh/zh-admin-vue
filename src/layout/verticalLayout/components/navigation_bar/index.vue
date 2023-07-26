@@ -27,10 +27,10 @@
         </template>
       </el-dropdown>
       <span class="setting-icon" @click="clickChangeLayout">
-        <i class="iconfont icon-layout-2-fill"></i>        
+        <i class="iconfont icon-ai216"></i>        
       </span>
       <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
-        <span>{{ userInfo?.realName }}</span>
+        <span>{{ userInfo?.name }}</span>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="logout">退出登录</el-dropdown-item>
@@ -43,23 +43,18 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, inject  } from 'vue';
+import { onMounted, ref  } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useLayoutStore } from '@/layout/store';
 import UIHelper from '@/utils/uiHelper';
 
-
-
-// import VerticalLayout from '@/layout/verticalLayout/index.vue';
-// import HorizontalLayout from '@/layout/horizontalLayout/index.vue';
-import { RouteRecordRaw, useRouter } from 'vue-router';
-// import { router } from '@/router/index';
+import { useRouter } from 'vue-router';
 import storage from '@/utils/storage';
 import { useLocale } from '@/locales/useLocale';
 import { LocaleType } from '@/locales/type';
-import LocalStorageHelper from '@/utils/localStorageHelper';
 
 const store = useLayoutStore();
+const router = useRouter();
 const { collapse, } = storeToRefs(store);
 
 const isMobile = storage.getIsMobile();
@@ -75,6 +70,9 @@ const toggleSideBar = () => {
 const userInfo = ref({} as any);
 
 onMounted(() => {
+  userInfo.value = {
+    name: '测试名'
+  };
   // userInfo.value = storage?.getUserInfo();
 });
 
@@ -85,15 +83,12 @@ const handleCommand = (command: string | number | object) => {
     localStorage.clear();
     router && router.push('/');
     location.reload();
-    // summaryStore.state;
   }
 };
 
 const locale = useLocale();
 const changeLanguage = async (command: string | number | object) => {
-  
   await locale.changeLocale(command as LocaleType);
-
 };
 
 
@@ -103,14 +98,8 @@ const toggleFullScreen = () => {
   fullscreen.value = !fullscreen.value;
 };
 
-const router = useRouter();
-function clickChangeLayout() {
-  store.setLayout('he');
-}
-// const  clickChangeLayout = () => {
-//   inject('setLayout', '111');
+const clickChangeLayout = () => store.setLayout('horizontal');
 
-// };
 </script>
 
 <style lang="scss" scoped>

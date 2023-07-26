@@ -26,20 +26,20 @@
         <i v-else class="iconfont icon-fullscreen-expand"></i>
       </span>
 
-      <!-- <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
-        <i :size="50" class="iconfont icon-language-outline" />
+      <el-dropdown :hide-on-click="true" @command="changeLanguage" class="lang">
+        <i class="iconfont icon-language-outline" />
         <template #dropdown>
           <el-dropdown-menu>
-            <el-dropdown-item command="logout">中文</el-dropdown-item>
-            <el-dropdown-item command="logout">English</el-dropdown-item>
+            <el-dropdown-item command="zh_CN">中文</el-dropdown-item>
+            <el-dropdown-item command="en">English</el-dropdown-item>
           </el-dropdown-menu>
         </template>
-      </el-dropdown> -->
-      <!-- <span class="setting-icon" @click="changeLayout">
-        <i class="iconfont icon-ai216"></i> 
-      </span> -->
+      </el-dropdown>
+      <span class="setting-icon" @click="clickChangeLayout">
+        <i class="iconfont icon-layout-2-fill"></i>        
+      </span>
       <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
-        <span>{{ userInfo?.realName }}</span>
+        <span>{{ userInfo?.name }}</span>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="logout">退出登录</el-dropdown-item>
@@ -56,44 +56,47 @@ import SidebarItem from './SidebarItem.vue';
 import { ref, reactive, onMounted } from 'vue';
 import { useLayoutStore } from '@/layout/store';
 import UIHelper from '@/utils/uiHelper';
-import { router } from '@/router';
+import { appendRouter, router } from '@/router';
 import { RouteRecordRaw } from 'vue-router';
 import ZHRequest from '@/components/zh-request';
-import { updateMenuToRouter, convertMenuArrToTree } from '@/utils/dataConvert';
 import storage from '@/utils/storage';
-// import api from '@/api/login';
-const store = useLayoutStore();
 import api from '@/api';
+import { useLocale } from '@/locales/useLocale';
+import { LocaleType } from '@/locales/type';
 
-// const userInfo = storage.getUserInfo();
+const ROUTE_DATA_SOURCE = import.meta.env.VITE_ROUTE_DATA_SOURCE || 'file';
+
+const store = useLayoutStore();
 
 const menuList = ref([] as any);
 const userInfo = ref({} as any);
 onMounted(() => {
   // userInfo.value = storage?.getUserInfo();
+  userInfo.value = {
+    name: '测试名'
+  };
 });
 
 onMounted(async () => {
-  // const params = {
-  //   url: '/apiMock/menu/list',
-  //   conditions: {},
-  // };
-  // const result = await ZHRequest.post(params);
-  // console.log(result);
-  // // RouteRecordRaw[]
-  menuList.value = store.menuList;
+  const params = {
+    url: api.getMenuList,
+    conditions: {},
+  };
+  const result = await ZHRequest.post(params);
+  menuList.value = result.data.records;
+
+  if (ROUTE_DATA_SOURCE === 'api') appendRouter(result.data.records);
 });
 
 // 退出登录事件
 const handleCommand = (command: string | number | object) => {
   if (command === 'logout') {
-    // logout();
+    sessionStorage.clear();
+    localStorage.clear();
+    router && router.push('/');
+    location.reload();
   }
 };
-
-onMounted(() => {
-  console.log();
-});
 
 const fullscreen = ref(false);
 const toggleFullScreen = () => {
@@ -101,13 +104,17 @@ const toggleFullScreen = () => {
   fullscreen.value = !fullscreen.value;
 };
 
+const locale = useLocale();
+const changeLanguage = async (command: string | number | object) => {
+  await locale.changeLocale(command as LocaleType);
+};
 
+const clickChangeLayout = () => store.setLayout('vertical');
 </script>
 
 
 <style lang="scss" scoped>
 .nav-bar {
-  // background-color: rgb(12,33,53);
   background-color: white;
   height: 60px;
   width: 100%;
@@ -123,8 +130,7 @@ const toggleFullScreen = () => {
 
   .nav {
     flex: 1;
-    // background-color: #f5f5f5;
-    // height: 100%;
+    overflow: auto;
 
     .scrollbar {
       text-align: right;
@@ -140,7 +146,6 @@ const toggleFullScreen = () => {
   }
 
   .info {
-    // width: 100px;
     line-height: 59px;
     height: 59px;
     text-align: right;
@@ -162,13 +167,53 @@ const toggleFullScreen = () => {
     cursor: pointer;
   }
 
-  // &:deep(.el-menu--horizontal>.el-sub-menu .el-sub-menu__title) {
-  //   color: $menu-text-color !important;
-  // }
+  span, .lang {
+            padding-left: 12px !important;
+        }
 
-  // &:deep(.el-menu--horizontal>.el-sub-menu .el-sub-menu__title:hover) {
-  //   color: var(--el-menu-text-color) !important;
-  // }
+        .name {
+            height: 18px;
+            font-weight: bolder; 
+            font-size: 17px !important;
+        }
+
+        .lang {
+            font-size: 20px !important;
+        }
+
+        .fullscreen {
+            cursor: pointer;
+            position: relative;
+            top: 3px;
+            .iconfont {
+                font-size: 20px !important;
+            }
+        }
+
+        .el-dropdown {
+            vertical-align: middle !important;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bolder;
+        }
+
+        .setting-icon {
+            cursor: pointer;
+        }
+
+        .bell {
+            cursor: pointer;
+            .item {
+                height: 21px;
+                position: relative;
+                &:deep(.el-icon) {
+                    font-size: 20px !important;
+                    position: absolute;
+                    right: 0px;
+                    top: 0px;
+                }
+            }
+        }
 }
 
 .nav-bar .info .el-dropdown {

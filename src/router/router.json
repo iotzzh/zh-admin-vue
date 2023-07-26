@@ -166,22 +166,24 @@
         "icon": "icon-menu",
         "description": null,
         "isEbl": 1,
-        "isDel": 0
-      },
-      {
-        "id": "001510",
-        "parentId": "00151",
-        "routeName": "折线图",
-        "menuType": 2,
-        "url": "/lineChart",
-        "filePath": "views/graph/echarts/lineChart",
-        "routeCode": "lineChart",
-        "sourceBy": null,
-        "sortNo": 1,
-        "icon": "icon-menu",
-        "description": null,
-        "isEbl": 1,
-        "isDel": 0
+        "isDel": 0,
+        "children": [
+          {
+            "id": "001510",
+            "parentId": "00151",
+            "routeName": "折线图",
+            "menuType": 2,
+            "url": "/lineChart",
+            "filePath": "views/graph/echarts/lineChart",
+            "routeCode": "lineChart",
+            "sourceBy": null,
+            "sortNo": 1,
+            "icon": "icon-menu",
+            "description": null,
+            "isEbl": 1,
+            "isDel": 0
+          }
+        ]
       }
     ]
   },
@@ -189,7 +191,7 @@
   {
     "id": "0016",
     "parentId": "001",
-    "routeName": "web渐进式应用(pwa)",
+    "routeName": "PWA",
     "url": "/pwa",
     "menuType": 1,
     "routeCode": "pwa",

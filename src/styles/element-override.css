@@ -19,6 +19,10 @@
     --el-menu-active-color: #fff; */
 }
 
+:focus-visible {
+    outline: none;
+}
+
 /**
 * 解决el-input设置类型为number时，中文输入法光标上移问题
 **/

@@ -4,7 +4,6 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, provide  } from 'vue';
 import V from './verticalLayout/index.vue';
 import H from './horizontalLayout/index.vue';
 import { useLayoutStore } from '@/layout/store';

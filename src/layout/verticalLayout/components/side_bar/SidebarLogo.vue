@@ -9,10 +9,9 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, watch, watchEffect } from 'vue';
+import { ref, toRefs, watch } from 'vue';
 import logo from '@/assets/img/logo1.png';
 import foldLogo from '@/assets/img/foldIcon.png';
-
 
 const props = defineProps({
   collapse: {

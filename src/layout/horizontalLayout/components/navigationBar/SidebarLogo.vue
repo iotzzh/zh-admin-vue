@@ -1,42 +1,27 @@
 <template>
-  <div class="logo">后台管理系统</div>
-  <!-- <router-link key="expand" :to="allMenuList && allMenuList.length > 1 ? '/dashboard' : ''" class="root-link">
-    <img src="@/assets/img/logo1.png" class="logo">
-  </router-link> -->
+  <div class="logo-box">
+    <img class="logo" :src="logo" />
+    <span>后台管理系统</span>
+    </div>
 </template>
 
 <script setup lang="ts">
-import { useLayoutStore } from '@/layout/store';
-import { storeToRefs } from 'pinia';
-import { onMounted } from 'vue';
-const store = useLayoutStore();
+import logo from '@/assets/img/logo.png';
 
-const { allMenuList } = storeToRefs(store);
-
-onMounted(() => {
-  console.log();
-});
 </script>
 
 <style lang="scss" scoped>
-.root-link {
-  height: 60px;
-  line-height: 60px;
-  vertical-align: middle;
-
-  .logo {
-    width: 100%;
-    height: 60px;
-    line-height: 60px;
-    vertical-align: middle;
-  }
+.logo-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: bolder;
 }
 
 .logo {
-    width: 100%;
-    height: 60px;
-    line-height: 60px;
-    vertical-align: middle;
-    text-align: center;
+    width: auto;
+    height: 50px;
+    padding-right: 10px;
   }
 </style>
