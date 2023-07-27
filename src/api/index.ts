@@ -2,6 +2,7 @@ const modules = import.meta.glob('./*.json');
 const ENV = import.meta.env;
 
 let api:{ [x:string]:any } = {};
+// NOTE: 正式使用时，注意调换判断顺序，部署后禁用mock，由于我这里只是前端项目，所以mock优先~
 const getPrefix = (module:any, api:any) => {
     if (module.useCommonConfig) {
         return module.useMock ? 'apiMock' :  ENV.MODE === 'development' ? module.localPrefix : module.prefix;

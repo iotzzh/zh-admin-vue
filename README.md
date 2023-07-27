@@ -154,6 +154,10 @@ You are very welcome to join！[Raise an issue](https://github.com/iotzzh/zh-adm
   ```
 
 
+## 关键字提示
+NOTE：表示在使用时可能会进行修改
+TODO：表示有想法为执行或者还没有时间去做的功能
+
 ## 开发注意事项
 
 1. 定义系统路由时，name 不能相同
