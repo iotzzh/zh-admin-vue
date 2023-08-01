@@ -13,6 +13,7 @@ export interface TZHModal {
   customClass?: string
   destroyOnClose?: boolean
   closeInModal?: boolean
+  showClose?: boolean
 
   footer?: TZHModalFooter
 
