@@ -4,6 +4,7 @@ import { TObject, TZHTableConfig, TZHTableRequestConfig, TZHTableRequestConfigRe
 import ZHRequest from '../zh-request';
 import { TZHRequestParams } from '../zh-request/type';
 import { TZHformConfig } from '../zh-form/type';
+import { TZHModal } from '../zh-modal/type';
 
 
 
@@ -53,7 +54,7 @@ export default class Modal {
     } as TZHformConfig;
   });
 
-  modal = ref({ show: false, title: '新增', loadingSubmit: false, } as TZHFormModal);
+  modal = ref({ show: false, title: '新增', loadingSubmit: false, } as TZHModal);
 
   formModel = ref({} as any);
   convertedModel = ref({} as any);
