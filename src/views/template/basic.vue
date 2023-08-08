@@ -60,13 +60,15 @@ new Promise((resolve, reject) => {
                 hasSelection: true,
                 rowKey: 'id',
                 modal: {
-                    title: '',
-                    footer: {},
-                    formSettings: {
+                    modalConfig: {
+                        title: '',
+                        footer: {},
+                        onBeforeSubmit: 'console.log("onbeforeSubmit");',
+                        onAfterSubmit: 'console.log("onaftersubmit");'
+                    },
+                    formConfig: {
                         formLabelWidth: '90px',
                     },
-                    onBeforeSubmit: 'console.log("onbeforeSubmit");',
-                    onAfterSubmit: 'console.log("onaftersubmit");'
                 },
                 onBeforeInitData: `console.log('onBeforeInitData：在初始化数据前执行');`,
                 convertTableData: 'return data;',
@@ -83,9 +85,9 @@ new Promise((resolve, reject) => {
                             placeholder: '请输入',
                             xs: 24,
                             sm: 12,
-                            md: 8,
-                            lg: 8,
-                            xl: 8,
+                            md: 12,
+                            lg: 12,
+                            xl: 12,
                             required: true,
                         }
                     },
@@ -97,10 +99,10 @@ new Promise((resolve, reject) => {
                             span: 12,
                             xs: 24,
                             sm: 12,
-                            md: 8,
-                            lg: 8,
-                            xl: 8,
-                            options: [{ label: '男', value: 1 }, { label: '女', value: 2 }], required: false,
+                            md: 12,
+                            lg: 12,
+                            xl: 12,
+                            defaultOptions: [{ label: '男', value: 0 }, { label: '女', value: 1 }], required: false,
                         }
                     },
                     {
@@ -109,9 +111,9 @@ new Promise((resolve, reject) => {
                             label: '手机号', prop: 'phone',
                             type: 'input', defaultValue: null, placeholder: '请输入', span: 8, xs: 24,
                             sm: 12,
-                            md: 8,
-                            lg: 8,
-                            xl: 8, required: true,
+                            md: 12,
+                            lg: 12,
+                            xl: 12, required: true,
                         }
                     },
                     {
@@ -125,9 +127,9 @@ new Promise((resolve, reject) => {
                             span: 12,
                             xs: 24,
                             sm: 12,
-                            md: 8,
-                            lg: 8,
-                            xl: 8,
+                            md: 12,
+                            lg: 12,
+                            xl: 12,
                             required: true,
                             convert: 'return fieldValue && fieldValue.id',
                         }
