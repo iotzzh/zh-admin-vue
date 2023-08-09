@@ -1,9 +1,10 @@
 {
     "prefix": "font", 
     "localPrefix": "apiUser1", 
+    "label": "登录模块",
     "useMock": true,
     "useCommmonConfig": true,
     "api": [
-        { "name": "login", "url": "/login/index", "prefix": "font", "localPrefix": "apiUser1", "useMock": true }
+        {  "label": "登录接口", "name": "login", "url": "/login/index", "prefix": "font", "localPrefix": "apiUser1", "useMock": true }
     ]
 }

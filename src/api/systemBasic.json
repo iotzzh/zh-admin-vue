@@ -4,10 +4,6 @@
     "useMock": true,
     "useCommmonConfig": true,
     "api": [
-            { "name": "getDepartmentList", "url": "/department/list", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "addDepartment", "url": "/department/add", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "updateDepartment", "url": "/department/modify", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "deleteDepartment", "url": "/department/remove", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
             { "name": "getOrgList", "url": "/org/list", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
             { "name": "addOrg", "url": "/org/add", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
             { "name": "updateOrg", "url": "/org/modify", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },

@@ -1,0 +1,15 @@
+{
+    "id": "0011",
+    "parentId": "001",
+    "routeName": "首页",
+    "url": "/dashboard",
+    "filePath": "views/dashboard/index",
+    "menuType": 1,
+    "routeCode": "dashboard",
+    "sourceBy": null,
+    "sortNo": 1,
+    "icon": "icon-shouye-copy-copy",
+    "description": null,
+    "isEbl": 1,
+    "isDel": 0
+}

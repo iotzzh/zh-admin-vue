@@ -1,4 +1,4 @@
-import routeData from '@/router/router.json';
+import routeData from '@/router/routes/index';
 export default [
     // GetUserList
     {

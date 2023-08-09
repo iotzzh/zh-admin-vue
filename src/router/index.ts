@@ -6,7 +6,7 @@ import Layout from '@/layout/index.vue';
 import VLayout from '@/layout/verticalLayout/index.vue';
 import HLayout from '@/layout/horizontalLayout/index.vue';
 import LocalStorageHelper from '@/utils/localStorageHelper';
-import routerData from './router.json';
+import routerData from './routes/index';
 import { convertJsonArrayToRoute } from './utils';
 
 const PUBLIC_PATH = import.meta.env.VITE_PUBLIC_PATH;
