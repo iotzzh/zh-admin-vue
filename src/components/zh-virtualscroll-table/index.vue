@@ -1,18 +1,31 @@
 <template>
-
   <div class="zh-virtual-scroll-table">
-    <ZHForm ref="refZHForm" class="zh-form" v-if="formSettings" v-model="form.formModel"
-      v-model:converted-model="form.convertedFormModel" :form-settings="formSettings">
+    <ZHForm
+      ref="refZHForm"
+      class="zh-form"
+      v-if="formSettings"
+      v-model="form.formModel"
+      v-model:converted-model="form.convertedFormModel"
+      :form-settings="formSettings"
+    >
       <!-- 传递form默认插槽 -->
       <template #default>
         <slot name="zh-table-form-default-before"></slot>
-        <ZHFormButtons :form="form" :table="table" :formSettings="formSettings" :modalInstance="modalInstance">
+        <ZHFormButtons
+          :form="form"
+          :table="table"
+          :formSettings="formSettings"
+          :modalInstance="modalInstance"
+        >
         </ZHFormButtons>
         <slot name="zh-table-form-default-after"></slot>
       </template>
 
       <!-- 传递form带字段名的插槽 -->
-      <template v-for="item in sloTFromFields" v-slot:[form._convertSlotName(item.prop)]>
+      <template
+        v-for="item in sloTFromFields"
+        v-slot:[form._convertSlotName(item.prop)]
+      >
         <slot :name="'zh-table-form-' + item.prop"></slot>
       </template>
 
@@ -23,12 +36,21 @@
     </ZHForm>
 
     <!-- table部分：配置文件对象 tableSettings  -->
-    <div style="flex:1; height: 100%; overflow: hidden;">
-      <vxe-table ref="refTable" class="zh-vxe-table" align="center" :data="table.data.value" size="small"
-        :auto-resize="true" :row-config="{ keyField: 'id', isCurrent: true, isHover: true }"
-        :height="tableSettings.height || '100%'" :highlight-current-row="tableSettings.highlightCurrentRow"
-        v-loading="table.loading.value" @row-click="table.rowClick" @scroll="table._handleScrollEvent">
-
+    <div style="flex: 1; height: 100%; overflow: hidden">
+      <vxe-table
+        ref="refTable"
+        class="zh-vxe-table"
+        align="center"
+        :data="table.data.value"
+        size="small"
+        :auto-resize="true"
+        :row-config="{ keyField: 'id', isCurrent: true, isHover: true }"
+        :height="tableSettings.height || '100%'"
+        :highlight-current-row="tableSettings.highlightCurrentRow"
+        v-loading="table.loading.value"
+        @row-click="table.rowClick"
+        @scroll="table._handleScrollEvent"
+      >
         <vxe-column width="40" v-if="tableSettings.hasSelection">
           <template #default="{ row }">
             <el-checkbox v-model="row.isDefaultChecked"></el-checkbox>
@@ -37,73 +59,136 @@
         <vxe-column type="seq" width="60"></vxe-column>
         <!-- <vxe-column v-if="tableSettings.hasIndex" type="seq" title="序号" width="60" align="center"></vxe-column> -->
 
-
-        <vxe-column v-for="(item, index) in table.columns.value" :key="index" :width="item.width ? item.width : ''"
-          :min-width="item.minWidth ? item.minWidth : ''" :label="item.label" :prop="item.prop"
-          :sortable="item.sortable" :class-name="item.className" :field="item.prop" :title="item.label">
+        <vxe-column
+          v-for="(item, index) in table.columns.value"
+          :key="index"
+          :width="item.width ? item.width : ''"
+          :min-width="item.minWidth ? item.minWidth : ''"
+          :label="item.label"
+          :prop="item.prop"
+          :sortable="item.sortable"
+          :class-name="item.className"
+          :field="item.prop"
+          :title="item.label"
+        >
           <template #default="scope">
-            <span class="cell-content-box" @mouseover="(e: any) => {
+            <span
+              class="cell-content-box"
+              @mouseover="(e: any) => {
               if (item.allowCellEdit) table.cellContentOver(scope);
-            }" @mouseleave="(e: any) => table.cellContentLeave(scope)">
-
-              <span class="cell-content" v-if="!table.cellCanShowSaveCancel(scope)">
+            }"
+              @mouseleave="(e: any) => table.cellContentLeave(scope)"
+            >
+              <span
+                class="cell-content"
+                v-if="!table.cellCanShowSaveCancel(scope)"
+              >
                 <span v-if="item.convert">{{
-                    item.convert(scope.row, scope.$index)
+                  item.convert(scope.row, scope.$index)
                 }}</span>
 
                 <span v-else-if="item.format">{{
-                    scope.row[item.prop as string] &&
-                    dayjs(scope.row[item.prop as string]).format(item.format)
+                  scope.row[item.prop as string] &&
+                  dayjs(scope.row[item.prop as string]).format(item.format)
                 }}</span>
 
                 <!-- 自定义内容 -->
                 <template v-else-if="item.useSlot">
-                  <slot :name="'table-' + item.prop" :row="scope.row" :index="scope.$index" :label="item.label" />
+                  <slot
+                    :name="'table-' + item.prop"
+                    :row="scope.row"
+                    :index="scope.$index"
+                    :label="item.label"
+                  />
                 </template>
 
                 <span v-else>
                   {{
-                      scope.row[item.prop as string] === undefined ||
-                        scope.row[item.prop as string] === null
-                        ? item.nullValue
-                        : scope.row[item.prop as string]
+                    scope.row[item.prop as string] === undefined ||
+                    scope.row[item.prop as string] === null
+                      ? item.nullValue
+                      : scope.row[item.prop as string]
                   }}
                 </span>
               </span>
 
-              <span v-else class="cell-content-edit" style="display: inline-block; width: calc(100% - 36px)">
+              <span
+                v-else
+                class="cell-content-edit"
+                style="display: inline-block; width: calc(100% - 36px)"
+              >
                 <!-- 输入框 -->
-                <el-input v-if="item.addEditInfo?.type === 'input'"
+                <el-input
+                  v-if="item.addEditInfo?.type === 'input'"
                   v-model="scope.row[table._convertPropToEditingProp(item.prop as string)]"
-                  :type="item.addEditInfo?.inputType" :clearable="item.addEditInfo?.clearable"></el-input>
+                  :type="item.addEditInfo?.inputType"
+                  :clearable="item.addEditInfo?.clearable"
+                ></el-input>
 
                 <!-- 下拉 -->
-                <el-select v-else-if="item.addEditInfo?.type === 'select'"
+                <el-select
+                  v-else-if="item.addEditInfo?.type === 'select'"
                   v-model="scope.row[table._convertPropToEditingProp(item.prop as string)]"
-                  :style="{ width: item.addEditInfo?.width ? `${item.addEditInfo?.width}` : '100%' }"
-                  :value-key="item.addEditInfo?.valueKey" :disabled="item.addEditInfo?.disabled"
-                  :multiple="item.addEditInfo?.multiple" filterable clearable :remote="item.addEditInfo?.remote"
-                  :remote-method="item.addEditInfo?.remoteMethod" :placeholder="
+                  :style="{
+                    width: item.addEditInfo?.width
+                      ? `${item.addEditInfo?.width}`
+                      : '100%',
+                  }"
+                  :value-key="item.addEditInfo?.valueKey"
+                  :disabled="item.addEditInfo?.disabled"
+                  :multiple="item.addEditInfo?.multiple"
+                  filterable
+                  clearable
+                  :remote="item.addEditInfo?.remote"
+                  :remote-method="item.addEditInfo?.remoteMethod"
+                  :placeholder="
                     item.addEditInfo?.placeholder
                       ? item.addEditInfo?.placeholder
                       : item.addEditInfo?.remoteMethod
-                        ? '请输入选择'
-                        : '请选择'
-                  ">
+                      ? '请输入选择'
+                      : '请选择'
+                  "
+                >
                   <el-option
                     v-for="(subItem, subIndex) in (item.addEditInfo?.options as Array<TZHFromFieldSelectOption> | Array<{ [x: string]: any }>)"
-                    :key="item.addEditInfo?.valueKey ? subItem[item.addEditInfo?.valueKey] : subIndex"
-                    :label="subItem.label" :value="item.addEditInfo?.valueKey ? subItem : subItem.value"></el-option>
+                    :key="
+                      item.addEditInfo?.valueKey
+                        ? subItem[item.addEditInfo?.valueKey]
+                        : subIndex
+                    "
+                    :label="subItem.label"
+                    :value="
+                      item.addEditInfo?.valueKey ? subItem : subItem.value
+                    "
+                  ></el-option>
                 </el-select>
               </span>
 
               <span>
-                <el-button v-show="table.cellCanShowEdit(scope)" link type="primary" size="small" :icon="Edit"
-                  @click="() => table.clickInlineEdit(scope)"></el-button>
+                <el-button
+                  v-show="table.cellCanShowEdit(scope)"
+                  link
+                  type="primary"
+                  size="small"
+                  :icon="Edit"
+                  @click="() => table.clickInlineEdit(scope)"
+                ></el-button>
                 <span v-show="table.cellCanShowSaveCancel(scope)">
-                  <el-button link type="success" size="small" :icon="Select" @click="table.clickInlineSave(scope)">
+                  <el-button
+                    link
+                    type="success"
+                    size="small"
+                    :icon="Select"
+                    @click="table.clickInlineSave(scope)"
+                  >
                   </el-button>
-                  <el-button link type="danger" size="small" :icon="CloseBold" @click="table.clickInlineCancel(scope)">
+                  <el-button
+                    link
+                    type="danger"
+                    size="small"
+                    :icon="CloseBold"
+                    @click="table.clickInlineCancel(scope)"
+                  >
                   </el-button>
                 </span>
               </span>
@@ -111,22 +196,50 @@
           </template>
         </vxe-column>
 
-        <vxe-column v-if="tableSettings.actionColumn" :fixed="tableSettings.actionColumn?.fixed"
-          :width="tableSettings.actionColumn?.width" :min-width="tableSettings.actionColumn?.minWidth"
-          :label="tableSettings.actionColumn?.label" :align="
+        <vxe-column
+          v-if="tableSettings.actionColumn"
+          :fixed="tableSettings.actionColumn?.fixed"
+          :width="tableSettings.actionColumn?.width"
+          :min-width="tableSettings.actionColumn?.minWidth"
+          :label="tableSettings.actionColumn?.label"
+          :align="
             tableSettings.actionColumn?.align
               ? tableSettings.actionColumn.align
               : 'center'
-          ">
+          "
+        >
           <template #default="scope">
-            <el-button v-if="tableSettings.actionColumn?.hasRowEditAction" link type="primary" size="small" :icon="Edit"
-              @click.stop="modalInstance.openEditModal(scope.row)">编辑</el-button>
-            <el-button v-if="tableSettings.actionColumn?.hasRowDeleteAction" link type="danger" size="small"
-              :icon="Delete" @click.stop="table.rowDelete(scope.row)">删除</el-button>
-            <el-button v-for="(item, buttonIndex) in tableSettings.actionColumn.buttons" :key="buttonIndex" link
-              v-show="!item?.hide" :type="item?.type" :size="item?.size ? item.size : 'small'" :icon="item?.icon"
-              :style="item?.style" @click.stop="item?.onClick && item?.onClick(scope.row, scope.$index)">{{ item.label
-              }}
+            <el-button
+              v-if="tableSettings.actionColumn?.hasRowEditAction"
+              link
+              type="primary"
+              size="small"
+              :icon="Edit"
+              @click.stop="modalInstance.openEditModal(scope.row)"
+              >编辑</el-button
+            >
+            <el-button
+              v-if="tableSettings.actionColumn?.hasRowDeleteAction"
+              link
+              type="danger"
+              size="small"
+              :icon="Delete"
+              @click.stop="table.rowDelete(scope.row)"
+              >删除</el-button
+            >
+            <el-button
+              v-for="(item, buttonIndex) in tableSettings.actionColumn.buttons"
+              :key="buttonIndex"
+              link
+              v-show="!item?.hide"
+              :type="item?.type"
+              :size="item?.size ? item.size : 'small'"
+              :icon="item?.icon"
+              :style="item?.style"
+              @click.stop="
+                item?.onClick && item?.onClick(scope.row, scope.$index)
+              "
+              >{{ item.label }}
             </el-button>
           </template>
         </vxe-column>
@@ -153,33 +266,79 @@
       </vxe-table>
     </div>
 
-
     <!-- page部分： 配置文件对象 pageSettings -->
-    <el-pagination style="height: 36px;" v-if="usePage" class="zh-table-pagination" :page-sizes="page?.sizes.value"
-      :pager-count="page?.pagerCount.value" :layout="page?.layout.value" :total="pageData.total"
-      v-model:currentPage="pageData.current" v-model:page-size="pageData.size"
-      @current-change="page?.handleCurrentChange" @size-change="page?.handleCurrentChange" />
+    <el-pagination
+      style="height: 36px"
+      v-if="usePage"
+      class="zh-table-pagination"
+      :page-sizes="page?.sizes.value"
+      :pager-count="page?.pagerCount.value"
+      :layout="page?.layout.value"
+      :total="pageData.total"
+      v-model:currentPage="pageData.current"
+      v-model:page-size="pageData.size"
+      @current-change="page?.handleCurrentChange"
+      @size-change="page?.handleCurrentChange"
+    />
 
-    <ZhModalForm ref="refZHFormModal" :modal="modalInstance.modal.value" v-model="modalInstance.formModel.value"
-      v-model:converted-model="modalInstance.convertedModel.value" :formSettings="modalInstance.formSettings.value"
-      @cancel="modalInstance.cancel" @close="modalInstance.close" @submit="modalInstance.submit"></ZhModalForm>
+    <ZhModalForm
+      ref="refZHFormModal"
+      :modal="modalInstance.modal.value"
+      v-model="modalInstance.formModel.value"
+      v-model:converted-model="modalInstance.convertedModel.value"
+      :formSettings="modalInstance.formSettings.value"
+      @cancel="modalInstance.cancel"
+      @close="modalInstance.close"
+      @submit="modalInstance.submit"
+    ></ZhModalForm>
   </div>
 </template>
 
 <script setup lang="ts">
-import { toRefs, PropType, computed, ref, reactive, Ref, watch, onMounted, nextTick } from 'vue';
-import { RefreshLeft, Search, Delete, Download, DocumentChecked, Refresh, Upload, Edit, CloseBold, Select } from '@element-plus/icons-vue';
-import dayjs from 'dayjs';
-import ZHForm from '../zh-form/index.vue';
-import ZhModalForm from '../zh-modal-form/index.vue';
-import ZHFormButtons from './form-buttons.vue';
-import { ElTable } from 'element-plus';
-import { TZHTablePageSetting, TZHTableRequest, TZHTableSetting, TZHTablePage, TZHTableForm } from './type';
-import Page from './page';
-import Table from './table';
-import Form from './form';
-import Modal from './modal';
-import { TZHFromField, TZHFormSettings, TZHFromFieldSelectOption } from '../zh-form/type';
+import {
+  toRefs,
+  PropType,
+  computed,
+  ref,
+  reactive,
+  Ref,
+  watch,
+  onMounted,
+  nextTick,
+} from "vue";
+import {
+  RefreshLeft,
+  Search,
+  Delete,
+  Download,
+  DocumentChecked,
+  Refresh,
+  Upload,
+  Edit,
+  CloseBold,
+  Select,
+} from "@element-plus/icons-vue";
+import dayjs from "dayjs";
+import ZHForm from "../zh-form/index.vue";
+import ZhModalForm from "../zh-modal-form/index.vue";
+import ZHFormButtons from "./form-buttons.vue";
+import { ElTable } from "element-plus";
+import {
+  TZHTablePageSetting,
+  TZHTableRequest,
+  TZHTableSetting,
+  TZHTablePage,
+  TZHTableForm,
+} from "./type";
+import Page from "./page";
+import Table from "./table";
+import Form from "./form";
+import Modal from "./modal";
+import {
+  TZHFromField,
+  TZHFormSettings,
+  TZHFromFieldSelectOption,
+} from "../zh-form/type";
 
 const props = defineProps({
   useSearchForm: {
@@ -244,17 +403,25 @@ watch(
     if (!form._compareNeedTriggerSearchFieldsIsEqual(newVal, oldVal)) {
       table.debounceInitData();
     }
-  }, { immediate: false });
+  },
+  { immediate: false }
+);
 
 // 自定义插槽
-const sloTFromFields = formSettings?.value?.fields?.filter((x: TZHFromField) => x.type === 'slot');
+const sloTFromFields = formSettings?.value?.fields?.filter(
+  (x: TZHFromField) => x.type === "slot"
+);
 //#endregion
 
 //#region table
 const refTable = ref<InstanceType<typeof ElTable>>();
 const table = new Table(tableSettings, refTable, request, form, pageData);
 onMounted(() => {
-  if (request?.value && request.value.list?.url && (request.value.initialData || request.value.initialData === undefined))
+  if (
+    request?.value &&
+    request.value.list?.url &&
+    (request.value.initialData || request.value.initialData === undefined)
+  )
     table.debounceInitData();
 });
 //#endregion
@@ -281,14 +448,13 @@ defineExpose({
   getData: table.getData, // 获取当前表格数据
   getDataAsync: table.getDataAsync, // 从接口获取表格数据，且不刷新表格
   getDataWithInitTable: table.getDataWithInitTable, // 获取接口数据，并刷新表格
-
 });
 </script>
 
 <script lang="ts">
-export default { name: 'ZHVirtualScrollTable' };
+export default { name: "ZHVirtualScrollTable" };
 </script>
 
 <style lang="scss" scope>
-@import './index.scss';
+@import "./index.scss";
 </style>

@@ -9,7 +9,11 @@
     <div class="nav">
       <el-scrollbar class="scrollbar">
         <el-menu class="menu" mode="horizontal" router>
-          <SidebarItem v-for="route in menuList" :key="route.id" :item="route"></SidebarItem>
+          <SidebarItem
+            v-for="route in menuList"
+            :key="route.id"
+            :item="route"
+          ></SidebarItem>
         </el-menu>
       </el-scrollbar>
     </div>
@@ -17,9 +21,11 @@
     <!-- info -->
     <div class="info">
       <!-- <span>搜索</span> -->
-      <span class="bell"><el-badge is-dot class="item"><el-icon>
-            <Bell />
-          </el-icon></el-badge></span>
+      <span class="bell"
+        ><el-badge is-dot class="item"
+          ><el-icon>
+            <Bell /> </el-icon></el-badge
+      ></span>
 
       <span class="fullscreen" @click="toggleFullScreen">
         <i v-if="fullscreen" class="iconfont icon-fullscreen-shrink"></i>
@@ -36,7 +42,7 @@
         </template>
       </el-dropdown>
       <span class="setting-icon" @click="clickChangeLayout">
-        <i class="iconfont icon-layout-2-fill"></i>        
+        <i class="iconfont icon-layout-2-fill"></i>
       </span>
       <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
         <span>{{ userInfo?.name }}</span>
@@ -51,20 +57,20 @@
 </template>
 
 <script setup lang="ts">
-import SidebarLogo from './SidebarLogo.vue';
-import SidebarItem from './SidebarItem.vue';
-import { ref, reactive, onMounted } from 'vue';
-import { useLayoutStore } from '@/layout/store';
-import UIHelper from '@/utils/uiHelper';
-import { appendRouter, router } from '@/router';
-import { RouteRecordRaw } from 'vue-router';
-import ZHRequest from '@/components/zh-request';
-import storage from '@/utils/storage';
-import api from '@/api';
-import { useLocale } from '@/locales/useLocale';
-import { LocaleType } from '@/locales/type';
+import SidebarLogo from "./SidebarLogo.vue";
+import SidebarItem from "./SidebarItem.vue";
+import { ref, reactive, onMounted } from "vue";
+import { useLayoutStore } from "@/layout/store";
+import UIHelper from "@/utils/uiHelper";
+import { appendRouter, router } from "@/router";
+import { RouteRecordRaw } from "vue-router";
+import ZHRequest from "@/components/zh-request";
+import storage from "@/utils/storage";
+import api from "@/api";
+import { useLocale } from "@/locales/useLocale";
+import { LocaleType } from "@/locales/type";
 
-const ROUTE_DATA_SOURCE = import.meta.env.VITE_ROUTE_DATA_SOURCE || 'file';
+const ROUTE_DATA_SOURCE = import.meta.env.VITE_ROUTE_DATA_SOURCE || "file";
 
 const store = useLayoutStore();
 
@@ -73,7 +79,7 @@ const userInfo = ref({} as any);
 onMounted(() => {
   // userInfo.value = storage?.getUserInfo();
   userInfo.value = {
-    name: '测试名'
+    name: "测试名",
   };
 });
 
@@ -85,15 +91,15 @@ onMounted(async () => {
   const result = await ZHRequest.post(params);
   menuList.value = result.data.records;
 
-  if (ROUTE_DATA_SOURCE === 'api') appendRouter(result.data.records);
+  if (ROUTE_DATA_SOURCE === "api") appendRouter(result.data.records);
 });
 
 // 退出登录事件
 const handleCommand = (command: string | number | object) => {
-  if (command === 'logout') {
+  if (command === "logout") {
     sessionStorage.clear();
     localStorage.clear();
-    router && router.push('/');
+    router && router.push("/");
     location.reload();
   }
 };
@@ -109,9 +115,8 @@ const changeLanguage = async (command: string | number | object) => {
   await locale.changeLocale(command as LocaleType);
 };
 
-const clickChangeLayout = () => store.setLayout('vertical');
+const clickChangeLayout = () => store.setLayout("vertical");
 </script>
-
 
 <style lang="scss" scoped>
 .nav-bar {
@@ -167,53 +172,54 @@ const clickChangeLayout = () => store.setLayout('vertical');
     cursor: pointer;
   }
 
-  span, .lang {
-            padding-left: 12px !important;
-        }
+  span,
+  .lang {
+    padding-left: 12px !important;
+  }
 
-        .name {
-            height: 18px;
-            font-weight: bolder; 
-            font-size: 17px !important;
-        }
+  .name {
+    height: 18px;
+    font-weight: bolder;
+    font-size: 17px !important;
+  }
 
-        .lang {
-            font-size: 20px !important;
-        }
+  .lang {
+    font-size: 20px !important;
+  }
 
-        .fullscreen {
-            cursor: pointer;
-            position: relative;
-            top: 3px;
-            .iconfont {
-                font-size: 20px !important;
-            }
-        }
+  .fullscreen {
+    cursor: pointer;
+    position: relative;
+    top: 3px;
+    .iconfont {
+      font-size: 20px !important;
+    }
+  }
 
-        .el-dropdown {
-            vertical-align: middle !important;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bolder;
-        }
+  .el-dropdown {
+    vertical-align: middle !important;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bolder;
+  }
 
-        .setting-icon {
-            cursor: pointer;
-        }
+  .setting-icon {
+    cursor: pointer;
+  }
 
-        .bell {
-            cursor: pointer;
-            .item {
-                height: 21px;
-                position: relative;
-                &:deep(.el-icon) {
-                    font-size: 20px !important;
-                    position: absolute;
-                    right: 0px;
-                    top: 0px;
-                }
-            }
-        }
+  .bell {
+    cursor: pointer;
+    .item {
+      height: 21px;
+      position: relative;
+      &:deep(.el-icon) {
+        font-size: 20px !important;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+      }
+    }
+  }
 }
 
 .nav-bar .info .el-dropdown {
@@ -243,10 +249,9 @@ const clickChangeLayout = () => store.setLayout('vertical');
     // background-color: var(--el-color-primary);
     // background-color: white !important;
   }
-
 }
 
-.el-menu--horizontal>.el-menu-item.is-active {
+.el-menu--horizontal > .el-menu-item.is-active {
   border-bottom: 2px solid rgba(9, 96, 189, 1) !important;
 }
 
@@ -254,22 +259,22 @@ const clickChangeLayout = () => store.setLayout('vertical');
   // background-color: red !important;
 }
 
-.el-menu--horizontal>.el-sub-menu .el-sub-menu__title:hover {
+.el-menu--horizontal > .el-sub-menu .el-sub-menu__title:hover {
   // background-color: red;
 }
 
-.el-menu--horizontal>.el-menu-item:not(.is-disabled):focus {
+.el-menu--horizontal > .el-menu-item:not(.is-disabled):focus {
   background-color: transparent !important;
   color: black !important;
 }
 
 .info {
-        width: 250px;
-        line-height: 59px;
-        height: 59px;
-        text-align: right;
-        vertical-align: middle;
-        padding-right: 22px;
+  width: 250px;
+  line-height: 59px;
+  height: 59px;
+  text-align: right;
+  vertical-align: middle;
+  padding-right: 22px;
 
   .bell {
     cursor: pointer;
@@ -311,8 +316,7 @@ const clickChangeLayout = () => store.setLayout('vertical');
 }
 
 .iconfont {
-    margin-right: 0px;
-    padding-right: 0px;
+  margin-right: 0px;
+  padding-right: 0px;
 }
 </style>
-

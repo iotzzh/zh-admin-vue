@@ -1,91 +1,92 @@
 .navbar {
+  height: $topBarHeight;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+
+  .left {
     height: $topBarHeight;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
+    line-height: $topBarHeight;
+    vertical-align: middle;
+    color: var(--el-text-color-regular);
+    font-size: var(--el-font-size-base);
 
-    .left {
-        height: $topBarHeight;
-        line-height: $topBarHeight;
-        vertical-align: middle;
-        color: var(--el-text-color-regular);
-        font-size: var(--el-font-size-base);
+    .icon {
+      cursor: pointer;
+      margin-top: 5px;
+      position: relative;
+      top: 2px;
+    }
+  }
 
-        .icon {
-            cursor: pointer;
-            margin-top: 5px;
-            position: relative;
-            top: 2px;
-        }
+  .info {
+    width: 450px;
+    line-height: $topBarHeight;
+    height: $topBarHeight;
+    text-align: right;
+    vertical-align: middle;
+    padding-right: 22px;
+
+    span,
+    .lang {
+      padding-left: 12px !important;
     }
 
-    .info {
-        width: 450px;
-        line-height: $topBarHeight;
-        height: $topBarHeight;
-        text-align: right;
-        vertical-align: middle;
-        padding-right: 22px;
-
-        span, .lang {
-            padding-left: 12px !important;
-        }
-
-        .name {
-            height: 18px;
-            font-weight: bolder; 
-            font-size: 17px !important;
-        }
-
-        .lang {
-            font-size: 20px !important;
-        }
-
-        .fullscreen {
-            cursor: pointer;
-            position: relative;
-            top: 3px;
-            .iconfont {
-                font-size: 20px !important;
-            }
-        }
-
-        .el-dropdown {
-            vertical-align: middle !important;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bolder;
-        }
-
-        .setting-icon {
-            cursor: pointer;
-        }
-
-        .bell {
-            cursor: pointer;
-            .item {
-                height: 21px;
-                position: relative;
-                &:deep(.el-icon) {
-                    font-size: 20px !important;
-                    position: absolute;
-                    right: 0px;
-                    top: 0px;
-                }
-            }
-        }
+    .name {
+      height: 18px;
+      font-weight: bolder;
+      font-size: 17px !important;
     }
+
+    .lang {
+      font-size: 20px !important;
+    }
+
+    .fullscreen {
+      cursor: pointer;
+      position: relative;
+      top: 3px;
+      .iconfont {
+        font-size: 20px !important;
+      }
+    }
+
+    .el-dropdown {
+      vertical-align: middle !important;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bolder;
+    }
+
+    .setting-icon {
+      cursor: pointer;
+    }
+
+    .bell {
+      cursor: pointer;
+      .item {
+        height: 21px;
+        position: relative;
+        &:deep(.el-icon) {
+          font-size: 20px !important;
+          position: absolute;
+          right: 0px;
+          top: 0px;
+        }
+      }
+    }
+  }
 }
 
-
-.iconfont.icon-zhedie1, .iconfont.icon-zhedie2 {
-    font-size: 28px;
-    cursor: pointer;
+.iconfont.icon-zhedie1,
+.iconfont.icon-zhedie2 {
+  font-size: 28px;
+  cursor: pointer;
 }
 
 .iconfont {
-    margin-right: 0px;
-    padding-right: 0px;
+  margin-right: 0px;
+  padding-right: 0px;
 }

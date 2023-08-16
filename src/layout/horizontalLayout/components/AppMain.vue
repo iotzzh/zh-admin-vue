@@ -2,18 +2,19 @@
   <div class="app-main">
     <router-view v-slot="{ Component }">
       <transition name="fade-slide">
-        <keep-alive :include="cachedViews && cachedViews.map((x: any) => x.name)">
-        <component :is="Component" />
-      </keep-alive>
+        <keep-alive
+          :include="cachedViews && cachedViews.map((x: any) => x.name)"
+        >
+          <component :is="Component" />
+        </keep-alive>
       </transition>
-
     </router-view>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useLayoutStore } from '@/layout/store';
-import { storeToRefs } from 'pinia';
+import { useLayoutStore } from "@/layout/store";
+import { storeToRefs } from "pinia";
 const store = useLayoutStore();
 
 const { cachedViews } = storeToRefs(store);
@@ -24,8 +25,8 @@ const { cachedViews } = storeToRefs(store);
   padding: 10px;
   height: calc(100vh - 90px);
   width: 100%;
-  
-  background-color: rgb(223,223,223);
+
+  background-color: rgb(223, 223, 223);
   box-sizing: border-box;
   overflow: hidden;
 }

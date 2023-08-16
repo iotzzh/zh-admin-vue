@@ -2,30 +2,41 @@
   <div v-loading="loading">
     <div class="logo">
       <img class="logo-img" :src="Logo" alt="logo" />
-      <span v-if="collapse" class="logo-text">{{ t('layout.headerLeft.title') }}</span>
+      <span v-if="collapse" class="logo-text">{{
+        t("layout.headerLeft.title")
+      }}</span>
     </div>
     <el-scrollbar class="scrollbar" wrap-class="scrollbar-wrapper">
-      <el-menu class="menu el-menu-vertical" router :collapse="!collapse" :collapse-transition="false"
-        @select="changeSelectMenu">
-        <SidebarItem v-for="menu in menuList" :key="menu.id" :item="menu"></SidebarItem>
+      <el-menu
+        class="menu el-menu-vertical"
+        router
+        :collapse="!collapse"
+        :collapse-transition="false"
+        @select="changeSelectMenu"
+      >
+        <SidebarItem
+          v-for="menu in menuList"
+          :key="menu.id"
+          :item="menu"
+        ></SidebarItem>
       </el-menu>
     </el-scrollbar>
   </div>
 </template>
 
 <script setup lang="ts">
-import SidebarItem from './SidebarItem.vue';
-import { storeToRefs } from 'pinia';
-import { computed, reactive, ref, onMounted, nextTick } from 'vue';
-import { useRouter } from 'vue-router';
-import { useLayoutStore } from '@/layout/store';
-import ZHRequest from '@/components/zh-request';
-import Logo from '@/assets/img/logo.png';
-import { useI18n } from 'vue-i18n';
-import api from '@/api';
-const ROUTE_DATA_SOURCE = import.meta.env.VITE_ROUTE_DATA_SOURCE || 'file';
+import SidebarItem from "./SidebarItem.vue";
+import { storeToRefs } from "pinia";
+import { computed, reactive, ref, onMounted, nextTick } from "vue";
+import { useRouter } from "vue-router";
+import { useLayoutStore } from "@/layout/store";
+import ZHRequest from "@/components/zh-request";
+import Logo from "@/assets/img/logo.png";
+import { useI18n } from "vue-i18n";
+import api from "@/api";
+const ROUTE_DATA_SOURCE = import.meta.env.VITE_ROUTE_DATA_SOURCE || "file";
 
-import { appendRouter } from '@/router';
+import { appendRouter } from "@/router";
 
 const store = useLayoutStore();
 const { collapse } = storeToRefs(store);
@@ -42,8 +53,8 @@ onMounted(async () => {
   const result = await ZHRequest.post(params);
   menuList.value = result.data.records;
 
-  if (ROUTE_DATA_SOURCE === 'api') appendRouter(result.data.records);
-  
+  if (ROUTE_DATA_SOURCE === "api") appendRouter(result.data.records);
+
   await nextTick();
   loading.value = false;
 });
@@ -59,12 +70,10 @@ const changeSelectMenu = (index: any, indexPath: any) => {
 };
 
 const { t } = useI18n();
-
 </script>
 
-
 <style lang="scss" scoped>
-@import '../../index.scss';
+@import "../../index.scss";
 
 .logo {
   height: $topBarHeight;
@@ -125,5 +134,5 @@ const { t } = useI18n();
     // background-color: rgba(9,96,189, 0.8);
     background-color: var(--el-color-primary);
   }
-
-}</style>
+}
+</style>

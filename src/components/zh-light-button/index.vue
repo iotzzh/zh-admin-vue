@@ -3,12 +3,13 @@
     <div></div>
     <div></div>
     <div></div>
-    <div></div>{{ text }}
+    <div></div>
+    {{ text }}
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, toRefs } from 'vue';
+import { computed, toRefs } from "vue";
 
 const props = defineProps({
   color: {
@@ -23,7 +24,7 @@ const props = defineProps({
 
 const { color, text } = toRefs(props);
 
-const emit = defineEmits(['click']);
+const emit = defineEmits(["click"]);
 
 const buttonColor = computed(() => color.value);
 // const buttonColor = ref('red');
@@ -48,10 +49,8 @@ const buttonColor = computed(() => color.value);
 .light:hover {
   background-color: v-bind(buttonColor);
   color: #050801;
-  box-shadow: 0 0 5px v-bind(buttonColor),
-    0 0 25px v-bind(buttonColor),
-    0 0 50px v-bind(buttonColor),
-    0 0 200px v-bind(buttonColor);
+  box-shadow: 0 0 5px v-bind(buttonColor), 0 0 25px v-bind(buttonColor),
+    0 0 50px v-bind(buttonColor), 0 0 200px v-bind(buttonColor);
 }
 
 .light div {
@@ -139,4 +138,5 @@ const buttonColor = computed(() => color.value);
   100% {
     bottom: 100%;
   }
-}</style>
+}
+</style>

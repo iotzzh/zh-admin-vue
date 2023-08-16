@@ -1,7 +1,12 @@
 <template>
-  <el-menu-item :index="item ? item.url : ''" v-if="!item || !item.children || item.children.length === 0">
+  <el-menu-item
+    :index="item ? item.url : ''"
+    v-if="!item || !item.children || item.children.length === 0"
+  >
     <i :class="'iconfont ' + item?.icon"></i>
-    <template #title><span class="tab">{{ item?.routeName }}</span></template>
+    <template #title
+      ><span class="tab">{{ item?.routeName }}</span></template
+    >
   </el-menu-item>
 
   <el-sub-menu :index="item ? item.id : ''" v-else>
@@ -23,13 +28,13 @@
 </template>
 
 <script lang="ts" setup>
-import { MenuNode } from '@/layout/type';
-import { onMounted, PropType, toRefs } from 'vue';
+import { MenuNode } from "@/layout/type";
+import { onMounted, PropType, toRefs } from "vue";
 
 const props = defineProps({
   collapse: {
     type: Boolean,
-    default: true
+    default: true,
   },
   item: {
     type: Object as PropType<MenuNode>,
@@ -44,9 +49,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-
 .iconfont {
   padding-right: 3px;
 }
-
 </style>

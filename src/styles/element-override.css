@@ -1,12 +1,12 @@
 /* 重新定义element ui 主题 */
 :root {
-    --el-color-primary: #154EC1 !important;
-    --el-color-success: #3D9209 !important;
-    --el-color-warning: #E5AF24 !important;
-    --el-color-info: #767C88 !important;
-    --el-color-danger: #E42222 !important;
-    /* --el-color-primary: red; */
-    /* --el-color-primary: #6196EA;
+  --el-color-primary: #154ec1 !important;
+  --el-color-success: #3d9209 !important;
+  --el-color-warning: #e5af24 !important;
+  --el-color-info: #767c88 !important;
+  --el-color-danger: #e42222 !important;
+  /* --el-color-primary: red; */
+  /* --el-color-primary: #6196EA;
     --el-color-primary-light-3: #99BCF3;
     --el-color-warning: #FE6A0C;
     --el-color-warning-light-3: #FF9555;
@@ -20,21 +20,20 @@
 }
 
 :focus-visible {
-    outline: none;
+  outline: none;
 }
 
 /**
 * 解决el-input设置类型为number时，中文输入法光标上移问题
 **/
-.el-input__inner{
-    line-height: 1px!important;
+.el-input__inner {
+  line-height: 1px !important;
 }
 
 /* 2.3.7 bug, 已经fix，等新版本 */
 .el-form--inline .el-input {
-    --el-input-width: 100% !important;
+  --el-input-width: 100% !important;
 }
-
 
 /* 重定义弹窗后body加padding的bug */
 /* .el-popup-parent--hidden {
@@ -42,46 +41,46 @@
 } */
 /* ********************************************************************全局的组件样式修改start*********************************************** */
 .el-button {
-    border-radius: var(--el-border-radius-small) !important;
+  border-radius: var(--el-border-radius-small) !important;
 }
 /* .el-button:focus,  */
 .el-button:hover {
-    border-radius: 0px !important;
-    transition: border-radius .5s;
+  border-radius: 0px !important;
+  transition: border-radius 0.5s;
 }
 
-.el-button:focus, .el-button:hover {
-    /* background-color: inherit !important; */
-    /* background-color: rgba(200, 200, 200, 0.2) !important; */
+.el-button:focus,
+.el-button:hover {
+  /* background-color: inherit !important; */
+  /* background-color: rgba(200, 200, 200, 0.2) !important; */
 }
 
 .el-tag {
-    border-radius: 0px !important;
+  border-radius: 0px !important;
 }
 
 /* dialog超出部分隐藏，做好body内部的滚动 */
 .el-overlay .el-overlay-dialog {
-    overflow-y: hidden;
+  overflow-y: hidden;
 }
 
 /* ********************************************************************全局的组件样式修改end*********************************************** */
 
-
 /* ********************************************************************重写在自己编写的组件中的element 的样式Start*********************************************** */
 /* 表格搜索框，表单，zh-form */
 .zh-table .el-form--inline.zh-form .el-col-0 {
-    max-width: none !important;
+  max-width: none !important;
 }
 
 /* 弹框 表单：zh-form */
 .zh-modal .el-form--inline.zh-form .el-form-item {
-    width: 100% !important;
-    margin-right: 0px;
+  width: 100% !important;
+  margin-right: 0px;
 }
 
 /* 弹框 表格 - 搜索表单：zh-form */
 .zh-modal .zh-table .el-form--inline.zh-form .el-form-item {
-    width: auto !important;
+  width: auto !important;
 }
 
 /* ********************************************************************重写在自己编写的组件中的element 的样式End*********************************************** */

@@ -17,7 +17,7 @@
   background-color: #f5f5f5;
   font-family: Arial, Helvetica, sans-serif;
   padding: 30px;
-  background:  no-repeat center center;
+  background: no-repeat center center;
   background-size: 100% 100%;
 
   .user-box {
@@ -43,7 +43,6 @@
     margin: 15px 0px 0px 0px;
   }
 }
-
 
 @media screen and (max-width: 800px) {
   .login-box {
@@ -78,12 +77,11 @@
     width: 80%;
   }
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 0px;
   }
 
   .el-button:not(:last-child) {
     margin-bottom: 15px;
   }
-
 }

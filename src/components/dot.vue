@@ -7,25 +7,31 @@
  * @FilePath: \zh-admin\src\components\dot.vue
 -->
 <template>
-    <div class="dot" :style="{width: width, height: width, backgroundColor: color, borderRadius: '50%' }"></div>
+  <div
+    class="dot"
+    :style="{
+      width: width,
+      height: width,
+      backgroundColor: color,
+      borderRadius: '50%',
+    }"
+  ></div>
 </template>
 <script lang="ts" setup>
-import { toRefs } from 'vue';
+import { toRefs } from "vue";
 
 const props = defineProps({
-    width: {
-        type: String
-    },
-    color: {
-        type: String
-    }
+  width: {
+    type: String,
+  },
+  color: {
+    type: String,
+  },
 });
 
 const { width, color } = toRefs(props);
 </script>
 
 <script lang="ts">
-export default { name: 'dot' };
+export default { name: "dot" };
 </script>
-
-

@@ -3,19 +3,20 @@
     <NavigationBar />
     <div class="tags-content">
       <TagsView />
-    <AppMain />
+      <AppMain />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import { NavigationBar, AppMain, TagsView } from './components';
+import { onMounted, ref } from "vue";
+import { NavigationBar, AppMain, TagsView } from "./components";
 
 const loading = ref(true);
-onMounted(() => { loading.value = false; });
+onMounted(() => {
+  loading.value = false;
+});
 </script>
-
 
 <style lang="scss" scoped>
 .layout {
@@ -25,5 +26,4 @@ onMounted(() => { loading.value = false; });
 .tags-content {
   background-color: white;
 }
-
 </style>

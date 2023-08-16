@@ -1,8 +1,13 @@
 <template>
   <!-- 这里没有url，跳转到新的界面：提示配置该路由 -->
-  <el-menu-item v-if="!item || !item.children || item.children.length === 0" :index="item ? item.url : ''">
+  <el-menu-item
+    v-if="!item || !item.children || item.children.length === 0"
+    :index="item ? item.url : ''"
+  >
     <i :class="'iconfont ' + item?.icon"></i>
-    <template #title><span class="tab">{{ item?.routeName }}</span></template>
+    <template #title
+      ><span class="tab">{{ item?.routeName }}</span></template
+    >
   </el-menu-item>
 
   <el-sub-menu :index="item ? item.id : ''" v-else>
@@ -24,8 +29,8 @@
 </template>
 
 <script lang="ts" setup>
-import { MenuNode } from '@/layout/type';
-import { PropType, toRefs } from 'vue';
+import { MenuNode } from "@/layout/type";
+import { PropType, toRefs } from "vue";
 
 const props = defineProps({
   collapse: {

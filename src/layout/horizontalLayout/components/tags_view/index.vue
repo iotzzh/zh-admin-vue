@@ -1,22 +1,33 @@
 <template>
   <div class="tags-box">
     <el-scrollbar class="tags-scrollbar tags">
-      <el-tag class="tag" v-for="cachedView in cachedViews" :key="cachedView?.path" closable
-        :type="isActive(cachedView) ? '' : 'info'" @click="clickTab(cachedView.fullPath)"
-        @close="closeSingleTag(cachedView)">{{ cachedView.meta?.title }}</el-tag>
+      <el-tag
+        class="tag"
+        v-for="cachedView in cachedViews"
+        :key="cachedView?.path"
+        closable
+        :type="isActive(cachedView) ? '' : 'info'"
+        @click="clickTab(cachedView.fullPath)"
+        @close="closeSingleTag(cachedView)"
+        >{{ cachedView.meta?.title }}</el-tag
+      >
     </el-scrollbar>
 
     <div class="options-box">
       <div>
-        <el-dropdown :hide-on-click="false" class="name" @command="changeDropdownCloseTag">
-        <span><i class="iconfont icon-xiala"></i></span>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="closeother">关闭其他</el-dropdown-item>
-            <!-- <el-dropdown-item command="closeall">关闭全部</el-dropdown-item> -->
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+        <el-dropdown
+          :hide-on-click="false"
+          class="name"
+          @command="changeDropdownCloseTag"
+        >
+          <span><i class="iconfont icon-xiala"></i></span>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <el-dropdown-item command="closeother">关闭其他</el-dropdown-item>
+              <!-- <el-dropdown-item command="closeall">关闭全部</el-dropdown-item> -->
+            </el-dropdown-menu>
+          </template>
+        </el-dropdown>
       </div>
       <div @click="toggleFullScreen">
         <i v-if="fullScreen" class="iconfont icon-fullscreen-shrink"></i>
@@ -27,12 +38,12 @@
 </template>
 
 <script setup lang="ts">
-import { toRef, ref, reactive, onMounted } from 'vue';
-import { onBeforeRouteUpdate, useRouter } from 'vue-router';
-import { storeToRefs } from 'pinia';
-import { useLayoutStore } from '@/layout/store';
-import { RouteType } from '@/layout/type';
-import UIHelper from '@/utils/uiHelper';
+import { toRef, ref, reactive, onMounted } from "vue";
+import { onBeforeRouteUpdate, useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
+import { useLayoutStore } from "@/layout/store";
+import { RouteType } from "@/layout/type";
+import UIHelper from "@/utils/uiHelper";
 
 const store = useLayoutStore();
 const { cachedViews } = storeToRefs(store);
@@ -46,9 +57,13 @@ onBeforeRouteUpdate((to) => {
 
 const changeDropdownCloseTag = (command: string) => {
   // console.log(command);
-  if (command === 'closeother') {
-    const activeViewPath: any = router.currentRoute.value.meta.fatherPath ? router.currentRoute.value.meta.fatherPath : router.currentRoute.value.fullPath;
-    const activeView: any = cachedViews.value.find(x => x.fullPath === activeViewPath);
+  if (command === "closeother") {
+    const activeViewPath: any = router.currentRoute.value.meta.fatherPath
+      ? router.currentRoute.value.meta.fatherPath
+      : router.currentRoute.value.fullPath;
+    const activeView: any = cachedViews.value.find(
+      (x) => x.fullPath === activeViewPath
+    );
     store.updateCachedViews([activeView]);
     router.push(activeViewPath);
   }
@@ -61,14 +76,21 @@ const closeSingleTag = (cachedView: RouteType) => {
   store.removeCachedView(cachedView);
   // 路由跳转
   if (cachedViews.value.length > 0) {
-    const path = cachedViews.value[cachedViews.value.length - 1].fullPath as string;
+    const path = cachedViews.value[cachedViews.value.length - 1]
+      .fullPath as string;
     router.push(path);
   }
 };
 
 // 标签高亮
 const isActive = (route: RouteType) => {
-  return route && route.fullPath === (router.currentRoute.value?.meta?.fatherPath ? router.currentRoute.value?.meta?.fatherPath : router.currentRoute.value?.fullPath);
+  return (
+    route &&
+    route.fullPath ===
+      (router.currentRoute.value?.meta?.fatherPath
+        ? router.currentRoute.value?.meta?.fatherPath
+        : router.currentRoute.value?.fullPath)
+  );
 };
 
 const clickTab = (path: any) => {
@@ -82,7 +104,10 @@ onMounted(() => {
 
 const fullScreen = ref(false);
 const toggleFullScreen = () => {
-  UIHelper.toggleFullScreen(document.body.getElementsByClassName('tags-content')[0], !fullScreen.value);
+  UIHelper.toggleFullScreen(
+    document.body.getElementsByClassName("tags-content")[0],
+    !fullScreen.value
+  );
   fullScreen.value = !fullScreen.value;
 };
 </script>
@@ -133,7 +158,7 @@ const toggleFullScreen = () => {
   }
 }
 
-.options-box>div {
+.options-box > div {
   border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 

@@ -2,12 +2,11 @@
   <div class="logo-box">
     <img class="logo" :src="logo" />
     <span>后台管理系统</span>
-    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import logo from '@/assets/img/logo.png';
-
+import logo from "@/assets/img/logo.png";
 </script>
 
 <style lang="scss" scoped>
@@ -20,8 +19,8 @@ import logo from '@/assets/img/logo.png';
 }
 
 .logo {
-    width: auto;
-    height: 50px;
-    padding-right: 10px;
-  }
+  width: auto;
+  height: 50px;
+  padding-right: 10px;
+}
 </style>

@@ -1,5 +1,8 @@
 <template>
-  <div class="sidebar-logo-container" :class="[props.collapse ? 'collapse' : 'notitle']">
+  <div
+    class="sidebar-logo-container"
+    :class="[props.collapse ? 'collapse' : 'notitle']"
+  >
     <transition name="sidebarLogoFade">
       <router-link key="expand" class="sidebar-logo-link" to="/dashboard">
         <img class="sidebar-logo" :src="logoSrc" />
@@ -9,28 +12,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, watch } from 'vue';
-import logo from '@/assets/img/logo1.png';
-import foldLogo from '@/assets/img/foldIcon.png';
+import { ref, toRefs, watch } from "vue";
+import logo from "@/assets/img/logo1.png";
+import foldLogo from "@/assets/img/foldIcon.png";
 
 const props = defineProps({
   collapse: {
     type: Boolean,
-    default: true
-  }
+    default: true,
+  },
 });
 
-const logoSrc = ref('');
+const logoSrc = ref("");
 logoSrc.value = props.collapse ? logo : foldLogo;
 const { collapse } = toRefs(props);
 watch(collapse, (newVal) => {
   logoSrc.value = newVal ? logo : foldLogo;
 });
-
 </script>
 
 <style lang="scss" scoped>
-@import '../../index.scss';
+@import "../../index.scss";
 .sidebarLogoFade-enter-active {
   transition: opacity 1.5s;
 }

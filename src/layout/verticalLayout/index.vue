@@ -12,19 +12,24 @@
       </div>
     </div>
 
-    <el-drawer v-model="isOpenDrawerMenu" direction="ltr" :with-header="false" size="70%"
-      modal-class="layout-menu-drawer">
+    <el-drawer
+      v-model="isOpenDrawerMenu"
+      direction="ltr"
+      :with-header="false"
+      size="70%"
+      modal-class="layout-menu-drawer"
+    >
       <Sidebar />
     </el-drawer>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Sidebar, Navbar, AppMain, TagsView } from './components';
-import { storeToRefs } from 'pinia';
-import { useLayoutStore } from '../store';
-import { onMounted, ref, nextTick } from 'vue';
-import storage from '@/utils/storage';
+import { Sidebar, Navbar, AppMain, TagsView } from "./components";
+import { storeToRefs } from "pinia";
+import { useLayoutStore } from "../store";
+import { onMounted, ref, nextTick } from "vue";
+import storage from "@/utils/storage";
 
 const store = useLayoutStore();
 const { collapse, isOpenDrawerMenu } = storeToRefs(store);
@@ -32,7 +37,6 @@ const { collapse, isOpenDrawerMenu } = storeToRefs(store);
 const isMobile = ref(storage.getIsMobile());
 
 const loading = ref(true);
-
 
 onMounted(() => {
   loading.value = false;
@@ -49,16 +53,23 @@ const reload = async () => {
 };
 </script>
 
-
 <style lang="scss" scoped>
 @keyframes fold {
-    from {width: 220px;} 
-    to {width: 70px;}
+  from {
+    width: 220px;
+  }
+  to {
+    width: 70px;
+  }
 }
 
 @keyframes expand {
-    from {width: 70px;} 
-    to {width: 220px;}
+  from {
+    width: 70px;
+  }
+  to {
+    width: 220px;
+  }
 }
 
 .layout {
@@ -68,12 +79,12 @@ const reload = async () => {
 
   .left {
     min-width: 220px;
-    animation: expand .2s ease-in-out;
+    animation: expand 0.2s ease-in-out;
   }
 
   .left-fold {
     width: 70px;
-    animation: fold .2s ease-in-out;
+    animation: fold 0.2s ease-in-out;
   }
 
   .right {
@@ -97,8 +108,6 @@ const reload = async () => {
     }
   }
 }
-
-
 </style>
 
 <style lang="scss">

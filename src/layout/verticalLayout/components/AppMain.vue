@@ -1,20 +1,25 @@
 <template>
-  <div class="app-main" :style="{ padding: isMobile ? '7px 0px 0px 0px' : '10px 15px' }" >
+  <div
+    class="app-main"
+    :style="{ padding: isMobile ? '7px 0px 0px 0px' : '10px 15px' }"
+  >
     <router-view v-slot="{ Component }">
       <transition name="fade-slide">
-        <keep-alive :include="cachedViews && cachedViews.map((x: any) => x.name)">
-        <component :is="Component" />
-      </keep-alive>
+        <keep-alive
+          :include="cachedViews && cachedViews.map((x: any) => x.name)"
+        >
+          <component :is="Component" />
+        </keep-alive>
       </transition>
     </router-view>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { useLayoutStore } from '@/layout/store';
-import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
-import storage from '@/utils/storage';
+import { useLayoutStore } from "@/layout/store";
+import { storeToRefs } from "pinia";
+import { ref } from "vue";
+import storage from "@/utils/storage";
 
 const store = useLayoutStore();
 const isMobile = ref(storage.getIsMobile());
@@ -28,7 +33,7 @@ const { cachedViews } = storeToRefs(store);
   height: 100%;
   // height: calc(100% - 50px);
   width: 100%;
-  background-color: rgb(223,223,223);
+  background-color: rgb(223, 223, 223);
   box-sizing: border-box;
   overflow: hidden;
 

@@ -1,30 +1,162 @@
 {
-    "prefix": "font", 
-    "localPrefix": "apiUser1", 
-    "useMock": true,
-    "useCommmonConfig": true,
-    "api": [
-            { "name": "getOrgList", "url": "/org/list", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "addOrg", "url": "/org/add", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "updateOrg", "url": "/org/modify", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "deleteOrg", "url": "/org/remove", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "batchOrg", "url": "/org/remove", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "getUserList", "url": "/user/list", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "addUser", "url": "/user/add", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "updateUser", "url": "/user/modify", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "deleteUser", "url": "/user/remove", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "batchDeleteUser", "url": "/user/remove", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "getMenuList", "url": "/menu/list", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "addMenu", "url": "/menu/add", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "updateMenu", "url": "/menu/modify", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "deleteMenu", "url": "/menu/remove", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "batchDeleteMenu", "url": "/menu/remove", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "getRoleList", "url": "/role/list", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "addRole", "url": "/role/add", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "updateRole", "url": "/role/modify", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "deleteRole", "url": "/role/remove", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "batchDeleteRole", "url": "/role/remove", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "getUserRoleList", "url": "/userRole/userHaveRoles", "prefix": "font", "localPrefix": "apiUser1", "useMock": true },
-            { "name": "updateUserRole", "url": "/userRole/modify", "prefix": "font", "localPrefix": "apiUser1", "useMock": true }
-    ]
+  "prefix": "font",
+  "localPrefix": "apiUser1",
+  "useMock": true,
+  "useCommmonConfig": true,
+  "api": [
+    {
+      "name": "getOrgList",
+      "url": "/org/list",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "addOrg",
+      "url": "/org/add",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "updateOrg",
+      "url": "/org/modify",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "deleteOrg",
+      "url": "/org/remove",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "batchOrg",
+      "url": "/org/remove",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "getUserList",
+      "url": "/user/list",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "addUser",
+      "url": "/user/add",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "updateUser",
+      "url": "/user/modify",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "deleteUser",
+      "url": "/user/remove",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "batchDeleteUser",
+      "url": "/user/remove",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "getMenuList",
+      "url": "/menu/list",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "addMenu",
+      "url": "/menu/add",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "updateMenu",
+      "url": "/menu/modify",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "deleteMenu",
+      "url": "/menu/remove",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "batchDeleteMenu",
+      "url": "/menu/remove",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "getRoleList",
+      "url": "/role/list",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "addRole",
+      "url": "/role/add",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "updateRole",
+      "url": "/role/modify",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "deleteRole",
+      "url": "/role/remove",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "batchDeleteRole",
+      "url": "/role/remove",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "getUserRoleList",
+      "url": "/userRole/userHaveRoles",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "updateUserRole",
+      "url": "/userRole/modify",
+      "prefix": "font",
+      "localPrefix": "apiUser1",
+      "useMock": true
+    }
+  ]
 }
