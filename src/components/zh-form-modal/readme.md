@@ -6,10 +6,7 @@
 
 ## 事件
 
-close
-cancel
-submit
-opened
+close cancel submit opened
 
 ## 方法：
 

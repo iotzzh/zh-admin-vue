@@ -63,28 +63,16 @@
         <div class="code code--small code--right aos-init" data-aos="fade-left">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"fade-left"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
-        <div
-          class="code code--small code--left aos-init"
-          data-aos="fade-up-right"
-        >
+        <div class="code code--small code--left aos-init" data-aos="fade-up-right">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"fade-up-right"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
-        <div
-          class="code code--small code--right aos-init"
-          data-aos="fade-up-left"
-        >
+        <div class="code code--small code--right aos-init" data-aos="fade-up-left">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"fade-up-left"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
-        <div
-          class="code code--small code--left aos-init"
-          data-aos="fade-down-right"
-        >
+        <div class="code code--small code--left aos-init" data-aos="fade-down-right">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"fade-down-right"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
-        <div
-          class="code code--small code--right aos-init"
-          data-aos="fade-down-left"
-        >
+        <div class="code code--small code--right aos-init" data-aos="fade-down-left">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"fade-down-left"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
       </div>
@@ -96,10 +84,7 @@
         <div class="code code--small code--left aos-init" data-aos="flip-left">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"flip-left"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
-        <div
-          class="code code--small code--right aos-init"
-          data-aos="flip-right"
-        >
+        <div class="code code--small code--right aos-init" data-aos="flip-right">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"flip-right"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
         <div class="code code--small code--left aos-init" data-aos="flip-up">
@@ -117,56 +102,32 @@
         <div class="code code--small code--left aos-init" data-aos="zoom-in">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"zoom-in"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
-        <div
-          class="code code--small code--right aos-init"
-          data-aos="zoom-in-up"
-        >
+        <div class="code code--small code--right aos-init" data-aos="zoom-in-up">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"zoom-in-up"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
-        <div
-          class="code code--small code--left aos-init"
-          data-aos="zoom-in-down"
-        >
+        <div class="code code--small code--left aos-init" data-aos="zoom-in-down">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"zoom-in-down"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
-        <div
-          class="code code--small code--right aos-init"
-          data-aos="zoom-in-left"
-        >
+        <div class="code code--small code--right aos-init" data-aos="zoom-in-left">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"zoom-in-left"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
-        <div
-          class="code code--small code--left aos-init"
-          data-aos="zoom-in-right"
-        >
+        <div class="code code--small code--left aos-init" data-aos="zoom-in-right">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"zoom-in-right"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
 
         <div class="code code--small code--right aos-init" data-aos="zoom-out">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"zoom-out"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
-        <div
-          class="code code--small code--left aos-init"
-          data-aos="zoom-out-up"
-        >
+        <div class="code code--small code--left aos-init" data-aos="zoom-out-up">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"zoom-out-up"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
-        <div
-          class="code code--small code--right aos-init"
-          data-aos="zoom-out-down"
-        >
+        <div class="code code--small code--right aos-init" data-aos="zoom-out-down">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"zoom-out-down"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
-        <div
-          class="code code--small code--left aos-init"
-          data-aos="zoom-out-right"
-        >
+        <div class="code code--small code--left aos-init" data-aos="zoom-out-right">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"zoom-out-right"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
-        <div
-          class="code code--small code--right aos-init"
-          data-aos="zoom-out-left"
-        >
+        <div class="code code--small code--right aos-init" data-aos="zoom-out-left">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"zoom-out-left"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
         </div>
       </div>
@@ -175,11 +136,7 @@
     <section class="section section--code">
       <div class="container">
         <h2 class="section-title">Different settings examples</h2>
-        <div
-          class="code code--left aos-init"
-          data-aos="fade-up"
-          data-aos-duration="3000"
-        >
+        <div class="code code--left aos-init" data-aos="fade-up" data-aos-duration="3000">
           <pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">data-aos</span>=<span class="hljs-value">"fade-up"</span>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="hljs-attribute">data-aos-duration</span>=<span class="hljs-value">"3000"</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span></code></pre>
@@ -314,15 +271,10 @@
         <div class="section-group">
           <h3>Get it</h3>
 
-          <a
-            href="https://github.com/michalsnik/aos/archive/master.zip"
-            class="btn"
+          <a href="https://github.com/michalsnik/aos/archive/master.zip" class="btn"
             ><span>Download</span></a
           >
-          <a
-            href="https://github.com/michalsnik/aos"
-            target="_blank"
-            class="btn"
+          <a href="https://github.com/michalsnik/aos" target="_blank" class="btn"
             ><span>View on github</span></a
           >
         </div>
@@ -362,404 +314,404 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted } from "vue";
-import Box from "@/components/zh-box/index.vue";
-import AOSImg from "@/assets/img/aos-bg.jpg";
+  import { onMounted } from 'vue';
+  import Box from '@/components/zh-box/index.vue';
+  import AOSImg from '@/assets/img/aos-bg.jpg';
 
-import AOS from "aos";
+  import AOS from 'aos';
 
-// 参考：https://blog.csdn.net/m0_49245194/article/details/122901171
-const scroll = (e: any) => {
-  window.pageYOffset = e.scrollTop;
-  window.scrollY = e.scrollTop;
-  AOS.refresh();
-};
+  // 参考：https://blog.csdn.net/m0_49245194/article/details/122901171
+  const scroll = (e: any) => {
+    window.pageYOffset = e.scrollTop;
+    window.scrollY = e.scrollTop;
+    AOS.refresh();
+  };
 
-onMounted(async () => {
-  AOS.init({});
-});
+  onMounted(async () => {
+    AOS.init({});
+  });
 
-// onMounted(() => {
-//   let scrollRef = 0;
+  // onMounted(() => {
+  //   let scrollRef = 0;
 
-// window.addEventListener('scroll', function() {
-//   // increase value up to 10, then refresh AOS
-//   scrollRef <= 10 ? scrollRef++ : AOS.refresh();
-// });
-// });
+  // window.addEventListener('scroll', function() {
+  //   // increase value up to 10, then refresh AOS
+  //   scrollRef <= 10 ? scrollRef++ : AOS.refresh();
+  // });
+  // });
 </script>
 
 <style lang="scss" scoped>
-// .scroll-box {
-//     background-image: url('../../assets/img/aos-bg.jpg');
-// }
+  // .scroll-box {
+  //     background-image: url('../../assets/img/aos-bg.jpg');
+  // }
 
-.hljs-params,
-.hljs-constant {
-  color: #c76b29;
-}
+  .hljs-params,
+  .hljs-constant {
+    color: #c76b29;
+  }
 
-/* Atelier-Sulphurpool Yellow */
-.ruby .hljs-class .hljs-title,
-.css .hljs-rule .hljs-attribute {
-  color: #c08b30;
-}
+  /* Atelier-Sulphurpool Yellow */
+  .ruby .hljs-class .hljs-title,
+  .css .hljs-rule .hljs-attribute {
+    color: #c08b30;
+  }
 
-/* Atelier-Sulphurpool Green */
-.hljs-string,
-.hljs-value,
-.hljs-inheritance,
-.hljs-header,
-.ruby .hljs-symbol,
-.xml .hljs-cdata {
-  color: darkorange;
-}
+  /* Atelier-Sulphurpool Green */
+  .hljs-string,
+  .hljs-value,
+  .hljs-inheritance,
+  .hljs-header,
+  .ruby .hljs-symbol,
+  .xml .hljs-cdata {
+    color: darkorange;
+  }
 
-/* Atelier-Sulphurpool Aqua */
-.hljs-title,
-.css .hljs-hexcolor {
-  color: #22a2c9;
-}
+  /* Atelier-Sulphurpool Aqua */
+  .hljs-title,
+  .css .hljs-hexcolor {
+    color: #22a2c9;
+  }
 
-/* Atelier-Sulphurpool Blue */
-.hljs-function,
-.python .hljs-decorator,
-.python .hljs-title,
-.ruby .hljs-function .hljs-title,
-.ruby .hljs-title .hljs-keyword,
-.perl .hljs-sub,
-.javascript .hljs-title,
-.coffeescript .hljs-title {
-  color: #3d8fd1;
-}
+  /* Atelier-Sulphurpool Blue */
+  .hljs-function,
+  .python .hljs-decorator,
+  .python .hljs-title,
+  .ruby .hljs-function .hljs-title,
+  .ruby .hljs-title .hljs-keyword,
+  .perl .hljs-sub,
+  .javascript .hljs-title,
+  .coffeescript .hljs-title {
+    color: #3d8fd1;
+  }
 
-/* Atelier-Sulphurpool Purple */
-.hljs-keyword,
-.javascript .hljs-function {
-  color: #6679cc;
-}
+  /* Atelier-Sulphurpool Purple */
+  .hljs-keyword,
+  .javascript .hljs-function {
+    color: #6679cc;
+  }
 
-.hljs {
-  display: block;
-  overflow-x: auto;
-  background: #202746;
-  color: #979db4;
-  padding: 0.5em;
-  -webkit-text-size-adjust: none;
-}
+  .hljs {
+    display: block;
+    overflow-x: auto;
+    background: #202746;
+    color: #979db4;
+    padding: 0.5em;
+    -webkit-text-size-adjust: none;
+  }
 
-.coffeescript .javascript,
-.javascript .xml,
-.tex .hljs-formula,
-.xml .javascript,
-.xml .vbscript,
-.xml .css,
-.xml .hljs-cdata {
-  opacity: 0.5;
-}
+  .coffeescript .javascript,
+  .javascript .xml,
+  .tex .hljs-formula,
+  .xml .javascript,
+  .xml .vbscript,
+  .xml .css,
+  .xml .hljs-cdata {
+    opacity: 0.5;
+  }
 
-body {
-  font-family: Helvetica, Tahoma;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
+  body {
+    font-family: Helvetica, Tahoma;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
 
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
 
-a {
-  text-decoration: none;
-  color: #ff4081;
-}
+  a {
+    text-decoration: none;
+    color: #ff4081;
+  }
 
-/**
+  /**
  * Backgrounds
  */
-.backgrounds {
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
-  z-index: -1;
-}
-.backgrounds .background {
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  position: absolute;
-  left: 0;
-  top: 0;
-  background-attachment: fixed;
-  background-image: url("../../assets/img/aos-bg.jpg");
-}
+  .backgrounds {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    z-index: -1;
+  }
+  .backgrounds .background {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-attachment: fixed;
+    background-image: url('../../assets/img/aos-bg.jpg');
+  }
 
-.overlay:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  background: #3f51b5 !important;
-  opacity: 0.8;
-}
+  .overlay:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: #3f51b5 !important;
+    opacity: 0.8;
+  }
 
-/**
+  /**
  * Hero
  */
-.hero {
-  width: 100%;
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-  color: #fff;
-  text-align: center;
-}
-
-.hero-center {
-  width: 100%;
-  position: absolute;
-  top: 40%;
-  left: 0;
-  -webkit-transform: translate(0, -50%);
-  -ms-transform: translate(0, -50%);
-  transform: translate(0, -50%);
-}
-
-.hero__logo {
-  font-size: 60px;
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.hero__text {
-  font-weight: normal;
-  opacity: 0.8;
-}
-
-.hero__scroll {
-  position: absolute;
-  bottom: 60px;
-  width: 200px;
-  margin: auto;
-  display: block;
-  cursor: pointer;
-  padding-bottom: 40px;
-  left: 0;
-  right: 0;
-  text-transform: uppercase;
-}
-.hero__scroll .chevron {
-  margin-top: 20px;
-  display: block;
-  -webkit-animation: pulse 2s infinite;
-  animation: pulse 2s infinite;
-  color: #ff4081;
-}
-
-@-webkit-keyframes pulse {
-  0% {
-    -webkit-transform: translate(0, 0);
-    transform: translate(0, 0);
+  .hero {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
   }
-  50% {
-    -webkit-transform: translate(0, 10px);
-    transform: translate(0, 10px);
+
+  .hero-center {
+    width: 100%;
+    position: absolute;
+    top: 40%;
+    left: 0;
+    -webkit-transform: translate(0, -50%);
+    -ms-transform: translate(0, -50%);
+    transform: translate(0, -50%);
   }
-  100% {
-    -webkit-transform: translate(0, 0);
-    transform: translate(0, 0);
+
+  .hero__logo {
+    font-size: 60px;
+    color: rgba(0, 0, 0, 0.5);
   }
-}
 
-@keyframes pulse {
-  0% {
-    -webkit-transform: translate(0, 0);
-    transform: translate(0, 0);
+  .hero__text {
+    font-weight: normal;
+    opacity: 0.8;
   }
-  50% {
-    -webkit-transform: translate(0, 10px);
-    transform: translate(0, 10px);
+
+  .hero__scroll {
+    position: absolute;
+    bottom: 60px;
+    width: 200px;
+    margin: auto;
+    display: block;
+    cursor: pointer;
+    padding-bottom: 40px;
+    left: 0;
+    right: 0;
+    text-transform: uppercase;
   }
-  100% {
-    -webkit-transform: translate(0, 0);
-    transform: translate(0, 0);
+  .hero__scroll .chevron {
+    margin-top: 20px;
+    display: block;
+    -webkit-animation: pulse 2s infinite;
+    animation: pulse 2s infinite;
+    color: #ff4081;
   }
-}
 
-.octocat {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  width: 80px;
-}
-.octocat img {
-  display: block;
-  width: 100%;
-}
+  @-webkit-keyframes pulse {
+    0% {
+      -webkit-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
+    50% {
+      -webkit-transform: translate(0, 10px);
+      transform: translate(0, 10px);
+    }
+    100% {
+      -webkit-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
+  }
 
-.chevron::before {
-  border-style: solid;
-  border-width: 0.25em 0.25em 0 0;
-  content: "";
-  display: inline-block;
-  height: 20px;
-  position: relative;
-  -webkit-transform: rotate(-45deg);
-  -ms-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  vertical-align: top;
-  width: 20px;
-}
+  @keyframes pulse {
+    0% {
+      -webkit-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
+    50% {
+      -webkit-transform: translate(0, 10px);
+      transform: translate(0, 10px);
+    }
+    100% {
+      -webkit-transform: translate(0, 0);
+      transform: translate(0, 0);
+    }
+  }
 
-.chevron.right:before {
-  left: 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
+  .octocat {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 80px;
+  }
+  .octocat img {
+    display: block;
+    width: 100%;
+  }
 
-.chevron.bottom:before {
-  top: 0;
-  -webkit-transform: rotate(135deg);
-  -ms-transform: rotate(135deg);
-  transform: rotate(135deg);
-}
+  .chevron::before {
+    border-style: solid;
+    border-width: 0.25em 0.25em 0 0;
+    content: '';
+    display: inline-block;
+    height: 20px;
+    position: relative;
+    -webkit-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    vertical-align: top;
+    width: 20px;
+  }
 
-.chevron.left:before {
-  left: 0.25em;
-  -webkit-transform: rotate(-135deg);
-  -ms-transform: rotate(-135deg);
-  transform: rotate(-135deg);
-}
+  .chevron.right:before {
+    left: 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
 
-/**
+  .chevron.bottom:before {
+    top: 0;
+    -webkit-transform: rotate(135deg);
+    -ms-transform: rotate(135deg);
+    transform: rotate(135deg);
+  }
+
+  .chevron.left:before {
+    left: 0.25em;
+    -webkit-transform: rotate(-135deg);
+    -ms-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+  }
+
+  /**
  * Sections
  */
-.section {
-  width: 100%;
-  float: left;
-  overflow: hidden;
-}
+  .section {
+    width: 100%;
+    float: left;
+    overflow: hidden;
+  }
 
-.section-title {
-  text-align: center;
-  color: #fff;
-  text-transform: uppercase;
-  font-weight: normal;
-  padding: 30px 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-  width: 100%;
-  clear: both;
-}
+  .section-title {
+    text-align: center;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: normal;
+    padding: 30px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    width: 100%;
+    clear: both;
+  }
 
-.container {
-  width: 970px;
-  margin: 0 auto;
-  max-width: 90%;
-  -webkit-transform: translateZ(1000px);
-  transform: translateZ(1000px);
-}
+  .container {
+    width: 970px;
+    margin: 0 auto;
+    max-width: 90%;
+    -webkit-transform: translateZ(1000px);
+    transform: translateZ(1000px);
+  }
 
-.code {
-  width: 40%;
-  clear: both;
-  height: 200px;
-  background: #fff;
-  border-radius: 2px;
-  margin: 12vh 0;
-  padding: 10px;
-}
-.code pre,
-.code code {
-  height: 100%;
-  margin: 0;
-}
-.code code {
-  padding: 20px 0 0 20px;
-}
-.code--small code {
-  padding-top: 75px;
-}
-.code--left {
-  float: left;
-}
-.code--right {
-  float: right;
-}
-.code--wider {
-  width: 60%;
-}
-.code--wider code {
-  padding-top: 60px;
-}
+  .code {
+    width: 40%;
+    clear: both;
+    height: 200px;
+    background: #fff;
+    border-radius: 2px;
+    margin: 12vh 0;
+    padding: 10px;
+  }
+  .code pre,
+  .code code {
+    height: 100%;
+    margin: 0;
+  }
+  .code code {
+    padding: 20px 0 0 20px;
+  }
+  .code--small code {
+    padding-top: 75px;
+  }
+  .code--left {
+    float: left;
+  }
+  .code--right {
+    float: right;
+  }
+  .code--wider {
+    width: 60%;
+  }
+  .code--wider code {
+    padding-top: 60px;
+  }
 
-.section--more {
-  color: #fff;
-  background: #0e0f34;
-  padding: 20px 0 40px 0;
-}
+  .section--more {
+    color: #fff;
+    background: #0e0f34;
+    padding: 20px 0 40px 0;
+  }
 
-.section-group {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 30px 0;
-}
-.section-group h3 {
-  margin: 0 0 20px 0;
-  text-transform: uppercase;
-}
-.section-group h4 {
-  font-weight: normal;
-  color: rgba(255, 255, 255, 0.6);
-}
-.section-group code {
-  padding: 20px;
-  font-size: 1.2em;
-}
-.section-group .btn {
-  margin-right: 20px;
-}
+  .section-group {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 30px 0;
+  }
+  .section-group h3 {
+    margin: 0 0 20px 0;
+    text-transform: uppercase;
+  }
+  .section-group h4 {
+    font-weight: normal;
+    color: rgba(255, 255, 255, 0.6);
+  }
+  .section-group code {
+    padding: 20px;
+    font-size: 1.2em;
+  }
+  .section-group .btn {
+    margin-right: 20px;
+  }
 
-.btn {
-  padding: 10px 20px;
-  border: 1px solid #ff4081;
-  display: inline-block;
-  position: relative;
-  -webkit-transition: all 0.2s ease;
-  transition: all 0.2s ease;
-  overflow: hidden;
-}
-.btn:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  width: 1px;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  background: #ff4081;
-  -webkit-transition: -webkit-transform 0.2s ease;
-  transition: transform 0.2s ease;
-  z-index: 0;
-  opacity: 0;
-}
-.btn span {
-  position: relative;
-  z-index: 5;
-}
-.btn:hover {
-  color: #fff;
-}
-.btn:hover:before {
-  -webkit-transform: scaleX(200);
-  -ms-transform: scaleX(200);
-  transform: scaleX(200);
-  opacity: 1;
-}
+  .btn {
+    padding: 10px 20px;
+    border: 1px solid #ff4081;
+    display: inline-block;
+    position: relative;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+    overflow: hidden;
+  }
+  .btn:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    width: 1px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background: #ff4081;
+    -webkit-transition: -webkit-transform 0.2s ease;
+    transition: transform 0.2s ease;
+    z-index: 0;
+    opacity: 0;
+  }
+  .btn span {
+    position: relative;
+    z-index: 5;
+  }
+  .btn:hover {
+    color: #fff;
+  }
+  .btn:hover:before {
+    -webkit-transform: scaleX(200);
+    -ms-transform: scaleX(200);
+    transform: scaleX(200);
+    opacity: 1;
+  }
 </style>

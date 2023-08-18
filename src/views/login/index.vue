@@ -22,9 +22,7 @@
             clearable
             show-password
           ></el-input>
-          <el-button type="primary" class="login-button button" @click="login()"
-            >登录</el-button
-          >
+          <el-button type="primary" class="login-button button" @click="login()">登录</el-button>
         </form>
       </div>
     </div>
@@ -32,48 +30,48 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-import { Avatar, Lock } from "@element-plus/icons-vue";
-import { useRouter } from "vue-router";
-import storage from "@/utils/storage";
-import { TZHRequestParams } from "@/components/zh-request/type";
-import ZHRequest from "@/components/zh-request";
-import api from "@/api";
+  import { ref } from 'vue';
+  import { Avatar, Lock } from '@element-plus/icons-vue';
+  import { useRouter } from 'vue-router';
+  import storage from '@/utils/storage';
+  import { TZHRequestParams } from '@/components/zh-request/type';
+  import ZHRequest from '@/components/zh-request';
+  import api from '@/api';
 
-const router = useRouter();
+  const router = useRouter();
 
-const sysName = ref("后台管理系统");
-const inputAccount = ref("") as any;
-const inputPassword = ref("") as any;
-const showLoginForm = ref(true);
+  const sysName = ref('后台管理系统');
+  const inputAccount = ref('') as any;
+  const inputPassword = ref('') as any;
+  const showLoginForm = ref(true);
 
-const setToken = (token: string) => storage.setToken(token);
+  const setToken = (token: string) => storage.setToken(token);
 
-// 登录
-const login = async () => {
-  const params: TZHRequestParams = {
-    url: api.login,
-    conditions: {
-      loginId: inputAccount.value,
-      loginPass: inputPassword.value,
-    },
-    errorMessage: "登录失败",
-    successMessage: "登录成功",
+  // 登录
+  const login = async () => {
+    const params: TZHRequestParams = {
+      url: api.login,
+      conditions: {
+        loginId: inputAccount.value,
+        loginPass: inputPassword.value,
+      },
+      errorMessage: '登录失败',
+      successMessage: '登录成功',
+    };
+
+    const result = await ZHRequest.get(params);
+    if (!result.success) return;
+    setToken(result.data.token);
+
+    // 跳转路由
+    router.push({ path: '/root' });
   };
-
-  const result = await ZHRequest.get(params);
-  if (!result.success) return;
-  setToken(result.data.token);
-
-  // 跳转路由
-  router.push({ path: "/root" });
-};
 </script>
 
 <script lang="ts">
-export default { name: "login" };
+  export default { name: 'login' };
 </script>
 
 <style lang="scss" scoped>
-@import "./index.scss";
+  @import './index.scss';
 </style>

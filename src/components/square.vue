@@ -7,20 +7,20 @@
   ></div>
 </template>
 <script lang="ts" setup>
-import { toRefs } from "vue";
+  import { toRefs } from 'vue';
 
-const props = defineProps({
-  sideLength: {
-    type: String,
-  },
-  color: {
-    type: String,
-  },
-});
+  const props = defineProps({
+    sideLength: {
+      type: String,
+    },
+    color: {
+      type: String,
+    },
+  });
 
-const { sideLength, color } = toRefs(props);
+  const { sideLength, color } = toRefs(props);
 </script>
 
 <script lang="ts">
-export default { name: "square" };
+  export default { name: 'square' };
 </script>

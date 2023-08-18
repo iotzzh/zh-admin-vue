@@ -22,10 +22,7 @@
       </template>
 
       <!-- 传递form带字段名的插槽 -->
-      <template
-        v-for="item in sloTFromFields"
-        v-slot:[form._convertSlotName(item.prop)]
-      >
+      <template v-for="item in sloTFromFields" v-slot:[form._convertSlotName(item.prop)]>
         <slot :name="'zh-table-form-' + item.prop"></slot>
       </template>
 
@@ -79,13 +76,8 @@
             }"
               @mouseleave="(e: any) => table.cellContentLeave(scope)"
             >
-              <span
-                class="cell-content"
-                v-if="!table.cellCanShowSaveCancel(scope)"
-              >
-                <span v-if="item.convert">{{
-                  item.convert(scope.row, scope.$index)
-                }}</span>
+              <span class="cell-content" v-if="!table.cellCanShowSaveCancel(scope)">
+                <span v-if="item.convert">{{ item.convert(scope.row, scope.$index) }}</span>
 
                 <span v-else-if="item.format">{{
                   scope.row[item.prop as string] &&
@@ -130,9 +122,7 @@
                   v-else-if="item.addEditInfo?.type === 'select'"
                   v-model="scope.row[table._convertPropToEditingProp(item.prop as string)]"
                   :style="{
-                    width: item.addEditInfo?.width
-                      ? `${item.addEditInfo?.width}`
-                      : '100%',
+                    width: item.addEditInfo?.width ? `${item.addEditInfo?.width}` : '100%',
                   }"
                   :value-key="item.addEditInfo?.valueKey"
                   :disabled="item.addEditInfo?.disabled"
@@ -152,14 +142,10 @@
                   <el-option
                     v-for="(subItem, subIndex) in (item.addEditInfo?.options as Array<TZHFromFieldSelectOption> | Array<{ [x: string]: any }>)"
                     :key="
-                      item.addEditInfo?.valueKey
-                        ? subItem[item.addEditInfo?.valueKey]
-                        : subIndex
+                      item.addEditInfo?.valueKey ? subItem[item.addEditInfo?.valueKey] : subIndex
                     "
                     :label="subItem.label"
-                    :value="
-                      item.addEditInfo?.valueKey ? subItem : subItem.value
-                    "
+                    :value="item.addEditInfo?.valueKey ? subItem : subItem.value"
                   ></el-option>
                 </el-select>
               </span>
@@ -202,11 +188,7 @@
           :width="tableSettings.actionColumn?.width"
           :min-width="tableSettings.actionColumn?.minWidth"
           :label="tableSettings.actionColumn?.label"
-          :align="
-            tableSettings.actionColumn?.align
-              ? tableSettings.actionColumn.align
-              : 'center'
-          "
+          :align="tableSettings.actionColumn?.align ? tableSettings.actionColumn.align : 'center'"
         >
           <template #default="scope">
             <el-button
@@ -236,9 +218,7 @@
               :size="item?.size ? item.size : 'small'"
               :icon="item?.icon"
               :style="item?.style"
-              @click.stop="
-                item?.onClick && item?.onClick(scope.row, scope.$index)
-              "
+              @click.stop="item?.onClick && item?.onClick(scope.row, scope.$index)"
               >{{ item.label }}
             </el-button>
           </template>
@@ -295,166 +275,146 @@
 </template>
 
 <script setup lang="ts">
-import {
-  toRefs,
-  PropType,
-  computed,
-  ref,
-  reactive,
-  Ref,
-  watch,
-  onMounted,
-  nextTick,
-} from "vue";
-import {
-  RefreshLeft,
-  Search,
-  Delete,
-  Download,
-  DocumentChecked,
-  Refresh,
-  Upload,
-  Edit,
-  CloseBold,
-  Select,
-} from "@element-plus/icons-vue";
-import dayjs from "dayjs";
-import ZHForm from "../zh-form/index.vue";
-import ZhModalForm from "../zh-modal-form/index.vue";
-import ZHFormButtons from "./form-buttons.vue";
-import { ElTable } from "element-plus";
-import {
-  TZHTablePageSetting,
-  TZHTableRequest,
-  TZHTableSetting,
-  TZHTablePage,
-  TZHTableForm,
-} from "./type";
-import Page from "./page";
-import Table from "./table";
-import Form from "./form";
-import Modal from "./modal";
-import {
-  TZHFromField,
-  TZHFormSettings,
-  TZHFromFieldSelectOption,
-} from "../zh-form/type";
+  import { toRefs, PropType, computed, ref, reactive, Ref, watch, onMounted, nextTick } from 'vue';
+  import {
+    RefreshLeft,
+    Search,
+    Delete,
+    Download,
+    DocumentChecked,
+    Refresh,
+    Upload,
+    Edit,
+    CloseBold,
+    Select,
+  } from '@element-plus/icons-vue';
+  import dayjs from 'dayjs';
+  import ZHForm from '../zh-form/index.vue';
+  import ZhModalForm from '../zh-modal-form/index.vue';
+  import ZHFormButtons from './form-buttons.vue';
+  import { ElTable } from 'element-plus';
+  import {
+    TZHTablePageSetting,
+    TZHTableRequest,
+    TZHTableSetting,
+    TZHTablePage,
+    TZHTableForm,
+  } from './type';
+  import Page from './page';
+  import Table from './table';
+  import Form from './form';
+  import Modal from './modal';
+  import { TZHFromField, TZHFormSettings, TZHFromFieldSelectOption } from '../zh-form/type';
 
-const props = defineProps({
-  useSearchForm: {
-    type: Boolean,
-    required: false,
-  },
+  const props = defineProps({
+    useSearchForm: {
+      type: Boolean,
+      required: false,
+    },
 
-  formSettings: {
-    type: Object as PropType<TZHTableForm>,
-    required: false, // 必传
-  },
+    formSettings: {
+      type: Object as PropType<TZHTableForm>,
+      required: false, // 必传
+    },
 
-  tableSettings: {
-    type: Object as PropType<TZHTableSetting>,
-    required: true, // 必传
-  },
+    tableSettings: {
+      type: Object as PropType<TZHTableSetting>,
+      required: true, // 必传
+    },
 
-  usePage: {
-    type: Boolean,
-    required: false,
-  },
+    usePage: {
+      type: Boolean,
+      required: false,
+    },
 
-  pageSettings: {
-    type: Object as PropType<TZHTablePageSetting>,
-    required: false,
-  },
+    pageSettings: {
+      type: Object as PropType<TZHTablePageSetting>,
+      required: false,
+    },
 
-  request: {
-    type: Object as PropType<TZHTableRequest>,
-    required: false,
-  },
-});
+    request: {
+      type: Object as PropType<TZHTableRequest>,
+      required: false,
+    },
+  });
 
-const {
-  useSearchForm,
-  formSettings,
-  tableSettings,
-  usePage,
-  pageSettings,
-  request,
-} = toRefs(props);
+  const { useSearchForm, formSettings, tableSettings, usePage, pageSettings, request } =
+    toRefs(props);
 
-const refZHForm = ref();
+  const refZHForm = ref();
 
-//#region common
-// 分页的组件内部数据
-const pageData: Ref<TZHTablePage> = ref({
-  total: 0,
-  current: 1,
-  size: 100,
-});
-//#endregion
+  //#region common
+  // 分页的组件内部数据
+  const pageData: Ref<TZHTablePage> = ref({
+    total: 0,
+    current: 1,
+    size: 100,
+  });
+  //#endregion
 
-//#region search form
-const form = new Form(pageData, request, formSettings, refZHForm);
-const watchFormModel = computed(() => {
-  return JSON.parse(JSON.stringify(form.formModel.value));
-});
-watch(
-  () => watchFormModel.value,
-  (newVal: { [x: string]: any }, oldVal: { [x: string]: any }) => {
-    if (!form._compareNeedTriggerSearchFieldsIsEqual(newVal, oldVal)) {
+  //#region search form
+  const form = new Form(pageData, request, formSettings, refZHForm);
+  const watchFormModel = computed(() => {
+    return JSON.parse(JSON.stringify(form.formModel.value));
+  });
+  watch(
+    () => watchFormModel.value,
+    (newVal: { [x: string]: any }, oldVal: { [x: string]: any }) => {
+      if (!form._compareNeedTriggerSearchFieldsIsEqual(newVal, oldVal)) {
+        table.debounceInitData();
+      }
+    },
+    { immediate: false },
+  );
+
+  // 自定义插槽
+  const sloTFromFields = formSettings?.value?.fields?.filter(
+    (x: TZHFromField) => x.type === 'slot',
+  );
+  //#endregion
+
+  //#region table
+  const refTable = ref<InstanceType<typeof ElTable>>();
+  const table = new Table(tableSettings, refTable, request, form, pageData);
+  onMounted(() => {
+    if (
+      request?.value &&
+      request.value.list?.url &&
+      (request.value.initialData || request.value.initialData === undefined)
+    )
       table.debounceInitData();
-    }
-  },
-  { immediate: false }
-);
+  });
+  //#endregion
 
-// 自定义插槽
-const sloTFromFields = formSettings?.value?.fields?.filter(
-  (x: TZHFromField) => x.type === "slot"
-);
-//#endregion
+  //#region page
+  let page: undefined | Page;
+  // console.log('usePage', usePage.value);
+  if (usePage.value) page = new Page(pageSettings?.value, pageData, table);
+  //#endregion
 
-//#region table
-const refTable = ref<InstanceType<typeof ElTable>>();
-const table = new Table(tableSettings, refTable, request, form, pageData);
-onMounted(() => {
-  if (
-    request?.value &&
-    request.value.list?.url &&
-    (request.value.initialData || request.value.initialData === undefined)
-  )
-    table.debounceInitData();
-});
-//#endregion
+  //#region add/edit modal
+  const refZHFormModal = ref();
+  const modalInstance = new Modal(request, table, refZHFormModal, tableSettings);
+  //#endregion
 
-//#region page
-let page: undefined | Page;
-// console.log('usePage', usePage.value);
-if (usePage.value) page = new Page(pageSettings?.value, pageData, table);
-//#endregion
-
-//#region add/edit modal
-const refZHFormModal = ref();
-const modalInstance = new Modal(request, table, refZHFormModal, tableSettings);
-//#endregion
-
-defineExpose({
-  // 表单
-  getSearchFormModel: form.getSearchFormModel,
-  getSearchFormParams: form.getSearchFormParams,
-  // 表格
-  debounceInitData: table.debounceInitData, // 防抖查询
-  throttleInitData: table.throttleInitData, // 节流查询
-  initData: table.initData, // 正常查询
-  getData: table.getData, // 获取当前表格数据
-  getDataAsync: table.getDataAsync, // 从接口获取表格数据，且不刷新表格
-  getDataWithInitTable: table.getDataWithInitTable, // 获取接口数据，并刷新表格
-});
+  defineExpose({
+    // 表单
+    getSearchFormModel: form.getSearchFormModel,
+    getSearchFormParams: form.getSearchFormParams,
+    // 表格
+    debounceInitData: table.debounceInitData, // 防抖查询
+    throttleInitData: table.throttleInitData, // 节流查询
+    initData: table.initData, // 正常查询
+    getData: table.getData, // 获取当前表格数据
+    getDataAsync: table.getDataAsync, // 从接口获取表格数据，且不刷新表格
+    getDataWithInitTable: table.getDataWithInitTable, // 获取接口数据，并刷新表格
+  });
 </script>
 
 <script lang="ts">
-export default { name: "ZHVirtualScrollTable" };
+  export default { name: 'ZHVirtualScrollTable' };
 </script>
 
 <style lang="scss" scope>
-@import "./index.scss";
+  @import './index.scss';
 </style>

@@ -6,4 +6,6 @@
 **/*.svg
 **/*.sh
 
-/public/*
+public/**
+src/assets/**
+src/styles/**

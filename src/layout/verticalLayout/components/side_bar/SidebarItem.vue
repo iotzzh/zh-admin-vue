@@ -29,67 +29,67 @@
 </template>
 
 <script lang="ts" setup>
-import { MenuNode } from "@/layout/type";
-import { PropType, toRefs } from "vue";
+  import { MenuNode } from '@/layout/type';
+  import { PropType, toRefs } from 'vue';
 
-const props = defineProps({
-  collapse: {
-    type: Boolean,
-    default: true,
-  },
-  item: {
-    type: Object as PropType<MenuNode>,
-  },
-});
+  const props = defineProps({
+    collapse: {
+      type: Boolean,
+      default: true,
+    },
+    item: {
+      type: Object as PropType<MenuNode>,
+    },
+  });
 
-const { item } = toRefs(props);
+  const { item } = toRefs(props);
 </script>
 
 <style lang="scss">
-.el-menu-vertical {
-  width: 100%;
-  border-right: none !important;
-  overflow-y: scroll;
+  .el-menu-vertical {
+    width: 100%;
+    border-right: none !important;
+    overflow-y: scroll;
 
-  .tab {
-    font-size: 16px;
-  }
+    .tab {
+      font-size: 16px;
+    }
 
-  .el-menu-item {
-    color: #333 !important;
-  }
+    .el-menu-item {
+      color: #333 !important;
+    }
 
-  .el-sub-menu {
-    .el-menu {
-      // background: #fff !important;
+    .el-sub-menu {
+      .el-menu {
+        // background: #fff !important;
+      }
+    }
+
+    .el-sub-menu__title {
+      // color: #333 !important;
+    }
+
+    .el-menu-item:hover {
+      // background-color: #91bbff !important;
+      // color: #fff !important;
+    }
+
+    .el-sub-menu__title:hover {
+      // background-color: #91bbff !important;
+      // color: #fff !important;
     }
   }
 
-  .el-sub-menu__title {
-    // color: #333 !important;
+  .el-menu-vertical::-webkit-scrollbar {
+    width: 0px;
+    height: 4px;
   }
 
-  .el-menu-item:hover {
-    // background-color: #91bbff !important;
-    // color: #fff !important;
+  .el-menu-vertical:not(.el-menu--collapse) {
+    min-height: 400px;
   }
 
-  .el-sub-menu__title:hover {
-    // background-color: #91bbff !important;
-    // color: #fff !important;
+  .iconfont {
+    margin-right: 5px;
   }
-}
-
-.el-menu-vertical::-webkit-scrollbar {
-  width: 0px;
-  height: 4px;
-}
-
-.el-menu-vertical:not(.el-menu--collapse) {
-  min-height: 400px;
-}
-
-.iconfont {
-  margin-right: 5px;
-}
 </style>

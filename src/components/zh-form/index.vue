@@ -136,9 +136,7 @@
               :options="(item.options as CascaderOption[])"
               :props="item.props"
               :style="{ width: item.width ? `${item.width}` : '100%' }"
-              @change="
-                formInstance.changeCascader(itemRefs, item.refName, formConfig)
-              "
+              @change="formInstance.changeCascader(itemRefs, item.refName, formConfig)"
               :ref="(el: any) => {
                 if (item.refName) itemRefs[item.refName] = el;
               }"
@@ -200,162 +198,160 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, PropType, ref, computed, onMounted, watch } from "vue";
-import Form from "./index";
-import { TZHformConfig, TZHFromFieldSelectOption, TZHFromField } from "./type";
-import { ArrowUp } from "@element-plus/icons-vue";
-import { CascaderOption } from "element-plus";
-import ZHSelect from "@/components/zh-select/index.vue";
+  import { toRefs, PropType, ref, computed, onMounted, watch } from 'vue';
+  import Form from './index';
+  import { TZHformConfig, TZHFromFieldSelectOption, TZHFromField } from './type';
+  import { ArrowUp } from '@element-plus/icons-vue';
+  import { CascaderOption } from 'element-plus';
+  import ZHSelect from '@/components/zh-select/index.vue';
 
-const props = defineProps({
-  modelValue: {
-    type: Object as PropType<{ [x: string]: any }>,
-    required: true,
-  },
+  const props = defineProps({
+    modelValue: {
+      type: Object as PropType<{ [x: string]: any }>,
+      required: true,
+    },
 
-  convertedModel: {
-    type: Object as PropType<{ [x: string]: any }>,
-  },
+    convertedModel: {
+      type: Object as PropType<{ [x: string]: any }>,
+    },
 
-  formConfig: {
-    type: Object as PropType<TZHformConfig>,
-    required: true,
-  },
-});
+    formConfig: {
+      type: Object as PropType<TZHformConfig>,
+      required: true,
+    },
+  });
 
-const { modelValue, formConfig, convertedModel } = toRefs(props);
-const refForm = ref();
-const itemRefs = ref([] as any);
-const emit = defineEmits(["update:modelValue", "update:convertedModel"]);
+  const { modelValue, formConfig, convertedModel } = toRefs(props);
+  const refForm = ref();
+  const itemRefs = ref([] as any);
+  const emit = defineEmits(['update:modelValue', 'update:convertedModel']);
 
-const formInstance = new Form({
-  emit,
-  refForm,
-  formConfig,
-  modelValue,
-  convertedModel,
-});
+  const formInstance = new Form({
+    emit,
+    refForm,
+    formConfig,
+    modelValue,
+    convertedModel,
+  });
 
-const fieldList = computed(() => {
-  if (formConfig && !!formConfig.value && !!formConfig.value.fields) {
-    if (formInstance.hideUnimportantFields.value) {
-      return formConfig.value.fields.filter(
-        (x: TZHFromField) => !x.unimportant
-      );
-    } else {
-      return formConfig.value.fields;
-    }
-  } else {
-    return [];
-  }
-});
-
-const rules = computed(() => {
-  const newRules: any = {};
-  if (!formConfig?.value?.fields) return newRules;
-  const fields: TZHFromField[] = formConfig.value.fields || [];
-  for (const element of fields) {
-    if (!element.prop) continue;
-    if (element.required) {
-      const requireMsg = element.type === "input" ? "请输入" : "请选择";
-      const requireEvent = element.type === "input" ? "blur" : "change";
-      // eslint-disable-next-line no-prototype-builtins
-      if (element.hasOwnProperty(element.prop)) {
-        newRules[element.prop].push({
-          required: true,
-          message: requireMsg + element.label,
-          trigger: requireEvent,
-        });
+  const fieldList = computed(() => {
+    if (formConfig && !!formConfig.value && !!formConfig.value.fields) {
+      if (formInstance.hideUnimportantFields.value) {
+        return formConfig.value.fields.filter((x: TZHFromField) => !x.unimportant);
       } else {
-        newRules[element.prop] = [];
-        newRules[element.prop].push({
-          required: true,
-          message: requireMsg + element.label,
-          trigger: requireEvent,
-        });
+        return formConfig.value.fields;
+      }
+    } else {
+      return [];
+    }
+  });
+
+  const rules = computed(() => {
+    const newRules: any = {};
+    if (!formConfig?.value?.fields) return newRules;
+    const fields: TZHFromField[] = formConfig.value.fields || [];
+    for (const element of fields) {
+      if (!element.prop) continue;
+      if (element.required) {
+        const requireMsg = element.type === 'input' ? '请输入' : '请选择';
+        const requireEvent = element.type === 'input' ? 'blur' : 'change';
+        // eslint-disable-next-line no-prototype-builtins
+        if (element.hasOwnProperty(element.prop)) {
+          newRules[element.prop].push({
+            required: true,
+            message: requireMsg + element.label,
+            trigger: requireEvent,
+          });
+        } else {
+          newRules[element.prop] = [];
+          newRules[element.prop].push({
+            required: true,
+            message: requireMsg + element.label,
+            trigger: requireEvent,
+          });
+        }
       }
     }
-  }
-  if (formConfig && formConfig.value && !!formConfig.value.rules) {
-    const keys = Object.keys(formConfig.value.rules);
-    keys.forEach((key: any) => {
-      newRules[key] =
-        formConfig.value.rules &&
-        formConfig.value.rules[key as keyof typeof formConfig.value.rules];
-    });
-  }
-  return newRules;
-});
+    if (formConfig && formConfig.value && !!formConfig.value.rules) {
+      const keys = Object.keys(formConfig.value.rules);
+      keys.forEach((key: any) => {
+        newRules[key] =
+          formConfig.value.rules &&
+          formConfig.value.rules[key as keyof typeof formConfig.value.rules];
+      });
+    }
+    return newRules;
+  });
 
-onMounted(async () => {
-  formInstance.init();
-});
+  onMounted(async () => {
+    formInstance.init();
+  });
 
-watch(
-  modelValue.value,
-  (newVal: any) => {
-    formInstance.setConvertModel(newVal);
-  },
-  { deep: true }
-);
+  watch(
+    modelValue.value,
+    (newVal: any) => {
+      formInstance.setConvertModel(newVal);
+    },
+    { deep: true },
+  );
 
-defineExpose({
-  validate: formInstance.validate,
-  init: formInstance.init,
-  clearFormData: formInstance.clearFormData,
-});
+  defineExpose({
+    validate: formInstance.validate,
+    init: formInstance.init,
+    clearFormData: formInstance.clearFormData,
+  });
 </script>
 
 <script lang="ts">
-export default { name: "ZHForm" };
+  export default { name: 'ZHForm' };
 </script>
 
 <style lang="scss" scoped>
-.zh-form {
-  transition-duration: 2s;
-  transition: height 10s;
-  background-color: white;
-  padding: 7px;
-  position: relative;
+  .zh-form {
+    transition-duration: 2s;
+    transition: height 10s;
+    background-color: white;
+    padding: 7px;
+    position: relative;
 
-  .el-form-item {
-    width: 100%;
+    .el-form-item {
+      width: 100%;
+    }
+
+    &:deep(.el-col.el-col-0) {
+      display: block;
+      max-width: none !important;
+    }
+
+    .el-divider--horizontal {
+      margin-bottom: 10px;
+    }
   }
 
-  &:deep(.el-col.el-col-0) {
-    display: block;
-    max-width: none !important;
+  .list-enter-active,
+  .list-leave-active {
+    transition: all 0.5s ease;
   }
 
-  .el-divider--horizontal {
-    margin-bottom: 10px;
+  .list-enter-from,
+  .list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
   }
-}
 
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.5s ease;
-}
+  .folder-box {
+    padding-top: 7px;
+    // position: absolute;
+    // right: 5px;
+    // bottom: 0px;
+  }
 
-.list-enter-from,
-.list-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
-}
-
-.folder-box {
-  padding-top: 7px;
-  // position: absolute;
-  // right: 5px;
-  // bottom: 0px;
-}
-
-.folder,
-.unfolder {
-  font-size: 14px;
-  padding: 7px;
-  color: var(--el-color-primary);
-}
+  .folder,
+  .unfolder {
+    font-size: 14px;
+    padding: 7px;
+    color: var(--el-color-primary);
+  }
 </style>
 
 <style lang="scss"></style>

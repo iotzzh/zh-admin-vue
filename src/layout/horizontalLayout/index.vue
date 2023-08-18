@@ -9,21 +9,21 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
-import { NavigationBar, AppMain, TagsView } from "./components";
+  import { onMounted, ref } from 'vue';
+  import { NavigationBar, AppMain, TagsView } from './components';
 
-const loading = ref(true);
-onMounted(() => {
-  loading.value = false;
-});
+  const loading = ref(true);
+  onMounted(() => {
+    loading.value = false;
+  });
 </script>
 
 <style lang="scss" scoped>
-.layout {
-  background-color: white;
-}
+  .layout {
+    background-color: white;
+  }
 
-.tags-content {
-  background-color: white;
-}
+  .tags-content {
+    background-color: white;
+  }
 </style>

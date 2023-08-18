@@ -17,7 +17,7 @@
     "build-storybook": "storybook build",
     "clean:lib": "rimraf node_modules",
     "lint:eslint": "eslint --cache --max-warnings 0  \"{src,mock}/**/*.{vue,ts,tsx}\" --fix",
-    "lint:prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\""
+    "lint:prettier": "prettier --config .prettierrc.json5 --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"  --ignore-path .prettierignore"
   },
   "dependencies": {
     "@element-plus/icons-vue": "^1.0.0",

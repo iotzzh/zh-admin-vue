@@ -27,10 +27,7 @@
       </template>
 
       <!-- 传递form带字段名的插槽 -->
-      <template
-        v-for="item in sloTFromFields"
-        v-slot:[form._convertSlotName(item.prop)]
-      >
+      <template v-for="item in sloTFromFields" v-slot:[form._convertSlotName(item.prop)]>
         <slot :name="'zh-table-form-' + item.prop"></slot>
       </template>
 
@@ -66,21 +63,13 @@
       :height="config.tableConfig.height || '100%'"
       :highlight-current-row="config.tableConfig.highlightCurrentRow"
       v-loading="table.loading.value"
-      :row-key="
-        config.tableConfig.rowKey === undefined
-          ? 'id'
-          : config.tableConfig.rowKey
-      "
+      :row-key="config.tableConfig.rowKey === undefined ? 'id' : config.tableConfig.rowKey"
       @row-click="table.rowClick"
       :tree-props="config.tableConfig.treeProps"
       :lazy="config.tableConfig.lazy"
       :load="table.load"
       :default-expand-all="config.tableConfig.defaultExpandAll"
-      :border="
-        config.tableConfig.border === undefined
-          ? true
-          : config.tableConfig.border
-      "
+      :border="config.tableConfig.border === undefined ? true : config.tableConfig.border"
     >
       <el-table-column
         v-if="config.tableConfig.hasSelection"
@@ -120,10 +109,7 @@
           }"
             @mouseleave="(e: any) => table.cellContentLeave(scope)"
           >
-            <span
-              class="cell-content"
-              v-if="!table.cellCanShowSaveCancel(scope)"
-            >
+            <span class="cell-content" v-if="!table.cellCanShowSaveCancel(scope)">
               <span v-if="item.convert">{{
                 table.tableColumnConvert(item.convert, scope.row, scope.$index)
               }}</span>
@@ -241,21 +227,16 @@
         :min-width="config.tableConfig.actionColumn?.minWidth"
         :label="config.tableConfig.actionColumn?.label"
         :align="
-          config.tableConfig.actionColumn?.align
-            ? config.tableConfig.actionColumn.align
-            : 'center'
+          config.tableConfig.actionColumn?.align ? config.tableConfig.actionColumn.align : 'center'
         "
       >
         <template #default="scope">
           <el-button
             v-if="config.tableConfig.actionColumn?.hasRowEditAction"
             v-show="
-              config.tableConfig.actionColumn?.displayRowEditActionMethod ===
-              undefined
+              config.tableConfig.actionColumn?.displayRowEditActionMethod === undefined
                 ? true
-                : !!config.tableConfig.actionColumn?.displayRowEditActionMethod(
-                    scope.row
-                  )
+                : !!config.tableConfig.actionColumn?.displayRowEditActionMethod(scope.row)
             "
             link
             type="primary"
@@ -270,12 +251,9 @@
             type="danger"
             size="small"
             v-show="
-              config.tableConfig.actionColumn?.displayRowDeleteActionMethod ===
-              undefined
+              config.tableConfig.actionColumn?.displayRowDeleteActionMethod === undefined
                 ? true
-                : !!config.tableConfig.actionColumn?.displayRowDeleteActionMethod(
-                    scope.row
-                  )
+                : !!config.tableConfig.actionColumn?.displayRowDeleteActionMethod(scope.row)
             "
             :icon="Delete"
             @click.stop="table.rowDelete(scope.row)"
@@ -283,27 +261,18 @@
           >
 
           <el-button
-            v-for="(item, buttonIndex) in config.tableConfig.actionColumn
-              .buttons"
+            v-for="(item, buttonIndex) in config.tableConfig.actionColumn.buttons"
             :key="buttonIndex"
             link
             v-show="
               (item?.hide === undefined ? true : !item?.hide) &&
-              (item?.displayMethod === undefined
-                ? true
-                : !!item?.displayMethod(scope.row))
+              (item?.displayMethod === undefined ? true : !!item?.displayMethod(scope.row))
             "
             :type="item?.type"
             :size="item?.size ? item.size : 'small'"
             :icon="item?.icon"
             :style="item?.style"
-            @click.stop="
-              table.tableRowActionOnClick(
-                item?.onClick,
-                scope.row,
-                scope.$index
-              )
-            "
+            @click.stop="table.tableRowActionOnClick(item?.onClick, scope.row, scope.$index)"
             >{{ item.label }}
           </el-button>
         </template>
@@ -343,144 +312,138 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs, PropType, computed, ref, Ref, watch, onMounted } from "vue";
-import { Delete, Edit, CloseBold, Select } from "@element-plus/icons-vue";
-import dayjs from "dayjs";
-import ZHForm from "../zh-form/index.vue";
-import ZhFormModal from "../zh-form-modal/index.vue";
-import ZHFormButtons from "./form-buttons.vue";
-import { ElTable } from "element-plus";
-import { TZHTablePageConfig, TZHTableConfig, TZHTable } from "./type";
-import Page from "./page";
-import Table from "./table";
-import Form from "./form";
-import Modal from "./modal";
-import { TZHFromField, TZHFromFieldSelectOption } from "../zh-form/type";
-import storage from "@/utils/storage";
-import { createVueComponent } from "../hooks";
+  import { toRefs, PropType, computed, ref, Ref, watch, onMounted } from 'vue';
+  import { Delete, Edit, CloseBold, Select } from '@element-plus/icons-vue';
+  import dayjs from 'dayjs';
+  import ZHForm from '../zh-form/index.vue';
+  import ZhFormModal from '../zh-form-modal/index.vue';
+  import ZHFormButtons from './form-buttons.vue';
+  import { ElTable } from 'element-plus';
+  import { TZHTablePageConfig, TZHTableConfig, TZHTable } from './type';
+  import Page from './page';
+  import Table from './table';
+  import Form from './form';
+  import Modal from './modal';
+  import { TZHFromField, TZHFromFieldSelectOption } from '../zh-form/type';
+  import storage from '@/utils/storage';
+  import { createVueComponent } from '../hooks';
 
-const props = defineProps({
-  config: {
-    type: Object as PropType<TZHTable>,
-    required: true, // 必传
-  },
-});
+  const props = defineProps({
+    config: {
+      type: Object as PropType<TZHTable>,
+      required: true, // 必传
+    },
+  });
 
-const { config } = toRefs(props);
+  const { config } = toRefs(props);
 
-const refZHForm = ref();
+  const refZHForm = ref();
 
-const emit = defineEmits(["changeModel", "opened"]);
+  const emit = defineEmits(['changeModel', 'opened']);
 
-const isMobile = ref(storage.getIsMobile());
+  const isMobile = ref(storage.getIsMobile());
 
-const globalTable = ref({} as any);
+  const globalTable = ref({} as any);
 
-//#region common
-// 分页的组件内部数据
-const pageData: Ref<TZHTablePageConfig> = ref({
-  total: 0,
-  current: 1,
-  size: 20,
-});
-//#endregion
+  //#region common
+  // 分页的组件内部数据
+  const pageData: Ref<TZHTablePageConfig> = ref({
+    total: 0,
+    current: 1,
+    size: 20,
+  });
+  //#endregion
 
-//#region search form
-const form = new Form(
-  pageData,
-  config.value.requestConfig,
-  config.value.formConfig,
-  refZHForm
-);
-globalTable.value.form = form;
-const watchFormModel = computed(() => {
-  return JSON.parse(JSON.stringify(form.formModel.value));
-});
-watch(
-  () => watchFormModel.value,
-  (newVal: { [x: string]: any }, oldVal: { [x: string]: any }) => {
-    if (!form._compareNeedTriggerSearchFieldsIsEqual(newVal, oldVal)) {
+  //#region search form
+  const form = new Form(pageData, config.value.requestConfig, config.value.formConfig, refZHForm);
+  globalTable.value.form = form;
+  const watchFormModel = computed(() => {
+    return JSON.parse(JSON.stringify(form.formModel.value));
+  });
+  watch(
+    () => watchFormModel.value,
+    (newVal: { [x: string]: any }, oldVal: { [x: string]: any }) => {
+      if (!form._compareNeedTriggerSearchFieldsIsEqual(newVal, oldVal)) {
+        table.debounceInitData();
+      }
+
+      emit('changeModel', newVal);
+    },
+    { immediate: false },
+  );
+
+  // 自定义插槽
+  const sloTFromFields = config.value.formConfig?.fields?.filter(
+    (x: TZHFromField) => x.type === 'slot',
+  );
+  //#endregion
+
+  //#region table
+  const refTable = ref<InstanceType<typeof ElTable>>();
+  const table = new Table(
+    config.value.tableConfig,
+    refTable,
+    config.value.requestConfig,
+    form,
+    pageData,
+    emit,
+    globalTable,
+  );
+  onMounted(() => {
+    if (
+      config.value.requestConfig?.list?.url &&
+      (config.value.requestConfig.initialData ||
+        config.value.requestConfig.initialData === undefined)
+    )
       table.debounceInitData();
-    }
+  });
 
-    emit("changeModel", newVal);
-  },
-  { immediate: false }
-);
+  globalTable.value.table = table;
+  //#endregion
 
-// 自定义插槽
-const sloTFromFields = config.value.formConfig?.fields?.filter(
-  (x: TZHFromField) => x.type === "slot"
-);
-//#endregion
+  //#region page
+  let page: undefined | Page;
+  // console.log('usePage', usePage.value);
+  if (config.value.pageConfig) page = new Page(config.value.pageConfig, pageData, table);
+  //#endregion
 
-//#region table
-const refTable = ref<InstanceType<typeof ElTable>>();
-const table = new Table(
-  config.value.tableConfig,
-  refTable,
-  config.value.requestConfig,
-  form,
-  pageData,
-  emit,
-  globalTable
-);
-onMounted(() => {
-  if (
-    config.value.requestConfig?.list?.url &&
-    (config.value.requestConfig.initialData ||
-      config.value.requestConfig.initialData === undefined)
-  )
-    table.debounceInitData();
-});
+  //#region add/edit modal
+  const refZhModalForm = ref();
+  const modalInstance = new Modal(
+    config.value.requestConfig,
+    refZhModalForm,
+    config.value.tableConfig,
+    emit,
+    globalTable,
+  );
+  globalTable.value.modal = modalInstance;
+  //#endregion
 
-globalTable.value.table = table;
-//#endregion
-
-//#region page
-let page: undefined | Page;
-// console.log('usePage', usePage.value);
-if (config.value.pageConfig)
-  page = new Page(config.value.pageConfig, pageData, table);
-//#endregion
-
-//#region add/edit modal
-const refZhModalForm = ref();
-const modalInstance = new Modal(
-  config.value.requestConfig,
-  refZhModalForm,
-  config.value.tableConfig,
-  emit,
-  globalTable
-);
-globalTable.value.modal = modalInstance;
-//#endregion
-
-defineExpose({
-  // 表单
-  getSearchFormModel: form.getSearchFormModel,
-  setSearchFormModel: form.setSearchFormModel,
-  getSearchFormParams: form.getSearchFormParams,
-  // 弹窗
-  openAddModal: modalInstance.openAddModal,
-  executeOpenAddModal: modalInstance.executeOpenAddModal,
-  setModalFormModel: modalInstance.setModalFormModel,
-  // 表格
-  debounceInitData: table.debounceInitData, // 防抖查询
-  throttleInitData: table.throttleInitData, // 节流查询
-  initData: table.initData, // 正常查询
-  getData: table.getData, // 获取当前表格数据
-  setData: table.setData,
-  getDataAsync: table.getDataAsync, // 从接口获取表格数据，且不刷新表格
-  getDataWithInitTable: table.getDataWithInitTable, // 获取接口数据，并刷新表格
-  reloadTableTreeChild: table.reloadTableTreeChild,
-});
+  defineExpose({
+    // 表单
+    getSearchFormModel: form.getSearchFormModel,
+    setSearchFormModel: form.setSearchFormModel,
+    getSearchFormParams: form.getSearchFormParams,
+    // 弹窗
+    openAddModal: modalInstance.openAddModal,
+    executeOpenAddModal: modalInstance.executeOpenAddModal,
+    setModalFormModel: modalInstance.setModalFormModel,
+    // 表格
+    debounceInitData: table.debounceInitData, // 防抖查询
+    throttleInitData: table.throttleInitData, // 节流查询
+    initData: table.initData, // 正常查询
+    getData: table.getData, // 获取当前表格数据
+    setData: table.setData,
+    getDataAsync: table.getDataAsync, // 从接口获取表格数据，且不刷新表格
+    getDataWithInitTable: table.getDataWithInitTable, // 获取接口数据，并刷新表格
+    reloadTableTreeChild: table.reloadTableTreeChild,
+  });
 </script>
 
 <script lang="ts">
-export default { name: "ZHTable" };
+  export default { name: 'ZHTable' };
 </script>
 
 <style lang="scss" scope>
-@import "./index.scss";
+  @import './index.scss';
 </style>

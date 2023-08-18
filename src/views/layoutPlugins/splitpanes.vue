@@ -45,45 +45,45 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { Splitpanes, Pane } from "splitpanes";
+  import { ref } from 'vue';
+  import { Splitpanes, Pane } from 'splitpanes';
 
-const leftTableData = ref([]);
+  const leftTableData = ref([]);
 
-const rightTableData = ref([]);
+  const rightTableData = ref([]);
 
-const setData = () => {
-  for (let i = 0; i < 50; i++) {
-    leftTableData.value.push({ address: "test" });
-    rightTableData.value.push({ address: "test" });
-  }
-};
+  const setData = () => {
+    for (let i = 0; i < 50; i++) {
+      leftTableData.value.push({ address: 'test' });
+      rightTableData.value.push({ address: 'test' });
+    }
+  };
 </script>
 
 <style lang="scss" scoped>
-.box {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
+  .box {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
 
-.buttons {
-  height: 50px;
-  background: linear-gradient(180deg, transparent, black);
-  display: flex;
-  align-items: center;
-}
-.default-theme {
-  height: 100%;
-  overflow: hidden;
-  &:deep(.splitpanes__pane) {
+  .buttons {
+    height: 50px;
+    background: linear-gradient(180deg, transparent, black);
+    display: flex;
+    align-items: center;
+  }
+  .default-theme {
+    height: 100%;
+    overflow: hidden;
+    &:deep(.splitpanes__pane) {
+      height: 100%;
+      overflow: hidden;
+    }
+  }
+  .table-box {
     height: 100%;
     overflow: hidden;
   }
-}
-.table-box {
-  height: 100%;
-  overflow: hidden;
-}
 </style>

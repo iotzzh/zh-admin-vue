@@ -18,20 +18,20 @@
   ></div>
 </template>
 <script lang="ts" setup>
-import { toRefs } from "vue";
+  import { toRefs } from 'vue';
 
-const props = defineProps({
-  width: {
-    type: String,
-  },
-  color: {
-    type: String,
-  },
-});
+  const props = defineProps({
+    width: {
+      type: String,
+    },
+    color: {
+      type: String,
+    },
+  });
 
-const { width, color } = toRefs(props);
+  const { width, color } = toRefs(props);
 </script>
 
 <script lang="ts">
-export default { name: "dot" };
+  export default { name: 'dot' };
 </script>

@@ -15,11 +15,7 @@
 
     <div class="options-box">
       <div>
-        <el-dropdown
-          :hide-on-click="false"
-          class="name"
-          @command="changeDropdownCloseTag"
-        >
+        <el-dropdown :hide-on-click="false" class="name" @command="changeDropdownCloseTag">
           <span><i class="iconfont icon-xiala"></i></span>
           <template #dropdown>
             <el-dropdown-menu>
@@ -38,173 +34,170 @@
 </template>
 
 <script setup lang="ts">
-import { toRef, ref, reactive, onMounted } from "vue";
-import { onBeforeRouteUpdate, useRouter } from "vue-router";
-import { storeToRefs } from "pinia";
-import { useLayoutStore } from "@/layout/store";
-import { RouteType } from "@/layout/type";
-import UIHelper from "@/utils/uiHelper";
+  import { toRef, ref, reactive, onMounted } from 'vue';
+  import { onBeforeRouteUpdate, useRouter } from 'vue-router';
+  import { storeToRefs } from 'pinia';
+  import { useLayoutStore } from '@/layout/store';
+  import { RouteType } from '@/layout/type';
+  import UIHelper from '@/utils/uiHelper';
 
-const store = useLayoutStore();
-const { cachedViews } = storeToRefs(store);
+  const store = useLayoutStore();
+  const { cachedViews } = storeToRefs(store);
 
-const router = useRouter();
+  const router = useRouter();
 
-// router监听事件, 将路由信息进行缓存
-onBeforeRouteUpdate((to) => {
-  store.addCachedViews(to);
-});
+  // router监听事件, 将路由信息进行缓存
+  onBeforeRouteUpdate((to) => {
+    store.addCachedViews(to);
+  });
 
-const changeDropdownCloseTag = (command: string) => {
-  // console.log(command);
-  if (command === "closeother") {
-    const activeViewPath: any = router.currentRoute.value.meta.fatherPath
-      ? router.currentRoute.value.meta.fatherPath
-      : router.currentRoute.value.fullPath;
-    const activeView: any = cachedViews.value.find(
-      (x) => x.fullPath === activeViewPath
+  const changeDropdownCloseTag = (command: string) => {
+    // console.log(command);
+    if (command === 'closeother') {
+      const activeViewPath: any = router.currentRoute.value.meta.fatherPath
+        ? router.currentRoute.value.meta.fatherPath
+        : router.currentRoute.value.fullPath;
+      const activeView: any = cachedViews.value.find((x) => x.fullPath === activeViewPath);
+      store.updateCachedViews([activeView]);
+      router.push(activeViewPath);
+    }
+  };
+
+  // 关闭单个标签
+  const closeSingleTag = (cachedView: RouteType) => {
+    if (cachedViews.value.length < 2) return;
+    // 关闭标签
+    store.removeCachedView(cachedView);
+    // 路由跳转
+    if (cachedViews.value.length > 0) {
+      const path = cachedViews.value[cachedViews.value.length - 1].fullPath as string;
+      router.push(path);
+    }
+  };
+
+  // 标签高亮
+  const isActive = (route: RouteType) => {
+    return (
+      route &&
+      route.fullPath ===
+        (router.currentRoute.value?.meta?.fatherPath
+          ? router.currentRoute.value?.meta?.fatherPath
+          : router.currentRoute.value?.fullPath)
     );
-    store.updateCachedViews([activeView]);
-    router.push(activeViewPath);
-  }
-};
+  };
 
-// 关闭单个标签
-const closeSingleTag = (cachedView: RouteType) => {
-  if (cachedViews.value.length < 2) return;
-  // 关闭标签
-  store.removeCachedView(cachedView);
-  // 路由跳转
-  if (cachedViews.value.length > 0) {
-    const path = cachedViews.value[cachedViews.value.length - 1]
-      .fullPath as string;
+  const clickTab = (path: any) => {
+    // console.log(path);
     router.push(path);
-  }
-};
+  };
 
-// 标签高亮
-const isActive = (route: RouteType) => {
-  return (
-    route &&
-    route.fullPath ===
-      (router.currentRoute.value?.meta?.fatherPath
-        ? router.currentRoute.value?.meta?.fatherPath
-        : router.currentRoute.value?.fullPath)
-  );
-};
+  onMounted(() => {
+    console.log();
+  });
 
-const clickTab = (path: any) => {
-  // console.log(path);
-  router.push(path);
-};
-
-onMounted(() => {
-  console.log();
-});
-
-const fullScreen = ref(false);
-const toggleFullScreen = () => {
-  UIHelper.toggleFullScreen(
-    document.body.getElementsByClassName("tags-content")[0],
-    !fullScreen.value
-  );
-  fullScreen.value = !fullScreen.value;
-};
+  const fullScreen = ref(false);
+  const toggleFullScreen = () => {
+    UIHelper.toggleFullScreen(
+      document.body.getElementsByClassName('tags-content')[0],
+      !fullScreen.value,
+    );
+    fullScreen.value = !fullScreen.value;
+  };
 </script>
 
 <style lang="scss" scoped>
-.tags-box {
-  .tags-scrollbar {
-    flex: 1;
-    width: 100%;
-    padding: 0px 15px;
-    height: 30px;
-  }
+  .tags-box {
+    .tags-scrollbar {
+      flex: 1;
+      width: 100%;
+      padding: 0px 15px;
+      height: 30px;
+    }
 
-  .tags {
-    display: flex;
-
-    &:deep(.el-scrollbar__view) {
+    .tags {
       display: flex;
+
+      &:deep(.el-scrollbar__view) {
+        display: flex;
+      }
+    }
+
+    .tag {
+      display: inline-block;
+      cursor: pointer;
+      line-height: 21px;
+    }
+
+    .tags-close-box {
+      width: 100px;
+    }
+
+    .tag:not(:first-child) {
+      margin: 0px 5px;
+      margin-top: 2px;
     }
   }
 
-  .tag {
-    display: inline-block;
-    cursor: pointer;
-    line-height: 21px;
-  }
-
-  .tags-close-box {
-    width: 100px;
-  }
-
-  .tag:not(:first-child) {
-    margin: 0px 5px;
-    margin-top: 2px;
-  }
-}
-
-.options-box {
-  div {
-    display: inline-block;
-    width: 30px;
-    line-height: 30px;
-    height: 30px;
-    vertical-align: middle;
-    text-align: center;
-    cursor: pointer;
-    // background-color: red;
-  }
-}
-
-.options-box > div {
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.tags-box {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  background-color: white;
-  box-sizing: border-box;
-  // padding-top: 5px;
-  display: flex;
-  height: 30px;
-
-  .tags-scrollbar {
-    flex: 1;
-    width: 100%;
-    padding: 0px 5px;
-    height: 30px;
-  }
-
-  .tags {
-    display: flex;
-
-    &:deep(.el-scrollbar__view) {
-      display: flex;
+  .options-box {
+    div {
+      display: inline-block;
+      width: 30px;
+      line-height: 30px;
+      height: 30px;
+      vertical-align: middle;
+      text-align: center;
+      cursor: pointer;
+      // background-color: red;
     }
   }
 
-  .tag {
-    display: inline-block;
-    cursor: pointer;
-    line-height: 21px;
-    margin-top: 2px;
+  .options-box > div {
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
   }
 
-  .tags-close-box {
-    width: 100px;
+  .tags-box {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: white;
+    box-sizing: border-box;
+    // padding-top: 5px;
+    display: flex;
+    height: 30px;
+
+    .tags-scrollbar {
+      flex: 1;
+      width: 100%;
+      padding: 0px 5px;
+      height: 30px;
+    }
+
+    .tags {
+      display: flex;
+
+      &:deep(.el-scrollbar__view) {
+        display: flex;
+      }
+    }
+
+    .tag {
+      display: inline-block;
+      cursor: pointer;
+      line-height: 21px;
+      margin-top: 2px;
+    }
+
+    .tags-close-box {
+      width: 100px;
+    }
+
+    .tag:not(:first-child) {
+      margin-left: 5px;
+      // margin-right: 5px;
+    }
   }
 
-  .tag:not(:first-child) {
-    margin-left: 5px;
-    // margin-right: 5px;
+  .iconfont {
+    margin: 0px;
+    padding: 0px;
   }
-}
-
-.iconfont {
-  margin: 0px;
-  padding: 0px;
-}
 </style>
