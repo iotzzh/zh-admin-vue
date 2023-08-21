@@ -1,16 +1,42 @@
 {
-  "prefix": "font",
-  "localPrefix": "apiUser1",
   "label": "登录模块",
   "useMock": true,
-  "useCommmonConfig": true,
+  "localUseMock": true,
   "api": [
     {
       "label": "登录接口",
       "name": "login",
       "url": "/login/index",
-      "prefix": "font",
-      "localPrefix": "apiUser1",
+      "useMock": true
+    },
+    {
+      "name": "getMenuList",
+      "label": "部门列表",
+      "url": "/menu/list",
+      "useMock": true
+    },
+    {
+      "name": "addMenu",
+      "label": "添加部门",
+      "url": "/menu/add",
+      "useMock": true
+    },
+    {
+      "name": "updateMenu",
+      "label": "更新部门",
+      "url": "/menu/modify",
+      "useMock": true
+    },
+    {
+      "name": "deleteMenu",
+      "label": "删除部门",
+      "url": "/menu/remove",
+      "useMock": true
+    },
+    {
+      "name": "batchDeleteMenu",
+      "label": "批量删除部门",
+      "url": "/menu/remove",
       "useMock": true
     }
   ]

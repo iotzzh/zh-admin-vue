@@ -1,40 +1,30 @@
 {
   "label": "部门管理",
-  "prefix": "font",
-  "localPrefix": "apiUser1",
   "useMock": true,
-  "useCommmonConfig": true,
+  "localUseMock": true,
   "api": [
     {
       "label": "部门列表",
       "name": "getDepartmentList",
       "url": "/department/list",
-      "prefix": "font",
-      "localPrefix": "apiUser1",
       "useMock": true
     },
     {
       "label": "新增部门",
       "name": "addDepartment",
       "url": "/department/add",
-      "prefix": "font",
-      "localPrefix": "apiUser1",
       "useMock": true
     },
     {
       "label": "修改部门",
       "name": "updateDepartment",
       "url": "/department/modify",
-      "prefix": "font",
-      "localPrefix": "apiUser1",
       "useMock": true
     },
     {
       "label": "删除部门",
       "name": "deleteDepartment",
       "url": "/department/remove",
-      "prefix": "font",
-      "localPrefix": "apiUser1",
       "useMock": true
     }
   ]
