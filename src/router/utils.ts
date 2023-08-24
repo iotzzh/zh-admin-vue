@@ -5,7 +5,7 @@ export const convertJsonArrayToRoute = (jsonArray:any, route:any) => {
             path: jsonArray[i].url || '/',
             meta: { title: jsonArray[i].routeName, ...jsonArray[i].meta  },
         };
-        if (jsonArray[i].filePath) route[i].component = () => import(/* @vite-ignore */'/src/' + jsonArray[i].filePath + '.vue');
+        if (jsonArray[i].menuType === 2) route[i].component = () => import(/* @vite-ignore */'/src/views' + jsonArray[i].filePath + '.vue');
         if (jsonArray[i].children) {
             route[i].children = [];
             convertJsonArrayToRoute(jsonArray[i].children, route[i].children);
