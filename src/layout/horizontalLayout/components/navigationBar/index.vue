@@ -17,16 +17,16 @@
     <!-- info -->
     <div class="info">
       <!-- <span>搜索</span> -->
-      <span class="bell"><el-badge is-dot class="item"><el-icon>
+      <span class="bell item"><el-badge><el-icon :size="20">
             <Bell />
           </el-icon></el-badge></span>
 
-      <span class="fullscreen" @click="toggleFullScreen">
+      <span class="fullscreen item" @click="toggleFullScreen">
         <i v-if="fullscreen" class="iconfont icon-fullscreen-shrink"></i>
         <i v-else class="iconfont icon-fullscreen-expand"></i>
       </span>
 
-      <el-dropdown :hide-on-click="true" @command="changeLanguage" class="lang">
+      <el-dropdown :hide-on-click="true" @command="changeLanguage" class="lang item">
         <i class="iconfont icon-language-outline" />
         <template #dropdown>
           <el-dropdown-menu>
@@ -39,7 +39,10 @@
         <i class="iconfont icon-layout-2-fill"></i>
       </span>
       <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
-        <span>{{ userInfo?.name }}</span>
+        <span>
+          <el-avatar :size="20" class="avatar">{{ userInfo?.name ? pinyin.getCamelChars(userInfo.name)[0] : 'N'
+          }}</el-avatar>
+          <span>{{ userInfo?.name }}</span></span>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="logout">退出登录</el-dropdown-item>
@@ -63,6 +66,7 @@ import storage from '@/utils/storage';
 import api from '@/api';
 import { useLocale } from '@/locales/useLocale';
 import { LocaleType } from '@/locales/type';
+import pinyin from 'js-pinyin';
 
 const ROUTE_DATA_SOURCE = import.meta.env.VITE_ROUTE_DATA_SOURCE || 'file';
 
@@ -145,76 +149,68 @@ const clickChangeLayout = () => store.setLayout('vertical');
   }
 
   .info {
-    line-height: 59px;
-    height: 59px;
+    // line-height: $topBarHeight;
+    // height: $topBarHeight;
     text-align: right;
     vertical-align: middle;
+    padding-left: 20px;
+    padding-right: 10px;
+    display: flex;
+
+
+    .item {
+      height: 100%;
+      width: 34px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .iconfont {
+      font-size: 20px !important;
+    }
+
+    .avatar {
+      text-align: center;
+    }
+
+    .name {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-left: 10px;
+    }
+
+    .name span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .name span span:nth-child(1) {
+      padding-bottom: 2px;
+    }
+
+    .name span span:nth-child(2) {
+      padding-left: 5px;
+    }
+
+
+    .lang {
+      font-size: 20px !important;
+    }
 
     .el-dropdown {
       vertical-align: middle !important;
       cursor: pointer;
       font-size: 14px;
-      color: $menu-text-color;
       font-weight: bolder;
     }
-  }
 
-  .fullScreen {
-    line-height: 59px;
-    margin-left: 15px;
-    vertical-align: middle;
-    cursor: pointer;
-  }
-
-  span,
-  .lang {
-    padding-left: 12px !important;
-  }
-
-  .name {
-    height: 18px;
-    font-weight: bolder;
-    font-size: 17px !important;
-  }
-
-  .lang {
-    font-size: 20px !important;
-  }
-
-  .fullscreen {
-    cursor: pointer;
-    position: relative;
-    top: 3px;
-
-    .iconfont {
-      font-size: 20px !important;
-    }
-  }
-
-  .el-dropdown {
-    vertical-align: middle !important;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bolder;
-  }
-
-  .setting-icon {
-    cursor: pointer;
-  }
-
-  .bell {
-    cursor: pointer;
-
-    .item {
-      height: 21px;
-      position: relative;
-
-      &:deep(.el-icon) {
-        font-size: 20px !important;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-      }
+    .setting-icon {
+      cursor: pointer;
     }
   }
 }
@@ -265,52 +261,7 @@ const clickChangeLayout = () => store.setLayout('vertical');
   color: black !important;
 }
 
-.info {
-  width: 250px;
-  line-height: 59px;
-  height: 59px;
-  text-align: right;
-  vertical-align: middle;
-  padding-right: 22px;
 
-  .bell {
-    cursor: pointer;
-
-    .item {
-      height: 21px;
-      position: relative;
-
-      &:deep(.el-icon) {
-        position: absolute;
-        right: 0px;
-        top: 0px;
-      }
-    }
-  }
-
-  span {
-    padding: 0px 5px;
-  }
-
-  .name {
-    height: 18px;
-  }
-
-  .fullscreen {
-    cursor: pointer;
-  }
-
-  .el-dropdown {
-    vertical-align: middle !important;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bolder;
-  }
-
-  .setting-icon {
-    cursor: pointer;
-  }
-}
 
 .iconfont {
   margin-right: 0px;
