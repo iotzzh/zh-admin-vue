@@ -1,6 +1,6 @@
 {
     "label": "API管理",
-    "prefix": "/font",
+    "prefix": "/api",
     "useMock": true,
     "localPrefix": "/apiUser1",
     "localUseMock": true

@@ -15,3 +15,7 @@ declare module 'aos';
 declare module 'electron';
 
 declare module 'element-plus/dist/locale/zh-cn.mjs';
+
+declare module 'splitpanes';
+
+declare module 'nprogress';

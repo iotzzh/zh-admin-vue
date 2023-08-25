@@ -2,7 +2,6 @@
     "server": {
         "port": 8000,
         "strictPort": false,
-        "force": true,
         "host": "0.0.0.0",
         "https": false,
         "cors": true,
@@ -14,5 +13,8 @@
           "changeOrigin": true
         }
       }
+    },
+    "optimizeDeps": {
+      "force": true
     }
 }

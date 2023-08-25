@@ -10,33 +10,9 @@
       "useMock": true
     },
     {
-      "name": "getMenuList",
+      "name": "getRouteList",
       "label": "部门列表",
-      "url": "/menu/list",
-      "useMock": true
-    },
-    {
-      "name": "addMenu",
-      "label": "添加部门",
-      "url": "/menu/add",
-      "useMock": true
-    },
-    {
-      "name": "updateMenu",
-      "label": "更新部门",
-      "url": "/menu/modify",
-      "useMock": true
-    },
-    {
-      "name": "deleteMenu",
-      "label": "删除部门",
-      "url": "/menu/remove",
-      "useMock": true
-    },
-    {
-      "name": "batchDeleteMenu",
-      "label": "批量删除部门",
-      "url": "/menu/remove",
+      "url": "/route/list",
       "useMock": true
     }
   ]
