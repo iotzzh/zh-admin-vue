@@ -117,9 +117,11 @@ const clickChangeLayout = () => store.setLayout('vertical');
 </script>
 
 <style lang="scss" scoped>
+@import '../../../index.scss';
+
 .nav-bar {
   background-color: white;
-  height: 60px;
+  height: $topBarHeight;
   width: 100%;
   display: flex;
   align-items: center;
@@ -134,16 +136,27 @@ const clickChangeLayout = () => store.setLayout('vertical');
   .nav {
     flex: 1;
     overflow: auto;
+    height: 100%;
 
     .scrollbar {
       text-align: right;
       background-color: #f5f5f5;
+      height: 100%;
+
+      &:deep(.el-scrollbar__view) {
+        height: 100%;
+      }
+
+      &:deep(.el-menu-item) {
+        height: 100%;
+        overflow: hidden;
+      }
 
       .menu {
         background-color: $mainColor;
         border-bottom: none;
         height: 100%;
-        justify-content: right;
+        // justify-content: right;
       }
     }
   }
