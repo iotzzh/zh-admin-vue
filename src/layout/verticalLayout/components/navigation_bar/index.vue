@@ -10,17 +10,17 @@
 
     <!-- right: info -->
     <div class="info">
-      <span class="bell"
-        ><el-badge is-dot class="item"
-          ><el-icon><Bell /></el-icon></el-badge
-      ></span>
+      <span class="bell item"><el-badge><el-icon :size="20">
+            <Bell />
+          </el-icon></el-badge>
+      </span>
 
-      <span class="fullscreen" @click="toggleFullScreen">
+      <span class="fullscreen item" @click="toggleFullScreen">
         <i v-if="fullscreen" class="iconfont icon-fullscreen-shrink"></i>
         <i v-else class="iconfont icon-fullscreen-expand"></i>
       </span>
 
-      <el-dropdown :hide-on-click="true" @command="changeLanguage" class="lang">
+      <el-dropdown :hide-on-click="true" @command="changeLanguage" class="lang item">
         <i class="iconfont icon-language-outline" />
         <template #dropdown>
           <el-dropdown-menu>
@@ -29,11 +29,15 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-      <span class="setting-icon" @click="clickChangeLayout">
+      <span class="setting-icon item" @click="clickChangeLayout">
         <i class="iconfont icon-ai216"></i>
       </span>
       <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
-        <span>{{ userInfo?.name }}</span>
+        <span>
+          <el-avatar :size="20" class="avatar">{{ userInfo?.name ? pinyin.getCamelChars(userInfo.name)[0] : 'N'
+          }}</el-avatar>
+          <span>{{ userInfo?.name }}</span>
+        </span>
         <template #dropdown>
           <el-dropdown-menu>
             <el-dropdown-item command="logout">退出登录</el-dropdown-item>
@@ -45,64 +49,65 @@
 </template>
 
 <script lang="ts" setup>
-  import { onMounted, ref } from 'vue';
-  import { storeToRefs } from 'pinia';
-  import { useLayoutStore } from '@/layout/store';
-  import UIHelper from '@/utils/uiHelper';
+import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useLayoutStore } from '@/layout/store';
+import UIHelper from '@/utils/uiHelper';
 
-  import { useRouter } from 'vue-router';
-  import storage from '@/utils/storage';
-  import { useLocale } from '@/locales/useLocale';
-  import { LocaleType } from '@/locales/type';
+import { useRouter } from 'vue-router';
+import storage from '@/utils/storage';
+import { useLocale } from '@/locales/useLocale';
+import { LocaleType } from '@/locales/type';
+import pinyin from 'js-pinyin';
 
-  const store = useLayoutStore();
-  const router = useRouter();
-  const { collapse } = storeToRefs(store);
+const store = useLayoutStore();
+const router = useRouter();
+const { collapse } = storeToRefs(store);
 
-  const isMobile = storage.getIsMobile();
+const isMobile = storage.getIsMobile();
 
-  const toggleSideBar = () => {
-    if (isMobile) {
-      store.changeIsOpenDrawerMenu(true);
-    } else {
-      store.toggleCollapse();
-    }
+const toggleSideBar = () => {
+  if (isMobile) {
+    store.changeIsOpenDrawerMenu(true);
+  } else {
+    store.toggleCollapse();
+  }
+};
+
+const userInfo = ref({} as any);
+
+onMounted(() => {
+  userInfo.value = {
+    name: '李太白',
   };
+  // userInfo.value = storage?.getUserInfo();
+});
 
-  const userInfo = ref({} as any);
+// 退出登录事件
+const handleCommand = (command: string | number | object) => {
+  if (command === 'logout') {
+    sessionStorage.clear();
+    localStorage.clear();
+    router && router.push('/');
+    location.reload();
+  }
+};
 
-  onMounted(() => {
-    userInfo.value = {
-      name: '测试名',
-    };
-    // userInfo.value = storage?.getUserInfo();
-  });
+const locale = useLocale();
+const changeLanguage = async (command: string | number | object) => {
+  await locale.changeLocale(command as LocaleType);
+};
 
-  // 退出登录事件
-  const handleCommand = (command: string | number | object) => {
-    if (command === 'logout') {
-      sessionStorage.clear();
-      localStorage.clear();
-      router && router.push('/');
-      location.reload();
-    }
-  };
+const fullscreen = ref(false);
+const toggleFullScreen = () => {
+  UIHelper.toggleFullScreen(document.body, !fullscreen.value);
+  fullscreen.value = !fullscreen.value;
+};
 
-  const locale = useLocale();
-  const changeLanguage = async (command: string | number | object) => {
-    await locale.changeLocale(command as LocaleType);
-  };
-
-  const fullscreen = ref(false);
-  const toggleFullScreen = () => {
-    UIHelper.toggleFullScreen(document.body, !fullscreen.value);
-    fullscreen.value = !fullscreen.value;
-  };
-
-  const clickChangeLayout = () => store.setLayout('horizontal');
+const clickChangeLayout = () => store.setLayout('horizontal');
 </script>
 
 <style lang="scss" scoped>
-  @import '../../index.scss';
-  @import './index.scss';
+@import '../../index.scss';
+@import './index.scss';
 </style>

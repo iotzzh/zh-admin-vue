@@ -73,7 +73,7 @@ const userInfo = ref({} as any);
 onMounted(() => {
   // userInfo.value = storage?.getUserInfo();
   userInfo.value = {
-    name: '测试名',
+    name: '李太白',
   };
 });
 
