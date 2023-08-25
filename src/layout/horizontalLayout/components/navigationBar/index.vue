@@ -79,7 +79,7 @@ onMounted(() => {
 
 onMounted(async () => {
   const params = {
-    url: api.getMenuList,
+    url: api.getRouteList,
     conditions: {},
   };
   const result = await ZHRequest.post(params);
