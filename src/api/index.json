@@ -1,8 +1,7 @@
 {
-    "label": "API管理",
-    "prefix": "/api",
-    "useMock": true,
-    "localPrefix": "/apiUser1",
-    "localUseMock": true
-  }
-  
+  "label": "API管理",
+  "prefix": "/api",
+  "useMock": true,
+  "localPrefix": "/apiUser1",
+  "localUseMock": true
+}
