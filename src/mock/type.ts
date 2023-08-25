@@ -7,6 +7,5 @@ export interface TMockParams {
 }
 
 export interface TMockResult {
-  
+    [x: string]: any
 }
-  
