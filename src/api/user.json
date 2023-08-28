@@ -1,0 +1,9 @@
+{
+  "label": "用户",
+  "api": [
+    { "label": "用户列表", "name": "getUserList", "url": "/user/list" },
+    { "label": "新增用户", "name": "addUser", "url": "/user/add" },
+    { "label": "删除用户", "name": "deleteUser", "url": "/user/delete" },
+    { "label": "修改用户", "name": "updateUser", "url": "/user/update" }
+  ]
+}

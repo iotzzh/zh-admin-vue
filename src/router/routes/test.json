@@ -1,0 +1,12 @@
+{
+  "routeName": "测试页面",
+  "routeCode": "test",
+  "menuType": 2,
+  "test": "template-null",
+  "sortNo": "1",
+  "icon": "2",
+  "url": "/test",
+  "address": "E:\\tworspace\\zh-admin-vue",
+  "filePath": "/test/index",
+  "id": "7f5e0419-9351-4dcb-9c28-93df89cee361"
+}
