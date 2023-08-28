@@ -5,13 +5,18 @@ import rootJson from './index.json';
  * 注释：useMock | localUseMock: 取值为true, false, '', 当''时为继承上一级选择
  * 当useMock | localUseMock 本身或者继承到的值为true时，前缀设置将不生效，只能取apiMock
  */
+const isEmpty = (str: string) => {
+    return str === undefined || str === null || str === '';
+};
 
 let api: { [x: string]: any } = {};
 // NOTE: 正式使用时，注意调换判断顺序，部署后禁用mock，由于我这里只是前端项目，所以mock优先~
 const getPrefix = (module: any, api: any) => {
     const isLocal = ENV.MODE === 'development';
     if (isLocal) {
-        if (api.localUseMock || (api.localUseMock === '' && module.localUseMock) || (api.localUseMock === '' && module.localUseMock === '' && rootJson.localUseMock)) {
+        if (api.localUseMock ||
+            (isEmpty(api.localUseMock) && module.localUseMock) ||
+            (isEmpty(api.localUseMock) && isEmpty(module.localUseMock) && rootJson.localUseMock)) {
             return '/apiMock';
         } else {
             return api.localPrefix || module.localPrefix || rootJson.localPrefix;
