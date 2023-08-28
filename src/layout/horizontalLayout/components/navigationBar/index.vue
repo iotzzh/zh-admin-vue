@@ -19,8 +19,7 @@
       <!-- <span>搜索</span> -->
       <span class="bell item"
         ><el-badge
-          ><el-icon :size="20">
-            <Bell /> </el-icon></el-badge
+          ><el-icon :size="20"> <Bell /> </el-icon></el-badge
       ></span>
 
       <span class="fullscreen item" @click="toggleFullScreen">

@@ -12,8 +12,7 @@
     <div class="info">
       <span class="bell item"
         ><el-badge
-          ><el-icon :size="20">
-            <Bell /> </el-icon
+          ><el-icon :size="20"> <Bell /> </el-icon
         ></el-badge>
       </span>
 
