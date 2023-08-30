@@ -3,10 +3,10 @@
   "routeCode": "test",
   "menuType": 2,
   "test": "template-null",
-  "sortNo": "1",
-  "icon": "2",
+  "sortNo": "2",
+  "icon": "test",
   "url": "/test",
   "address": "E:\\tworspace\\zh-admin-vue",
   "filePath": "/test/index",
-  "id": "7f5e0419-9351-4dcb-9c28-93df89cee361"
+  "id": "21f90390-4177-4277-bd65-cd7393827d3d"
 }
