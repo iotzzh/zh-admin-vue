@@ -22,7 +22,7 @@ const getPrefix = (module: any, api: any) => {
             return api.localPrefix || module.localPrefix || rootJson.localPrefix;
         }
     } else {
-        if (api.useMock || (api.useMock === '' && module.useMock) || (api.useMock === '' && module.useMock === '' && rootJson.useMock)) {
+        if (api.useMock || (isEmpty(api.useMock) && module.useMock) || (isEmpty(api.useMock) && isEmpty(module.useMock) && rootJson.useMock)) {
             return '/apiMock';
         } else {
             return api.localPrefix || module.prefix || rootJson.prefix;

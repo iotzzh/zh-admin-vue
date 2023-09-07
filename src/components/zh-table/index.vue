@@ -38,21 +38,21 @@
     </ZHForm>
 
     <!-- table设置行部分：配置文件对象 tableSettingPanel -->
-    <!-- <div class="zh-table-panel-setting" v-if="config.tableConfig.tablePanelSetting">
+    <div class="zh-table-panel-setting" v-if="config.tablePanelConfig">
       <el-row>
         <el-col :span="12">
           <div class="table-title">
-            <el-icon class="icon" v-if="config.tableConfig.tablePanelSetting.title">
+            <el-icon class="icon" v-if="config.tablePanelConfig.title">
               <Grid />
             </el-icon>
-            {{ config.tableConfig.tablePanelSetting.title }}
-            <span v-if="config.tableConfig.tablePanelSetting.secondaryTitle" style="color: blue">
-              ({{ config.tableConfig.tablePanelSetting.secondaryTitle }})
+            {{ config.tablePanelConfig.title }}
+            <span v-if="config.tablePanelConfig.secondaryTitle" style="color: blue">
+              ({{ config.tablePanelConfig.secondaryTitle }})
             </span>
           </div>
         </el-col>
       </el-row>
-    </div> -->
+    </div>
 
     <!-- table部分：配置文件对象 tableConfig  -->
     <el-table

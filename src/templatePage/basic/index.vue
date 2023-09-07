@@ -11,8 +11,8 @@ import api from '@/api';
 const pageSetting: any = ref(settings);
 
 const convertRequest = () => {
-  if (settings.requestConfig?.list?.url)
-    pageSetting.value.requestConfig.list = api[pageSetting.value.requestConfig.list];
+  if (settings.table.requestConfig?.list?.url)
+    pageSetting.value.table.requestConfig.list.url = api[settings.table.requestConfig?.list?.url];
 };
 convertRequest();
 </script>
