@@ -19,3 +19,12 @@ declare module 'element-plus/dist/locale/zh-cn.mjs';
 declare module 'splitpanes';
 
 declare module 'nprogress';
+
+
+declare module '*.svg'
+declare module '*.png'
+declare module '*.jpg'
+declare module '*.jpeg'
+declare module '*.gif'
+declare module '*.bmp'
+declare module '*.tiff'

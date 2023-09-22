@@ -1,9 +1,10 @@
 <template>
   <div v-loading="loading">
-    <div class="logo">
+    <Title></Title>
+    <!-- <div class="logo">
       <img class="logo-img" :src="Logo" alt="logo" />
       <span v-if="collapse" class="logo-text">{{ t('layout.headerLeft.title') }}</span>
-    </div>
+    </div> -->
     <el-scrollbar class="scrollbar" wrap-class="scrollbar-wrapper">
       <el-menu class="menu el-menu-vertical" router :collapse="!collapse" :collapse-transition="false"
         @select="changeSelectMenu">
@@ -14,14 +15,20 @@
 </template>
 
 <script setup lang="ts">
-import SidebarItem from './SidebarItem.vue';
-import { storeToRefs } from 'pinia';
 import { computed, reactive, ref, onMounted, nextTick } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+
+import Title from '@/layout/components/Title.vue';
+
+
+
+import SidebarItem from './SidebarItem.vue';
 import { useLayoutStore } from '@/layout/store';
 import ZHRequest from '@/components/zh-request';
 import Logo from '@/assets/img/logo.png';
-import { useI18n } from 'vue-i18n';
+
 import api from '@/api';
 const ROUTE_DATA_SOURCE = import.meta.env.VITE_ROUTE_DATA_SOURCE || 'file';
 import routeData from '@/router/routes/index';

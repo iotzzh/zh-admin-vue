@@ -1,4 +1,5 @@
 export default {
+  title: 'Admin Dashboard',
   headerLeft: {
     title: 'Admin Dashboard'
   },
