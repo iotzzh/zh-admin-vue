@@ -13,6 +13,10 @@
             <i v-else class="iconfont icon-fullscreen-expand"></i>
         </span>
 
+        <span class="item" @click="clickChangeLayout">
+            <i class="iconfont icon-line-layoutbuju-05"></i>
+        </span>
+
         <el-icon class="item" @click="refreshBody">
             <refresh />
         </el-icon>
