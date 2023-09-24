@@ -1,10 +1,6 @@
 <template>
   <div v-loading="loading">
     <Title></Title>
-    <!-- <div class="logo">
-      <img class="logo-img" :src="Logo" alt="logo" />
-      <span v-if="collapse" class="logo-text">{{ t('layout.headerLeft.title') }}</span>
-    </div> -->
     <el-scrollbar class="scrollbar" wrap-class="scrollbar-wrapper">
       <el-menu class="menu el-menu-vertical" router :collapse="!collapse" :collapse-transition="false"
         @select="changeSelectMenu">

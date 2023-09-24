@@ -3,9 +3,9 @@
     <ZHForm v-if="config.formConfig" ref="refZHForm" class="zh-form" :style="{
       maxHeight: isMobile ? '50%' : '',
       height: isMobile ? '190px' : 'auto',
-      overflow: isMobile ? 'auto' : '',
-    }" v-model="form.formModel.value" v-model:converted-model="form.convertedFormModel.value"
-      :formConfig="config.formConfig">
+      overflowY: isMobile ? 'auto' : 'hidden',
+    }" style="overflow-x: hidden;" v-model="form.formModel.value"
+      v-model:converted-model="form.convertedFormModel.value" :formConfig="config.formConfig">
       <!-- 传递form默认插槽 -->
       <template #default>
         <slot name="zh-table-form-default-before"></slot>
