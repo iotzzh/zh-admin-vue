@@ -93,6 +93,7 @@ const clickChangeLayout = () => store.setLayout('vertical');
   align-items: center;
   box-sizing: border-box;
   padding: 0px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
 
   .logo {
     width: 200px;

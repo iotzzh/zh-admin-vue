@@ -20,6 +20,7 @@
       margin-left: 15px;
       display: flex;
       align-items: center;
+
       .icon {
         margin-right: 3px;
       }
@@ -71,7 +72,7 @@
   .zh-el-table {
     // padding: 0px 15px;
 
-    .el-button + .el-button {
+    .el-button+.el-button {
       margin-left: 0px !important;
     }
   }
@@ -80,9 +81,11 @@
 @media screen and (max-width: 820px) {
   .zh-table {
     padding: 7px;
+
     .zh-form {
       // margin-bottom: 5px;
-      padding: 0px;
+      // padding: 0px;
+      // padding: 3px 0px;
     }
 
     .zh-el-table {
