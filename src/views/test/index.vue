@@ -3,16 +3,20 @@
 </template>
 
 <script lang="ts" setup>
-  import BasicTemplate from '@/templates/basic/index.vue';
-  import { ref } from 'vue';
-  import settings from './index.json';
-  import api from '@/api';
+import BasicTemplate from '@/templates/basic/index.vue';
+import { ref } from 'vue';
+import settings from './index.json';
+import api from '@/api';
 
-  const pageSetting: any = ref(settings);
+const originConfigData = JSON.parse(JSON.stringify(settings));
+const pageSetting: any = ref(originConfigData);
 
-  const convertRequest = () => {
-    if (settings.table.requestConfig?.list?.url)
-      pageSetting.value.table.requestConfig.list.url = api[settings.table.requestConfig?.list?.url];
-  };
-  convertRequest();
+const convertRequest = () => {
+  const keys = ['add', 'delete', 'update', 'list'];
+  keys.forEach((x: string) => {
+    if (originConfigData.table.requestConfig && originConfigData.table.requestConfig[x]?.url)
+      pageSetting.value.table.requestConfig[x].url = api[originConfigData.table.requestConfig[x]?.url];
+  });
+};
+convertRequest();
 </script>
