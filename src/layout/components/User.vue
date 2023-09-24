@@ -13,8 +13,9 @@
             <i v-else class="iconfont icon-fullscreen-expand"></i>
         </span>
 
-        <span class="item" @click="clickChangeLayout">
-            <i class="iconfont icon-line-layoutbuju-05"></i>
+        <span class="item">
+            <i v-if="layout === 'horizontal'" class="iconfont icon-charts-buju" @click="clickChangeLayout"></i>
+            <i v-else class="iconfont icon-buju9" @click="clickChangeLayout"></i>
         </span>
 
         <el-icon class="item" @click="refreshBody">
@@ -47,29 +48,17 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue';
-import { storeToRefs } from 'pinia';
+import { computed, onMounted, ref, toRefs } from 'vue';
 import { useLayoutStore } from '@/layout/store';
 import UIHelper from '@/utils/uiHelper';
 import { useRouter } from 'vue-router';
-import storage from '@/utils/storage';
 import { useLocale } from '@/locales/useLocale';
 import { LocaleType } from '@/locales/type';
 import pinyin from 'js-pinyin';
+import { storeToRefs } from 'pinia';
 
 const store = useLayoutStore();
 const router = useRouter();
-const { collapse } = storeToRefs(store);
-
-const isMobile = storage.getIsMobile();
-
-const toggleSideBar = () => {
-    if (isMobile) {
-        store.changeIsOpenDrawerMenu(true);
-    } else {
-        store.toggleCollapse();
-    }
-};
 
 const refreshBody = () => {
     location.reload();
@@ -104,7 +93,12 @@ const toggleFullScreen = () => {
     fullscreen.value = !fullscreen.value;
 };
 
-const clickChangeLayout = () => store.setLayout('horizontal');
+const { layout } = storeToRefs(store);
+
+const clickChangeLayout = () => {
+    if (layout.value === 'vertical') store.setLayout('horizontal');
+    else store.setLayout('vertical');
+};
 </script>
 
 <style lang="scss" scoped>
