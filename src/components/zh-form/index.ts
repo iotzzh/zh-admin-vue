@@ -70,6 +70,7 @@ export default class Form {
   };
 
   //#region model 转换方法
+
   // 针对需要转换数据的情况：field: a -> b
   useConvert = (model: { [key: string]: any }, convertedModel: { [key: string]: any }, fields: TZHFromField[]) => {
     if (!convertedModel) return;
@@ -80,9 +81,9 @@ export default class Form {
       if (prop && method) {
         if (typeof method === 'string') {
           const func = new Function('fieldValue, modelValue', method);
-          return func(model[prop], model);
+          return func(model[prop], model, convertedModel);
         } else {
-          convertedModel[prop] = method(model[prop], model);
+          convertedModel[prop] = method(model[prop], model, convertedModel);
         }
       }
     }
@@ -167,11 +168,11 @@ export default class Form {
   //#endregion
 
   //#region 事件
-  inputFocus = (e:any, item:any, model:any, ref:any) => {
+  inputFocus = (e: any, item: any, model: any, ref: any) => {
     if (item.focus) item.focus(e, item, model, ref);
   };
 
-  clickInputAppendSuffixIcon = (e:any, item:any, model:any, ref:any) => {
+  clickInputAppendSuffixIcon = (e: any, item: any, model: any, ref: any) => {
     if (item.clickAppendSuffixIcon) item.clickAppendSuffixIcon(e, item, model, ref);
   };
 

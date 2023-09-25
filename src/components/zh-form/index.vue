@@ -15,10 +15,10 @@
               if (item.refName) itemRefs[item.refName] = el;
             }" :style="{ width: item.width ? `${item.width}` : '100%' }" :show-password="item.showPassword"
               v-model="modelValue[item.prop]" :placeholder="item.placeholder" :disabled="item.disabled === undefined
-                  ? false
-                  : typeof item.disabled === 'boolean'
-                    ? item.disabled
-                    : item.disabled(modelValue)
+                ? false
+                : typeof item.disabled === 'boolean'
+                  ? item.disabled
+                  : item.disabled(modelValue)
                 " :type="item.inputType" :clearable="item.clearable === undefined ? true : item.clearable"
               :suffix-icon="item.suffixIcon"
               @focus="(e: any) => formInstance.inputFocus(e, item, modelValue, itemRefs[item.refName || ''])">
@@ -44,10 +44,10 @@
             <el-input-number v-else-if="item.type === 'input-number'"
               :style="{ width: item.width ? `${item.width}` : '100%' }" v-model="modelValue[item.prop]"
               :placeholder="item.placeholder" :disabled="item.disabled === undefined
-                  ? false
-                  : typeof item.disabled === 'boolean'
-                    ? item.disabled
-                    : item.disabled(modelValue)
+                ? false
+                : typeof item.disabled === 'boolean'
+                  ? item.disabled
+                  : item.disabled(modelValue)
                 " :clearable="item.clearable" />
 
             <ZHSelect v-else-if="item.type === 'select'" :style="{ width: item.width ? `${item.width}` : '100%' }"
@@ -57,10 +57,10 @@
 
             <!-- 日期选择 -->
             <el-date-picker v-else-if="item.type === 'date-picker'" v-model="modelValue[item.prop]" :disabled="item.disabled === undefined
-                ? false
-                : typeof item.disabled === 'boolean'
-                  ? item.disabled
-                  : item.disabled(modelValue)
+              ? false
+              : typeof item.disabled === 'boolean'
+                ? item.disabled
+                : item.disabled(modelValue)
               " :type="item.timeType" :format="item.timeShowFormat" :value-format="item.timeValueFormat"
               :placeholder="item.placeholder || '请选择'" :style="{ width: item.width ? `${item.width}` : '100%' }"
               :clearable="item.clearable"></el-date-picker>
