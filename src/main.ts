@@ -9,6 +9,7 @@ import 'splitpanes/dist/splitpanes.css';
 import { createApp } from 'vue';
 import { setupStore } from '@/stores/index';
 
+import Particles from "vue3-particles";
 import { setupRouter } from '@/router/index';
 import ElementPlus from 'element-plus';
 import * as Icons from '@element-plus/icons-vue';
@@ -28,12 +29,12 @@ async function boostrap() {
   const app = createApp(App);
 
   setupStore(app);
-  
+
   setupMock();
   // if (process.env.NODE_ENV === 'dev') { setupMock(); }
 
   // 注册Icons 全局组件，element plus icon
-  Object.keys(Icons).forEach((key:string) => {
+  Object.keys(Icons).forEach((key: string) => {
     app.component(key, Icons[key]);
   });
 
@@ -52,8 +53,10 @@ async function boostrap() {
 
   app.use(VXETable);
 
+  app.use(Particles);
+
   // AOS.init();
-  
+
   // app.use(AOS);
   // app.config.globalProperties.$utils = utils;
   globalThis.$utils = utils;
