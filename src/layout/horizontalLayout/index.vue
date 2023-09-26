@@ -29,6 +29,9 @@ const reload = async () => {
 <style lang="scss" scoped>
 .layout {
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .tags-content {
