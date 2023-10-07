@@ -21,11 +21,12 @@ const { cachedViews } = storeToRefs(store);
 <style lang="scss" scoped>
 .app-main {
   padding: 10px;
-  height: calc(100vh - 90px);
+  // height: calc(100vh - 90px);
   width: 100%;
-
   flex: 1;
-  background-color: rgb(223, 223, 223);
+  overflow: hidden;
+
+  // background-color: rgb(223, 223, 223);
   box-sizing: border-box;
   overflow: hidden;
 }

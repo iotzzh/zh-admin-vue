@@ -3,8 +3,8 @@
     <NavigationBar />
     <div class="tags-content">
       <Tag @reload="reload" />
-      <AppMain v-if="isRouterAlive" />
     </div>
+    <AppMain v-if="isRouterAlive" />
   </div>
 </template>
 
@@ -28,7 +28,6 @@ const reload = async () => {
 
 <style lang="scss" scoped>
 .layout {
-  background-color: white;
   display: flex;
   flex-direction: column;
   height: 100%;
