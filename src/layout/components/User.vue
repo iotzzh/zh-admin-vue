@@ -70,15 +70,14 @@ onMounted(() => {
     userName.value = '全栈道';
 });
 
-const pinyinFL = computed(() => pinyin.getFullChars(userName.value || "#")[0].toUpperCase());
+const pinyinFL = computed(() => pinyin.getFullChars(userName.value || '#')[0].toUpperCase());
 
 // 退出登录事件
 const handleCommand = (command: string | number | object) => {
     if (command === 'logout') {
         sessionStorage.clear();
         localStorage.clear();
-        router && router.push('/');
-        location.reload();
+        router && router.push({ path: '/' });
     }
 };
 

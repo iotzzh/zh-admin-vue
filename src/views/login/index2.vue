@@ -45,7 +45,7 @@ const isLoginAble = computed(() => !(userName.value && userPwd.value));
 
 // 注册
 const login = async () => {
-    if (userName.value === 'admin' && userPwd.value === '123456') router.push({ path: '/root' });
+    if (userName.value === 'admin' && userPwd.value === '123456') router.push({ path: '/dashboard' });
 };
 
 const particlesInit = async engine => {

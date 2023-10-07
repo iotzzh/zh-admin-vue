@@ -39,76 +39,76 @@
 </template>
 
 <script setup lang="ts">
-  import { ref, onMounted } from 'vue';
-  import { Avatar, Lock } from '@element-plus/icons-vue';
-  import { useRouter } from 'vue-router';
-  import storage from '@/utils/storage';
-  import { TZHRequestParams } from '@/components/zh-request/type';
-  import ZHRequest from '@/components/zh-request';
-  import api from '@/api';
+import { ref, onMounted } from 'vue';
+import { Avatar, Lock } from '@element-plus/icons-vue';
+import { useRouter } from 'vue-router';
+import storage from '@/utils/storage';
+import { TZHRequestParams } from '@/components/zh-request/type';
+import ZHRequest from '@/components/zh-request';
+import api from '@/api';
 
-  const router = useRouter();
-  const loading = ref(false);
+const router = useRouter();
+const loading = ref(false);
 
-  const sysName = ref('后台管理系统');
-  const inputAccount = ref('') as any;
-  const inputPassword = ref('') as any;
-  const showLoginForm = ref(true);
+const sysName = ref('后台管理系统');
+const inputAccount = ref('') as any;
+const inputPassword = ref('') as any;
+const showLoginForm = ref(true);
 
-  const setToken = (token: string) => storage.setToken(token);
+const setToken = (token: string) => storage.setToken(token);
 
-  // 注册
-  const login = async () => {
-    loading.value = true;
-    const params: TZHRequestParams = {
-      url: api.login,
-      conditions: {
-        loginId: inputAccount.value,
-        loginPass: inputPassword.value,
-      },
-      errorMessage: '登录失败',
-      successMessage: '登录成功',
-    };
-
-    const result = await ZHRequest.get(params);
-    loading.value = false;
-    if (!result.success) return;
-    setToken(result.data.token);
-
-    // 跳转路由
-    router.push({ path: '/root' });
+// 注册
+const login = async () => {
+  loading.value = true;
+  const params: TZHRequestParams = {
+    url: api.login,
+    conditions: {
+      loginId: inputAccount.value,
+      loginPass: inputPassword.value,
+    },
+    errorMessage: '登录失败',
+    successMessage: '登录成功',
   };
 
-  onMounted(() => {
-    const signInBtn: any = document.getElementById('signIn');
-    const signUpBtn: any = document.getElementById('signUp');
-    const fistForm: any = document.getElementById('form1');
-    const secondForm: any = document.getElementById('form2');
-    const container: any = document.querySelector('.container');
+  const result = await ZHRequest.get(params);
+  loading.value = false;
+  if (!result.success) return;
+  setToken(result.data.token);
 
-    signInBtn.addEventListener('click', () => {
-      container.classList.remove('right-panel-active');
-    });
+  // 跳转路由
+  router.push({ path: '/dashboard' });
+};
 
-    signUpBtn.addEventListener('click', () => {
-      container.classList.add('right-panel-active');
-    });
+onMounted(() => {
+  const signInBtn: any = document.getElementById('signIn');
+  const signUpBtn: any = document.getElementById('signUp');
+  const fistForm: any = document.getElementById('form1');
+  const secondForm: any = document.getElementById('form2');
+  const container: any = document.querySelector('.container');
 
-    fistForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      login();
-    });
-    secondForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      login();
-    });
+  signInBtn.addEventListener('click', () => {
+    container.classList.remove('right-panel-active');
   });
+
+  signUpBtn.addEventListener('click', () => {
+    container.classList.add('right-panel-active');
+  });
+
+  fistForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    login();
+  });
+  secondForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    login();
+  });
+});
 </script>
 
 <script lang="ts">
-  export default { name: 'login' };
+export default { name: 'login' };
 </script>
 
 <style lang="scss" scoped>
-  @import './index.scss';
+@import './index.scss';
 </style>
