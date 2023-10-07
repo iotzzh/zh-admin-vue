@@ -69,7 +69,7 @@ const closeSingleTag = (cachedView: RouteType) => {
     // 路由跳转
     if (cachedViews.value.length > 0) {
         const path = cachedViews.value[cachedViews.value.length - 1].fullPath as string;
-        router.push(path);
+        router.push({ path });
     }
 };
 

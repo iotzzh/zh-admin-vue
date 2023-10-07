@@ -9,45 +9,6 @@
     </div>
 
     <User></User>
-    <!-- right: info -->
-    <!-- <div class="info">
-      <span class="bell item"
-        ><el-badge
-          ><el-icon :size="20"> <Bell /> </el-icon
-        ></el-badge>
-      </span>
-
-      <span class="fullscreen item" @click="toggleFullScreen">
-        <i v-if="fullscreen" class="iconfont icon-fullscreen-shrink"></i>
-        <i v-else class="iconfont icon-fullscreen-expand"></i>
-      </span>
-
-      <el-dropdown :hide-on-click="true" @command="changeLanguage" class="lang item">
-        <i class="iconfont icon-language-outline" />
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="zh_CN">中文</el-dropdown-item>
-            <el-dropdown-item command="en">English</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
-      <span class="setting-icon item" @click="clickChangeLayout">
-        <i class="iconfont icon-ai216"></i>
-      </span>
-      <el-dropdown :hide-on-click="false" @command="handleCommand" class="name">
-        <span>
-          <el-avatar :size="20" class="avatar">{{
-            userInfo?.name ? pinyin.getCamelChars(userInfo.name)[0] : 'N'
-          }}</el-avatar>
-          <span>{{ userInfo?.name }}</span>
-        </span>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item command="logout">退出登录</el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
-    </div> -->
   </div>
 </template>
 
