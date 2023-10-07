@@ -3,7 +3,7 @@
     <Title></Title>
     <el-scrollbar class="scrollbar" wrap-class="scrollbar-wrapper">
       <el-menu class="menu el-menu-vertical" router :collapse="!collapse" :collapse-transition="false"
-        @select="changeSelectMenu">
+        @select="changeSelectMenu" :default-active="$route.path">
         <SidebarItem v-for="menu in menuList" :key="menu.id" :item="menu"></SidebarItem>
       </el-menu>
     </el-scrollbar>
