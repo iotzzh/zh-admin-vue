@@ -1,15 +1,10 @@
 <template>
-  <el-menu-item
-    :index="item ? item.url : ''"
-    v-if="!item || !item.children || item.children.length === 0"
-  >
+  <el-menu-item :index="item ? item.url : ''" v-if="!item || !item.children || item.children.length === 0">
     <i :class="'iconfont ' + item?.icon"></i>
-    <template #title
-      ><span class="tab">{{ item?.routeName }}</span></template
-    >
+    <template #title><span class="tab">{{ item?.routeName }}</span></template>
   </el-menu-item>
 
-  <el-sub-menu :index="item ? item.id : ''" v-else>
+  <el-sub-menu :index="item ? item.url : ''" v-else>
     <template #title>
       <i :class="'iconfont ' + item?.icon"></i>
       <span class="tab">{{ item?.routeName }}</span>
@@ -28,28 +23,28 @@
 </template>
 
 <script lang="ts" setup>
-  import { MenuNode } from '@/layout/type';
-  import { onMounted, PropType, toRefs } from 'vue';
+import { MenuNode } from '@/layout/type';
+import { onMounted, PropType, toRefs } from 'vue';
 
-  const props = defineProps({
-    collapse: {
-      type: Boolean,
-      default: true,
-    },
-    item: {
-      type: Object as PropType<MenuNode>,
-    },
-  });
+const props = defineProps({
+  collapse: {
+    type: Boolean,
+    default: true,
+  },
+  item: {
+    type: Object as PropType<MenuNode>,
+  },
+});
 
-  const { item } = toRefs(props);
+const { item } = toRefs(props);
 
-  onMounted(() => {
-    console.log();
-  });
+onMounted(() => {
+  console.log();
+});
 </script>
 
 <style lang="scss">
-  .iconfont {
-    padding-right: 3px;
-  }
+.iconfont {
+  padding-right: 3px;
+}
 </style>

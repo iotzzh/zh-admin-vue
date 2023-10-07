@@ -8,7 +8,7 @@
     <!-- nav -->
     <div class="nav">
       <el-scrollbar class="scrollbar">
-        <el-menu class="menu" mode="horizontal" router>
+        <el-menu class="menu" mode="horizontal" router :default-active="$route.path">
           <SidebarItem v-for="route in menuList" :key="route.id" :item="route"></SidebarItem>
         </el-menu>
       </el-scrollbar>
