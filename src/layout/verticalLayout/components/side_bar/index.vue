@@ -1,12 +1,13 @@
 <template>
-  <div v-loading="loading">
+  <div v-loading="loading" style="display:flex; flex-direction: column;height: 100%;">
     <Title></Title>
-    <el-scrollbar class="scrollbar" wrap-class="scrollbar-wrapper">
+    <Menu mode="vertical"></Menu>
+    <!-- <el-scrollbar class="scrollbar" wrap-class="scrollbar-wrapper">
       <el-menu class="menu el-menu-vertical" router :collapse="!collapse" :collapse-transition="false"
         @select="changeSelectMenu" :default-active="$route.path">
         <SidebarItem v-for="menu in menuList" :key="menu.id" :item="menu"></SidebarItem>
       </el-menu>
-    </el-scrollbar>
+    </el-scrollbar> -->
   </div>
 </template>
 
@@ -17,6 +18,7 @@ import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 import Title from '@/layout/components/Title.vue';
+import Menu from '@/layout/components/Menu.vue';
 
 
 
@@ -113,23 +115,23 @@ const { t } = useI18n();
   }
 }
 
-.menu.el-menu-vertical {
-  background-color: rgb(12, 33, 53) !important;
-  --el-menu-text-color: rgb(255, 255, 255, 0.8) !important;
-  --el-menu-hover-text-color: red !important;
-  --el-menu-bg-color: rgb(12, 33, 53);
-  --el-menu-hover-bg-color: rgba(9, 96, 189, 0.8) !important;
+// .menu.el-menu-vertical {
+//   background-color: rgb(12, 33, 53) !important;
+//   --el-menu-text-color: rgb(255, 255, 255, 0.8) !important;
+//   --el-menu-hover-text-color: red !important;
+//   --el-menu-bg-color: rgb(12, 33, 53);
+//   --el-menu-hover-bg-color: rgba(9, 96, 189, 0.8) !important;
 
-  // --el-color-primary
-  // --el-menu-active-color: rgb(255, 255, 255, 1) !important;
-  &:deep(.el-menu-item) {
-    color: rgb(255, 255, 255, 0.8) !important;
-  }
+//   // --el-color-primary
+//   // --el-menu-active-color: rgb(255, 255, 255, 1) !important;
+//   &:deep(.el-menu-item) {
+//     color: rgb(255, 255, 255, 0.8) !important;
+//   }
 
-  &:deep(.el-menu-item.is-active) {
-    color: white !important;
-    // background-color: rgba(9,96,189, 0.8);
-    background-color: var(--el-color-primary);
-  }
-}
+//   &:deep(.el-menu-item.is-active) {
+//     color: white !important;
+//     // background-color: rgba(9,96,189, 0.8);
+//     background-color: var(--el-color-primary);
+//   }
+// }
 </style>
