@@ -4,82 +4,18 @@
     <div class="logo">
       <SidebarLogo />
     </div>
-
     <!-- nav -->
-    <div class="nav">
-      <el-scrollbar class="scrollbar">
-        <el-menu class="menu" mode="horizontal" router :default-active="$route.path">
-          <SidebarItem v-for="route in menuList" :key="route.id" :item="route"></SidebarItem>
-        </el-menu>
-      </el-scrollbar>
-    </div>
-
+    <Menu mode="horizontal"></Menu>
     <User></User>
   </div>
 </template>
 
 <script setup lang="ts">
-import User from '@/layout/components/User.vue'
+import User from '@/layout/components/User.vue';
 import SidebarLogo from './SidebarLogo.vue';
-import SidebarItem from './SidebarItem.vue';
-import { ref, reactive, onMounted } from 'vue';
-import { useLayoutStore } from '@/layout/store';
-import UIHelper from '@/utils/uiHelper';
-import { appendRouter, router } from '@/router';
-import { RouteRecordRaw } from 'vue-router';
-import ZHRequest from '@/components/zh-request';
-import storage from '@/utils/storage';
-import api from '@/api';
-import { useLocale } from '@/locales/useLocale';
-import { LocaleType } from '@/locales/type';
-import pinyin from 'js-pinyin';
+import Menu from '@/layout/components/Menu.vue';
 
-const ROUTE_DATA_SOURCE = import.meta.env.VITE_ROUTE_DATA_SOURCE || 'file';
 
-const store = useLayoutStore();
-
-const menuList = ref([] as any);
-const userInfo = ref({} as any);
-onMounted(() => {
-  // userInfo.value = storage?.getUserInfo();
-  userInfo.value = {
-    name: '李太白',
-  };
-});
-
-onMounted(async () => {
-  const params = {
-    url: api.getRouteList,
-    conditions: {},
-  };
-  const result = await ZHRequest.post(params);
-  menuList.value = result?.data?.records || [];
-
-  if (ROUTE_DATA_SOURCE === 'api') appendRouter(result.data.records);
-});
-
-// 退出登录事件
-const handleCommand = (command: string | number | object) => {
-  if (command === 'logout') {
-    sessionStorage.clear();
-    localStorage.clear();
-    router && router.push('/');
-    location.reload();
-  }
-};
-
-const fullscreen = ref(false);
-const toggleFullScreen = () => {
-  UIHelper.toggleFullScreen(document.body, !fullscreen.value);
-  fullscreen.value = !fullscreen.value;
-};
-
-const locale = useLocale();
-const changeLanguage = async (command: string | number | object) => {
-  await locale.changeLocale(command as LocaleType);
-};
-
-const clickChangeLayout = () => store.setLayout('vertical');
 </script>
 
 <style lang="scss" scoped>
