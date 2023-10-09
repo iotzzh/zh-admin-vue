@@ -4,6 +4,7 @@
       <el-menu
         class="menu"
         :mode="mode"
+        :collapse="!collapse"
         router
         :default-active="$route.path"
         @select="changeSelectMenu"
@@ -76,14 +77,9 @@
         height: 100%;
       }
 
-      // &:deep(.el-menu-item) {
-      //     height: 100%;
-      //     overflow: hidden;
-      // }
-
       .menu {
-        // background-color: $mainColor;
         border-bottom: none;
+        border-right: none;
         height: 100%;
       }
     }

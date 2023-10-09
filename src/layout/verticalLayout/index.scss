@@ -1,2 +1,71 @@
 $topBarHeight: 45px;
 $leftTitleFontSize: 22px;
+
+@keyframes fold {
+    from {
+        width: 220px;
+    }
+
+    to {
+        width: 70px;
+    }
+}
+
+@keyframes expand {
+    from {
+        width: 70px;
+    }
+
+    to {
+        width: 220px;
+    }
+}
+
+.layout {
+    width: 100%;
+    height: 100%;
+    display: flex;
+
+    .left {
+        min-width: 220px;
+        animation: expand 0.2s ease-in-out;
+        background-color: rgb(12, 33, 53) !important;
+    }
+
+    .left-fold {
+        width: 63px;
+        animation: fold 0.2s ease-in-out;
+        background-color: rgb(12, 33, 53) !important;
+    }
+
+    .right {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        overflow: hidden;
+
+        .right-header {
+            height: 90px;
+        }
+
+        .right-content {
+            flex: 1;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: rgba(90, 90, 90, 0.1);
+        }
+    }
+}
+
+.navbar {
+    height: $topBarHeight;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding-left: 7px;
+}
