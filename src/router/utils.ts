@@ -1,3 +1,4 @@
+const modules = import.meta.glob('../views/**');
 export const convertJsonArrayToRoute = (jsonArray:any, route:any) => {
     for (let i = 0; i < jsonArray.length; i++) {
         route[i] = {
@@ -5,7 +6,12 @@ export const convertJsonArrayToRoute = (jsonArray:any, route:any) => {
             path: jsonArray[i].url || '/',
             meta: { title: jsonArray[i].routeName, ...jsonArray[i].meta  },
         };
-        if (jsonArray[i].menuType === 2) route[i].component = () => import(/* @vite-ignore */'/src/views' + jsonArray[i].filePath + '.vue');
+        // if (jsonArray[i].menuType === 2) route[i].component = () => import(/* @vite-ignore */'./src/views' + jsonArray[i].filePath + '.vue').catch(error => {
+        //     console.error('Failed to dynamically import module:', error);
+        //   });
+        if (jsonArray[i].menuType === 2) {
+            route[i].component = modules['../views' + jsonArray[i].filePath + '.vue'];
+        }
         if (jsonArray[i].children) {
             route[i].children = [];
             convertJsonArrayToRoute(jsonArray[i].children, route[i].children);
