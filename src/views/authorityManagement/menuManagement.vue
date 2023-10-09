@@ -1,5 +1,5 @@
 <!-- 权限管理 - 菜单管理 -->
-<template>
+<!-- <template>
   <Table
     ref="refTable"
     :formSettings="formSettings"
@@ -380,4 +380,4 @@
   export default { name: 'menuManagement' };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped></style> -->

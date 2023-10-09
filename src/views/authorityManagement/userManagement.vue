@@ -1,5 +1,5 @@
 <!-- 用户管理 -->
-<template>
+<!-- <template>
   <Table
     ref="refZHTable"
     :formSettings="formSettings"
@@ -237,4 +237,4 @@
   export default { name: 'userManagement' };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped></style> -->
