@@ -1,0 +1,31 @@
+{
+  "id": "0014",
+  "parentId": "001",
+  "routeName": "动画",
+  "url": "/animation",
+  "menuType": 1,
+  "routeCode": "animation",
+  "sourceBy": null,
+  "sortNo": 5,
+  "icon": "icon-donghua",
+  "description": null,
+  "isEbl": 1,
+  "isDel": 0,
+  "children": [
+    {
+      "id": "00141",
+      "parentId": "0014",
+      "routeName": "aos",
+      "menuType": 2,
+      "routeCode": "aos",
+      "url": "/aos",
+      "filePath": "/animation/aos",
+      "sourceBy": null,
+      "sortNo": 1,
+      "icon": "icon-menu",
+      "description": null,
+      "isEbl": 1,
+      "isDel": 0
+    }
+  ]
+}

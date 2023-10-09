@@ -49,7 +49,11 @@
       conditions: {},
     };
     const result = await ZHRequest.post(params);
-    menuList.value = result?.data?.records || [];
+    menuList.value =
+      result?.data?.records.sort((x, y) => {
+        if (x.sortNo - y.sortNo >= 0) return 1;
+        else return -1;
+      }) || [];
 
     if (ROUTE_DATA_SOURCE === 'api') appendRouter(result.data.records);
   });

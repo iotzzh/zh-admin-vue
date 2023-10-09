@@ -4,7 +4,7 @@
   "menuType": 2,
   "test": "template-null",
   "sortNo": "2",
-  "icon": "icon-menu",
+  "icon": "icon-web",
   "url": "/test",
   "address": "E:\\tworspace\\zh-admin-vue",
   "filePath": "/test/index",

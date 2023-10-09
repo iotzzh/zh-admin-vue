@@ -1,6 +1,6 @@
 <template>
   <Box :use-scroll-content-box="true">
-    <h1>notification 测试页面</h1>
+    <h1>notification 测试页面： chrome浏览器支持较好，safari浏览器支持功能较少</h1>
     <span id="text"></span>
     <div class="button-box">
       <ZHLightButton
