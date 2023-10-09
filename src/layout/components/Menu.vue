@@ -1,6 +1,6 @@
 <template>
   <div class="nav">
-    <el-scrollbar class="scrollbar">
+    <el-scrollbar class="scrollbar" v-if="mode === 'vertical'">
       <el-menu
         class="menu"
         :mode="mode"
@@ -9,9 +9,21 @@
         :default-active="$route.path"
         @select="changeSelectMenu"
       >
-        <MenuItem v-for="route in menuList" :key="route.id" :item="route"></MenuItem>
+        <menu-item v-for="route in menuList" :key="route.id" :item="route"></menu-item>
       </el-menu>
     </el-scrollbar>
+
+    <el-menu
+      v-else
+      class="menu"
+      :mode="mode"
+      :collapse="!collapse"
+      router
+      :default-active="$route.path"
+      @select="changeSelectMenu"
+    >
+      <menu-item v-for="route in menuList" :key="route.id" :item="route"></menu-item>
+    </el-menu>
   </div>
 </template>
 
@@ -110,6 +122,8 @@
   }
 
   .el-menu.el-menu--horizontal.menu {
+    height: 100%;
+    overflow: hidden;
     // background-color: rgb(12,33,53) !important;
     background-color: white !important;
     --el-menu-text-color: black !important;
