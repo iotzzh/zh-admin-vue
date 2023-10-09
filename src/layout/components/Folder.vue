@@ -1,5 +1,5 @@
 <template>
-  <div class="left">
+  <div class="folder-box">
     <span class="icon" @click="toggleSideBar">
       <i v-if="collapse" class="iconfont icon-zhedie1" />
       <i v-else class="iconfont icon-zhedie2" />
@@ -27,12 +27,9 @@
 </script>
 
 <style lang="scss" scoped>
-  @import '../index.scss';
-
-  .left {
-    height: $topBarHeight;
-    line-height: $topBarHeight;
-    vertical-align: middle;
+  .folder-box {
+    display: flex;
+    align-items: center;
     color: var(--el-text-color-regular);
     font-size: var(--el-font-size-base);
 
