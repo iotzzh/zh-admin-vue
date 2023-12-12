@@ -2,25 +2,36 @@
   <div class="layout" v-loading="loading">
     <NavigationBar />
     <div class="tags-content">
-      <TagsView />
-      <AppMain />
+      <Tag @reload="reload" />
     </div>
+    <Main v-if="isRouterAlive" />
   </div>
 </template>
 
 <script setup lang="ts">
-  import { onMounted, ref } from 'vue';
-  import { NavigationBar, AppMain, TagsView } from './components';
+  import { onMounted, ref, nextTick } from 'vue';
+  import { NavigationBar } from './components';
+  import Main from '@/layout/components/Main.vue';
+  import Tag from '@/layout/components/Tag.vue';
 
   const loading = ref(true);
   onMounted(() => {
     loading.value = false;
   });
+
+  const isRouterAlive = ref(true);
+  const reload = async () => {
+    isRouterAlive.value = false;
+    await nextTick();
+    isRouterAlive.value = true;
+  };
 </script>
 
 <style lang="scss" scoped>
   .layout {
-    background-color: white;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   .tags-content {

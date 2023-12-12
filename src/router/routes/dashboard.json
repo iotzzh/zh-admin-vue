@@ -4,8 +4,8 @@
   "routeName": "首页",
   "routeCode": "dashboard",
   "url": "/dashboard",
-  "filePath": "views/dashboard/index",
-  "menuType": 1,
+  "filePath": "/dashboard/index",
+  "menuType": 2,
   "sortNo": 1,
   "icon": "icon-shouye-copy-copy",
   "description": null

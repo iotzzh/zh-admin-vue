@@ -39,7 +39,7 @@ const meta: Meta<typeof ZHSelect> = {
 export default meta;
 type Story = StoryObj<typeof ZHSelect>;
 
-const value = ref({} as {[x:string]: any});
+const value = ref({} as { [x: string]: any });
 export const 基础用法: Story = {
   // name: 'test',
   args: {
@@ -82,7 +82,7 @@ export const 对象O: Story = {
 export const api请求: Story = {
   args: {
     modelValue: value,
-    api: api.getMenuList,
+    api: api.getRouteList,
     valueKey: 'id',
     labelField: 'routeName',
     valueField: 'id',
@@ -94,7 +94,7 @@ export const api请求: Story = {
 export const 过滤: Story = {
   args: {
     modelValue: value,
-    api: api.getMenuList,
+    api: api.getRouteList,
     filterable: true,
     valueKey: 'id',
     labelField: 'routeName',
@@ -107,7 +107,7 @@ export const 过滤: Story = {
 export const 远程搜索: Story = {
   args: {
     modelValue: value,
-    api: api.getMenuList,
+    api: api.getRouteList,
     remote: true,
     valueKey: 'id',
     labelField: 'routeName',

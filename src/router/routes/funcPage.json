@@ -1,0 +1,31 @@
+{
+  "id": "0015",
+  "parentId": "001",
+  "routeName": "功能",
+  "url": "/funcPage",
+  "menuType": 1,
+  "routeCode": "funcPage",
+  "sourceBy": null,
+  "sortNo": 6,
+  "icon": "icon-gongneng",
+  "description": null,
+  "isEbl": 1,
+  "isDel": 0,
+  "children": [
+    {
+      "id": "00151",
+      "parentId": "0015",
+      "routeName": "textPrinter",
+      "menuType": 2,
+      "routeCode": "textPrinter",
+      "url": "/textPrinter",
+      "filePath": "/funcPage/textPrinter",
+      "sourceBy": null,
+      "sortNo": 1,
+      "icon": "icon-menu",
+      "description": null,
+      "isEbl": 1,
+      "isDel": 0
+    }
+  ]
+}

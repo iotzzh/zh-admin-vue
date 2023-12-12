@@ -40,7 +40,7 @@
 <script lang="ts" setup>
   import { ref, watch, nextTick } from 'vue';
   import ZHSelect from '@/components/zh-select/index.vue';
-  import api from '@/api/authorityManagement';
+  // import api from '@/api/authorityManagement';
   import { Splitpanes, Pane } from 'splitpanes';
   import ZHForm from '@/components/zh-form/index.vue';
   import { TZHformConfig } from '@/components/zh-form/type';
@@ -54,11 +54,12 @@
     { label: '测试3', value: '测试3' },
   ]);
 
-  // const apiUrl = ref(api.getMenuList);
+  // const apiUrl = ref(api.getRouteList);
 
   //#region 配置项
   const model = ref({
-    api: api.getMenuList,
+    // api: api.getRouteList,
+    api: '',
   } as any);
   const convertedModel = ref({} as any);
   const formConfig = ref({
@@ -79,7 +80,8 @@
         prop: 'api',
         type: 'input',
         span: 12,
-        defaultValue: api.getMenuList,
+        defaultValue: '',
+        // defaultValue: api.getRouteList,
         disabled: true,
         hide: false,
       },

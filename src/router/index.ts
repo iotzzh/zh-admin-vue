@@ -43,12 +43,12 @@ const router = createRouter({
       meta: { hidden: true },
     },
     {
-    path: '/root',
-    component: Layout,
-    name: 'root',
-    children: [],
+      path: '/root',
+      component: Layout,
+      name: 'root',
+      children: [],
     }
-],
+  ],
   scrollBehavior: () => ({ left: 0, top: 0 }),
 });
 
@@ -56,11 +56,11 @@ router.beforeEach(async () => { start(); });
 
 router.afterEach(async () => { close(); });
 
-const appendRouter = (jsonArray:any = []) => {
-  const layoutRouter: RouteRecordNormalized | undefined = router.getRoutes().find((x:any) => x.path === '/root');
+const appendRouter = (jsonArray: any = []) => {
+  const layoutRouter: RouteRecordNormalized | undefined = router.getRoutes().find((x: any) => x.path === '/root');
   const routes = [];
   convertJsonArrayToRoute(ROUTE_DATA_SOURCE === 'api' ? jsonArray : routerData, routes);
-  for (let i = 0; i< routes.length; i++) {
+  for (let i = 0; i < routes.length; i++) {
     layoutRouter?.name && router.addRoute(layoutRouter.name, routes[i]);
   }
 };

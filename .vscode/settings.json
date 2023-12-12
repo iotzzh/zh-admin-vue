@@ -3,5 +3,6 @@
         "src/locales",
         "src/locales/lang"
     ],
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -1,0 +1,61 @@
+{
+  "id": "0012",
+  "parentId": "001",
+  "routeName": "多级菜单",
+  "url": "/menuList",
+  "menuType": 1,
+  "routeCode": "menuList",
+  "sourceBy": null,
+  "sortNo": 3,
+  "icon": "icon-a-huaban2fuben6",
+  "description": null,
+  "isEbl": 1,
+  "isDel": 0,
+  "children": [
+    {
+      "id": "00121",
+      "parentId": "0012",
+      "routeName": "菜单1.1",
+      "menuType": 2,
+      "routeCode": "menuList",
+      "url": "/menuList",
+      "filePath": "/menuList/menu1",
+      "sourceBy": null,
+      "sortNo": 1,
+      "icon": "icon-menu",
+      "description": null,
+      "isEbl": 1,
+      "isDel": 0
+    },
+    {
+      "id": "00122",
+      "parentId": "0012",
+      "routeName": "目录",
+      "menuType": 1,
+      "routeCode": "menuList1",
+      "sourceBy": null,
+      "sortNo": 2,
+      "icon": "icon-menu",
+      "description": null,
+      "isEbl": 1,
+      "isDel": 0,
+      "children": [
+        {
+          "id": "001221",
+          "parentId": "00122",
+          "routeName": "菜单1.1.1",
+          "menuType": 2,
+          "url": "/menuList1",
+          "filePath": "/menuList/menu2",
+          "routeCode": "menuList2",
+          "sourceBy": null,
+          "sortNo": 2,
+          "icon": "icon-menu",
+          "description": null,
+          "isEbl": 1,
+          "isDel": 0
+        }
+      ]
+    }
+  ]
+}

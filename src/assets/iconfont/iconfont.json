@@ -6,6 +6,146 @@
   "description": "zh-admin-vue项目",
   "glyphs": [
     {
+      "icon_id": "422495",
+      "name": "保存布局",
+      "font_class": "baocunbuju",
+      "unicode": "e6b4",
+      "unicode_decimal": 59060
+    },
+    {
+      "icon_id": "3851339",
+      "name": "布局",
+      "font_class": "buju6",
+      "unicode": "e655",
+      "unicode_decimal": 58965
+    },
+    {
+      "icon_id": "4429931",
+      "name": "布局",
+      "font_class": "buju7",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "5203221",
+      "name": "布局",
+      "font_class": "buju8",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "5716684",
+      "name": "布局",
+      "font_class": "buju9",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "5881133",
+      "name": "保存布局",
+      "font_class": "baocunbuju1",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "6480747",
+      "name": "布局",
+      "font_class": "buju10",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "8454768",
+      "name": "布局",
+      "font_class": "buju11",
+      "unicode": "e648",
+      "unicode_decimal": 58952
+    },
+    {
+      "icon_id": "9135341",
+      "name": "布局",
+      "font_class": "buju12",
+      "unicode": "e65c",
+      "unicode_decimal": 58972
+    },
+    {
+      "icon_id": "11987605",
+      "name": "布局",
+      "font_class": "buju13",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "28268913",
+      "name": "布局",
+      "font_class": "buju14",
+      "unicode": "e61d",
+      "unicode_decimal": 58909
+    },
+    {
+      "icon_id": "5704710",
+      "name": "布局",
+      "font_class": "charts-buju",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
+      "icon_id": "12210098",
+      "name": "布局",
+      "font_class": "buju5",
+      "unicode": "e732",
+      "unicode_decimal": 59186
+    },
+    {
+      "icon_id": "20594688",
+      "name": "快速布局",
+      "font_class": "kuaisubuju",
+      "unicode": "e642",
+      "unicode_decimal": 58946
+    },
+    {
+      "icon_id": "17606296",
+      "name": "布局",
+      "font_class": "buju4",
+      "unicode": "e6a2",
+      "unicode_decimal": 59042
+    },
+    {
+      "icon_id": "983771",
+      "name": "布局",
+      "font_class": "weibiaoti550",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "998821",
+      "name": "布局",
+      "font_class": "ai211",
+      "unicode": "e6c7",
+      "unicode_decimal": 59079
+    },
+    {
+      "icon_id": "11264023",
+      "name": "布局",
+      "font_class": "buju2",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "13996850",
+      "name": "布局",
+      "font_class": "buju3",
+      "unicode": "e692",
+      "unicode_decimal": 59026
+    },
+    {
+      "icon_id": "21396789",
+      "name": "line-layout （布局）-05",
+      "font_class": "line-layoutbuju-05",
+      "unicode": "e6e6",
+      "unicode_decimal": 59110
+    },
+    {
       "icon_id": "3739659",
       "name": "动画",
       "font_class": "donghua",

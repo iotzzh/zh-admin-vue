@@ -1,7 +1,7 @@
 <template>
   <Box :use-scroll-content-box="true">
-    <h1>notification 测试页面</h1>
-    <span id="text"></span>
+    <h1>notification 测试页面： chrome浏览器支持较好，safari浏览器支持功能较少</h1>
+    <span id="text1"></span>
     <div class="button-box">
       <ZHLightButton
         text="普通提示"
@@ -94,7 +94,7 @@
       // loop: true, // 是否循环
     };
 
-    const typed = new Typed('#text', options);
+    const typed = new Typed('#text1', options);
     typed.start();
   };
 

@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3372416 */
-  src: url("iconfont.woff2?t=1680879928683") format("woff2"),
-    url("iconfont.woff?t=1680879928683") format("woff"),
-    url("iconfont.ttf?t=1680879928683") format("truetype");
+  src: url('iconfont.woff2?t=1695564127275') format('woff2'),
+       url('iconfont.woff?t=1695564127275') format('woff'),
+       url('iconfont.ttf?t=1695564127275') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,86 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-baocunbuju:before {
+  content: "\e6b4";
+}
+
+.icon-buju6:before {
+  content: "\e655";
+}
+
+.icon-buju7:before {
+  content: "\e600";
+}
+
+.icon-buju8:before {
+  content: "\e61a";
+}
+
+.icon-buju9:before {
+  content: "\e65d";
+}
+
+.icon-baocunbuju1:before {
+  content: "\e62c";
+}
+
+.icon-buju10:before {
+  content: "\e647";
+}
+
+.icon-buju11:before {
+  content: "\e648";
+}
+
+.icon-buju12:before {
+  content: "\e65c";
+}
+
+.icon-buju13:before {
+  content: "\e62e";
+}
+
+.icon-buju14:before {
+  content: "\e61d";
+}
+
+.icon-charts-buju:before {
+  content: "\e653";
+}
+
+.icon-buju5:before {
+  content: "\e732";
+}
+
+.icon-kuaisubuju:before {
+  content: "\e642";
+}
+
+.icon-buju4:before {
+  content: "\e6a2";
+}
+
+.icon-weibiaoti550:before {
+  content: "\e636";
+}
+
+.icon-ai211:before {
+  content: "\e6c7";
+}
+
+.icon-buju2:before {
+  content: "\e629";
+}
+
+.icon-buju3:before {
+  content: "\e692";
+}
+
+.icon-line-layoutbuju-05:before {
+  content: "\e6e6";
 }
 
 .icon-donghua:before {
@@ -120,3 +200,4 @@
 .icon-zhedie1:before {
   content: "\e621";
 }
+

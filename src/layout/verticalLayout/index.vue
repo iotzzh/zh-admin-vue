@@ -1,14 +1,20 @@
 <template>
   <div class="layout" v-loading="loading">
     <div v-if="!isMobile" :class="collapse ? 'left' : 'left-fold'">
-      <Sidebar />
+      <div style="display: flex; flex-direction: column; height: 100%">
+        <Title></Title>
+        <Menu mode="vertical"></Menu>
+      </div>
     </div>
 
     <div class="right">
-      <Navbar />
+      <div class="navbar">
+        <Folder></Folder>
+        <User></User>
+      </div>
       <div class="right-content">
-        <TagsView @reload="reload" />
-        <AppMain v-if="isRouterAlive" />
+        <Tag @reload="reload" />
+        <Main v-if="isRouterAlive" />
       </div>
     </div>
 
@@ -19,17 +25,24 @@
       size="70%"
       modal-class="layout-menu-drawer"
     >
-      <Sidebar />
+      <Title></Title>
+      <Menu mode="vertical"></Menu>
     </el-drawer>
   </div>
 </template>
 
 <script setup lang="ts">
-  import { Sidebar, Navbar, AppMain, TagsView } from './components';
+  import { onMounted, ref, nextTick } from 'vue';
   import { storeToRefs } from 'pinia';
   import { useLayoutStore } from '../store';
-  import { onMounted, ref, nextTick } from 'vue';
   import storage from '@/utils/storage';
+
+  import Tag from '@/layout/components/Tag.vue';
+  import Title from '@/layout/components/Title.vue';
+  import Menu from '@/layout/components/Menu.vue';
+  import User from '@/layout/components/User.vue';
+  import Folder from '@/layout/components/Folder.vue';
+  import Main from '@/layout/components/Main.vue';
 
   const store = useLayoutStore();
   const { collapse, isOpenDrawerMenu } = storeToRefs(store);
@@ -54,60 +67,7 @@
 </script>
 
 <style lang="scss" scoped>
-  @keyframes fold {
-    from {
-      width: 220px;
-    }
-    to {
-      width: 70px;
-    }
-  }
-
-  @keyframes expand {
-    from {
-      width: 70px;
-    }
-    to {
-      width: 220px;
-    }
-  }
-
-  .layout {
-    width: 100%;
-    height: 100%;
-    display: flex;
-
-    .left {
-      min-width: 220px;
-      animation: expand 0.2s ease-in-out;
-    }
-
-    .left-fold {
-      width: 70px;
-      animation: fold 0.2s ease-in-out;
-    }
-
-    .right {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      overflow: hidden;
-
-      .right-header {
-        height: 90px;
-      }
-
-      .right-content {
-        flex: 1;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        background-color: rgba(90, 90, 90, 0.1);
-      }
-    }
-  }
+  @import './index.scss';
 </style>
 
 <style lang="scss">
