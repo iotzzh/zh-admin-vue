@@ -18,13 +18,8 @@
       </div>
     </div>
 
-    <el-drawer
-      v-model="isOpenDrawerMenu"
-      direction="ltr"
-      :with-header="false"
-      size="70%"
-      modal-class="layout-menu-drawer"
-    >
+    <el-drawer v-model="isOpenDrawerMenu" direction="ltr" :with-header="false" size="70%"
+      modal-class="layout-menu-drawer">
       <Title></Title>
       <Menu mode="vertical"></Menu>
     </el-drawer>
@@ -32,48 +27,48 @@
 </template>
 
 <script setup lang="ts">
-  import { onMounted, ref, nextTick } from 'vue';
-  import { storeToRefs } from 'pinia';
-  import { useLayoutStore } from '../store';
-  import storage from '@/utils/storage';
+import { onMounted, ref, nextTick } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useLayoutStore } from '../store';
+import storage from '@/utils/storage';
 
-  import Tag from '@/layout/components/Tag.vue';
-  import Title from '@/layout/components/Title.vue';
-  import Menu from '@/layout/components/Menu.vue';
-  import User from '@/layout/components/User.vue';
-  import Folder from '@/layout/components/Folder.vue';
-  import Main from '@/layout/components/Main.vue';
+import Tag from '@/layout/components/Tag.vue';
+import Title from '@/layout/components/Title.vue';
+import Menu from '@/layout/components/Menu.vue';
+import User from '@/layout/components/User.vue';
+import Folder from '@/layout/components/Folder.vue';
+import Main from '@/layout/components/Main.vue';
 
-  const store = useLayoutStore();
-  const { collapse, isOpenDrawerMenu } = storeToRefs(store);
+const store = useLayoutStore();
+const { collapse, isOpenDrawerMenu } = storeToRefs(store);
 
-  const isMobile = ref(storage.getIsMobile());
+const isMobile = ref(storage.getIsMobile());
 
-  const loading = ref(true);
+const loading = ref(true);
 
-  onMounted(() => {
-    loading.value = false;
-    if (document.body.offsetWidth <= 820 && !isMobile.value) {
-      store.toggleCollapse(false);
-    }
-  });
+onMounted(() => {
+  loading.value = false;
+  if (document.body.offsetWidth <= 820 && !isMobile.value) {
+    store.toggleCollapse(false);
+  }
+});
 
-  const isRouterAlive = ref(true);
-  const reload = async () => {
-    isRouterAlive.value = false;
-    await nextTick();
-    isRouterAlive.value = true;
-  };
+const isRouterAlive = ref(true);
+const reload = async () => {
+  isRouterAlive.value = false;
+  await nextTick();
+  isRouterAlive.value = true;
+};
 </script>
 
 <style lang="scss" scoped>
-  @import './index.scss';
+@import './index.scss';
 </style>
 
 <style lang="scss">
-  .layout-menu-drawer {
-    .el-drawer__body {
-      padding: 0px;
-    }
+.layout-menu-drawer {
+  .el-drawer__body {
+    padding: 0px;
   }
+}
 </style>
