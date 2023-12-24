@@ -1,14 +1,17 @@
 <template>
   <div class="zh-select">
-    <el-select v-bind="$attrs" v-model="value" :loading="loading" :disabled="isDisabled"
+    <el-select v-bind="$attrs" v-model="value" ref="innerRefInput" :loading="loading" :disabled="isDisabled"
       :style="{ width: width ? `${width}` : '100%' }" :value-key="valueKey || undefined" @change="change" :remote="remote"
       :remote-method="onRemoteMethod" :placeholder="placeholder ? placeholder : remoteMethod ? '请输入选择' : '请选择'">
       <el-option v-for="(item, index) in (options as any)" :key="valueKey ? item[valueKey] : index"
         :label="useLabelField(item)" :value="valueKey ? item : valueField ? item[valueField] : item.value"></el-option>
 
-      <template #prefix v-if="prefix">
-        <span v-if="typeof prefix === 'string'">{{ prefix }}</span>
+      <template v-for="(value, name) in $slots" #[name]="scopeData">
+        <slot :name="name" v-bind="scopeData || {}"></slot>
       </template>
+      <!-- <template #prefix v-if="prefix">
+        <span v-if="typeof prefix === 'string'">{{ prefix }}</span>
+      </template> -->
     </el-select>
   </div>
 </template>
@@ -26,6 +29,7 @@ const props = defineProps({
   modelValue: {
     type: [Array, String, Number, Boolean, Object],
   },
+  refInput: {},
   labelField: {
     type: String,
   },
@@ -87,10 +91,17 @@ const {
   remoteRequestSize,
   remoteRequestParams,
   valueKey,
-  prefix,
+  refInput,
 } = toRefs(props);
 
 const emit = defineEmits(['update:modelValue']);
+const innerRefInput = ref();
+
+onMounted(() => {
+  if (refInput?.value) {
+    refInput.value = innerRefInput.value; // 注意这里的赋值方向，是子组件向外部组件的ref赋值
+  }
+});
 
 const isDisabled = computed(() => {
   let result = false;

@@ -49,7 +49,7 @@
       "menuType": 2,
       "routeCode": "form",
       "url": "/form",
-      "filePath": "/component/form",
+      "filePath": "/component/zhform/index",
       "sourceBy": null,
       "sortNo": 1,
       "icon": "icon-menu",
