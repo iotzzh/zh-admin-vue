@@ -19,7 +19,6 @@ import { toRefs, ref, onMounted, PropType, watch } from 'vue';
 import { TZHRequestParams } from '../zh-request/type';
 import ZHRequest from '../zh-request';
 import { computed } from 'vue';
-import { ComponentSize } from 'element-plus/es/constants/size';
 
 type disabledFun = (modelValue: any) => boolean;
 
