@@ -13,6 +13,21 @@
   "isDel": 0,
   "children": [
     {
+      "id": "00130",
+      "parentId": "0013",
+      "routeName": "Box",
+      "menuType": 2,
+      "routeCode": "zhbox",
+      "url": "/zhbox",
+      "filePath": "/component/zhbox/index",
+      "sourceBy": null,
+      "sortNo": 1,
+      "icon": "icon-menu",
+      "description": null,
+      "isEbl": 1,
+      "isDel": 0
+    },
+    {
       "id": "00131",
       "parentId": "0013",
       "routeName": "表单",
