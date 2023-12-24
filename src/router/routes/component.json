@@ -15,7 +15,7 @@
     {
       "id": "00130",
       "parentId": "0013",
-      "routeName": "Box",
+      "routeName": "盒子",
       "menuType": 2,
       "routeCode": "zhbox",
       "url": "/zhbox",
@@ -29,6 +29,21 @@
     },
     {
       "id": "00131",
+      "parentId": "0013",
+      "routeName": "下拉组件",
+      "menuType": 2,
+      "routeCode": "zhselect",
+      "url": "/zhselect",
+      "filePath": "/component/zhselect/index",
+      "sourceBy": null,
+      "sortNo": 1,
+      "icon": "icon-menu",
+      "description": null,
+      "isEbl": 1,
+      "isDel": 0
+    },
+    {
+      "id": "00132",
       "parentId": "0013",
       "routeName": "表单",
       "menuType": 2,

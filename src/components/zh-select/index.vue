@@ -1,16 +1,8 @@
 <template>
   <div class="zh-select">
-    <el-select v-bind="$attrs" v-model="value" :loading="loading" :loading-text="loadingText" :multiple="multiple"
-      :disabled="isDisabled" :style="{ width: width ? `${width}` : '100%' }" :value-key="valueKey || undefined"
-      @change="change" :clearable="clearable === undefined ? true : clearable"
-      :filterable="filterable === undefined ? true : filterable" :remote="remote" :remote-method="onRemoteMethod"
-      :automaticDropdown="automaticDropdown" :size="size" :autocomplete="autocomplete" :effect="effect"
-      :allowCreate="allowCreate" :filterMethod="filterMethod" :multipleLimit="multipleLimit"
-      :defaultFirstOption="defaultFirstOption" :reserveKeyword="reserveKeyword" :collapseTags="collapseTags"
-      :collapseTagsTooltip="collapseTagsTooltip" :persistent="persistent" :clearIcon="clearIcon"
-      :fitInputWidth="fitInputWidth" :suffixIcon="suffixIcon" :validateEvent="validateEvent"
-      :remoteShowSuffix="remoteShowSuffix" :suffixTransition="suffixTransition" :placement="placement"
-      :popperClass="popperClass" :placeholder="placeholder ? placeholder : remoteMethod ? '请输入选择' : '请选择'">
+    <el-select v-bind="$attrs" v-model="value" :loading="loading" :disabled="isDisabled"
+      :style="{ width: width ? `${width}` : '100%' }" :value-key="valueKey || undefined" @change="change" :remote="remote"
+      :remote-method="onRemoteMethod" :placeholder="placeholder ? placeholder : remoteMethod ? '请输入选择' : '请选择'">
       <el-option v-for="(item, index) in (options as any)" :key="valueKey ? item[valueKey] : index"
         :label="useLabelField(item)" :value="valueKey ? item : valueField ? item[valueField] : item.value"></el-option>
 
@@ -32,8 +24,6 @@ import { ComponentSize } from 'element-plus/es/constants/size';
 type disabledFun = (modelValue: any) => boolean;
 
 const props = defineProps({
-  // name: String,
-  // id: String,
   modelValue: {
     type: [Array, String, Number, Boolean, Object],
   },
@@ -47,80 +37,15 @@ const props = defineProps({
   disabled: {
     type: Boolean || Function,
   },
-  multiple: Boolean,
-  autocomplete: {
-    type: String,
-    default: 'off',
-  },
-  automaticDropdown: Boolean,
-  size: {
-    type: String as PropType<ComponentSize>,
-  },
-  effect: {
-    type: String as PropType<'light' | 'dark' | string>,
-    default: 'light',
-  },
-  clearable: {
-    type: Boolean || undefined,
-    default: undefined,
-  },
-  filterable: Boolean,
-  allowCreate: Boolean,
-  // loading: Boolean,
-  popperClass: {
-    type: String,
-    default: '',
-  },
   remote: Boolean,
-  loadingText: String,
-  noMatchText: String,
-  noDataText: String,
   remoteMethod: Function,
   remoteRequestSize: Number,
   remoteRequestParams: Object || String, // 示例：当item是对象时：{ userId: id }， 当item是一个值时 userId
-  filterMethod: Function,
-
-  multipleLimit: {
-    type: Number,
-    default: 0,
-  },
   placeholder: {
     type: String,
   },
-  defaultFirstOption: Boolean,
-  reserveKeyword: {
-    type: Boolean,
-    default: true,
-  },
   valueKey: {
     type: String,
-  },
-  collapseTags: Boolean,
-  collapseTagsTooltip: {
-    type: Boolean,
-    default: false,
-  },
-  persistent: {
-    type: Boolean,
-    default: true,
-  },
-  clearIcon: {},
-  fitInputWidth: {
-    type: Boolean,
-    default: false,
-  },
-  suffixIcon: {},
-  validateEvent: {
-    type: Boolean,
-    default: true,
-  },
-  remoteShowSuffix: {
-    type: Boolean,
-    default: false,
-  },
-  suffixTransition: {
-    type: Boolean,
-    default: true,
   },
   placement: {
     type: String,
@@ -163,29 +88,6 @@ const {
   remoteRequestSize,
   remoteRequestParams,
   valueKey,
-  clearable,
-  filterable,
-  multiple,
-  automaticDropdown,
-  size,
-  autocomplete,
-  effect,
-  allowCreate,
-  filterMethod,
-  multipleLimit,
-  defaultFirstOption,
-  reserveKeyword,
-  collapseTags,
-  collapseTagsTooltip,
-  persistent,
-  clearIcon,
-  fitInputWidth,
-  suffixIcon,
-  validateEvent,
-  remoteShowSuffix,
-  suffixTransition,
-  placement,
-  popperClass,
   prefix,
 } = toRefs(props);
 
