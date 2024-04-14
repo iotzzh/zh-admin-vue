@@ -8,7 +8,6 @@ for (const path in modules) {
         const module: any = await modules[path]();
 
         // TODO: Validate repeat
-
         route.push(JSON.parse(JSON.stringify(module)));
     }
 }

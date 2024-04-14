@@ -1,6 +1,6 @@
-export const executeFunctionBody = async (functionBody: string, params: {[x:string]: any} | undefined) => {
+export const executeFunctionBody = async (functionBody: string, params: { [x: string]: any } | undefined) => {
     if (!functionBody) return;
-    let func = null;
+    let func: Function | null = null;
     if (params) {
         func = new Function('params', functionBody);
         return await func(params);

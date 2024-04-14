@@ -1,4 +1,5 @@
 const modules = import.meta.glob('../views/**');
+// 将数据转换成路由
 export const convertJsonArrayToRoute = (jsonArray:any, route:any) => {
     for (let i = 0; i < jsonArray.length; i++) {
         route[i] = {

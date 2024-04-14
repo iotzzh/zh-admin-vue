@@ -3,9 +3,6 @@ import type { App } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { close, start } from '@/utils/nporgress';
 import Layout from '@/layout/index.vue';
-import VLayout from '@/layout/verticalLayout/index.vue';
-import HLayout from '@/layout/horizontalLayout/index.vue';
-import LocalStorageHelper from '@/utils/localStorageHelper';
 import routerData from './routes/index';
 import { convertJsonArrayToRoute } from './utils';
 
@@ -56,6 +53,12 @@ router.beforeEach(async () => { start(); });
 
 router.afterEach(async () => { close(); });
 
+/*
+* 追加路由
+* 方式有三种：根据本地配置文件追加；根据服务端放回菜单数据追加；根据本地代码的目录结构生成
+* 根据本地配置文件追加：修改router/routes里面的json数据即可
+* 根据服务端放回菜单数据追加：将配置文件添加到配置菜单
+*/
 const appendRouter = (jsonArray: any = []) => {
   const layoutRouter: RouteRecordNormalized | undefined = router.getRoutes().find((x: any) => x.path === '/root');
   const routes = [];
@@ -65,8 +68,8 @@ const appendRouter = (jsonArray: any = []) => {
   }
 };
 
-// TODO: directory的方式暂时不想写
-if (ROUTE_DATA_SOURCE === 'file' || ROUTE_DATA_SOURCE === 'directory') {
+// 如果是从文件读取生成，就立即添加
+if (ROUTE_DATA_SOURCE === 'file') {
   appendRouter();
 }
 
