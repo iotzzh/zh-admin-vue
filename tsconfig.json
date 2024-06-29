@@ -37,9 +37,10 @@
     "sourceMap": true,
     "baseUrl": ".",
     "types": [
-      "node",
-      "element-plus/global",
-      "webpack-env"
+      "vite/client"
+      // "node",
+      // "element-plus/global",
+      // "webpack-env"
       // "webpack-env",
       // "jest"
     ],
@@ -55,7 +56,6 @@
       "scripthost"
     ]
   },
-
   // "references": [
   //   {
   //     "path": "./tsconfig.vite-config.json"
