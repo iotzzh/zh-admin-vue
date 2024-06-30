@@ -5,12 +5,13 @@
       <SidebarLogo />
     </div>
     <!-- nav -->
-    <Menu mode="horizontal"></Menu>
+    <Menu :mode="ModeType.horizontal"></Menu>
     <User></User>
   </div>
 </template>
 
 <script setup lang="ts">
+  import { ModeType } from '../../../type';
   import User from '@/layout/components/User.vue';
   import SidebarLogo from './SidebarLogo.vue';
   import Menu from '@/layout/components/Menu.vue';

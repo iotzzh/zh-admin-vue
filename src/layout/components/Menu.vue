@@ -28,19 +28,14 @@
 </template>
 
 <script setup lang="ts">
+  import { ModeType } from '../type';
   import { ref, onMounted, PropType, toRefs } from 'vue';
   import { storeToRefs } from 'pinia';
   import MenuItem from './MenuItem.vue';
-
   import { useLayoutStore } from '@/layout/store';
   import { appendRouter } from '@/router';
   import ZHRequest from '@/components/zh-request';
   import api from '@/api';
-
-  enum ModeType {
-    horizontal = 'horizontal',
-    vertical = 'vertical',
-  }
 
   const props = defineProps({
     mode: {

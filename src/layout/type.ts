@@ -1,3 +1,9 @@
+export enum ModeType {
+    horizontal = 'horizontal',
+    vertical = 'vertical',
+}
+
+
 interface RouteMetaType {
     title: string
 }
@@ -30,8 +36,7 @@ interface MenuNode {
 }
 
 
-export 
-{
+export {
     RouteType,
     MenuNode
 };
