@@ -1,29 +1,32 @@
 <template>
-    <div class="box" style="display: felx;">
-        <div class="grid">
+    <ZHBox :use-scroll-content-box="false">
+        <div class="box" style="display: felx;height: 100%;">
+        <div style="max-width: 500px;height: 100%;">
             <ZHTree :config="config" ref="refWorkspaceTree">
             </ZHTree>
         </div>
-
     </div>
+    </ZHBox>
+
 </template>
 
 <script setup>
 import { ref } from 'vue';
 import ZHTree from '@/components/zh-tree/index.vue';
+import ZHBox from '@/components/zh-box/index.vue';
 import api from '@/api';
 
 const config = ref({
     treeConfig: {
-        hasAdd: false,
+        hasAdd: true,
         hasEdit: true,
         hasDelete: true,
         hasEmptyAdd: true,
-        hasRootAdd: false,
+        hasRootAdd: true,
         labelDisplayMaxLength: 50,
         initialData: true,
         checkStrictly: true,
-        showCheckbox: false,
+        showCheckbox: true,
         defaultProps: {
             label: 'name',
         },

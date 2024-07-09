@@ -1,4 +1,4 @@
-import { TZHFormModal } from '../zh-form-modal/type'; 
+import { TZHFormModal } from '../zh-form-modal/type';
 
 export interface TZHTree {
   treeConfig: TZHTreeConfig
@@ -39,5 +39,5 @@ export interface TZHTreeRequestConfig {
 
 
 export interface TObject {
-  [x:string]: any
+  [x: string]: any
 }
