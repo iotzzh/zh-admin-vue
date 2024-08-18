@@ -8,6 +8,19 @@ declare module '*.vue' {
     export default Vue;
 }
 
+// declare module '*.vue' {
+//     import type { DefineComponent } from 'vue'
+//     // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
+//     const component: DefineComponent<{}, {}, any>
+//     export default component
+// }
+
+declare module 'vue';
+
+declare module '@vue/reactivity';
+
+declare module '@vue/reactivity';
+
 declare module 'js-pinyin';
 
 declare module 'aos';
@@ -19,6 +32,8 @@ declare module 'element-plus/dist/locale/zh-cn.mjs';
 declare module 'splitpanes';
 
 declare module 'nprogress';
+
+declare module 'dayjs';
 
 
 declare module '*.svg'
