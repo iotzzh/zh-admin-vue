@@ -26,6 +26,21 @@
       "description": null,
       "isEbl": 1,
       "isDel": 0
+    },
+    {
+      "id": "00142",
+      "parentId": "0014",
+      "routeName": "animateCss",
+      "menuType": 2,
+      "routeCode": "animateCss",
+      "url": "/animateCss",
+      "filePath": "/animation/animateCss",
+      "sourceBy": null,
+      "sortNo": 2,
+      "icon": "icon-menu",
+      "description": null,
+      "isEbl": 1,
+      "isDel": 0
     }
   ]
 }
