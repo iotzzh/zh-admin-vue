@@ -342,9 +342,10 @@
 </script>
 
 <style lang="scss" scoped>
-  // .scroll-box {
-  //     background-image: url('../../assets/img/aos-bg.jpg');
-  // }
+  .scroll-box {
+    background-image: url(https://michalsnik.github.io/aos/img/bg.jpg);
+    backdrop-filter: blur(1px);
+  }
 
   .hljs-params,
   .hljs-constant {
