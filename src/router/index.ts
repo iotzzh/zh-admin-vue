@@ -36,7 +36,7 @@ const router = createRouter({
     {
       // 匹配所有路径  vue2使用*   vue3使用/:pathMatch(.*)*或/:pathMatch(.*)或/:catchAll(.*)
       path: '/:pathMatch(.*)',
-      redirect: '/login',
+      redirect: '/404',
       meta: { hidden: true },
     },
     {
