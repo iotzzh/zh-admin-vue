@@ -4,6 +4,6 @@
   "useMock": true,
   "localPrefix": "",
   "localUseMock": true,
-  "name": "getRouteList",
-  "url": "/route/list"
+  "name": "",
+  "url": ""
 }

@@ -1,5 +1,5 @@
 export default class DataHelper {
-    static classname = 'DataHelper';
+    static className = 'DataHelper';
     static getRootChild = (id: string, childs: Array<any>) => {
         for (let i = 0; i < childs.length; i++) {
             if (childs.find(x => x.parentId === id)) {
@@ -9,7 +9,7 @@ export default class DataHelper {
             }
         }
         return childs;
-    };  
+    };
 
     static convertArrayToTree = (arrayData: Array<{ [x: string]: any }>) => {
         const roots = arrayData.filter(x => !x.parentId);
@@ -21,7 +21,7 @@ export default class DataHelper {
                 roots[i].children = [];
             }
         }
-        
+
         return roots;
     };
 }

@@ -1,13 +1,23 @@
 {
   "label": "登录",
+  "name": "getRouteList",
+  "prefix": "/api",
+  "localPrefix": "",
+  "url": "",
   "useMock": true,
   "localUseMock": true,
   "api": [
-    { "label": "登录接口", "name": "login", "url": "/login/index", "useMock": true },
-    { "name": "getRouteList", "label": "部门列表", "url": "/route/list", "useMock": true }
-  ],
-  "name": "getRouteList",
-  "url": "/route/list",
-  "prefix": "/api",
-  "localPrefix": ""
+    {
+      "label": "登录接口",
+      "name": "login",
+      "url": "/login/index",
+      "useMock": true
+    },
+    {
+      "name": "getRouteList",
+      "label": "部门列表",
+      "url": "/route/list",
+      "useMock": true
+    }
+  ]
 }

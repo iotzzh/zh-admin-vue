@@ -44,7 +44,6 @@
   import Folder from '@/layout/components/Folder.vue';
   import Main from '@/layout/components/Main.vue';
 
-
   const store = useLayoutStore();
   const { collapse, isOpenDrawerMenu } = storeToRefs(store);
 

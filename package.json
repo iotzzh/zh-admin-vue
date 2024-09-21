@@ -1,11 +1,11 @@
 {
   "name": "zh-admin-vue",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "start": "vite",
     "dev": "vite --mode dev",
-    "qa": "vite --mode dev",
-    "pro": "vite --mode dev",
+    "qa": "vite --mode qa",
+    "pro": "vite --mode pro",
     "build": "vite build",
     "build:dev": "node --max_old_space_size=1024000 ./node_modules/vite/bin/vite.js build --mode dev",
     "build:qa": "node --max_old_space_size=1024000 ./node_modules/vite/bin/vite.js build --mode qa",

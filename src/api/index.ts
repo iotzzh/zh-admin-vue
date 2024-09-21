@@ -12,7 +12,7 @@ const isEmpty = (str: string) => {
 let api: { [x: string]: any } = {};
 // NOTE: 正式使用时，注意调换判断顺序，部署后禁用mock，由于我这里只是前端项目，所以mock优先~
 const getPrefix = (module: any, api: any) => {
-    const isLocal = ENV.MODE === 'development';
+    const isLocal = ENV.VITE_ENVIRONMENT === 'local';
     if (isLocal) {
         if (api.localUseMock ||
             (isEmpty(api.localUseMock) && module.localUseMock) ||

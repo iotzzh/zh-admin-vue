@@ -1,10 +1,10 @@
 import type { RouteRecordNormalized } from 'vue-router';
-import type { App } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { close, start } from '@/utils/nporgress';
 import Layout from '@/layout/index.vue';
 import routerData from './routes/index';
 import { convertJsonArrayToRoute } from './utils';
+import type { App } from 'vue';
 
 const PUBLIC_PATH = import.meta.env.VITE_PUBLIC_PATH;
 const ROUTE_DATA_SOURCE = import.meta.env.VITE_ROUTE_DATA_SOURCE || 'file';
