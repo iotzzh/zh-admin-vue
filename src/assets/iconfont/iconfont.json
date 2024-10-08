@@ -6,6 +6,13 @@
   "description": "zh-admin-vue项目",
   "glyphs": [
     {
+      "icon_id": "1469225",
+      "name": "github",
+      "font_class": "github",
+      "unicode": "e85a",
+      "unicode_decimal": 59482
+    },
+    {
       "icon_id": "422495",
       "name": "保存布局",
       "font_class": "baocunbuju",
