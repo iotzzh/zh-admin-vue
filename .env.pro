@@ -1,5 +1,7 @@
 VITE_ENVIRONMENT=pro
 
+# 与nginx中的location保持一致
+# 参考：https://blog.csdn.net/m0_50360903/article/details/136972706
 VITE_PUBLIC_PATH=
 
 VITE_TITLE=后台管理系统
