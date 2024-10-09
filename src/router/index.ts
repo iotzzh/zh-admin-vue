@@ -10,7 +10,7 @@ const PUBLIC_PATH = import.meta.env.VITE_PUBLIC_PATH;
 const ROUTE_DATA_SOURCE = import.meta.env.VITE_ROUTE_DATA_SOURCE || 'file';
 
 const router = createRouter({
-  history: createWebHistory(PUBLIC_PATH ? '/' + PUBLIC_PATH : './'),
+  history: createWebHistory(PUBLIC_PATH ? '/' + PUBLIC_PATH : '/'),
   // history: createWebHashHistory(PUBLIC_PATH),
   routes: [
     {
