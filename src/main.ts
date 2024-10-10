@@ -46,11 +46,12 @@ async function boostrap() {
   });
 
   // 多语言配置
-  try {
-    await setupI18n(app);
-  } catch(error) {
-    console.error('语言设置失败：' + error);
-  }
+  // try {
+  //   await setupI18n(app);
+  // } catch(error) {
+  //   console.error('语言设置失败：' + error);
+  // }
+  
   
 
   // 配置路由
