@@ -46,7 +46,12 @@ async function boostrap() {
   });
 
   // 多语言配置
-  await setupI18n(app);
+  try {
+    await setupI18n(app);
+  } catch(error) {
+    console.error('语言设置失败：' + error);
+  }
+  
 
   // 配置路由
   await setupRouter(app);
