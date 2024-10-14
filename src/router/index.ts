@@ -74,7 +74,7 @@ if (ROUTE_DATA_SOURCE === 'file') {
   appendRouter();
 }
 
-export async function setupRouter(app: App<Element>) {
+export async function setupRouter(app: App) {
   app.use(router);
 }
 
