@@ -18,6 +18,15 @@ const popErrorMessage = (message: string, duration = 5000) => {
   });
 };
 
+const popWarningMessage = (message: string, duration = 5000) => {
+  ElMessage({
+    message,
+    grouping: true,
+    type: 'warning',
+    duration,
+  });
+};
+
 const popInfoMessage = (message: string, duration = 5000) => {
   ElMessage({
     message,
@@ -40,5 +49,6 @@ export {
   popSuccessMessage,
   popErrorMessage,
   popInfoMessage,
-  isMessageConfirm
+  isMessageConfirm,
+  popWarningMessage
 };

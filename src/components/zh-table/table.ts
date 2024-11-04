@@ -1,7 +1,7 @@
 import { computed, Ref, ref } from 'vue';
 import { TZHTableConfig, TZHTablePageConfig,TZHTableRequestConfig, TZHTableRequestConfigResult  } from './type';
 import Form from './form';
-import { isMessageConfirm, popErrorMessage, popSuccessMessage } from '../zh-message';
+import { isMessageConfirm, popErrorMessage, popSuccessMessage, popWarningMessage } from '../zh-message';
 import { TZHRequestParams } from '../zh-request/type';
 import ZHRequest from '../zh-request';
 import { debounce, throttle } from 'lodash';
@@ -108,9 +108,14 @@ export default class Table {
   };
 
   batchDelete = async () => {
+    const selections = this.refTable.value.getSelectionRows();
+    if (!selections || selections.length === 0) {
+      popWarningMessage('至少选择一条数据');
+      return;
+    }
     const msgResult = await isMessageConfirm('确认删除？', '提示');
     if (!msgResult) return;
-    const selections = this.refTable.value.getSelectionRows();
+    
     const params: TZHRequestParams = {
       url: this.request?.batchDelete?.url || '',
       conditions: {
