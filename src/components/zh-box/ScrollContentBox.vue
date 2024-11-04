@@ -4,15 +4,16 @@
   </el-scrollbar>
 </template>
 <script lang="ts" setup>
-  const emit = defineEmits(['scroll']);
+const emit = defineEmits(['scroll']);
 
-  const scroll = (e: any) => {
-    emit('scroll', e);
-  };
+const scroll = (e: any) => {
+  // console.log('组件内滚动监听：', e);
+  emit('scroll', e);
+};
 </script>
 
 <style lang="scss" scoped>
-  .zh-scroll-layout {
-    width: 100%;
-  }
+.zh-scroll-layout {
+  width: 100%;
+}
 </style>

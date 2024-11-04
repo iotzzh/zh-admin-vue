@@ -5,7 +5,7 @@
     <template #title><span class="tab">{{ item?.routeName }}</span></template>
   </el-menu-item>
 
-  <el-sub-menu :index="item ? item.url : ''" v-else>
+  <el-sub-menu :index="item ? (item.url || '') : ''" v-else>
     <template #title>
       <i :class="'iconfont ' + item?.icon"></i>
       <span class="tab">{{ item?.routeName }}</span>
@@ -54,11 +54,11 @@ const { item } = toRefs(props);
     color: #333 !important;
   }
 
-  .el-sub-menu {
-    .el-menu {
-      // background: #fff !important;
-    }
-  }
+  // .el-sub-menu {
+  //   .el-menu {
+  //     // background: #fff !important;
+  //   }
+  // }
 }
 
 .el-menu-vertical::-webkit-scrollbar {
