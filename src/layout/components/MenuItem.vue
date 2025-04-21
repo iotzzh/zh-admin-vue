@@ -1,11 +1,16 @@
 <template>
   <!-- 这里没有url，跳转到新的界面：提示配置该路由 -->
-  <el-menu-item v-if="!item || !item.children || item.children.length === 0" :index="item ? item.url : ''">
+  <el-menu-item
+    v-if="!item || !item.children || item.children.length === 0"
+    :index="item ? item.url : ''"
+  >
     <i :class="'iconfont ' + item?.icon"></i>
-    <template #title><span class="tab">{{ item?.routeName }}</span></template>
+    <template #title
+      ><span class="tab">{{ item?.routeName }}</span></template
+    >
   </el-menu-item>
 
-  <el-sub-menu :index="item ? (item.url || '') : ''" v-else>
+  <el-sub-menu :index="item ? item.url || '' : ''" v-else>
     <template #title>
       <i :class="'iconfont ' + item?.icon"></i>
       <span class="tab">{{ item?.routeName }}</span>
@@ -24,53 +29,53 @@
 </template>
 
 <script lang="ts" setup>
-import { MenuNode } from '@/layout/type';
-import { PropType, toRefs } from 'vue';
+  import { MenuNode } from '@/layout/type';
+  import { PropType, toRefs } from 'vue';
 
-const props = defineProps({
-  collapse: {
-    type: Boolean,
-    default: true,
-  },
-  item: {
-    type: Object as PropType<MenuNode>,
-  },
-});
+  const props = defineProps({
+    collapse: {
+      type: Boolean,
+      default: true,
+    },
+    item: {
+      type: Object as PropType<MenuNode>,
+    },
+  });
 
-const { item } = toRefs(props);
+  const { item } = toRefs(props);
 </script>
 
 <style lang="scss">
-.el-menu-vertical {
-  width: 100%;
-  border-right: none !important;
-  overflow-y: scroll;
+  .el-menu-vertical {
+    width: 100%;
+    border-right: none !important;
+    overflow-y: scroll;
 
-  .tab {
-    font-size: 16px;
+    .tab {
+      font-size: 16px;
+    }
+
+    .el-menu-item {
+      color: #333 !important;
+    }
+
+    // .el-sub-menu {
+    //   .el-menu {
+    //     // background: #fff !important;
+    //   }
+    // }
   }
 
-  .el-menu-item {
-    color: #333 !important;
+  .el-menu-vertical::-webkit-scrollbar {
+    width: 0px;
+    height: 4px;
   }
 
-  // .el-sub-menu {
-  //   .el-menu {
-  //     // background: #fff !important;
-  //   }
-  // }
-}
+  .el-menu-vertical:not(.el-menu--collapse) {
+    min-height: 400px;
+  }
 
-.el-menu-vertical::-webkit-scrollbar {
-  width: 0px;
-  height: 4px;
-}
-
-.el-menu-vertical:not(.el-menu--collapse) {
-  min-height: 400px;
-}
-
-.iconfont {
-  margin-right: 5px;
-}
+  .iconfont {
+    margin-right: 5px;
+  }
 </style>
