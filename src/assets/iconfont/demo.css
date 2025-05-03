@@ -73,7 +73,7 @@
   height: 110px;
   margin-top: -50px;
   overflow: hidden;
-  *zoom: 1;
+  zoom: 1;
 }
 
 .main .logo a {
