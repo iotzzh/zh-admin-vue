@@ -15,8 +15,7 @@ import htmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker';
 import tsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker';
 import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker';
 
-
-import Particles from "vue3-particles";
+import Particles from 'vue3-particles';
 import { setupRouter } from '@/router/index';
 import ElementPlus from 'element-plus';
 import * as Icons from '@element-plus/icons-vue';
@@ -51,8 +50,6 @@ async function boostrap() {
   // } catch(error) {
   //   console.error('语言设置失败：' + error);
   // }
-  
-  
 
   // 配置路由
   await setupRouter(app);
@@ -92,9 +89,8 @@ async function boostrap() {
         return new tsWorker();
       }
       return new EditorWorker();
-    }
+    },
   };
-
 }
 
 boostrap();

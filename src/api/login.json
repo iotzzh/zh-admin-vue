@@ -5,7 +5,7 @@
       "name": "login",
       "label": "登录接口",
       "url": "/login/index",
-      "useMock": "",
+      "useMock": true,
       "localUseMock": true,
       "localPrefix": "",
       "prefix": "/api"

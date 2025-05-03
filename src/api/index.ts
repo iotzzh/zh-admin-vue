@@ -11,6 +11,11 @@ const ENV = import.meta.env;
 // 这个数据会被解析成 JavaScript 对象并赋值给变量 rootJson
 import rootJson from './index.json';
 
+// 判断是否为空字符串、0、undefined、null
+const isEmptyOrZeroOrUndefinedOrNull = (x: string | null | number | undefined | boolean) => {
+  return x === '' || x === null || x === undefined || x === 0;
+};
+
 let api: TApiMap = {};
 // NOTE: 正式使用时，注意调换判断顺序，部署后禁用mock，由于我这里只是前端项目，所以mock优先~
 const getPrefix = (module: TApiItem, apiItem: TApiItem): string => {
@@ -22,8 +27,10 @@ const getPrefix = (module: TApiItem, apiItem: TApiItem): string => {
     // 判断是否使用本地模拟数据
     if (
       apiItem.localUseMock ||
-      (apiItem.localUseMock && module.localUseMock) ||
-      (apiItem.localUseMock && module.localUseMock && rootJson.localUseMock)
+      (isEmptyOrZeroOrUndefinedOrNull(apiItem.localUseMock) && module.localUseMock) ||
+      (isEmptyOrZeroOrUndefinedOrNull(apiItem.localUseMock) &&
+        isEmptyOrZeroOrUndefinedOrNull(module.localUseMock) &&
+        rootJson.localUseMock)
     ) {
       // 如果任一条件满足，则返回 '/apiMock' 作为前缀
       return '/apiMock';
@@ -37,8 +44,10 @@ const getPrefix = (module: TApiItem, apiItem: TApiItem): string => {
     // 判断是否使用模拟数据
     if (
       apiItem.useMock ||
-      (apiItem.useMock && module.useMock) ||
-      (apiItem.useMock && module.useMock && rootJson.useMock)
+      (isEmptyOrZeroOrUndefinedOrNull(apiItem.useMock) && module.useMock) ||
+      (isEmptyOrZeroOrUndefinedOrNull(apiItem.useMock) &&
+        isEmptyOrZeroOrUndefinedOrNull(module.useMock) &&
+        rootJson.useMock)
     ) {
       // 如果任一条件满足，则返回 '/apiMock' 作为前缀
       return '/apiMock';
