@@ -1,9 +1,10 @@
 {
   "label": "API管理",
+  "name": "apiRoot",
   "prefix": "/api",
   "useMock": true,
   "localPrefix": "",
   "localUseMock": true,
-  "name": "",
-  "url": ""
+  "url": "",
+  "api": ""
 }
