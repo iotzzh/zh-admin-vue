@@ -3,12 +3,12 @@ import { ref, Ref } from 'vue';
 import { TZHformConfig, TZHFromField, TZHFromFieldConvertDateTime } from './type';
 
 type TParams = {
-  emit: (event: 'update:modelValue' | 'update:convertedModel', ...args: any[]) => void
-  formConfig: Ref<TZHformConfig>
-  modelValue: Ref<{ [x: string]: any }>
-  convertedModel: Ref<{ [x: string]: any } | undefined> | undefined
-  refForm: any
-}
+  emit: (event: 'update:modelValue' | 'update:convertedModel', ...args: any[]) => void;
+  formConfig: Ref<TZHformConfig>;
+  modelValue: Ref<{ [x: string]: any }>;
+  convertedModel: Ref<{ [x: string]: any } | undefined> | undefined;
+  refForm: any;
+};
 
 export default class Form {
   emit: (event: 'update:modelValue' | 'update:convertedModel', ...args: any[]) => void;
@@ -38,9 +38,9 @@ export default class Form {
     )
       return;
     for (const field of this.formConfig.value.fields) {
-      // if (typeof field === 'object' && Object.prototype.hasOwnProperty.call(field, 'defaultValue')) {
-      if (typeof field === 'object' && field.prop && this.modelValue.value[field.prop] === undefined) {
-        this.modelValue.value[field.prop] = field.defaultValue;
+      if (typeof field === 'object' && field.prop) {
+        // if (typeof field === 'object' && field.prop && this.modelValue.value[field.prop] === undefined) {
+        this.modelValue.value[field.prop] = field.defaultValue || '';
       }
     }
     this.setConvertModel(this.modelValue.value);
@@ -54,7 +54,6 @@ export default class Form {
     }
 
     if (this.convertedModel && this.convertedModel.value) {
-
       for (const key of Object.keys(this.convertedModel.value)) {
         delete this.convertedModel.value[key];
       }
@@ -63,7 +62,11 @@ export default class Form {
 
   validate = async () => {
     if (!this.refForm.value) return false;
-    if (this.formConfig?.value?.customValidate && !this.formConfig?.value?.customValidate(this.modelValue?.value)) return false;
+    if (
+      this.formConfig?.value?.customValidate &&
+      !this.formConfig?.value?.customValidate(this.modelValue?.value)
+    )
+      return false;
     const result = await this.refForm.value.validate((valid: any) => {
       return valid;
     });
@@ -73,7 +76,11 @@ export default class Form {
   //#region model 转换方法
 
   // 针对需要转换数据的情况：field: a -> b
-  useConvert = (model: { [key: string]: any }, convertedModel: { [key: string]: any }, fields: TZHFromField[]) => {
+  useConvert = (
+    model: { [key: string]: any },
+    convertedModel: { [key: string]: any },
+    fields: TZHFromField[],
+  ) => {
     if (!convertedModel) return;
     const needConverTFromFields = fields.filter((x) => x.convert);
     for (let i = 0; i < needConverTFromFields.length; i++) {
@@ -90,7 +97,11 @@ export default class Form {
     }
   };
 
-  useConvertDateTime = (model: { [key: string]: any }, convertedModel: { [key: string]: any }, fields: TZHFromField[]) => {
+  useConvertDateTime = (
+    model: { [key: string]: any },
+    convertedModel: { [key: string]: any },
+    fields: TZHFromField[],
+  ) => {
     const needConvertDateTimeFields: TZHFromField[] = fields.filter((x) => x.convertDateTime);
     for (let i = 0; i < needConvertDateTimeFields.length; i++) {
       const prop: any = needConvertDateTimeFields[i]?.prop;
@@ -115,27 +126,33 @@ export default class Form {
     }
   };
 
-  useExtendedFieldMethod = (model: any, convertedModel: { [key: string]: any }, fields: TZHFromField[]) => {
+  useExtendedFieldMethod = (
+    model: any,
+    convertedModel: { [key: string]: any },
+    fields: TZHFromField[],
+  ) => {
     // 针对需要额外扩展的参数，例如 { a: 'a' } => { b: 'a1', c: 'a2' }
-    const needExtendFields: TZHFromField[] = fields.filter(
-      (x) => x.extendedFieldMethod
-    );
+    const needExtendFields: TZHFromField[] = fields.filter((x) => x.extendedFieldMethod);
     for (let i = 0; i < needExtendFields.length; i++) {
       const method: Function | undefined = needExtendFields[i].extendedFieldMethod;
       const prop: any = needExtendFields[i].prop;
       if (!method || !prop) return;
       const result = method(model[prop], model);
 
-      result && Array.isArray(result) && result.forEach(
-        (element: { property: string | number, value: any }) => {
+      result &&
+        Array.isArray(result) &&
+        result.forEach((element: { property: string | number; value: any }) => {
           convertedModel[element.property] = element.value;
-        }
-      );
+        });
       // delete convertedModel[needExtendFields[i].prop];
     }
   };
 
-  useConvertCascader = (model: any, convertedModel: { [key: string]: any }, fields: TZHFromField[]) => {
+  useConvertCascader = (
+    model: any,
+    convertedModel: { [key: string]: any },
+    fields: TZHFromField[],
+  ) => {
     const needConvertCascaderFields: TZHFromField[] = fields.filter((x) => x.convertCascader);
     for (let i = 0; i < needConvertCascaderFields.length; i++) {
       const method: Function | undefined = needConvertCascaderFields[i].convertCascader;
@@ -143,11 +160,11 @@ export default class Form {
       if (!method || !prop) return;
       const result = method(model[prop], model, needConvertCascaderFields[i]);
 
-      result && Array.isArray(result) && result.forEach(
-        (element: { property: string | number, value: any }) => {
+      result &&
+        Array.isArray(result) &&
+        result.forEach((element: { property: string | number; value: any }) => {
           convertedModel[element.property] = element.value;
-        }
-      );
+        });
     }
   };
 
@@ -181,7 +198,8 @@ export default class Form {
     // 将级联选择器选中的节点存储起来
     const refValue = itemRefs && refName && itemRefs[refName];
     if (!refValue) return;
-    const filed: any = formConfig.fields && formConfig.fields.find((x: any) => x.refName === refName);
+    const filed: any =
+      formConfig.fields && formConfig.fields.find((x: any) => x.refName === refName);
     if (!filed) return;
     filed.checkedNodes = refValue.getCheckedNodes();
   };
