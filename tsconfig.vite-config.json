@@ -1,9 +1,15 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.node.json",
   "include": ["vite.config.*"],
   "exclude": ["tsconfig.json"],
   "compilerOptions": {
     "composite": true,
-    // "types": ["node", "vitest"]
+    "lib": [],
+    "types": ["node"],
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
   }
 }

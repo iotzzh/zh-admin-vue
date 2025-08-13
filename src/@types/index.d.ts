@@ -1,3 +1,12 @@
+/// <reference types="vite/client" />
+
+// src/@types/global.d.ts - 全局类型声明
+declare module '*.vue' {
+  import { DefineComponent } from 'vue';
+  const component: DefineComponent<{}, {}, any>;
+  export default component;
+}
+
 // 声明模块类型，使得 TypeScript 可以识别并处理以 '.svg' 结尾的文件作为模块
 declare module '*.svg';
 
@@ -25,5 +34,11 @@ declare module '*.yaml';
 // 处理 JSON 文件，使 TypeScript 能够识别并导入 '.json' 文件
 declare module '*.json';
 
-// 特定模块声明，用于识别和导入 'vue-count-to' 库，这是一个 Vue.js 的计数动画组件库
+// 第三方库声明
+declare module 'js-pinyin';
+declare module 'aos';
+declare module 'splitpanes';
+declare module 'nprogress';
+declare module 'dayjs';
 declare module 'vue-count-to';
+declare module '$utils';

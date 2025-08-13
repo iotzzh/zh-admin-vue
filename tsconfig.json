@@ -1,13 +1,11 @@
 {
   // "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": [
-    "env.d.ts",
     "src/**/*",
     "src/**/*.vue",
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue",
     "tests/**/*.ts",
     "tests/**/*.tsx"
   ],
@@ -57,9 +55,9 @@
       "scripthost"
     ]
   },
-  // "references": [
-  //   {
-  //     "path": "./tsconfig.vite-config.json"
-  //   }
-  // ]
+  "references": [
+    {
+      "path": "./tsconfig.vite-config.json"
+    }
+  ]
 }
