@@ -11,9 +11,9 @@
   ],
   "exclude": [
     "node_modules",
-    "tsconfig.json",
+    "dist",
     "src/**/assets/iconfont/iconfont.js",
-    "src/**/nporgress.js",
+    "src/**/nporgress.js"
   ],
   "compilerOptions": {
     "target": "esnext",

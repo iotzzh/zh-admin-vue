@@ -1,5 +1,5 @@
 {
-  "include": ["vite.config.*"],
+  "include": ["vite.config.*", "src/config/**/*"],
   "exclude": ["tsconfig.json"],
   "compilerOptions": {
     "composite": true,
@@ -7,9 +7,10 @@
     "types": ["node"],
     "module": "ESNext",
     "target": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   }
 }
