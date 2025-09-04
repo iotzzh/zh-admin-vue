@@ -29,7 +29,7 @@
     "dayjs": "^1.11.6",
     "default-passive-events": "^2.0.0",
     "echarts": "^5.4.1",
-    "element-plus": "^2.7.6",
+    "element-plus": "^2.11.1",
     "js-pinyin": "^0.1.9",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
