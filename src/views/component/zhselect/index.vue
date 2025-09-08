@@ -1,22 +1,37 @@
 <template>
-  <h3>普通下拉, value: {{ value }}</h3>
-  <ZHSelect v-model="value" :defaultOptions="options" :multiple="true"></ZHSelect>
+  <el-row :gutter="12">
+    <el-col :xl="8" :lg="8" :md="8" :sm="12" :xs="24">
+      <h3>普通下拉, value: {{ value }}</h3>
+      <ZHSelect v-model="value" :defaultOptions="options" :multiple="true"></ZHSelect>
+    </el-col>
 
-  <h3>对象列表选中: value: {{ value1 }}</h3>
-  <ZHSelect v-model="value1" :defaultOptions="options1" :multiple="true" value-key="id"></ZHSelect>
+    <el-col :xl="8" :lg="8" :md="8" :sm="12" :xs="24">
+      <h3>对象列表选中: value: {{ value1 }}</h3>
+      <ZHSelect v-model="value1" :defaultOptions="options1" :multiple="true" value-key="id"></ZHSelect>
+    </el-col>
+    <el-col :xl="8" :lg="8" :md="8" :sm="12" :xs="24">
 
-  <h3>对象列表选中某个值: value: {{ value11 }}</h3>
-  <ZHSelect v-model="value11" :defaultOptions="options1" :multiple="true"></ZHSelect>
+      <h3>对象列表选中某个值: value: {{ value11 }}</h3>
+      <ZHSelect v-model="value11" :defaultOptions="options1" :multiple="true"></ZHSelect>
+    </el-col>
+    <el-col :xl="8" :lg="8" :md="8" :sm="12" :xs="24">
+      <h3>通过api设置列表: value: {{ value2 }}</h3>
+      <ZHSelect v-model="value2" requestDataWhenMounted valueKey="id" :api="api.getUserList1" valueField="id"
+        labelField="name">
+      </ZHSelect>
+    </el-col>
 
-  <h3>通过api设置列表: value: {{ value2 }}</h3>
-  <ZHSelect v-model="value2" requestDataWhenMounted valueKey="id" :api="api.getUserList1" valueField="id"
-    labelField="name">
-  </ZHSelect>
 
-  <h3>图标选择: value: {{ value3 }}</h3>
-  <ZHSelectIcon v-model="value3">
 
-  </ZHSelectIcon>
+  </el-row>
+
+
+
+
+
+
+
+
 </template>
 
 <script setup>
