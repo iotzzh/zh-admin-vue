@@ -22,8 +22,13 @@
     </el-col>
 
     <el-col :xl="8" :lg="8" :md="8" :sm="12" :xs="24">
-      <h3>图标选择: value: {{ value3 }}</h3>
+      <h3>图标选择Line: value: {{ value3 }}</h3>
       <ZHSelectIcon v-model="value3"></ZHSelectIcon>
+    </el-col>
+
+    <el-col :xl="8" :lg="8" :md="8" :sm="12" :xs="24">
+      <h3>图标选择Grid: value: {{ value3 }}</h3>
+      <ZHSelectIcon v-model="value3" :use-grid="true"></ZHSelectIcon>
     </el-col>
 
   </el-row>
