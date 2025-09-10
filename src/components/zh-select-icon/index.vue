@@ -9,14 +9,14 @@
       </el-option>
       <template #label>
         <i :class="'iconfont icon-' + value"></i><span>{{options.find((x: any) => x.font_class === value)?.font_class
-        }}</span>
+          }}</span>
       </template>
     </el-select>
   </div>
 </template>
 
 <script setup lang="ts">
-import { toRefs, ref, nextTick, onMounted, onUnmounted } from 'vue';
+import { toRefs, ref, onMounted, watch, nextTick } from 'vue';
 import { computed } from 'vue';
 import iconfont from '@/assets/iconfont/iconfont.json';
 
@@ -35,7 +35,7 @@ const props = defineProps({
   },
   useGrid: {
     type: Boolean,
-    default: true
+    default: false
   }
 });
 
@@ -71,34 +71,23 @@ const setOptionsDialogWidth = () => {
   // 如果不需要grid展示，不处理
   if (!useGrid.value) return;
   const width = refSelect.value.selectRef.clientWidth;
-  // 获取下拉框的id值
   const id = refSelect.value.selectRef.children[0].getAttribute('aria-describedby');
-  // 通过id获取对应的dom
+
   const dom = document.getElementById(id);
   if (!dom) return;
-  // 根据元素可知，要控制下zh-select-icon-popper的宽度，所以这里获取该元素
-  const domPoppers = document.getElementsByClassName('zh-select-icon-popper');
-  const domPopper = domPoppers ? domPoppers[0] as HTMLElement : '';
-  if (!domPopper) return
-  domPopper.style.width = width + 'px';
-  domPopper.style.minWidth = 'auto';
-  domPopper.style.maxWidth = width;
+  var domPopper = dom.getElementsByClassName('zh-select-icon-popper')[0] as HTMLElement;
+  if (domPopper) {
+    domPopper.style.width = width + 'px';
+    domPopper.style.minWidth = 'auto';
+    domPopper.style.maxWidth = width;
+  }
 }
 
 const visibleChange = async (isShow) => {
-  // 如果关闭下拉框，直接返回
   if (!isShow) return;
   await nextTick();
   setOptionsDialogWidth();
 }
-
-onMounted(() => {
-  window.addEventListener('resize', setOptionsDialogWidth);
-})
-
-onUnmounted(() => {
-  window.removeEventListener('resize', setOptionsDialogWidth);
-});
 
 </script>
 
