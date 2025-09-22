@@ -27,8 +27,8 @@
     </el-col>
 
     <el-col :xl="8" :lg="8" :md="8" :sm="12" :xs="24">
-      <h3>图标选择Grid: value: {{ value3 }}</h3>
-      <ZHSelectIcon v-model="value3" :use-grid="true"></ZHSelectIcon>
+      <h3>图标选择Grid: value: {{ value4 }}</h3>
+      <ZHSelectIcon v-model="value4" :use-grid="true"></ZHSelectIcon>
     </el-col>
 
   </el-row>
@@ -62,4 +62,6 @@ const options1 = ref([
 ]);
 
 const value3 = ref('icon-zhihu');
+
+const value4 = ref('icon-zhihu');
 </script>
