@@ -1,4 +1,5 @@
 {
   "editor.formatOnSave": true,
-  "CodeFree.index": true
+  "CodeFree.index": true,
+  "CodeFree.ignoreFileType": [".so", ".cache", ".exe", ".dll", ".log"]
 }
